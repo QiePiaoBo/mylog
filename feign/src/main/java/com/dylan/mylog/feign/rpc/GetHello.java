@@ -7,5 +7,5 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient(value = "my-ribbon")
 public interface GetHello {
     @RequestMapping(value = "/hello?name=",method = RequestMethod.GET)
-    public String sayHello();
+    String sayHello();
 }

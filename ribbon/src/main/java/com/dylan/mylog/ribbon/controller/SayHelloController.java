@@ -12,8 +12,8 @@ public class SayHelloController {
     @Autowired
     SayHelloService sayHelloService;
 
-    @GetMapping(value = "/hello/{name}")
-    public String sayHello(@PathVariable("name") String name){
+    @GetMapping(value = "/hello")
+    public String sayHello(String name){
         return sayHelloService.sayHello() + " " + name;
     }
 
