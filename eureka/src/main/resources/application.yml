@@ -1,0 +1,16 @@
+server:
+  port: 8089      # 服务端口
+
+spring:
+  application:
+    name: my-eureka     # 注册中心的名字
+
+eureka:
+  client:
+    fetch-registry: false         #    不将自己注册到注册中心
+    register-with-eureka: false   #    不检索服务信息，因为自己是服务中心
+    service-url:
+      defaultZone: http://localhost:${server.port}/eureka/
+  server:
+    enable-self-preservation: false   #    关闭自我保护
+    eviction-interval-timer-in-ms: 5000   #     按需配置Eureka Server清理无效节点的时间间隔
