@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+<<<<<<< Updated upstream
+    <bytecodeTargetLevel>
+      <module name="eureka" target="1.8" />
+      <module name="feign" target="1.8" />
+      <module name="mylog" target="1.5" />
+      <module name="ribbon" target="1.8" />
+    </bytecodeTargetLevel>
+=======
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="feign" />
+        <module name="ribbon" />
+        <module name="mylog" />
+        <module name="eureka" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="eureka" options="-parameters" />
+      <module name="feign" options="-parameters" />
+      <module name="ribbon" options="-parameters" />
+    </option>
+>>>>>>> Stashed changes
+  </component>
+</project>

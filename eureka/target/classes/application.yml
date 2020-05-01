@@ -1,0 +1,16 @@
+server:
+  port: 8089      # ����˿�
+
+spring:
+  application:
+    name: my-eureka     # ע�����ĵ�����
+
+eureka:
+  client:
+    fetch-registry: false         #    �����Լ�ע�ᵽע������
+    register-with-eureka: false   #    ������������Ϣ����Ϊ�Լ��Ƿ�������
+    service-url:
+      defaultZone: http://localhost:${server.port}/eureka/
+  server:
+    enable-self-preservation: false   #    �ر����ұ���
+    eviction-interval-timer-in-ms: 5000   #     ��������Eureka Server������Ч�ڵ��ʱ����

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="01cdf52d-07d8-4003-904b-9eac1f7d7df2" name="Default Changelist" comment="项目初始化：mylog(springcloud)">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eureka/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eureka/.mvn/wrapper/MavenWrapperDownloader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eureka/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eureka/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eureka/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eureka/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/feign/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/feign/.mvn/wrapper/MavenWrapperDownloader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/feign/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/feign/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/feign/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/feign/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mylog.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ribbon/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ribbon/.mvn/wrapper/MavenWrapperDownloader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ribbon/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ribbon/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ribbon/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ribbon/mvnw.cmd" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="D:\Develop\Java\mylog\.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="C:/BaseEnvs/Java/maven" />
+        <option name="userSettingsFile" value="C:\BaseEnvs\Java\maven\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1atpiYURiDNi6evUJuaVy4lIK8q" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="jdk.selected.JAVA_MODULE" value="1.8" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+  </component>
+  <component name="RunManager" selected="Spring Boot.FeignApplication">
+    <configuration name="EurekaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="eureka" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.dylan.mylog.eureka.EurekaApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FeignApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="feign" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.dylan.mylog.feign.FeignApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RibbonApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="ribbon" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.dylan.mylog.ribbon.RibbonApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="01cdf52d-07d8-4003-904b-9eac1f7d7df2" name="Default Changelist" comment="" />
+      <created>1587564871938</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1587564871938</updated>
+      <workItem from="1587564873098" duration="4624000" />
+      <workItem from="1587644659694" duration="620000" />
+      <workItem from="1587910112668" duration="160000" />
+      <workItem from="1588316392661" duration="68000" />
+      <workItem from="1588339544109" duration="1668000" />
+    </task>
+    <task id="LOCAL-00001" summary="项目初始化：mylog(springcloud)">
+      <created>1588340184851</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1588340184851</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="项目初始化：mylog(springcloud)" />
+    <option name="LAST_COMMIT_MESSAGE" value="项目初始化：mylog(springcloud)" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="932" y="341" key="#Project_Structure" timestamp="1588339874099">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="932" y="341" key="#Project_Structure/0.0.2560.1400@0.0.2560.1400" timestamp="1588339874099" />
+    <state x="1194" y="159" key="CommitChangelistDialog2" timestamp="1588340741304">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1194" y="159" key="CommitChangelistDialog2/0.0.2560.1400@0.0.2560.1400" timestamp="1588340741304" />
+    <state x="1120" y="437" key="FileChooserDialogImpl" timestamp="1588341044984">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1120" y="437" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1588341044984" />
+    <state width="1954" height="379" key="GridCell.Tab.0.bottom" timestamp="1587569501829">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1954" height="379" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1587569501829" />
+    <state width="1954" height="379" key="GridCell.Tab.0.center" timestamp="1587569501829">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1954" height="379" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1587569501829" />
+    <state width="1954" height="379" key="GridCell.Tab.0.left" timestamp="1587569501829">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1954" height="379" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1587569501829" />
+    <state width="1954" height="379" key="GridCell.Tab.0.right" timestamp="1587569501829">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1954" height="379" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1587569501829" />
+    <state width="1954" height="379" key="GridCell.Tab.1.bottom" timestamp="1587569501829">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1954" height="379" key="GridCell.Tab.1.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1587569501829" />
+    <state width="1954" height="379" key="GridCell.Tab.1.center" timestamp="1587569501829">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1954" height="379" key="GridCell.Tab.1.center/0.0.2560.1400@0.0.2560.1400" timestamp="1587569501829" />
+    <state width="1954" height="379" key="GridCell.Tab.1.left" timestamp="1587569501829">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1954" height="379" key="GridCell.Tab.1.left/0.0.2560.1400@0.0.2560.1400" timestamp="1587569501829" />
+    <state width="1954" height="379" key="GridCell.Tab.1.right" timestamp="1587569501829">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1954" height="379" key="GridCell.Tab.1.right/0.0.2560.1400@0.0.2560.1400" timestamp="1587569501829" />
+    <state x="841" y="324" key="SettingsEditor" timestamp="1588341242043">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="841" y="324" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1588341242043" />
+    <state x="1052" y="297" key="Vcs.Push.Dialog.v2" timestamp="1588340456682">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1052" y="297" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1588340456682" />
+    <state x="1208" y="534" key="com.intellij.ide.util.TipDialog" timestamp="1588341226870">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1208" y="534" key="com.intellij.ide.util.TipDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1588341226870" />
+    <state x="1245" y="355" key="git4idea.merge.GitMergeDialog" timestamp="1588340534208">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1245" y="355" key="git4idea.merge.GitMergeDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1588340534208" />
+    <state x="1181" y="355" key="git4idea.merge.GitPullDialog" timestamp="1588340766101">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1181" y="355" key="git4idea.merge.GitPullDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1588340766101" />
+    <state x="616" y="232" key="new project wizard" timestamp="1587568038428">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="616" y="232" key="new project wizard/0.0.2560.1400@0.0.2560.1400" timestamp="1587568038428" />
+    <state x="1663" y="416" width="672" height="678" key="search.everywhere.popup" timestamp="1587569071684">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1663" y="416" width="672" height="678" key="search.everywhere.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1587569071684" />
+  </component>
+</project>
