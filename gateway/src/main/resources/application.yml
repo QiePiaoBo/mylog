@@ -1,0 +1,11 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: my-gateway
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8089/eureka
