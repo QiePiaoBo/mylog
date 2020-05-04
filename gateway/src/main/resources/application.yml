@@ -206,7 +206,7 @@ spring:
           # 路由条件(predicates:断言。匹配HTTP请求内容)
           predicates:
             ## 转发地址格式为 uri/routeAll, /all 部分会被下面的过滤器给截取掉
-            - Path=/all/routeAll
+            - Path=/dl/**
             ## 匹配get请求
             - Method=GET
           filters:

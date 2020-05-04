@@ -15,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 
 @Component
 public class TokenFilter implements GlobalFilter {
+//    全局过滤器
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain gatewayFilterChain){
 
@@ -24,8 +25,8 @@ public class TokenFilter implements GlobalFilter {
         ServerHttpResponse response = exchange.getResponse();
 
         // 只有综合路由才添加这个全局过滤器（routesId: route_all）
-        // 如果请求路径中不存在routeAll字符串
-        if(request.getURI().toString().indexOf("routeAll") == -1){
+        // 如果请求路径中不存在dl字符串
+        if(!request.getURI().toString().contains("dl")){
             System.out.println("filter -> return");
             // 直接跳出
             return gatewayFilterChain.filter(exchange);

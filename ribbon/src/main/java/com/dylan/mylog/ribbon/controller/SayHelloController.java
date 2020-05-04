@@ -16,8 +16,9 @@ public class SayHelloController {
     public String sayHello(String name){
         return sayHelloService.sayHello() + " " + name + ". I'm ribbon01";
     }
-    @GetMapping(value = "/routeAll")
-    public String routeAll(String name){
+
+    @GetMapping(value = "/gatewayTest")
+    public String gatewayTest(String name){
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
