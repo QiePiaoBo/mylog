@@ -1,6 +1,11 @@
 # mylog
 ## 项目梗概：mylog(springcloud)
-
+## 端口设置
+    * eureka 8089
+    * ribbon 8088
+    * feign 8087
+    * config 8086
+    * utils 8085
 ## 项目目的：搭建基于springcloud的微服务平台用于承载各种突发奇想的小项目
 
 ## 项目目录简介：
