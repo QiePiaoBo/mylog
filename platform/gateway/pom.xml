@@ -3,16 +3,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.6.RELEASE</version>
+        <groupId>com.dylan</groupId>
+        <artifactId>platform</artifactId>
+        <version>1.0.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.dylan.mylog</groupId>
     <artifactId>gateway</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <version>0.0.1</version>
     <name>gateway</name>
-    <description>Demo gateway for Spring cloud</description>
+    <description>Gateway Center</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -46,11 +46,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
+            <version>${spring-boot-starter-webflux.version}</version>
         </dependency>
         <!-- redis -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+            <version>${spring-boot-starter-data-redis-reactive.version}</version>
         </dependency>
 
         <!-- hystrix -->
@@ -76,6 +78,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring-boot-starter-test.version}</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
