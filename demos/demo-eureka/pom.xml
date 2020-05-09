@@ -6,7 +6,6 @@
         <groupId>com.dylan</groupId>
         <artifactId>demos</artifactId>
         <version>1.0.1</version>
-        <relativePath /> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.dylan.demos</groupId>
     <artifactId>demo-eureka</artifactId>

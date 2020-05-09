@@ -9,11 +9,9 @@
 ## 项目目的：搭建基于springcloud的微服务平台用于承载各种突发奇想的小项目
 
 ## 项目目录简介：
-* ### eureka: 服务注册与发现中心(重要)
-* ### gateway: 网关(重要)
-* ······
-* ### ribbon: 服务提供者(练习)
-* ### feign: 服务调用者(练习)
+* common    各种功能性微服务
+* demos     eureka、feign、ribbon等基础微服务
+* platform  平台基础微服务
 
 ## 运行说明
 * ### 运行顺序：eureka - ribbon - gateway

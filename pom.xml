@@ -22,4 +22,57 @@
     </properties>
 
 
+    <!--    环境配置    -->
+    <profiles>
+        <!--    开发    -->
+        <profile>
+            <id>dev</id>
+            <activation>
+                <!--默认激活配置    -->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <!--    当前环境    -->
+                <profile.name>dev</profile.name>
+                <!--    nacos配置中心地址    -->
+                <config.server-addr>127.0.0.1:8848</config.server-addr>
+                <!--    Nacos配置中心命名空间，用于支持多环境，必须用id，默认为空    -->
+                <config.namespace></config.namespace>
+                <!--    Nacos发现地址    -->
+                <discovery.server-addr>127.0.0.1:8848</discovery.server-addr>
+            </properties>
+        </profile>
+
+        <!--    测试    -->
+        <!--    生产    -->
+    </profiles>
+    <dependencyManagement>
+
+    </dependencyManagement>
+
+    <build>
+        <resources>
+            <!--    指定src/main/resources下所有文件及文件夹为资源文件    -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+        <!--    防止install时出现 -source1.5 不支持lambda表达式    -->
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.2</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
