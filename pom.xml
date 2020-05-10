@@ -15,10 +15,25 @@
     <packaging>pom</packaging>
     <properties>
         <java.version>1.8</java.version>
+        <fastjson.version>1.2.47</fastjson.version>
         <spring-boot.version>2.1.6.RELEASE</spring-boot.version>
+        <spring-cloud.version>Greenwich.SR3</spring-cloud.version>
+        <spring-cloud-starter-netflix-eureka-server.version>2.1.2.RELEASE</spring-cloud-starter-netflix-eureka-server.version>
         <spring-boot-starter-test.version>2.1.6.RELEASE</spring-boot-starter-test.version>
+        <spring-cloud-starter-openfeign.version>2.1.0.RELEASE</spring-cloud-starter-openfeign.version>
+        <spring-cloud-alibaba.version>2.2.0.RELEASE</spring-cloud-alibaba.version>
+        <spring-cloud-starter-oauth2.version>2.1.2.RELEASE</spring-cloud-starter-oauth2.version>
+        <spring-cloud-starter-gateway.version>2.2.2.RELEASE</spring-cloud-starter-gateway.version>
         <spring-boot-starter-webflux.version>2.2.5.RELEASE</spring-boot-starter-webflux.version>
+        <spring-cloud-starter-netflix-ribbon.version>2.0.2.RELEASE</spring-cloud-starter-netflix-ribbon.version>
+        <spring-cloud-starter-netflix-hystrix.version>2.0.2.RELEASE</spring-cloud-starter-netflix-hystrix.version>
+        <spring-cloud-starter-netflix-eureka-client.version>2.1.2.RELEASE</spring-cloud-starter-netflix-eureka-client.version>
         <spring-boot-starter-data-redis-reactive.version>2.2.5.RELEASE</spring-boot-starter-data-redis-reactive.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <spring-cloud-config-server.version>1.2.2.RELEASE</spring-cloud-config-server.version>
+        <spring-cloud-starter-alibaba-nacos-config.version>2.1.0.RELEASE</spring-cloud-starter-alibaba-nacos-config.version>
+        <spring-cloud-starter-alibaba-nacos-discovery.version>2.1.0.RELEASE</spring-cloud-starter-alibaba-nacos-discovery.version>
     </properties>
 
 
@@ -47,7 +62,27 @@
         <!--    生产    -->
     </profiles>
     <dependencyManagement>
-
+        <dependencies>
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>2.6.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
     </dependencyManagement>
 
     <build>
@@ -72,6 +107,18 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.1.6.RELEASE</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
