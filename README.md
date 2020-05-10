@@ -16,10 +16,10 @@
 ## 运行说明
 * ### 运行顺序：eureka - ribbon - gateway
 * ### 说明：
-    * 由于目前gateway只配了一个路由转发目的服务，即ribbon，所以只有访问ribbon上的接口才行
-    * 示例：http://localhost:8888/dl/gatewayTest
-    * 说明：当前gateway配置下，上述请求会被转发到ribbon的/gatewayTest接口上，dl必须加上，不然请求会被拦截掉（全局过滤器TokenFilter）
-    * 由于/gatewayTest设置了sleep(2000)所以会超出服务熔断时间，进而触发熔断条件而执行fallback方法，想屏蔽熔断可以将sleep注掉（熔断器Hystrix）
+    * 由于目前gateway只配了一个路由转发目的服务，即feign，所以只有访问feign上的接口才行
+    * 示例：http://localhost:8888/dl/routeAll、http://localhost:8888/dl/routeMe
+    * 说明：当前gateway配置下，上述请求会被转发到feign的/routeAll接口上，dl必须加上，不然请求会被拦截掉（全局过滤器TokenFilter）
+    * 由于/routeMe设置了sleep(2000)所以会超出服务熔断时间，进而触发熔断条件而执行fallback方法，想屏蔽熔断可以将sleep注掉（熔断器Hystrix）
     * 快速刷新会触发429错误，因为网关限流器设置了一秒内最大请求次数3次（限流器requestRateLimiter）
 
 ## eureka

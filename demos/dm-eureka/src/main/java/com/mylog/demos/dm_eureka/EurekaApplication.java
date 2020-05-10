@@ -1,4 +1,4 @@
-package com.dylan.mylog.eureka;
+package com.mylog.demos.dm_eureka;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

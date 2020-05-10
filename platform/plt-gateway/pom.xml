@@ -10,6 +10,43 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>plt-gateway</artifactId>
+    <packaging>jar</packaging>
+    <description>网关</description>
+
+    <dependencies>
+        <!-- 提供者消费者 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <version>${spring-cloud-starter-netflix-eureka-client.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-gateway</artifactId>
+            <version>${spring-cloud-starter-gateway.version}</version>
+        </dependency>
+        <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+        <version>${spring-cloud-starter-netflix-hystrix.version}</version>
+    </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+            <version>${spring-boot-starter-webflux.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+            <version>${spring-boot-starter-data-redis-reactive.version}</version>
+        </dependency>
+        <!-- ali json依赖 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
+    </dependencies>
 
 
 </project>
