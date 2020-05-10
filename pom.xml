@@ -10,7 +10,6 @@
     <modules>
         <module>platform</module>
         <module>demos</module>
-        <module>platform</module>
     </modules>
     <packaging>pom</packaging>
     <properties>
