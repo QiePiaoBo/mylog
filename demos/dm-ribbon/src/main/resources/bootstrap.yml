@@ -1,0 +1,24 @@
+server:
+  port: 8088
+
+spring:
+  application:
+    name: my-ribbon
+  cloud:
+    nacos:
+      config:
+        server-addr: logicer.top:8848
+        namespace: ${config.namespace}
+        refreshable-dataids: common.yaml
+        shared-dataids: common.yaml,common1.yaml
+        file-extension: yaml
+    discovery:
+      namespace: ${config.namespace}
+      server-addr: logicer.top:8848
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8089/eureka
+

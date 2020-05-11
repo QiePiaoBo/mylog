@@ -16,11 +16,11 @@
         <java.version>1.8</java.version>
         <fastjson.version>1.2.62</fastjson.version>
 
-        <spring-boot.version>2.1.0.RELEASE</spring-boot.version>
-        <spring-boot-starter-test.version>2.1.0.RELEASE</spring-boot-starter-test.version>
-        <spring-boot-starter-web.version>2.1.0.RELEASE</spring-boot-starter-web.version>
-        <spring-boot-starter-data-redis-reactive.version>2.1.0.RELEASE</spring-boot-starter-data-redis-reactive.version>
-        <spring-boot-starter-webflux.version>2.1.0.RELEASE</spring-boot-starter-webflux.version>
+        <spring-boot.version>2.1.5.RELEASE</spring-boot.version>
+        <spring-boot-starter-test.version>2.1.5.RELEASE</spring-boot-starter-test.version>
+        <spring-boot-starter-web.version>2.1.5.RELEASE</spring-boot-starter-web.version>
+        <spring-boot-starter-data-redis-reactive.version>2.1.5.RELEASE</spring-boot-starter-data-redis-reactive.version>
+        <spring-boot-starter-webflux.version>2.1.5.RELEASE</spring-boot-starter-webflux.version>
 
         <spring-cloud.version>Greenwich.SR2</spring-cloud.version>
         <spring-cloud-starter-netflix-eureka-server.version>2.1.2.RELEASE</spring-cloud-starter-netflix-eureka-server.version>
@@ -33,7 +33,7 @@
         <spring-cloud-starter-netflix-eureka-client.version>2.1.2.RELEASE</spring-cloud-starter-netflix-eureka-client.version>
         <spring-cloud-config-server.version>1.2.2.RELEASE</spring-cloud-config-server.version>
         <spring-cloud-starter-alibaba-nacos-config.version>0.9.0.RELEASE</spring-cloud-starter-alibaba-nacos-config.version>
-        <spring-cloud-starter-alibaba-nacos-discovery.version>2.1.0.RELEASE</spring-cloud-starter-alibaba-nacos-discovery.version>
+        <spring-cloud-starter-alibaba-nacos-discovery.version>0.9.0.RELEASE</spring-cloud-starter-alibaba-nacos-discovery.version>
 
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -55,11 +55,11 @@
                 <!--    当前环境    -->
                 <profile.name>dev</profile.name>
                 <!--    nacos配置中心地址    -->
-                <config.server-addr>127.0.0.1:8848</config.server-addr>
+                <config.server-addr>logicer.top:8848</config.server-addr>
                 <!--    Nacos配置中心命名空间，用于支持多环境，必须用id，默认为空    -->
                 <config.namespace></config.namespace>
                 <!--    Nacos发现地址    -->
-                <discovery.server-addr>127.0.0.1:8848</discovery.server-addr>
+                <discovery.server-addr>logicer.top:8848</discovery.server-addr>
             </properties>
         </profile>
 
