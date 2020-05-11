@@ -9,6 +9,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 public class RibbonApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(RibbonApplication.class,args);
+        SpringApplication.run(RibbonApplication.class, args);
     }
 }
