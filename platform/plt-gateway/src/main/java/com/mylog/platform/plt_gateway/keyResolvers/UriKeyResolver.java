@@ -1,8 +1,7 @@
-package com.mylog.platform.plt_gateway.KeyResolvers;
+package com.mylog.platform.plt_gateway.keyResolvers;
 
 import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 

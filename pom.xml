@@ -21,6 +21,7 @@
         <spring-boot-starter-web.version>2.1.6.RELEASE</spring-boot-starter-web.version>
         <spring-boot-starter-data-redis-reactive.version>2.1.6.RELEASE</spring-boot-starter-data-redis-reactive.version>
         <spring-boot-starter-webflux.version>2.1.6.RELEASE</spring-boot-starter-webflux.version>
+        <spring-boot-starter-actuator.version>2.1.6.RELEASE</spring-boot-starter-actuator.version>
         <nacos-config-spring-boot-starter.version>2.1.6.RELEASE</nacos-config-spring-boot-starter.version>
 
         <spring-cloud.version>Greenwich.SR2</spring-cloud.version>
@@ -38,6 +39,11 @@
 
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+
+        <lombok.version>1.18.8</lombok.version>
+
+        <jackson-annotations.version>2.9.8</jackson-annotations.version>
+        <jackson-databind.version>2.9.8</jackson-databind.version>
 
         <snakeyaml.version>1.26</snakeyaml.version>
         <slf4j.version>1.7.16</slf4j.version>

@@ -1,6 +1,5 @@
 server:
   port: 8888
-
 spring:
   redis:
     database: 0
@@ -41,3 +40,13 @@ spring:
 logging:
   level:
     org.springframework.cloud.gateway: debug
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+    enabled-by-default: true
+  endpoint:
+    health:
+      show-details: always

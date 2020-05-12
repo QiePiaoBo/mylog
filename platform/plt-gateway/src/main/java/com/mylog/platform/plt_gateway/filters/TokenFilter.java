@@ -1,4 +1,4 @@
-package com.mylog.platform.plt_gateway.Filters;
+package com.mylog.platform.plt_gateway.filters;
 
 
 import com.alibaba.fastjson.JSONObject;
