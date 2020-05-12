@@ -1,0 +1,63 @@
+server:
+  port: 8888
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: plt-gateway
+  cloud:
+    nacos:
+      config:
+        server-addr: logicer.top:8848
+        namespace: ${config.namespace}
+        refreshable-dataids: common.yaml
+        shared-dataids: common.yaml
+        file-extension: yaml
+      discovery:
+        namespace: ${config.namespace}
+        server-addr: logicer.top:8848
+
+
+
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8089/eureka
+
+
+#    gateway:
+#      discovery:
+#        locator:
+#          enabled: true
+#      routes:
+#        - id: route_all
+#          uri: lb://my-feign
+#          predicates:
+#            - Path=/dl/**
+#            - Method=GET
+#          filters:
+#            - StripPrefix=1
+#            - AddRequestParameter=pass, yes
+#            - name: Hystrix
+#              args:
+#                name: fallbackcmd
+#                fallbackUri: forward:/fallback
+#            - name: RequestRateLimiter
+#              args:
+#                key-resolver: '#{@uriKeyResolver}'
+#                redis-rate-limiter.replenishRate: 1
+#                redis-rate-limiter.burstCapacity: 3
+
+#eureka:
+#  instance:
+#    prefer-ip-address: true
+#    hostname: ${spring.cloud.client.ip-address}
+#    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8089/eureka/
+
+logging:
+  level:
+    org.springframework.cloud.gateway: debug
