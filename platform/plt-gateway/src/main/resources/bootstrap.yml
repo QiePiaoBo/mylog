@@ -2,6 +2,11 @@ server:
   port: 8888
 
 spring:
+  redis:
+    database: 0
+    password: 1997o4
+    port: 6379
+    host: localhost
   profiles:
     active: dev
   application:
@@ -23,26 +28,16 @@ spring:
             - Method=[GET,DELETE,POST,PUT]
           filters:
             - StripPrefix=1
-#            - AddRequestParameter=pass, yes
-#            - name: Hystrix
-#              args:
-#                name: fallbackcmd
-#                fallbackUri: forward:/fallback
-#            - name: RequestRateLimiter
-#              args:
-#                key-resolver: '#{@uriKeyResolver}'
-#                redis-rate-limiter.replenishRate: 1
-#                redis-rate-limiter.burstCapacity: 3
-
-#eureka:
-#  instance:
-#    prefer-ip-address: true
-#    hostname: ${spring.cloud.client.ip-address}
-#    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
-#  client:
-#    serviceUrl:
-#      defaultZone: http://localhost:8089/eureka/
-
+            - AddRequestParameter=pass, yes
+            - name: Hystrix
+              args:
+                name: fallbackcmd
+                fallbackUri: forward:/fallback
+            - name: RequestRateLimiter
+              args:
+                key-resolver: '#{@uriKeyResolver}'
+                redis-rate-limiter.replenishRate: 1
+                redis-rate-limiter.burstCapacity: 3
 logging:
   level:
     org.springframework.cloud.gateway: debug
