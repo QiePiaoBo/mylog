@@ -14,19 +14,9 @@
     <description>网关</description>
 
     <dependencies>
-        <!-- 提供者消费者 -->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>-->
-<!--            <version>${spring-cloud-starter-netflix-eureka-client.version}</version>-->
-<!--        </dependency>-->
+
         <!-- nacos-discovery 默认集成ribbon -->
-        <!--    nacos配置 -->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>-->
-<!--            <version>${spring-cloud-starter-alibaba-nacos-config.version}</version>-->
-<!--        </dependency>-->
+        <!--    nacos config引入会导致配置文件无法加载 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
@@ -50,27 +40,30 @@
             <artifactId>httpcore</artifactId>
             <version>4.4.9</version>
         </dependency>
-
+        <!--    网关依赖    -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
             <version>${spring-cloud-starter-gateway.version}</version>
         </dependency>
+        <!--    熔断    -->
         <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-        <version>${spring-cloud-starter-netflix-hystrix.version}</version>
-    </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-webflux</artifactId>-->
-<!--            <version>${spring-boot-starter-webflux.version}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-data-redis-reactive</artifactId>-->
-<!--            <version>${spring-boot-starter-data-redis-reactive.version}</version>-->
-<!--        </dependency>-->
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+            <version>${spring-cloud-starter-netflix-hystrix.version}</version>
+        </dependency>
+        <!--    gateway与spring-boot-starter-web貌似有冲突，应与webflux配套    -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+            <version>${spring-boot-starter-webflux.version}</version>
+        </dependency>
+        <!--    redis相关依赖    -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+            <version>${spring-boot-starter-data-redis-reactive.version}</version>
+        </dependency>
         <!-- ali json依赖 -->
         <dependency>
             <groupId>com.alibaba</groupId>

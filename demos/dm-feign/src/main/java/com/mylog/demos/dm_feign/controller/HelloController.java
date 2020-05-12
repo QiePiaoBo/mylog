@@ -33,7 +33,7 @@ public class HelloController {
     @GetMapping(value = "/routeMe")
     public String routeMe() throws InterruptedException {
         Thread.sleep(2000);
-        return "Feign Give you routeAll";
+        return "Feign Give you routeMe";
     }
 
 }

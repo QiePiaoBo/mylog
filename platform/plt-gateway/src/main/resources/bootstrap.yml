@@ -8,36 +8,21 @@ spring:
     name: plt-gateway
   cloud:
     nacos:
-      config:
-        server-addr: logicer.top:8848
-        namespace: ${config.namespace}
-        refreshable-dataids: common.yaml
-        shared-dataids: common.yaml
-        file-extension: yaml
       discovery:
         namespace: ${config.namespace}
         server-addr: logicer.top:8848
-
-
-
-#eureka:
-#  client:
-#    service-url:
-#      defaultZone: http://localhost:8089/eureka
-
-
-#    gateway:
-#      discovery:
-#        locator:
-#          enabled: true
-#      routes:
-#        - id: route_all
-#          uri: lb://my-feign
-#          predicates:
-#            - Path=/dl/**
-#            - Method=GET
-#          filters:
-#            - StripPrefix=1
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: route_all
+          uri: lb://my-feign
+          predicates:
+            - Path=/dl/**
+            - Method=[GET,DELETE,POST,PUT]
+          filters:
+            - StripPrefix=1
 #            - AddRequestParameter=pass, yes
 #            - name: Hystrix
 #              args:
