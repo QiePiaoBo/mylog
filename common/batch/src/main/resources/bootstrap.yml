@@ -1,0 +1,29 @@
+server:
+  port: 9001
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/wcb_batch?useSSL=false&serverTimeZone=UTC&characterEncoding=utf-8
+    username: root
+    password: 1997o4
+  profiles:
+    active: dev
+  application:
+    name: my-batch
+  cloud:
+    nacos:
+      config:
+        namespace: ${config.namespace}
+        shared-dataids: common.yaml
+        refreshable-dataids: common.yaml
+        server-addr: logicer.top:8848
+        file-extension: yaml
+      discovery:
+        namespace: ${config.namespace}
+        server-addr: logicer.top:8848
+  batch:
+    job:
+      enabled: false
+    initialize-schema: always
+    table-prefix: dl-batch

@@ -17,11 +17,3 @@ spring:
       discovery:
         namespace: ${config.namespace}
         server-addr: logicer.top:8848
-
-
-
-#eureka:
-#  client:
-#    service-url:
-#      defaultZone: http://localhost:8089/eureka
-
