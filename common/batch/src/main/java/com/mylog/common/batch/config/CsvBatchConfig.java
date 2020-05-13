@@ -1,7 +1,6 @@
 package com.mylog.common.batch.config;
 
 import com.mylog.common.batch.itemProcessors.CvsItemProcessor;
-import com.mylog.common.batch.listeners.CsvJobListener;
 import com.mylog.common.batch.models.Person;
 import com.mylog.common.batch.validators.CsvBeanValidator;
 import org.slf4j.Logger;
@@ -166,8 +165,8 @@ public class CsvBatchConfig {
      * @return
      */
     @Bean
-    public CsvJobListener csvJobListener(){
-        return new CsvJobListener();
+    public com.lyzdfintech.wcb.batch.server.listeners.CsvJobListener csvJobListener(){
+        return new com.lyzdfintech.wcb.batch.server.listeners.CsvJobListener();
     }
 
     @Bean

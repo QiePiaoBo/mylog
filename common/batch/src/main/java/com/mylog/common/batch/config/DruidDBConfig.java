@@ -21,7 +21,7 @@ public class DruidDBConfig {
 
     private Logger logger = LoggerFactory.getLogger(DruidDBConfig.class);
 
-    @Value("${spring.datasource.url")
+    @Value("${spring.datasource.url}")
     private String dbUrl;
 
     @Value("${spring.datasource.username}")

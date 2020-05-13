@@ -15,8 +15,9 @@
     <packaging>pom</packaging>
     <properties>
         <java.version>1.8</java.version>
+        <tomcat.version>7.0.94</tomcat.version>
         <fastjson.version>1.2.62</fastjson.version>
-        <druid.version>1.1.22</druid.version>
+        <druid.version>1.1.20</druid.version>
 
         <spring-boot.version>2.1.6.RELEASE</spring-boot.version>
         <spring-boot-starter-test.version>2.1.6.RELEASE</spring-boot-starter-test.version>
@@ -27,9 +28,9 @@
         <spring-boot-starter-batch.version>2.1.6.RELEASE</spring-boot-starter-batch.version>
         <nacos-config-spring-boot-starter.version>2.1.6.RELEASE</nacos-config-spring-boot-starter.version>
 
-        <mysql-connector-java.version>5.1.47</mysql-connector-java.version>
+        <mysql-connector-java.version>8.0.16</mysql-connector-java.version>
 
-        <hibernate-validator.version>6.0.7.Final</hibernate-validator.version>
+        <hibernate-validator.version>5.1.0.Final</hibernate-validator.version>
 
         <spring-cloud.version>Greenwich.SR2</spring-cloud.version>
         <spring-cloud-starter-netflix-eureka-server.version>2.1.2.RELEASE</spring-cloud-starter-netflix-eureka-server.version>
@@ -54,7 +55,7 @@
 
         <snakeyaml.version>1.26</snakeyaml.version>
         <slf4j.version>1.7.16</slf4j.version>
-        <servlet-api.version>2.5</servlet-api.version>
+        <servlet-api.version>4.0.1</servlet-api.version>
 
         <javax-el-api.version>2.2.4</javax-el-api.version>
 
@@ -85,6 +86,11 @@
     </profiles>
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.apache.tomcat</groupId>
+                <artifactId>tomcat-juli</artifactId>
+                <version>${tomcat.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.google.code.gson</groupId>
                 <artifactId>gson</artifactId>

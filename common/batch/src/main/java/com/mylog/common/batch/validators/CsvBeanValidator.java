@@ -1,4 +1,4 @@
-package com.lyzdfintech.wcb.batch.server.validators;
+package com.mylog.common.batch.validators;
 
 import org.springframework.batch.item.validator.Validator;
 import org.springframework.beans.factory.InitializingBean;
