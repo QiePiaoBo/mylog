@@ -48,6 +48,7 @@ public class FileExportService {
             // 第五步，写入实体数据
             //这里我把list当做数据库
             List contentList = JSONObject.parseArray(dataJson.get("cardContent").toString());
+//            List contentList = (List)dataJson.get("cardContent");
 
             // 第六步 新建内容的单元格并设置值
             for (int i = 0; i < contentList.size(); i++) {

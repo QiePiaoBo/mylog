@@ -46,8 +46,27 @@ public class JsonFactory {
         return startJson;
     }
 
+    /**
+     * 返回字符串
+     * {
+     *     ["name":"Dylan", "phone":"15900000001", "money":"60000.0"],
+     *     ["name":"Lucifer", "phone":"15900000002", "money":"50000.0"],
+     *     ["name":"Onion", "phone":"15900000003", "money":"35000.0"],
+     *     ["name":"Patrick", "phone":"15900000004", "money":"-50000.0"],
+     *     ["name":"Duke", "phone":"15900000005", "money":"-30000.0"],
+     * }
+     * @return
+     */
     public String getString2(){
-        String startJson = "";
+        String startJson = "{\n" +
+                "    \"data\":[\n" +
+                "    {\"name\":\"Dylan\", \"phone\":\"15900000001\", \"money\":\"60000.0\"},\n" +
+                "    {\"name\":\"Lucifer\", \"phone\":\"15900000002\", \"money\":\"50000.0\"},\n" +
+                "    {\"name\":\"Onion\", \"phone\":\"15900000003\", \"money\":\"35000.0\"},\n" +
+                "    {\"name\":\"Patrick\", \"phone\":\"15900000004\", \"money\":\"-50000.0\"},\n" +
+                "    {\"name\":\"Duke\", \"phone\":\"15900000005\", \"money\":\"-30000.0\"}\n" +
+                "    ]\n" +
+                "}";
         return startJson;
     }
 
