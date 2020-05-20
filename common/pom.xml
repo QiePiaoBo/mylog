@@ -12,6 +12,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>batch</module>
+        <module>format</module>
     </modules>
 
 

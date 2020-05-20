@@ -2,13 +2,14 @@ server:
   port: 9001
 
 spring:
+  profiles:
+    active: ${default-profile}
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/wcb_batch?useSSL=false&serverTimezone=UTC&characterEncoding=utf8
     username: root
     password: 1997o4
-  profiles:
-    active: dev
+
   application:
     name: my-batch
   cloud:

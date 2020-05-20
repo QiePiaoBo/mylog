@@ -44,6 +44,8 @@
         <spring-cloud-config-server.version>1.2.2.RELEASE</spring-cloud-config-server.version>
         <spring-cloud-starter-alibaba-nacos-config.version>0.9.0.RELEASE</spring-cloud-starter-alibaba-nacos-config.version>
         <spring-cloud-starter-alibaba-nacos-discovery.version>0.9.0.RELEASE</spring-cloud-starter-alibaba-nacos-discovery.version>
+        <spring-cloud-alibaba-nacos-config.version>0.9.0.RELEASE</spring-cloud-alibaba-nacos-config.version>
+        <spring-cloud-alibaba-nacos-discovery.version>0.9.0.RELEASE</spring-cloud-alibaba-nacos-discovery.version>
 
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -57,7 +59,13 @@
         <slf4j.version>1.7.16</slf4j.version>
         <servlet-api.version>4.0.1</servlet-api.version>
 
+        <httpclient.version>4.5.5</httpclient.version>
+        <httpcore.version>4.4.9</httpcore.version>
+
         <javax-el-api.version>2.2.4</javax-el-api.version>
+
+        <!--    自定义配置当前所有jar的profile   -->
+        <default-profile>dev</default-profile>
 
     </properties>
     <!--    环境配置    -->
