@@ -1,7 +1,9 @@
 package com.mylog.common.batch.config;
 
 import com.mylog.common.batch.itemProcessors.CvsItemProcessor;
+import com.mylog.common.batch.listeners.CsvJobListener;
 import com.mylog.common.batch.models.Person;
+import com.mylog.common.batch.service.MailService;
 import com.mylog.common.batch.validators.CsvBeanValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +12,9 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.job.builder.FlowBuilder;
+import org.springframework.batch.core.job.flow.Flow;
+import org.springframework.batch.core.job.flow.support.SimpleFlow;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.launch.support.SimpleJobLauncher;
 import org.springframework.batch.core.repository.JobRepository;
@@ -24,10 +29,12 @@ import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.batch.item.validator.BeanValidatingItemProcessor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
@@ -41,6 +48,10 @@ import java.lang.management.PlatformLoggingMXBean;
 @EnableBatchProcessing
 @Import(DruidDBConfig.class)
 public class CsvBatchConfig {
+
+    @Autowired
+    MailService mailService;
+
     private Logger logger = LoggerFactory.getLogger(CsvBatchConfig.class);
 
     /**
@@ -49,6 +60,9 @@ public class CsvBatchConfig {
      */
     @Bean
     public ItemReader<Person> reader(){
+        // 在itemreader中添加邮件发送服务
+//        mailService.sendMimeMessage("1171357812@qq.com", "批量处理任务", "<h1>批量任务开始。。。</h1>","");
+
         // 使用FilterItemReader去读csv文件，一行就是一条数据
         FlatFileItemReader<Person> reader = new FlatFileItemReader();
         // 设置文件所在路径
@@ -105,7 +119,7 @@ public class CsvBatchConfig {
         // 设置有参数的sql语句
 
         writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());
-        String sql = "insert into person values(:id, :name, :age, :gender)";
+        String sql = "insert into person(name, age , gender) values(:name, :age, :gender)";
         writer.setSql(sql);
         writer.setDataSource(dataSource);
         return writer;
@@ -152,9 +166,13 @@ public class CsvBatchConfig {
      */
     @Bean
     public Job importJob(JobBuilderFactory jobs, Step step){
+        Flow flow1 = new FlowBuilder<SimpleFlow>("asyncFlow1").start(step).build();
+
         return jobs.get("importCsvJob")
                 .incrementer(new RunIdIncrementer())
                 .flow(step)
+                .split(new SimpleAsyncTaskExecutor())
+                .add(flow1)
                 .end()
                 .listener(csvJobListener())
                 .build();
@@ -165,8 +183,8 @@ public class CsvBatchConfig {
      * @return
      */
     @Bean
-    public com.lyzdfintech.wcb.batch.server.listeners.CsvJobListener csvJobListener(){
-        return new com.lyzdfintech.wcb.batch.server.listeners.CsvJobListener();
+    public CsvJobListener csvJobListener(){
+        return new CsvJobListener();
     }
 
     @Bean

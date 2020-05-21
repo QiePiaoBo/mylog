@@ -1,7 +1,6 @@
 package com.mylog.common.batch.service;
 
 import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobParameter;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.launch.support.SimpleJobLauncher;
@@ -9,19 +8,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PersonAddService {
+public class PersonDbService {
 
     @Autowired
-    SimpleJobLauncher csvJobLauncher;
+    SimpleJobLauncher personDbLauncher;
 
     @Autowired
-    Job importJob;
+    Job personDbJob;
 
-    public void addPerson() throws Exception{
-        JobParameters jobParameters = new JobParametersBuilder().addLong("time",System.currentTimeMillis())
-                .toJobParameters();
-        csvJobLauncher.run(importJob, jobParameters);
+    public void readPerson() throws Exception{
+        JobParameters jobParameters = new JobParametersBuilder().addLong("time",
+                System.currentTimeMillis()).toJobParameters();
+
+        personDbLauncher.run(personDbJob, jobParameters);
 
     }
+
+
 
 }

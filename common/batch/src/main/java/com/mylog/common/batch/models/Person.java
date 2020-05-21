@@ -10,11 +10,18 @@ public class Person implements Serializable {
 
     private final long serialVersionUID = 1L;
 
-    private String id;
+    private Integer id;
     @Size(min = 2, max = 8)
     private String name;
     private int age;
     private String gender;
+
+    public Person(Integer id, String name, int age, String gender) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+    }
 
     @Override
     public String toString() {

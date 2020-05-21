@@ -3,6 +3,7 @@ package com.mylog.common.batch.itemProcessors;
 import com.mylog.common.batch.models.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.validator.ValidatingItemProcessor;
 import org.springframework.batch.item.validator.ValidationException;
 
@@ -13,7 +14,7 @@ import org.springframework.batch.item.validator.ValidationException;
  * csv文件数据校验及处理
  * 只需要实现itemProcessor接口 重写process方法，输入的参数是从ItemReader读取的数据，返回的数据给ItemWriter
  */
-public class CvsItemProcessor extends ValidatingItemProcessor<Person> {
+public class CvsItemProcessor extends ValidatingItemProcessor<Person> implements ItemProcessor<Person, Person> {
     private Logger logger = LoggerFactory.getLogger(CvsItemProcessor.class);
 
     @Override
