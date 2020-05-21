@@ -6,6 +6,13 @@ import org.springframework.batch.item.ExecutionContext;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 从节点处理器的具体业务
+ * 核心类是在每个线程内输出：
+ *      Starting: Thread1
+ *      fromId: 1
+ *      toId: 10
+ */
 public class RangePartitioner implements Partitioner {
 
     @Override

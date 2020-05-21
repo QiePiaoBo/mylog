@@ -62,6 +62,7 @@ public class PartitionerJob {
 
     /**
      * 主节点步骤
+     * rangePartitioner对象是核心分区类，对每个分区后的从节点处理器具体业务为RangePartitioner类的内容
      * @return
      */
     @Bean
@@ -71,7 +72,10 @@ public class PartitionerJob {
     }
 
     /**
-     * 设置实际线程数的网格大小
+     * 主步骤后面一个动作
+     * masterSlaveHandler
+     * 类中设置了分片大小为10个
+     * 同时设置异步任务执行器taskExecutor()
      * @return
      */
     @Bean
@@ -116,6 +120,13 @@ public class PartitionerJob {
         return userProcessor;
     }
 
+    /**
+     * [toId]和[name]值将被注入到ExecutionContext中的rangePartitioner
+     * @param fromId
+     * @param toId
+     * @param name
+     * @return
+     */
     @Bean
     @StepScope
     public JdbcPagingItemReader<User> slaveReader(
@@ -159,6 +170,13 @@ public class PartitionerJob {
         return null;
     }
 
+    /**
+     * 每个线程将以不同的csv文件输出记录
+     * 文件名格式为user.processed[fromId]-[toId].csv
+     * @param fromId
+     * @param toId
+     * @return
+     */
     @Bean
     @StepScope
     public FlatFileItemWriter<User> slaveWriter(
