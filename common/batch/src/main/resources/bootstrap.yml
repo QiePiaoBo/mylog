@@ -23,6 +23,19 @@ spring:
       discovery:
         namespace: ${config.namespace}
         server-addr: logicer.top:8848
+  mail:
+    host: ${mail.host}
+    port: ${mail.port}
+    default-encoding: UTF-8
+    username: ${mail.username}
+    password: ${mail.password}
+    properties:
+      mail:
+        smtp:
+          # 如果是用 SSL 方式，需要配置如下属性
+          starttls:
+            enable: true
+            required: true
   batch:
     job:
       enabled: false
