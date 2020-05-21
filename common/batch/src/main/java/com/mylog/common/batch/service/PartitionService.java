@@ -20,7 +20,7 @@ public class PartitionService {
 
         JobExecution jobExecution =  jobLauncher.run(partitionJob, jobParameters);
         Long time = jobExecution.getEndTime().getTime()-jobExecution.getStartTime().getTime();
-        System.out.println("持续时间：" + time + "ms");
+        System.out.println("分区批处理执行时间：" + time + "ms");
     }
 
 
