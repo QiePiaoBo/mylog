@@ -23,6 +23,7 @@ public class RangePartitioner implements Partitioner {
             System.out.println("\nStarting : Thread" + i);
             System.out.println("fromId : " + fromId);
             System.out.println("toId : " + toId);
+            System.out.println("当前时间" + System.currentTimeMillis());
 
             value.putInt("fromId", fromId);
             value.putInt("toId", toId);

@@ -12,18 +12,18 @@
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd">
 
 
-    <batch:job id="partitionJob" xmlns="http://www.springframework.org/schema/batch" job-repository="">
-        <step id="masterStep">
-            <partition step="slave" partitioner="rangePartitioner">
-                <handler grid-size="10" task-executor="taskExecutor" />
-            </partition>
-        </step>
-    </batch:job>
-    <batch:step id="slave" xmlns="http://www.springframework.org/schema/batch">
-        <tasklet transaction-manager="">
-            <chunk reader="pagingItemReader" writer="flatFileItemWriter"
-                processor="itemProcessor" commit-interval="1"/>
-        </tasklet>
-    </batch:step>
+<!--    <batch:job id="partitionJob" xmlns="http://www.springframework.org/schema/batch" job-repository="">-->
+<!--        <step id="masterStep">-->
+<!--            <partition step="slave" partitioner="rangePartitioner">-->
+<!--                <handler grid-size="10" task-executor="taskExecutor" />-->
+<!--            </partition>-->
+<!--        </step>-->
+<!--    </batch:job>-->
+<!--    <batch:step id="slave" xmlns="http://www.springframework.org/schema/batch">-->
+<!--        <tasklet transaction-manager="">-->
+<!--            <chunk reader="pagingItemReader" writer="flatFileItemWriter"-->
+<!--                processor="itemProcessor" commit-interval="1"/>-->
+<!--        </tasklet>-->
+<!--    </batch:step>-->
 
 </beans>
