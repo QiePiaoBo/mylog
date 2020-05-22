@@ -92,6 +92,10 @@ public class PartitionerJob {
         return handler;
     }
 
+    /**
+     * 定义用于重复作业的子step
+     * @return
+     */
     @Bean(name = "slave")
     public Step slave() {
         log.info("...........called slave .........");

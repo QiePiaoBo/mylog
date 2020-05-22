@@ -20,7 +20,7 @@ public class RangePartitioner implements Partitioner {
         Map<String, ExecutionContext> result =
                 new HashMap<>();
 
-        int range = 10;
+        int range = 27500;
         int fromId = 1;
         int toId = range;
 
