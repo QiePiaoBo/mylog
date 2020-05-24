@@ -8,6 +8,7 @@
     * utils 8085
     * batch 9001
     * format 9002
+    * licence 9003
 ## 项目目的：搭建基于springcloud的微服务平台用于承载各种突发奇想的小项目
 
 ## 项目目录简介：
