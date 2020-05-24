@@ -21,15 +21,21 @@
         <druid.version>1.1.20</druid.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+        <spring-session-data-redis.version>2.1.6.RELEASE</spring-session-data-redis.version>
+
+<!--        spring-boot系列   -->
         <spring-boot.version>2.1.6.RELEASE</spring-boot.version>
         <spring-boot-starter-test.version>2.1.6.RELEASE</spring-boot-starter-test.version>
         <spring-boot-starter-web.version>2.1.6.RELEASE</spring-boot-starter-web.version>
+        <spring-boot-starter-data-redis.version>2.1.6.RELEASE</spring-boot-starter-data-redis.version>
         <spring-boot-starter-data-redis-reactive.version>2.1.6.RELEASE</spring-boot-starter-data-redis-reactive.version>
         <spring-boot-starter-webflux.version>2.1.6.RELEASE</spring-boot-starter-webflux.version>
         <spring-boot-starter-actuator.version>2.1.6.RELEASE</spring-boot-starter-actuator.version>
         <spring-boot-starter-batch.version>2.1.6.RELEASE</spring-boot-starter-batch.version>
         <nacos-config-spring-boot-starter.version>2.1.6.RELEASE</nacos-config-spring-boot-starter.version>
 
+        <mybatis-plus-generator.version>3.3.0</mybatis-plus-generator.version>
+        <mybatis-plus-boot-starter.version>3.0.6</mybatis-plus-boot-starter.version>
         <mysql-connector-java.version>8.0.16</mysql-connector-java.version>
 
         <hibernate-validator.version>5.1.0.Final</hibernate-validator.version>

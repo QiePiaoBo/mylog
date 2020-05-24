@@ -1,0 +1,28 @@
+server:
+  port: 9999
+
+spring:
+  profiles:
+    active: ${default-profile}
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/ds?characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&serverTimezone=UTC
+    username: root
+    password: 1997o4
+    type: com.alibaba.druid.pool.DruidDataSource
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    password: 1997o4
+    jedis:
+      pool:
+        max-idle: 10
+        max-active: 200
+        max-wait: -1
+        min-idle: 0
+  main:
+    allow-bean-definition-overriding: true
+
+mybatis-plus:
+  mapper-locations: classpath:mybatis/mapper/*Mapper.xml
