@@ -1,6 +1,5 @@
 package com.mylog.common.licence.controller;
 
-
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mylog.common.licence.entity.Result;
 import com.mylog.common.licence.entity.User;
@@ -9,9 +8,7 @@ import com.mylog.common.licence.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.ArrayList;
 
 /**
@@ -23,7 +20,7 @@ import java.util.ArrayList;
  * @since 2020-05-24
  */
 @RestController
-@RequestMapping("/licence/user")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired

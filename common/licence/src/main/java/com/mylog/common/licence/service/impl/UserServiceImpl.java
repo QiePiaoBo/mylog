@@ -12,6 +12,8 @@ import com.mylog.common.licence.model.DTO.UserDTO;
 import com.mylog.common.licence.model.VO.UserVO;
 import com.mylog.common.licence.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.mylog.common.licence.service.PasswordService;
+import com.mylog.common.licence.session.UserContext;
 import com.mysql.cj.util.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,10 @@ import java.util.List;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private PasswordService passwordService;
+    @Autowired
+    private UserContext userContext;
 
     /**
      * 获取用户列表
@@ -100,7 +106,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         userDTO.setUsergroup(GroupEnum.USER_GROUP.getGroupId());
         // 若未传入密码，则设置默认密码为123456
         if (userDTO.getPassword()==null || userDTO.getPassword().length()==0){
-            userDTO.setPassword("123456");
+            userDTO.setPassword(passwordService.createPassword("123456"));
         }
         if (userDTO.getUsername()==null || userDTO.getUsername().length()==0){
             result.put("status", 1001).put("msg","添加失败").put("data","用户名缺失");
@@ -155,8 +161,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public Result exchange(UserDTO userDTO){
         Result result = new Result();
-
         User user = new User();
+        // 密码加密
+        if (userDTO.getPassword()!=null && userDTO.getPassword().length()>0){
+            userDTO.setPassword(passwordService.createPassword(userDTO.getPassword()));
+        }
         BeanUtils.copyProperties(userDTO, user);
         UpdateWrapper<User> userUpdateWrapper = new UpdateWrapper<>();
         userUpdateWrapper.eq("id", userDTO.getId());
@@ -175,7 +184,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             result.put("data",userDTO);
         }
         return result;
-
     }
 
+    @Override
+    public Result login(UserDTO userDTO) {
+        Result result = new Result();
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        if (null == userMapper.selectOne(queryWrapper.eq("username", userDTO.getUsername()))){
+            return result.put("status", 1001).put("msg", "用户名不存在");
+        }
+        User user = userMapper.selectOne(queryWrapper.eq("username", userDTO.getUsername()));
+        if (!passwordService.authenticatePassword(user.getPassword(), userDTO.getPassword())){
+            return result.put("status", 1002).put("msg","密码校验失败");
+        }
+        // 验证通过，将当前用户存入session中
+        userContext.putCurrentUser(user);
+        return result.put("status",200).put("msg","登陆成功");
+    }
 }

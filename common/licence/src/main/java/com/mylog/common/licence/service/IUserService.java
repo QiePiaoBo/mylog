@@ -29,4 +29,6 @@ public interface IUserService extends IService<User> {
     Result deleteOne(UserDTO userDTO);
 
     Result exchange(UserDTO userDTO);
+
+    Result login(UserDTO userDTO);
 }
