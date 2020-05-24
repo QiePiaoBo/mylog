@@ -11,6 +11,7 @@
         <module>platform</module>
         <module>demos</module>
         <module>common</module>
+        <module>ds</module>
     </modules>
     <packaging>pom</packaging>
     <properties>
