@@ -34,6 +34,12 @@ public class UserContext {
     }
 
     /**
+     * 删除当前的人的session
+     */
+    public void deleteCurrentUser(){
+        getSession().removeAttribute(CURRENT_USER_IN_SESSION);
+    }
+    /**
      * 获取当前用户
      * @return
      */

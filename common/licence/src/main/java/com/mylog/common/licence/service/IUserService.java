@@ -31,4 +31,8 @@ public interface IUserService extends IService<User> {
     Result exchange(UserDTO userDTO);
 
     Result login(UserDTO userDTO);
+
+    Result logout();
+
+    Result getCurrentUser();
 }

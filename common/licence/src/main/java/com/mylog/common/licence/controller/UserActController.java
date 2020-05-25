@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.xml.ws.Response;
+
 @RestController
 @RequestMapping("/licence")
 public class UserActController {
@@ -17,9 +19,21 @@ public class UserActController {
     IUserService userService;
 
     @ResponseBody
-    @RequestMapping("/login")
+    @RequestMapping("login")
     public Result login(@RequestBody UserDTO userDTO){
         return userService.login(userDTO);
+    }
+
+    @ResponseBody
+    @RequestMapping("logout")
+    public Result logout(){
+        return userService.logout();
+    }
+
+    @ResponseBody
+    @RequestMapping("who")
+    public Result who(){
+        return userService.getCurrentUser();
     }
 
 }

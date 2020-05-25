@@ -186,6 +186,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         return result;
     }
 
+    /**
+     * 登录
+     * @param userDTO
+     * @return
+     */
     @Override
     public Result login(UserDTO userDTO) {
         Result result = new Result();
@@ -200,5 +205,28 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         // 验证通过，将当前用户存入session中
         userContext.putCurrentUser(user);
         return result.put("status",200).put("msg","登陆成功");
+    }
+
+    /**
+     * 登出
+     * @param
+     * @return
+     */
+    @Override
+    public Result logout() {
+        Result result = new Result();
+        // 验证通过，将当前用户存入session中
+        userContext.deleteCurrentUser();
+        return result.put("status",200).put("msg","登出成功");
+    }
+
+    /**
+     * 获取当前的用户
+     * @return
+     */
+    public Result getCurrentUser(){
+        Result result = new Result();
+        User user = userContext.getCurrentUser();
+        return result.put("status", 200).put("msg","获取成功").put("data", user);
     }
 }
