@@ -19,12 +19,10 @@ public class MyGenerator {
 
     public static String scanner(String someThing) {
         Scanner scanner = new Scanner(System.in);
-        StringBuilder help = new StringBuilder();
-        help.append("请输入" + someThing + "：");
-        System.out.println(help.toString());
+        System.out.println("请输入" + someThing + "：");
         if (scanner.hasNext()) {
             String sc = scanner.next();
-            if (StringUtils.isNotEmpty(sc)) {
+            if (StringUtils.isNotBlank(sc)) {
                 return sc;
             }
         }
