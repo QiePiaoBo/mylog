@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mylog.common.licence.entity.Result;
 import com.mylog.common.licence.entity.User;
 import com.mylog.common.licence.model.DTO.UserDTO;
+import com.mylog.common.licence.permission.permissions.AdminPermission;
 import com.mylog.common.licence.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +33,7 @@ public class UserController {
      * @param limit
      * @return
      */
+    @AdminPermission(userType = 1)
     @RequestMapping("all")
     public Result getUsers(Integer page, Integer limit){
         if (page == null || limit == null){
@@ -71,6 +73,7 @@ public class UserController {
      * @param userDTO
      * @return
      */
+    @AdminPermission(userType = 2)
     @RequestMapping("exchange")
     public Result exchange(@RequestBody UserDTO userDTO){
         return userService.exchange(userDTO);

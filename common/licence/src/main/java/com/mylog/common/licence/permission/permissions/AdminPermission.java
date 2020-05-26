@@ -1,14 +1,11 @@
 package com.mylog.common.licence.permission.permissions;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE, ElementType.METHOD})
 @Documented
-@Inherited
-@Target(ElementType.METHOD)
 public @interface AdminPermission {
-    String userName() default "user";
-    boolean required() default true;
+    int userType() default 2;
 }
