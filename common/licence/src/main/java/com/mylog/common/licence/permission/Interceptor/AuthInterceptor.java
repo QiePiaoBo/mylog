@@ -26,8 +26,9 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        boolean result = false;
         if (!(handler instanceof HandlerMethod)){
-            return true;
+            result =  true;
         }
         log.info(">>>>>>>>>>>>>>>>>>>>请求处理之前（controller之前）");
         // 获取方法中的注解
@@ -39,9 +40,18 @@ public class AuthInterceptor implements HandlerInterceptor {
         if (authToken != null && null != userContext.getCurrentUser()){
             val userType = authToken.userType();
             // 数字越小权限越大
-            return userType >= Integer.parseInt(userContext.getCurrentUser().getUsergroup());
+            result =  userType >= Integer.parseInt(userContext.getCurrentUser().getUsergroup());
         }
-        return false;
+        if (!result){
+            response.setContentType("application/json; charset=UTF-8");
+            if (userContext.getCurrentUser()==null){
+                response.getWriter().write("未登录");
+            }
+            else {
+                response.getWriter().write("权限不足");
+            }
+        }
+        return result;
     }
     /**
      * 在整个请求结束之后被调用，也就是在DispatcherServlet 渲染了对应的视图之后执行（主要是用于进行资源清理工作）

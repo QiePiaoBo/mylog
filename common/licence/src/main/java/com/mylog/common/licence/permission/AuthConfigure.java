@@ -18,7 +18,7 @@ public class AuthConfigure extends WebMvcConfigurationSupport {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(AuthInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(AuthInterceptor()).addPathPatterns("/user/all","/user/delete");
     }
 
     @Bean
