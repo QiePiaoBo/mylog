@@ -98,7 +98,7 @@ public class UserDbConfig {
     public ItemWriter<User> userDbWriter(){
         FlatFileItemWriter<User> reader = new FlatFileItemWriter<>();
         reader.setResource(new FileSystemResource(
-                "csv/users.csv"));
+                "common/batch/csv/users.csv"));
         //reader.setAppendAllowed(false);
         reader.setLineAggregator(new DelimitedLineAggregator<User>() {{
             setDelimiter(",");

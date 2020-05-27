@@ -188,7 +188,7 @@ public class PartitionerJob {
             @Value("#{stepExecutionContext[toId]}") final String toId) {
         FlatFileItemWriter<User> reader = new FlatFileItemWriter<>();
         reader.setResource(new FileSystemResource(
-                "csv/outputs/users.processed" + fromId + "-" + toId + ".csv"));
+                "common/batch/csv/outputs/users.processed" + fromId + "-" + toId + ".csv"));
         //reader.setAppendAllowed(false);
         reader.setLineAggregator(new DelimitedLineAggregator<User>() {{
             setDelimiter(",");
