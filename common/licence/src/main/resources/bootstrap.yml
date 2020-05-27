@@ -10,6 +10,8 @@ spring:
     username: root
     password: 1997o4
     type: com.alibaba.druid.pool.DruidDataSource
+  main:
+    allow-bean-definition-overriding: true
   redis:
     host: localhost
     port: 6379
@@ -21,8 +23,6 @@ spring:
         max-active: 200
         max-wait: -1
         min-idle: 0
-  main:
-    allow-bean-definition-overriding: true
   cloud:
     nacos:
       config:

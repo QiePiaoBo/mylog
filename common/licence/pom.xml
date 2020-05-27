@@ -25,13 +25,11 @@
         <dependency>
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session-data-redis</artifactId>
-            <version>${spring-session-data-redis.version}</version>
         </dependency>
 <!--        //引入redis-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
-            <version>${spring-boot-starter-data-redis.version}</version>
         </dependency>
         <!-- mybatisPlus 核心库 -->
         <dependency>
@@ -65,7 +63,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
