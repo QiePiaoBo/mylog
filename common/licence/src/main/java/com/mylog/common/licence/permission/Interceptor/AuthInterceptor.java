@@ -30,7 +30,6 @@ public class AuthInterceptor implements HandlerInterceptor {
         if (!(handler instanceof HandlerMethod)){
             result =  true;
         }
-        log.info(">>>>>>>>>>>>>>>>>>>>请求处理之前（controller之前）");
         // 获取方法中的注解
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();

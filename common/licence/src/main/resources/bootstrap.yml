@@ -23,6 +23,16 @@ spring:
         min-idle: 0
   main:
     allow-bean-definition-overriding: true
-
+  cloud:
+    nacos:
+      config:
+        server-addr: logicer.top:8848
+        namespace: ${config.namespace}
+        refreshable-dataids: common.yaml
+        shared-dataids: common.yaml
+        file-extension: yaml
+      discovery:
+        namespace: ${config.namespace}
+        server-addr: logicer.top:8848
 mybatis-plus:
   mapper-locations: classpath:mybatis/mapper/*Mapper.xml

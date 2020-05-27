@@ -14,6 +14,7 @@
         <module>ds</module>
     </modules>
     <packaging>pom</packaging>
+
     <properties>
         <java.version>1.8</java.version>
         <tomcat.version>7.0.94</tomcat.version>
@@ -27,11 +28,13 @@
         <spring-boot.version>2.1.6.RELEASE</spring-boot.version>
         <spring-boot-starter-test.version>2.1.6.RELEASE</spring-boot-starter-test.version>
         <spring-boot-starter-web.version>2.1.6.RELEASE</spring-boot-starter-web.version>
+        <spring-boot-starter-mail.version>2.1.6.RELEASE</spring-boot-starter-mail.version>
         <spring-boot-starter-data-redis.version>2.1.6.RELEASE</spring-boot-starter-data-redis.version>
         <spring-boot-starter-data-redis-reactive.version>2.1.6.RELEASE</spring-boot-starter-data-redis-reactive.version>
         <spring-boot-starter-webflux.version>2.1.6.RELEASE</spring-boot-starter-webflux.version>
         <spring-boot-starter-actuator.version>2.1.6.RELEASE</spring-boot-starter-actuator.version>
         <spring-boot-starter-batch.version>2.1.6.RELEASE</spring-boot-starter-batch.version>
+        <spring-boot-starter-data-jpa.version>2.1.6.RELEASE</spring-boot-starter-data-jpa.version>
         <nacos-config-spring-boot-starter.version>2.1.6.RELEASE</nacos-config-spring-boot-starter.version>
 
         <mybatis-plus-generator.version>3.3.0</mybatis-plus-generator.version>
@@ -76,32 +79,126 @@
         <default-profile>dev</default-profile>
 
     </properties>
-    <!--    环境配置    -->
-    <profiles>
-        <!--    开发    -->
-        <profile>
-            <id>dev</id>
-            <activation>
-                <!--默认激活配置    -->
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <!--    当前环境    -->
-                <profile.name>dev</profile.name>
-                <!--    nacos配置中心地址    -->
-                <config.server-addr>logicer.top:8848</config.server-addr>
-                <!--    Nacos配置中心命名空间，用于支持多环境，必须用id，默认为空    -->
-                <config.namespace></config.namespace>
-                <!--    Nacos发现地址    -->
-                <discovery.server-addr>logicer.top:8848</discovery.server-addr>
-            </properties>
-        </profile>
 
-        <!--    测试    -->
-        <!--    生产    -->
-    </profiles>
     <dependencyManagement>
         <dependencies>
+            <!--        添加spring-boot全家桶     -->
+            <!--    动态路由相关    -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-actuator</artifactId>
+                <version>${spring-boot-starter-actuator.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot-starter-web.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-mail</artifactId>
+                <version>${spring-boot-starter-mail.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
+                <version>${spring-boot-starter-data-jpa.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-webflux</artifactId>
+                <version>${spring-boot-starter-webflux.version}</version>
+            </dependency>
+            <!--    feign     -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-openfeign</artifactId>
+                <version>${spring-cloud-starter-openfeign.version}</version>
+            </dependency>
+            <!-- nacos-discovery 默认集成ribbon -->
+            <!--    nacos配置 -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+                <version>${spring-cloud-starter-alibaba-nacos-config.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                <version>${spring-cloud-starter-alibaba-nacos-discovery.version}</version>
+            </dependency>
+            <!--    Slf4j    -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <!--    httpClient依赖    -->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpcore</artifactId>
+                <version>${httpcore.version}</version>
+            </dependency>
+            <!--        添加redis相关依赖   -->
+            <!--        //引入redis-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>${spring-boot-starter-data-redis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+                <version>${spring-boot-starter-data-redis-reactive.version}</version>
+            </dependency>
+            <!--        //引入spring session-->
+            <dependency>
+                <groupId>org.springframework.session</groupId>
+                <artifactId>spring-session-data-redis</artifactId>
+                <version>${spring-session-data-redis.version}</version>
+            </dependency>
+            <!--    fastJson    -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.2.62</version>
+            </dependency>
+            <!--    POI     -->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>4.1.0</version>
+            </dependency>
+            <!--    lombok  -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.8</version>
+            </dependency>
+            <!--    servlet     -->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>servlet-api</artifactId>
+                <version>${servlet-api.version}</version>
+            </dependency>
+            <!--    javax    -->
+            <dependency>
+                <groupId>javax.el</groupId>
+                <artifactId>javax.el-api</artifactId>
+                <version>${javax-el-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.web</groupId>
+                <artifactId>javax.el</artifactId>
+                <version>${javax-el-api.version}</version>
+            </dependency>
+            <!--      原本的      -->
             <dependency>
                 <groupId>org.apache.tomcat</groupId>
                 <artifactId>tomcat-juli</artifactId>
@@ -134,6 +231,32 @@
         </dependencies>
     </dependencyManagement>
 
+
+    <!--    环境配置    -->
+    <profiles>
+        <!--    开发    -->
+        <profile>
+            <id>dev</id>
+            <activation>
+                <!--默认激活配置    -->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <!--    当前环境    -->
+                <profile.name>dev</profile.name>
+                <!--    nacos配置中心地址    -->
+                <config.server-addr>logicer.top:8848</config.server-addr>
+                <!--    Nacos配置中心命名空间，用于支持多环境，必须用id，默认为空    -->
+                <config.namespace></config.namespace>
+                <!--    Nacos发现地址    -->
+                <discovery.server-addr>logicer.top:8848</discovery.server-addr>
+            </properties>
+        </profile>
+
+        <!--    测试    -->
+        <!--    生产    -->
+    </profiles>
+    <!--   打包相关  -->
     <build>
         <resources>
             <!--    指定src/main/resources下所有文件及文件夹为资源文件    -->
