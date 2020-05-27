@@ -1,19 +1,22 @@
 # mylog
 ## 项目梗概：mylog(springcloud)
 ## 端口设置
-    * eureka 8089
-    * ribbon 8088
-    * feign 8087
-    * config 8086
-    * utils 8085
+* 网关
+  * plt-gateway 8888
+* 批处理与格式转化
     * batch 9001
     * format 9002
+* 登陆注册中心
     * licence 9003
+* 工具验证中心
+    * dm-ribbon 8088
+    * dm-feign 8087
+    
 ## 项目目的：搭建基于springcloud的微服务平台用于承载各种突发奇想的小项目
 
 ## 项目目录简介：
 * common    各种功能性微服务
-* demos     eureka、feign、ribbon等基础微服务
+* demos     feign、ribbon等微服务示例
 * platform  平台基础微服务
 
 ## 运行说明
@@ -25,9 +28,6 @@
     * 由于/routeMe设置了sleep(2000)所以会超出服务熔断时间，进而触发熔断条件而执行fallback方法，想屏蔽熔断可以将sleep注掉（熔断器Hystrix）
     * 快速刷新会触发429错误，因为网关限流器设置了一秒内最大请求次数3次（限流器requestRateLimiter）
 
-## eureka
-* ### 服务注册与发现中心
-    * 主要用于各个微服务的注册与发现
 
 ## gateway
 * ### 网关
