@@ -12,7 +12,6 @@
     <artifactId>demos</artifactId>
     <version>0.0.1</version>
     <modules>
-        <module>dm-eureka</module>
         <module>dm-ribbon</module>
         <module>dm-feign</module>
     </modules>

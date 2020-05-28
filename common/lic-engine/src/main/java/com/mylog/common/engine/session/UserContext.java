@@ -1,6 +1,8 @@
-package com.mylog.common.licence.session;
+package com.mylog.common.engine.session;
 
-import com.mylog.common.licence.entity.User;
+import com.mylog.common.engine.entity.Person;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -19,7 +21,7 @@ public class UserContext {
      * 获取session
      * @return
      */
-    private HttpSession getSession(){
+    public HttpSession getSession(){
         // SpringMVC获取session的方式通过RequestContextHolder
         return ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
                 .getRequest().getSession();
@@ -29,7 +31,7 @@ public class UserContext {
      * 设置当前用户到session中
      * @param currentUser
      */
-    public void putCurrentUser(User currentUser){
+    public void putCurrentUser(Object currentUser){
         getSession().setAttribute(CURRENT_USER_IN_SESSION, currentUser);
     }
 
@@ -43,8 +45,8 @@ public class UserContext {
      * 获取当前用户
      * @return
      */
-    public User getCurrentUser(){
-        return (User) getSession().getAttribute(CURRENT_USER_IN_SESSION);
+    public Person getCurrentUser(){
+        return (Person) getSession().getAttribute(CURRENT_USER_IN_SESSION);
     }
 
 }

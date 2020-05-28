@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mylog.common.engine.session.UserContext;
 import com.mylog.common.licence.EnumCenter.GroupEnum;
 import com.mylog.common.licence.entity.Result;
 import com.mylog.common.licence.entity.User;
@@ -13,12 +14,9 @@ import com.mylog.common.licence.model.VO.UserVO;
 import com.mylog.common.licence.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mylog.common.licence.service.PasswordService;
-import com.mylog.common.licence.session.UserContext;
-import com.mysql.cj.util.StringUtils;
+import com.mylog.common.licence.session.UserLoginContext;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.data.redis.repository.query.ExampleQueryMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -38,16 +36,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     private UserMapper userMapper;
     @Autowired
     private PasswordService passwordService;
-    @Autowired
-    private UserContext userContext;
 
+    @Autowired
+    private UserLoginContext userContext;
     /**
      * 获取用户列表
      * @param page
      * @return
      */
     @Override
-    public Result selectUserList(Page<User> page) {;
+    public Result selectUserList(Page<User> page) {
         Result result = new Result();
         IPage<User> userIPage = userMapper.selectUserList(page);
         List<User> userList = userIPage.getRecords();
@@ -219,14 +217,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         userContext.deleteCurrentUser();
         return result.put("status",200).put("msg","登出成功");
     }
-
     /**
      * 获取当前的用户
      * @return
      */
     public Result getCurrentUser(){
         Result result = new Result();
-        User user = userContext.getCurrentUser();
+        User user = (User) userContext.getCurrentUser();
         return result.put("status", 200).put("msg","获取成功").put("data", user);
     }
 }

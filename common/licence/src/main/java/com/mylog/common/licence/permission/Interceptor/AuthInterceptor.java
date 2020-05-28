@@ -1,7 +1,7 @@
 package com.mylog.common.licence.permission.Interceptor;
 
+import com.mylog.common.engine.session.UserContext;
 import com.mylog.common.licence.permission.permissions.AdminPermission;
-import com.mylog.common.licence.session.UserContext;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;

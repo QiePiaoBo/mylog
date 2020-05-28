@@ -1,13 +1,10 @@
-package com.mylog.common.licence.entity;
+package com.mylog.common.engine.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
-
-import com.mylog.common.engine.entity.Person;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -20,14 +17,13 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class User extends Person implements Serializable {
+public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * 用户id
      */
-    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
@@ -73,7 +69,7 @@ public class User extends Person implements Serializable {
     /**
      * 备用字段1
      */
-    private String description;
+        private String description;
 
 
 }
