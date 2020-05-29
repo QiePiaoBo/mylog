@@ -1,4 +1,4 @@
-package com.mylog.common.engine.entity;
+package com.mylog.tools.lic.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.mylog.common.engine.session.UserContext;
 import com.mylog.common.licence.EnumCenter.GroupEnum;
 import com.mylog.common.licence.entity.Result;
 import com.mylog.common.licence.entity.User;

@@ -15,7 +15,7 @@
     <description>权限工具类</description>
 
     <dependencies>
-<!--        引入springboot-starter-web-->
+        <!--        引入springboot-starter-web-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -45,14 +45,11 @@
             <artifactId>mybatis-plus-generator</artifactId>
             <version>${mybatis-plus-generator.version}</version>
         </dependency>
+        <!--    引入自定义库    -->
         <dependency>
-            <groupId>com.mylog.common</groupId>
-            <artifactId>lic-engine</artifactId>
+            <groupId>com.mylog.tools</groupId>
+            <artifactId>lic-server</artifactId>
             <version>0.0.1</version>
         </dependency>
     </dependencies>
-    <build>
-        <!-- 打包名称 -->
-        <finalName>${project.artifactId}</finalName>
-    </build>
 </project>

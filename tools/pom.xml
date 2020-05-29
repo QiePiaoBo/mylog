@@ -9,12 +9,16 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ds</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>tools</artifactId>
+    <version>0.0.1</version>
     <modules>
-        <module>blog</module>
+        <module>lic-server</module>
     </modules>
+    <packaging>pom</packaging>
+
     <build>
+        <!-- 打包名称 -->
+        <finalName>${project.artifactId}</finalName>
         <!--    需要引入这两个插件 不然会没有主清单属性    -->
         <plugins>
             <plugin>
@@ -25,18 +29,6 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
-
 </project>

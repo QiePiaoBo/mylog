@@ -1,8 +1,6 @@
-package com.mylog.common.engine.session;
+package com.mylog.tools.lic.session;
 
-import com.mylog.common.engine.entity.Person;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
+import com.mylog.tools.lic.entity.Person;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
