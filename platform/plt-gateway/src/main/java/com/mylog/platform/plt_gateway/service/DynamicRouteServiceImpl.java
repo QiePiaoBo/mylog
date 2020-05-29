@@ -57,10 +57,4 @@ public class DynamicRouteServiceImpl implements ApplicationEventPublisherAware {
             return Mono.just(ResponseEntity.notFound().build());
         });
     }
-
-
-
-
-
-
 }

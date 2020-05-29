@@ -25,7 +25,7 @@ spring:
     gateway:
       discovery:
         locator:
-          enabled: true
+          enabled: false
       routes:
         - id: route_all
           uri: lb://my-feign

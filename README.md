@@ -19,7 +19,9 @@
 ## 项目目录简介：
 * common    各种功能性微服务
 * demos     feign、ribbon等微服务示例
+* ds        业务中心
 * platform  平台基础微服务
+* tools     新抽出公用jar包
 
 ## plt-gateway
 ### gateway说明：

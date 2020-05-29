@@ -93,6 +93,8 @@
             <version>${jackson-annotations.version}</version>
             <!-- 版本可以使用2.9.3、2.9.5 、2.9.8，不能忽略version属性-->
         </dependency>
+        
+<!--        自定义工具  工具中不可引用web相关组件会与gateway冲突     -->
 
     </dependencies>
 

@@ -35,8 +35,11 @@ public class AuthInterceptor implements HandlerInterceptor {
         Method method = handlerMethod.getMethod();
         AdminPermission authToken = method.getAnnotation(AdminPermission.class);
 
+        if (authToken == null){
+            return true;
+        }
         // 需要验证的Method
-        if (authToken != null && null != userContext.getCurrentUser()){
+        if (null != userContext.getCurrentUser()){
             val userType = authToken.userType();
             // 数字越小权限越大
             result =  userType >= Integer.parseInt(userContext.getCurrentUser().getUsergroup());

@@ -3,6 +3,7 @@ package com.mylog.tools.lic.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.io.Serializable;
 
@@ -69,7 +70,27 @@ public class Person implements Serializable {
     /**
      * 备用字段1
      */
-        private String description;
+    private String description;
+
+    public Person(Integer id, String usergroup,
+                  String username, String password,
+                  String phone, String mail,
+                  String gender, String realname,
+                  String cnId, String description) {
+        this.id = id;
+        this.usergroup = usergroup;
+        this.username = username;
+        this.password = password;
+        this.phone = phone;
+        this.mail = mail;
+        this.gender = gender;
+        this.realname = realname;
+        this.cnId = cnId;
+        this.description = description;
+    }
+
+    public Person() {
+    }
 
 
 }

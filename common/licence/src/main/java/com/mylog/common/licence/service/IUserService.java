@@ -1,14 +1,12 @@
 package com.mylog.common.licence.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.mylog.common.licence.entity.Result;
+
 import com.mylog.common.licence.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.mylog.common.licence.model.DTO.UserDTO;
-import com.mylog.common.licence.model.VO.UserVO;
+import com.mylog.tools.lic.entity.Result;
 
-import java.util.List;
 
 /**
  * <p>
