@@ -39,5 +39,6 @@ spring:
       discovery:
         namespace: ${config.namespace}
         server-addr: logicer.top:8848
+        ip: {ip: 127.0.0.1}
 mybatis-plus:
   mapper-locations: classpath:mybatis/mapper/*Mapper.xml
