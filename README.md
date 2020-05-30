@@ -57,7 +57,46 @@
 * 其他坑
     * 还没想起来，待添加
     
-    
+~~~mysql
+-- 路由表（网关数据库即 plt数据库）
+CREATE TABLE `route` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '路由表主键',
+  `route_id` varchar(128) COLLATE utf8mb4_croatian_ci DEFAULT NULL COMMENT '路由id',
+  `uri` varchar(255) COLLATE utf8mb4_croatian_ci DEFAULT NULL COMMENT '路由转发uri',
+  `order` int(11) DEFAULT NULL COMMENT '路由优先级',
+  `predicate_json` varchar(255) COLLATE utf8mb4_croatian_ci DEFAULT NULL COMMENT '路由断言json串',
+  `filter_json` varchar(255) COLLATE utf8mb4_croatian_ci DEFAULT NULL COMMENT '路由过滤器集合配置json串',
+  `status` int(11) DEFAULT NULL COMMENT '状态, 0 不可用， 1 可用',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_croatian_ci;
+
+-- 用户表（应用数据库即 ds数据库）
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户id',
+  `usergroup` varchar(32) DEFAULT NULL COMMENT '用户权限组',
+  `username` varchar(64) DEFAULT NULL COMMENT '用户名',
+  `password` varchar(255) DEFAULT NULL COMMENT '用户密码',
+  `phone` varchar(64) DEFAULT NULL COMMENT '用户手机',
+  `mail` varchar(128) DEFAULT NULL COMMENT '用户邮箱',
+  `gender` varchar(8) DEFAULT NULL COMMENT '用户性别',
+  `realname` varchar(32) DEFAULT NULL COMMENT '用户真实姓名',
+  `cn_id` varchar(255) DEFAULT NULL COMMENT '用户身份证号',
+  `description` varchar(255) DEFAULT NULL COMMENT '备用字段1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `permission` (
+  `id` int(11) NOT NULL COMMENT '权限id',
+  `name` varchar(64) DEFAULT NULL COMMENT '权限名',
+  `description` varchar(255) DEFAULT NULL COMMENT '权限说明',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `group` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '管理员id',
+  `group_name` varchar(128) DEFAULT NULL COMMENT '权限组名',
+  `group_description` varchar(255) DEFAULT NULL COMMENT '权限组说明',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+~~~
     
     
 ## 批处理结果
