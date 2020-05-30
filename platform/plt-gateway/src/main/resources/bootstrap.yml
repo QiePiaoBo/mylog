@@ -7,7 +7,7 @@ spring:
     database: 0
     password: 1997o4
     port: 6379
-    host: localhost
+    host: logicer.top
   application:
     name: plt-gateway
   datasource:

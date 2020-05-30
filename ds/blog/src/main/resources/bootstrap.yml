@@ -14,7 +14,7 @@ spring:
   main:
     allow-bean-definition-overriding: true
   redis:
-    host: localhost
+    host: logicer.top
     port: 6379
     database: 0
     password: 1997o4

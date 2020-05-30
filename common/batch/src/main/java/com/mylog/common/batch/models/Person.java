@@ -22,6 +22,9 @@ public class Person implements Serializable {
         this.age = age;
         this.gender = gender;
     }
+    public Person(){
+
+    }
 
     @Override
     public String toString() {
