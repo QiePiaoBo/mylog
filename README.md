@@ -14,14 +14,21 @@
     * dm-ribbon 8088
     * dm-feign 8087
     
-## 项目目的：搭建基于springcloud的微服务平台用于承载各种突发奇想的小项目
+## 项目目的：搭建基于springcloud的微服务平台
 
-## 项目目录简介：
+### 项目目录简介：
 * common    各种功能性微服务
 * demos     feign、ribbon等微服务示例
 * ds        业务中心
 * platform  平台基础微服务
 * tools     新抽出公用jar包
+
+### 项目路由（持续更新 注：路由报文仅限本人电脑，如欲实验需执行下方sql以在对应库中建表插数据）
+* feign:
+    * localhost:8888/dl/ + feign中的接口
+    * localhost:8888/qy/ + feign中的接口
+* licence
+    * localhost:8888/jx/ + licence中的接口
 
 ## plt-gateway
 ### gateway说明：
@@ -32,7 +39,6 @@
 * 说明：当前gateway配置下，上述请求会被转发到feign的/routeAll接口上，dl必须加上，不然请求会被拦截掉（全局过滤器TokenFilter）
 * 由于/routeMe设置了sleep(2000)所以会超出服务熔断时间，进而触发熔断条件而执行fallback方法，想屏蔽熔断可以将sleep注掉（熔断器Hystrix）
 * 快速刷新会触发429错误，因为网关限流器设置了一秒内最大请求次数3次（限流器requestRateLimiter）
-
 ### 平台网关
 * 主要功能:
     * 路由分配
@@ -69,6 +75,8 @@ CREATE TABLE `route` (
   `status` int(11) DEFAULT NULL COMMENT '状态, 0 不可用， 1 可用',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_croatian_ci;
+INSERT INTO `route` VALUES (1, 'feign', 'lb://my-feign', 0, '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/qy/**\"}}]', '[{\"name\":\"StripPrefix\",\"args\":{\"_genkey_0\":\"1\"}}]', 1);
+INSERT INTO `route` VALUES (2, 'licence', 'lb://licence', 1, '[{\"args\":{\"pattern\":\"/jx/**\"},\"name\":\"Path\"}]', '[{\"args\":{\"_genkey_0\":\"1\"},\"name\":\"StripPrefix\"}]', 1);
 
 -- 用户表（应用数据库即 ds数据库）
 CREATE TABLE `user` (
@@ -84,6 +92,10 @@ CREATE TABLE `user` (
   `description` varchar(255) DEFAULT NULL COMMENT '备用字段1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+INSERT INTO `user` VALUES (1, '0', 'Dylan', 'CBACCCEDFC9DD12051CFAC29A06015EF', '15966245906', '15966245906@163.com', 'man', '段其伦', '371522199704136514', '超级管理员');
+INSERT INTO `user` VALUES (2, '1', 'Lucifer', '123456', '15966245907', NULL, NULL, '孙梓翰', '371522', NULL);
+INSERT INTO `user` VALUES (4, '2', 'Duke', 'E10ADC3949BA59ABBE56E057F20F883E', '15966245908', NULL, NULL, '刘长昊', '371522', NULL);
+
 CREATE TABLE `permission` (
   `id` int(11) NOT NULL COMMENT '权限id',
   `name` varchar(64) DEFAULT NULL COMMENT '权限名',
