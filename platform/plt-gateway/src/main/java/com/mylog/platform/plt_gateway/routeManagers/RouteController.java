@@ -47,7 +47,7 @@ public class RouteController {
      * @return
      */
     @DeleteMapping("/{id}")
-    public Mono<ResponseEntity<Object>> delete(@PathVariable String id){
+    public String delete(@PathVariable String id){
         try {
             return this.dynamicRouteService.delete(id);
         }catch (Exception e){

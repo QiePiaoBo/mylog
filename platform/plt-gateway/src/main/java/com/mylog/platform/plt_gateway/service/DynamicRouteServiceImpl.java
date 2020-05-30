@@ -1,5 +1,6 @@
 package com.mylog.platform.plt_gateway.service;
 
+import com.mylog.platform.plt_gateway.repositories.MysqlRouteDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.event.RefreshRoutesEvent;
 import org.springframework.cloud.gateway.route.RouteDefinition;
@@ -11,11 +12,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
+/**
+ * 操作路由 非Mysql 弃
+ */
 @Service
 public class DynamicRouteServiceImpl implements ApplicationEventPublisherAware {
 
     @Autowired
-    private RouteDefinitionWriter routeDefinitionWriter;
+    private MysqlRouteDefinition routeDefinitionWriter;
 
     @Autowired
     private ApplicationEventPublisher publisher;
@@ -29,10 +33,15 @@ public class DynamicRouteServiceImpl implements ApplicationEventPublisherAware {
      */
     public String add(RouteDefinition definition){
         routeDefinitionWriter.save(Mono.just(definition)).subscribe();
-        this.publisher.publishEvent(new RefreshRoutesEvent(this));
+        doLoad();
         return "success";
     }
-    //更新路由
+
+    /**
+     * 动态更新路由并刷新
+     * @param definition
+     * @return
+     */
     public String update(RouteDefinition definition) {
         try {
             delete(definition.getId());
@@ -41,20 +50,41 @@ public class DynamicRouteServiceImpl implements ApplicationEventPublisherAware {
         }
         try {
             routeDefinitionWriter.save(Mono.just(definition)).subscribe();
-            this.publisher.publishEvent(new RefreshRoutesEvent(this));
+            doLoad();
             return "success";
         } catch (Exception e) {
             return "update route  fail";
         }
     }
-    //删除路由
-    public Mono<ResponseEntity<Object>> delete(String id) {
-        return this.routeDefinitionWriter.delete(Mono.just(id)).then(Mono.defer(() -> {
-            return Mono.just(ResponseEntity.ok().build());
-        })).onErrorResume((t) -> {
-            return t instanceof NotFoundException;
-        }, (t) -> {
-            return Mono.just(ResponseEntity.notFound().build());
-        });
+
+    /**
+     * 动态删除路由并刷新
+     * @param id
+     * @return
+     */
+    public String delete(String id) {
+        try {
+            routeDefinitionWriter.delete(Mono.just(id)).subscribe();
+            this.doLoad();
+        }catch (Exception e){
+            e.printStackTrace();
+            return "delete fail, route " + id + "not found";
+        }
+        return "delete success";
     }
+
+    /**
+     * 重新刷新 路由
+     */
+    public String doLoad() {
+        try {
+            this.publisher.publishEvent(new RefreshRoutesEvent(this));
+        }catch (Exception e){
+            e.printStackTrace();
+            return "load fail";
+        }
+        return "load success";
+    }
+
+
 }

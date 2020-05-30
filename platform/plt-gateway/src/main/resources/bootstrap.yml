@@ -10,6 +10,12 @@ spring:
     host: localhost
   application:
     name: plt-gateway
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/plt?characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&serverTimezone=UTC
+    username: root
+    password: 1997o4
+    type: com.alibaba.druid.pool.DruidDataSource
   cloud:
     nacos:
       config:

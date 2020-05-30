@@ -93,8 +93,22 @@
             <version>${jackson-annotations.version}</version>
             <!-- 版本可以使用2.9.3、2.9.5 、2.9.8，不能忽略version属性-->
         </dependency>
-        
-<!--        自定义工具  工具中不可引用web相关组件会与gateway冲突     -->
+        <!--    mybatis-plus 核心库    -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+        <!--    连接数据库依赖    -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <!-- 引入阿里数据库连接池 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+        </dependency>
+        <!--        自定义工具  工具中不可引用web相关组件会与gateway冲突     -->
 
     </dependencies>
 

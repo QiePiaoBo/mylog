@@ -1,6 +1,7 @@
 package com.mylog.platform.plt_gateway.models;
 
 import lombok.Data;
+import org.springframework.cloud.gateway.filter.FilterDefinition;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -9,7 +10,7 @@ import java.util.Map;
  * 过滤器模型
  */
 @Data
-public class GatewayFilterDefinition {
+public class GatewayFilterDefinition extends FilterDefinition {
 
     // 过滤器名
     private String name;
