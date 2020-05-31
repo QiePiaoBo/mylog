@@ -1,7 +1,7 @@
-package com.mylog.common.format.adapterMode.demo0;
+package com.mylog.common.format.Adapter.demo2;
 
 /**
- * 我公司员工信息接口
+ * 我公司员工信息接口(复杂版)
  */
 public interface IUserInfo {
     // 获得用户姓名

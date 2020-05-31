@@ -1,4 +1,4 @@
-package com.mylog.common.format.adapterMode.demo0;
+package com.mylog.common.format.Adapter.demo0;
 
 import java.util.Map;
 
