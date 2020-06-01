@@ -2,6 +2,7 @@ package com.mylog.common.format.Bridge;
 
 import com.mylog.common.format.Bridge.Demo0.reality.IpodCorp;
 import com.mylog.common.format.Bridge.Demo1.reality.*;
+import com.mylog.common.format.Bridge.Demo2.*;
 
 /**
  * 场景类
@@ -46,17 +47,28 @@ public class Client {
 //        shanZhaiCorp.makeMoney();
 //    }
     // 再次改造之后良心发现做服装
+//    public static void main(String[] args) {
+//        House house = new House();
+//        System.out.println("房地产公司是这样赚钱的：");
+//        // 找到房地产公司
+//        HouseCorp houseCorp = new HouseCorp(house);
+//        // 展示赚钱方法
+//        houseCorp.makeMoney();
+//        System.out.println("\n");
+//        // 都往后稍稍，我山寨公司可是什么都能生产
+//        System.out.println("山寨公司的盈利方式：");
+//        ShanZhaiCorp shanZhaiCorp = new ShanZhaiCorp(new Clothes());
+//        shanZhaiCorp.makeMoney();
+//    }
+    // 桥梁模式通用类
     public static void main(String[] args) {
-        House house = new House();
-        System.out.println("房地产公司是这样赚钱的：");
-        // 找到房地产公司
-        HouseCorp houseCorp = new HouseCorp(house);
-        // 展示赚钱方法
-        houseCorp.makeMoney();
-        System.out.println("\n");
-        // 都往后稍稍，我山寨公司可是什么都能生产
-        System.out.println("山寨公司的盈利方式：");
-        ShanZhaiCorp shanZhaiCorp = new ShanZhaiCorp(new Clothes());
-        shanZhaiCorp.makeMoney();
+        // 定义一个实现化角色
+        Implementor impl1 = new ConcreteImplementor1();
+//        Implementor impl2 = new ConcreteImplementor2();
+        // 定义一个抽象化角色
+        Abstraction abs = new RefineAbstraction(impl1);
+        abs.request();
     }
+
+
 }
