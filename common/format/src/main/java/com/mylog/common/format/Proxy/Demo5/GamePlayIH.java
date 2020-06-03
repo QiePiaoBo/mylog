@@ -3,6 +3,9 @@ package com.mylog.common.format.Proxy.Demo5;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
+/**
+ * JDK提供的动态代理接口实现
+ */
 public class GamePlayIH implements InvocationHandler {
     // 被代理者
     Class cls = null;

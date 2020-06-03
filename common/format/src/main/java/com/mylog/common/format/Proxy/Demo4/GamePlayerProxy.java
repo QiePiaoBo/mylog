@@ -1,5 +1,8 @@
 package com.mylog.common.format.Proxy.Demo4;
 
+/**
+ * 强制代理代理类
+ */
 public class GamePlayerProxy implements IGamePlayer, IProxy {
     private IGamePlayer gamePlayer = null;
 

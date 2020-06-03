@@ -2,7 +2,7 @@ package com.mylog.common.format.Proxy.Demo4;
 
 
 /**
- *
+ *  强制代理玩家类
  */
 public class GamePlayer implements IGamePlayer {
     // 设置私有姓名

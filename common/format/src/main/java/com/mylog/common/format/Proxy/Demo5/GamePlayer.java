@@ -2,7 +2,7 @@ package com.mylog.common.format.Proxy.Demo5;
 
 
 /**
- * 普通代理玩家
+ * 玩家
  */
 public class GamePlayer implements IGamePlayer {
     private String name = "";
