@@ -1,10 +1,11 @@
 package com.mylog.common.format.Flyweight.Demo1;
 
-import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class SignInfoFactory {
     //池容器
-    private static HashMap<String,SignInfo> pool = new HashMap<String,SignInfo>();
+    private static Map<String,SignInfo> pool = new ConcurrentHashMap<String,SignInfo>();
     //从池中获得对象
     public static SignInfo getSignInfo(String key){
         //设置返回对象
