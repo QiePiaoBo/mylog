@@ -29,7 +29,7 @@ public class UserContext {
      * 设置当前用户到session中
      * @param currentUser
      */
-    public void putCurrentUser(Object currentUser){
+    public void putCurrentUser(Person currentUser){
         getSession().setAttribute(CURRENT_USER_IN_SESSION, currentUser);
     }
 

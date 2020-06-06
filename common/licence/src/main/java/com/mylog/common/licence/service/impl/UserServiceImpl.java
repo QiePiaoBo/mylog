@@ -201,7 +201,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             return result.put("status", 1002).put("msg","密码校验失败");
         }
         // 验证通过，将当前用户存入session中
-        userContext.putCurrentUser(user);
+        Person p = new Person();
+        BeanUtils.copyProperties(user, p);
+        userContext.putCurrentUser(p);
         return result.put("status",200).put("msg","登陆成功");
     }
 
@@ -213,7 +215,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public Result logout() {
         Result result = new Result();
-        // 验证通过，将当前用户存入session中
+        // 验证通过，将当前用户从session中删除
         userContext.deleteCurrentUser();
         return result.put("status",200).put("msg","登出成功");
     }
