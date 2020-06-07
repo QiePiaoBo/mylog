@@ -70,9 +70,9 @@ public class MysqlRouteDefinition implements RouteDefinitionRepository {
     }
     @Override
     public Mono<Void> delete(Mono<String> routeId) {
-        String route_id = routeId.block();
+        String id = routeId.block();
 
-        if (routeService.removeById(route_id)){
+        if (routeService.removeById(id)){
             return Mono.empty();
         }
         else {

@@ -27,11 +27,11 @@ public class AuthConfigure extends WebMvcConfigurationSupport {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(AuthInterceptor()).addPathPatterns(urls);
+        registry.addInterceptor(authInterceptor()).addPathPatterns(urls);
     }
 
     @Bean
-    public AuthInterceptor AuthInterceptor(){
+    public AuthInterceptor authInterceptor(){
         return new AuthInterceptor();
     }
 }

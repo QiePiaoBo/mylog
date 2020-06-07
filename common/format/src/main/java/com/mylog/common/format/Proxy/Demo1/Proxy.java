@@ -23,7 +23,7 @@ public class Proxy implements Subject {
             return;
         }
         List<Object> list= Arrays.asList(objects);
-        if (list.get(0).getClass().toString().equals("Subject")){
+        if ("Subject".equals(list.get(0).getClass().toString())){
             this.subject = (Subject) list.get(0);
             System.out.println(this.subject);
         }
@@ -33,6 +33,7 @@ public class Proxy implements Subject {
         this.subject = _subject;
     }
     // 实现接口中定义的方法
+    @Override
     public void request(){
         this.before();
         this.subject.request();

@@ -223,9 +223,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * 获取当前的用户
      * @return
      */
+    @Override
     public Result getCurrentUser(){
         Result result = new Result();
-        User user = (User) userContext.getCurrentUser();
+        Person p = userContext.getCurrentUser();
+        User user = new User();
+        BeanUtils.copyProperties(p, user);
         return result.put("status", 200).put("msg","获取成功").put("data", user);
     }
 }

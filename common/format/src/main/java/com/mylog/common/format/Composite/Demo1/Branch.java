@@ -18,14 +18,17 @@ public class Branch implements IBranch {
         this.salary = salary;
     }
     //增加一个下属，可能是小头目，也可能是个小兵
+    @Override
     public void addSubordinate(ICorp corp) {
         this.subordinateList.add(corp);
     }
     //我有哪些下属
+    @Override
     public ArrayList<ICorp> getSubordinate() {
         return this.subordinateList;
     }
     //领导也是人，他也有信息
+    @Override
     public String getInfo() {
         String info = "";
         info = "姓名：" + this.name;

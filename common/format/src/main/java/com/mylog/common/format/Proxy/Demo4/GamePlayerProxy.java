@@ -12,27 +12,32 @@ public class GamePlayerProxy implements IGamePlayer, IProxy {
     }
 
     //代练杀怪
+    @Override
     public void killBoss() {
         this.gamePlayer.killBoss();
     }
 
     //代练登录
+    @Override
     public void login(String user, String password) {
         this.gamePlayer.login(user, password);
     }
 
     //代练升级
+    @Override
     public void upGrade() {
         this.gamePlayer.upGrade();
         this.count();
     }
 
     //代理的代理暂时还没有，就是自己
+    @Override
     public IGamePlayer getProxy() {
         return this;
     }
 
     // 计算费用
+    @Override
     public void count(){
         System.out.println("目前为止的代练费为150元");
     }

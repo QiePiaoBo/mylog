@@ -34,32 +34,38 @@ public class OuterUserInfo implements IUserInfo {
     }
 
     // 获取姓名
+    @Override
     public String getUserName() {
         return this.baseMap.get("userName");
     }
 
     // 获取家庭住址
+    @Override
     public String getHomeAddress() {
         return this.homeMap.get("homeAddress");
     }
 
     // 获取手机号
+    @Override
     public String getMobileNumber() {
         System.out.println(baseMap.get("MobileNumber"));
         return baseMap.get("MobileNumber");
     }
 
     // 获取办公室电话
+    @Override
     public String getOfficeTelNumber() {
         return officeMap.get("officeTelNumber");
     }
 
     // 获取公司职位
+    @Override
     public String getJobPosition() {
         return officeMap.get("jobPosition");
     }
 
     // 获取家庭号码
+    @Override
     public String getHomeTelNumber() {
         return homeMap.get("homeTelNumber");
     }

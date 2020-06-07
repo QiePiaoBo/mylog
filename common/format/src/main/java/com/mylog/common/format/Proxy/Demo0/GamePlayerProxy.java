@@ -13,16 +13,19 @@ public class GamePlayerProxy implements IGamePlayer {
     }
 
     // 代练上线
+    @Override
     public void login(String user, String password) {
         this.gamePlayer.login(user, password);
     }
 
     // 代练杀小怪，张飞吃豆芽
+    @Override
     public void killBoss() {
         this.gamePlayer.killBoss();
     }
 
     // 代练升级
+    @Override
     public void upGrade() {
         this.gamePlayer.upGrade();
     }

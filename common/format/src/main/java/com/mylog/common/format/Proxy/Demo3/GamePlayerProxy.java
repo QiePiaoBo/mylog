@@ -9,21 +9,25 @@ public class GamePlayerProxy implements IGamePlayer {
     }
 
     //代练杀怪
+    @Override
     public void killBoss() {
         this.gamePlayer.killBoss();
     }
 
     //代练登录
+    @Override
     public void login(String user, String password) {
         this.gamePlayer.login(user, password);
     }
 
     //代练升级
+    @Override
     public void upGrade() {
         this.gamePlayer.upGrade();
     }
 
     //代理的代理暂时还没有，就是自己
+    @Override
     public IGamePlayer getProxy() {
         return this;
     }

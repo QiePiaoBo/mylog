@@ -16,11 +16,12 @@ public class GamePlayIH implements InvocationHandler {
         this.obj = _obj;
     }
     // 调用代理的方法
+    @Override
     public Object invoke(Object proxy, Method method, Object[] args)
         throws Throwable{
         Object result = method.invoke(this.obj, args);
         // 如果是登录方法就发送信息
-        if (method.getName().equalsIgnoreCase("login")){
+        if ("login".equalsIgnoreCase(method.getName())){
             System.out.println("您的账号正在登陆");
         }
         return result;

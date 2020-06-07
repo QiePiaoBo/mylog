@@ -11,19 +11,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@RequestMapping("mail")
 public class MailController {
 
     @Autowired
     MailService mailService;
 
     @RequestMapping("/toQQ")
-    public void sendToQQ(){
+    public void sendToqq(){
         mailService.sendSimpleMailMessage("1171357812@qq.com",
                 "支付","<h1>Hello do you see me?</h1><br />支付宝到账10000.0元");
     }
     @RequestMapping("/withFile")
     public void withFile(){
-        mailService.sendMimeMessage("1599476259@qq.com",
+        mailService.sendMimeMessage("1171357812@qq.com",
                 "支付","<h1>Hello do you see me?</h1>","E:\\projects\\files\\springbatch\\jobFlow.jpg");
     }
 

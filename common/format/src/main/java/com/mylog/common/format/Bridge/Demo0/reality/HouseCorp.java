@@ -8,16 +8,19 @@ import com.mylog.common.format.Bridge.Demo0.Corp;
 public class HouseCorp extends Corp {
 
     // 房地产公司造房子
+    @Override
     protected void produce() {
         System.out.println("盖呀盖呀盖大房。。。");
     }
 
     // 房地产公司卖房子
+    @Override
     protected void sell() {
         System.out.println("卖呀卖呀卖贵点。。。");
     }
 
     // 房地产公司赚钱
+    @Override
     public void makeMoney() {
         super.makeMoney();
         System.out.println("房地产公司赚大钱了！！！");

@@ -8,11 +8,13 @@ import com.mylog.common.format.Bridge.Demo0.Corp;
 public class ClothesCorp extends Corp {
 
     // 做衣服
+    @Override
     protected void produce() {
         System.out.println("做很好的衣服。。。");
     }
 
     // 卖衣服
+    @Override
     protected void sell() {
         System.out.println("卖一般的价钱。。。");
     }

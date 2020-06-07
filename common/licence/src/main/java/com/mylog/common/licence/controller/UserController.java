@@ -21,7 +21,7 @@ import java.util.ArrayList;
  * @since 2020-05-24
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/licence/manage")
 public class UserController {
 
     @Autowired

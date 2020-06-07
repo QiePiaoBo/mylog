@@ -18,14 +18,17 @@ public class Branch implements IBranch {
         this.salary = salary;
     }
     //增加一个子树枝节点
+    @Override
     public void add(IBranch branch) {
         this.subordinateList.add(branch);
     }
     //增加一个叶子节点
+    @Override
     public void add(ILeaf leaf) {
         this.subordinateList.add(leaf);
     }
     //获得自己树枝节点的信息
+    @Override
     public String getInfo() {
         String info = "";
         info = "名称：" + this.name;
@@ -34,6 +37,7 @@ public class Branch implements IBranch {
         return info;
     }
     //获得下级的信息
+    @Override
     public ArrayList getSubordinateInfo(){
         return this.subordinateList;
     }

@@ -14,6 +14,7 @@ public class Leaf implements ILeaf {
         this.salary = salary;
     }
     //最小的小兵只能获得自己的信息了
+    @Override
     public String getInfo() {
         String info = "";
         info = "名称：" + this.name;

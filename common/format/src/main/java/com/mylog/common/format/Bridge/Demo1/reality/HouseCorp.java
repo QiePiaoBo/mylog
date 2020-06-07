@@ -12,6 +12,7 @@ public class HouseCorp extends Corp {
         super(house);
     }
     // 开始赚钱
+    @Override
     public void makeMoney() {
         super.makeMoney();
         System.out.println("赚大钱了啊");

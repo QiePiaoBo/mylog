@@ -1,6 +1,9 @@
 package com.mylog.common.licence.EnumCenter;
 
 public enum  AdminEnum {
+    /**
+     * admin
+     */
     ADMIN ("admin");
     private String userName;
 

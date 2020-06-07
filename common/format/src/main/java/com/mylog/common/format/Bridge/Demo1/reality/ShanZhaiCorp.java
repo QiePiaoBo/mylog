@@ -12,6 +12,7 @@ public class ShanZhaiCorp extends Corp {
         super(product);
     }
     // 为了赚钱
+    @Override
     public void makeMoney() {
         super.makeMoney();
         System.out.println("这次投机投对了，赚大钱了啊！！！");

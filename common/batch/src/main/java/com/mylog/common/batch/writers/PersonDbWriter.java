@@ -1,6 +1,7 @@
 package com.mylog.common.batch.writers;
 
 import com.mylog.common.batch.models.Person;
+import javassist.ClassPath;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemWriter;
 
@@ -13,7 +14,7 @@ public class PersonDbWriter implements ItemWriter<Person> {
     @Override
     public void write(List<? extends Person> persons) throws Exception {
 
-        FileOutputStream fos = new FileOutputStream("E:\\reportFiles\\persons\\persons.txt");
+        FileOutputStream fos = new FileOutputStream(System.getProperty("user.dir")+"/common/batch/src/main/resources/data/person.txt");
         String content = "";
         for (Person person: persons){
             log.info(person.getName());

@@ -10,6 +10,7 @@ public class ConcreteDecorator2 extends Decorator {
         System.out.println("method2修饰");
     }
     //重写父类的Operation方法
+    @Override
     public void operate(){
         super.operate();
         this.method2();

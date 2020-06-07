@@ -7,6 +7,7 @@ public class ConcreteFlyweight2 extends Flyweight{
         super.setIntrinsic(_intrinsic);
     }
     //根据外部状态进行逻辑处理
+    @Override
     public void operate(){
         //业务逻辑
         System.out.println("外部状态是：" + this.Extrinsic);

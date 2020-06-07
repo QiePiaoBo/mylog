@@ -18,15 +18,18 @@ public class Root implements IRoot {
         this.salary = salary;
     }
     //增加树枝节点
+    @Override
     public void add(IBranch branch) {
         this.subordinateList.add(branch);
     }
     //增加叶子节点，比如秘书，直接隶属于总经理
+    @Override
     public void add(ILeaf leaf) {
         this.subordinateList.add(leaf);
     }
 
     //得到自己的信息
+    @Override
     public String getInfo() {
         String info = "";
         info = "名称："+ this.name;;
@@ -35,6 +38,7 @@ public class Root implements IRoot {
         return info;
     }
     //得到下级的信息
+    @Override
     public ArrayList getSubordinateInfo(){
         return this.subordinateList;
     }

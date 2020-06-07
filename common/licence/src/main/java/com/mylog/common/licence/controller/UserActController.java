@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.xml.ws.Response;
 
 @RestController
-@RequestMapping("/licence")
+@RequestMapping("/licence/act/")
 public class UserActController {
 
     @Autowired
