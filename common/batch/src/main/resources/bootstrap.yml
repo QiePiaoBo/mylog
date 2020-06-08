@@ -11,7 +11,7 @@ spring:
     password: 1997o4
 
   application:
-    name: my-batch
+    name: cm-batch
   cloud:
     nacos:
       config:

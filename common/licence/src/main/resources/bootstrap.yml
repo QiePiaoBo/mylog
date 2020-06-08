@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: licence
+    name: cm-licence
   profiles:
     active: ${default-profile}
   datasource:

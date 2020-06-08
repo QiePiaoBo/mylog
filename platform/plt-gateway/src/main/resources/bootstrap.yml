@@ -35,9 +35,9 @@ spring:
           enabled: false
       routes:
         - id: route_all
-          uri: lb://my-feign
+          uri: lb://dm-feign
           predicates:
-            - Path=/dl/**
+            - Path=/dm-feign/**
             - Method=[GET,DELETE,POST,PUT]
           filters:
             - StripPrefix=1
