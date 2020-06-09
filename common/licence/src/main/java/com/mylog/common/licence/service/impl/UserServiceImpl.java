@@ -216,7 +216,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public Result logout() {
         Result result = new Result();
         // 验证通过，将当前用户从session中删除
-        userContext.deleteCurrentUser();
+        try {
+            userContext.deleteCurrentUser();
+        }catch (IllegalArgumentException e){
+            e.fillInStackTrace();
+        }
         return result.put("status",200).put("msg","登出成功");
     }
     /**
@@ -226,9 +230,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public Result getCurrentUser(){
         Result result = new Result();
-        Person p = userContext.getCurrentUser();
         User user = new User();
-        BeanUtils.copyProperties(p, user);
+        try {
+
+            Person p = userContext.getCurrentUser();
+            BeanUtils.copyProperties(p, user);
+        }catch (IllegalArgumentException e){
+            e.fillInStackTrace();
+        }
         return result.put("status", 200).put("msg","获取成功").put("data", user);
     }
 }
