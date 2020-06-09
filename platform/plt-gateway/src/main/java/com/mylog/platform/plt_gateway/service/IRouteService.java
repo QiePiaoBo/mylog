@@ -50,4 +50,6 @@ public interface IRouteService extends IService<Route> {
      */
     String saveOne(Route route);
 
+
+    String deleteById(String route_id);
 }

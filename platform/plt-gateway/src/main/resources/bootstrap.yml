@@ -33,24 +33,6 @@ spring:
       discovery:
         locator:
           enabled: false
-      routes:
-        - id: route_all
-          uri: lb://dm-feign
-          predicates:
-            - Path=/dm-feign/**
-            - Method=[GET,DELETE,POST,PUT]
-          filters:
-            - StripPrefix=1
-            - AddRequestParameter=pass, yes
-            - name: Hystrix
-              args:
-                name: fallbackcmd
-                fallbackUri: forward:/fallback
-            - name: RequestRateLimiter
-              args:
-                key-resolver: '#{@uriKeyResolver}'
-                redis-rate-limiter.replenishRate: 1
-                redis-rate-limiter.burstCapacity: 3
 logging:
   level:
     org.springframework.cloud.gateway: debug

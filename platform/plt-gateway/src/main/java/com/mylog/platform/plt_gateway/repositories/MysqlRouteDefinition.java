@@ -72,6 +72,7 @@ public class MysqlRouteDefinition implements RouteDefinitionRepository {
     public Mono<Void> delete(Mono<String> routeId) {
         String id = routeId.block();
 
+        routeService.deleteById(routeId.block());
         if (routeService.removeById(id)){
             return Mono.empty();
         }

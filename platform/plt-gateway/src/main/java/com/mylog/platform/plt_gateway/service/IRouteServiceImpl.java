@@ -70,6 +70,11 @@ public class IRouteServiceImpl extends ServiceImpl<RouteMapper, Route>
         }
     }
 
+    /**
+     * 更新
+     * @param route
+     * @return
+     */
     @Override
     public String update(Route route) {
         QueryWrapper<Route> queryWrapper = new QueryWrapper<>();
@@ -83,6 +88,11 @@ public class IRouteServiceImpl extends ServiceImpl<RouteMapper, Route>
         }
     }
 
+    /**
+     * 添加
+     * @param route
+     * @return
+     */
     @Override
     public String saveOne(Route route) {
         int insert =  routeMapper.insert(route);
@@ -92,5 +102,16 @@ public class IRouteServiceImpl extends ServiceImpl<RouteMapper, Route>
         else {
             return "Insert failed";
         }
+    }
+
+    @Override
+    public String deleteById(String routeId){
+        QueryWrapper<Route> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("route_id",routeId);
+        int del = routeMapper.delete(queryWrapper);
+        if (del > 0){
+            return "Success";
+        }
+        return "Failed";
     }
 }
