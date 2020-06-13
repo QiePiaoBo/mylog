@@ -25,8 +25,6 @@ public class FileExportController {
     @Autowired
     FileExportService fileExportService;
 
-
-
     /**
      * 生成Excel(POI)
      * @param response
@@ -44,12 +42,11 @@ public class FileExportController {
             } catch (UnsupportedEncodingException e1) {
                 e1.printStackTrace();
             }
-
             fileExportService.export(out);
-//            return "success";
+            // return "success";
         } catch(Exception e){
             e.printStackTrace();
-//            return "导出信息失败";
+            // return "导出信息失败";
         }
     }
 

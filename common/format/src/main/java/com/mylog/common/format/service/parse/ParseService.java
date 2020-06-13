@@ -20,7 +20,6 @@ public class ParseService {
     @Autowired
     JsonFactory jsonFactory;
 
-
     /**
      * 获取最终的json格式数据
      * @return
@@ -40,7 +39,6 @@ public class ParseService {
         return dataSource;
     }
 
-
     /**
      * 解析方法2
      * 原始字符串需要进一步(进亿步)转化才能成为最终的结果供调用
@@ -54,25 +52,17 @@ public class ParseService {
         JSONArray cardTitleRevert = new JSONArray();
         // 声明cardContent
         JSONArray cardContent = new JSONArray();
-        // 声明desc1
-        String desc1 = "ABC";
-        // 声明desc2
-        String desc2 = "DEF";
         // 总条数
         Integer totalNumber = 0;
-
-
         String startJson = jsonFactory.getString2();
         JSONObject baseData = JSON.parseObject(startJson);
         JSONArray baseArray =  (JSONArray) baseData.get("data");
         JSONObject baseFirst = (JSONObject) baseArray.get(0);
-
         // 从第一条获取cardTitle
         Set<String> setTitle =  baseFirst.keySet();
         for (String str : setTitle) {
             cardTitle.add(str);
         }
-
         // 根据cardTitle从每一条中获取数据
         for (int i = 0; i < baseArray.size(); i ++){
             JSONObject metaJsonObject = (JSONObject) baseArray.get(i);
@@ -87,8 +77,6 @@ public class ParseService {
         totalNumber = baseArray.size();
         result.put("dataName", "查询实例");
         result.put("cardTitle", cardTitle);
-        result.put("desc1", desc1);
-        result.put("desc2", desc2);
         result.put("cardContent", cardContent);
         result.put("totalNumber", totalNumber);
         return result;

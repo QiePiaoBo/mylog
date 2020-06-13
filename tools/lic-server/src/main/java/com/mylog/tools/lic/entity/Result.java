@@ -1,5 +1,7 @@
 package com.mylog.tools.lic.entity;
 
+import com.mylog.tools.lic.settings.Message;
+import com.mylog.tools.lic.settings.Status;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -19,8 +21,8 @@ public class Result {
     public static Result success(){
         //相当于调用下面的map 然后把值存map里面 。
         Result entity = new Result();
-        entity.getMap().put("status",200);
-        entity.getMap().put("message","成功");
+        entity.getMap().put("status", Status.SUCCESS.getStatus());
+        entity.getMap().put("message", Message.SUCCESS.getMsg());
         return entity;
     }
 

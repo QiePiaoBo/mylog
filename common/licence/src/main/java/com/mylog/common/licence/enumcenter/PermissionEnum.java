@@ -1,6 +1,7 @@
 package com.mylog.common.licence.enumcenter;
 
 /**
+ * 权限枚举类
  * @author Dylan
  */
 public enum  PermissionEnum {

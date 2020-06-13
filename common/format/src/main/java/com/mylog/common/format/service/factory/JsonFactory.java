@@ -22,7 +22,6 @@ public class JsonFactory {
      *  ["Patrick", "15900000004", "-30000.0"]
      *  ],
      *  "totalNumber":"10"
-     *
      * }
      * @return
      */
