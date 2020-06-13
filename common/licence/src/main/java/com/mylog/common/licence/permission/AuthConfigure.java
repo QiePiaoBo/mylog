@@ -1,6 +1,6 @@
 package com.mylog.common.licence.permission;
 
-import com.mylog.common.licence.permission.Interceptor.AuthInterceptor;
+import com.mylog.common.licence.permission.interceptor.AuthInterceptor;
 import org.springframework.beans.factory.annotation.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * 拦截器注册中心
+ * @author Dylan
  */
 @Slf4j
 @RefreshScope

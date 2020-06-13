@@ -19,5 +19,10 @@ import org.springframework.stereotype.Component;
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
 
+    /**
+     * 获取用户列表 mapper
+     * @param page
+     * @return
+     */
     IPage<User> selectUserList(Page<User> page);
 }

@@ -2,6 +2,9 @@ package com.mylog.common.format.service.factory;
 
 import org.springframework.stereotype.Service;
 
+/**
+ * @author Dylan
+ */
 @Service
 public class JsonFactory {
 

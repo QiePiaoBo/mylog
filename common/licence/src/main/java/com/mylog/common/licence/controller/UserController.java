@@ -2,7 +2,7 @@ package com.mylog.common.licence.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mylog.common.licence.entity.User;
-import com.mylog.common.licence.model.DTO.UserDTO;
+import com.mylog.common.licence.model.dto.UserDTO;
 import com.mylog.common.licence.permission.permissions.AdminPermission;
 import com.mylog.common.licence.service.IUserService;
 import com.mylog.tools.lic.entity.Result;

@@ -3,6 +3,9 @@ package com.mylog.common.format;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * @author Dylan
+ */
 @SpringBootApplication
 public class FormatApplication {
 

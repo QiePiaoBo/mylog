@@ -1,6 +1,6 @@
 package com.mylog.common.licence.controller;
 
-import com.mylog.common.licence.model.DTO.UserDTO;
+import com.mylog.common.licence.model.dto.UserDTO;
 import com.mylog.common.licence.permission.permissions.AdminPermission;
 import com.mylog.common.licence.service.IUserService;
 import com.mylog.tools.lic.entity.Result;
@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.xml.ws.Response;
-
+/**
+ * @author Dylan
+ */
 @RestController
 @RequestMapping("/licence/act/")
 public class UserActController {

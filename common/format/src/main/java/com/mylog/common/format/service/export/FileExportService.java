@@ -10,13 +10,21 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletOutputStream;
 import java.util.List;
+
+/**
+ * @author Dylan
+ */
 @Service
 public class FileExportService {
 
     @Autowired
     ParseService parseService;
 
-    // POI生成excel
+    /**
+     * POI生成excel
+     * @param out
+     * @throws Exception
+     */
     public void export(ServletOutputStream out) throws Exception {
         JSONObject dataJson = parseService.getEndJson();
         try {
@@ -40,18 +48,19 @@ public class FileExportService {
 
             HSSFCell hssfCell = null;
             for (int i = 0; i < heads.size(); i++) {
-                hssfCell = row.createCell(i);//列索引从0开始
-                hssfCell.setCellValue(heads.get(i).toString());//列名1
-                hssfCell.setCellStyle(hssfCellStyle);//列居中显示
+                //列索引从0开始
+                hssfCell = row.createCell(i);
+                //列名1
+                hssfCell.setCellValue(heads.get(i).toString());
+                //列居中显示
+                hssfCell.setCellStyle(hssfCellStyle);
             }
 
-            // 第五步，写入实体数据
-            //这里我把list当做数据库
+            // 第五步，写入实体数据 这里我把list当做数据库
             List contentList = JSONObject.parseArray(dataJson.get("cardContent").toString());
-//            List contentList = (List)dataJson.get("cardContent");
 
-            // 第六步 新建内容的单元格并设置值
             for (int i = 0; i < contentList.size(); i++) {
+                // 第六步 新建内容的单元格并设置值
                 row = hssfSheet.createRow(i + 1);
                 // 获取根据contentList的下标获取每一个小list
                 List content = JSONObject.parseArray(contentList.get(i).toString());
@@ -59,21 +68,9 @@ public class FileExportService {
                     row.createCell(j).setCellValue(content.get(j).toString());
                 }
             }
-            // PS:新建统计的合并单元格
-//            for (int i = 0; i < 3; i++){
-//                if (StringUtils.isEmpty(dataJson.get("desc"+i).toString())){
-//                    continue;
-//                }
-//                // 计算新建合并单元格的位置（行、列）
-//                Integer newRow = contentList.size() + 1;
-//                Integer newCell = heads.size();
-//                // 新建单元格
-//                CellRangeAddress region = new CellRangeAddress(newRow, newRow, 0, newCell);
-//                hssfSheet.addMergedRegion(region);
-//                hssfSheet.getRow(newRow).getCell(0).setCellValue(dataJson.get("desc"+i).toString());
-//            }
-            // 第七步，将文件输出到客户端浏览器
+
             try {
+                // 输出到客户端
                 workbook.write(out);
                 out.flush();
                 out.close();

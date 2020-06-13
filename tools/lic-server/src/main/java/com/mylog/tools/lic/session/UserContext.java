@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * 保存和获取当前用户
+ * @author Dylan
  */
 @Service
 public class UserContext {

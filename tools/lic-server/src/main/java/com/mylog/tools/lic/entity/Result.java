@@ -6,10 +6,13 @@ import lombok.experimental.Accessors;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+/**
+ * @author Dylan
+ */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-
 public class Result {
     private Map<String,Object> map = new LinkedHashMap<>();
 
@@ -20,7 +23,13 @@ public class Result {
         entity.getMap().put("message","成功");
         return entity;
     }
-    //用来存值，对象，集合
+
+    /**
+     * 用来存值，对象，集合
+     * @param key
+     * @param value
+     * @return
+     */
     public  Result put (String key,Object value){
         this.getMap().put(key,value);
         return  this;

@@ -4,11 +4,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.mylog.common.licence.EnumCenter.GroupEnum;
+import com.mylog.common.licence.enumcenter.GroupEnum;
 import com.mylog.common.licence.entity.User;
 import com.mylog.common.licence.mapper.UserMapper;
-import com.mylog.common.licence.model.DTO.UserDTO;
-import com.mylog.common.licence.model.VO.UserVO;
+import com.mylog.common.licence.model.dto.UserDTO;
+import com.mylog.common.licence.model.vo.UserVO;
 import com.mylog.common.licence.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mylog.common.licence.service.PasswordService;
@@ -47,8 +47,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public Result selectUserList(Page<User> page) {
         Result result = new Result();
-        IPage<User> userIPage = userMapper.selectUserList(page);
-        List<User> userList = userIPage.getRecords();
+        IPage<User> userPage = userMapper.selectUserList(page);
+        List<User> userList = userPage.getRecords();
         List<UserVO> userVOList = new ArrayList<>();
         for (User user:userList){
             UserVO userVO = new UserVO();
@@ -192,11 +192,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public Result login(UserDTO userDTO) {
         Result result = new Result();
+        String queryConditionName = "username";
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        if (null == userMapper.selectOne(queryWrapper.eq("username", userDTO.getUsername()))){
+        if (null == userMapper.selectOne(queryWrapper.eq(queryConditionName, userDTO.getUsername()))){
             return result.put("status", 1001).put("msg", "用户名不存在");
         }
-        User user = userMapper.selectOne(queryWrapper.eq("username", userDTO.getUsername()));
+        User user = userMapper.selectOne(queryWrapper.eq(queryConditionName, userDTO.getUsername()));
         if (!passwordService.authenticatePassword(user.getPassword(), userDTO.getPassword())){
             return result.put("status", 1002).put("msg","密码校验失败");
         }
