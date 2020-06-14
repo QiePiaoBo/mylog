@@ -7,7 +7,7 @@ spring:
     active: ${default-profile}
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://logicer.top:3306/ds?characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&serverTimezone=UTC
+    url: jdbc:mysql://logicer.top:3306/ds_blog?characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&serverTimezone=UTC
     username: root
     password: 1997o4
     type: com.alibaba.druid.pool.DruidDataSource
@@ -36,3 +36,5 @@ spring:
         namespace: ${config.namespace}
         server-addr: logicer.top:8848
         ip: {ip: 127.0.0.1}
+mybatis-plus:
+  mapper-locations: classpath:mybatis/mapper/*Mapper.xml

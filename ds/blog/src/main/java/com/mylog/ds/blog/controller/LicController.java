@@ -1,5 +1,7 @@
 package com.mylog.ds.blog.controller;
 
+import com.mylog.ds.blog.entity.dto.ArticleDto;
+import com.mylog.ds.blog.permission.permissions.AdminPermission;
 import com.mylog.ds.blog.service.IFileService;
 import com.mylog.ds.blog.service.UserService;
 import com.mylog.tools.lic.entity.Person;
@@ -39,13 +41,12 @@ public class LicController {
      * 文件上传
      * @return
      */
+    @AdminPermission
     @RequestMapping("uploadFile")
-    public Result uploadFile(@RequestParam(value = "file", required = false) MultipartFile file){
+    public Result uploadFile(@RequestParam(value = "file", required = false) MultipartFile file, ArticleDto articleDto){
         if (file==null){
             return new Result().put("status",444).put("msg","File is null.");
         }
-        return fileService.uploadFile(file);
+        return fileService.uploadFile(file, articleDto);
     }
-
-
 }

@@ -24,9 +24,8 @@ import java.util.List;
 
 /**
  * <p>
- *  服务实现类
+ *  用户服务实现类
  * </p>
- *
  * @author Dylan
  * @since 2020-05-24
  */

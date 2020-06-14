@@ -1,5 +1,6 @@
 package com.mylog.ds.blog.service;
 
+import com.mylog.ds.blog.entity.dto.ArticleDto;
 import com.mylog.tools.lic.entity.Result;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -9,5 +10,5 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface IFileService {
 
-    public Result uploadFile(MultipartFile file);
+    public Result uploadFile(MultipartFile file, ArticleDto articleDto);
 }

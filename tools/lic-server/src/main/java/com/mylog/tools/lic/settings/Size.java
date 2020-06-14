@@ -19,6 +19,4 @@ public enum Size {
     public long getSize(){
         return size;
     }
-
-
 }
