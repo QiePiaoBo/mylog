@@ -1,4 +1,4 @@
-package com.mylog.tools.lic.settings;
+package com.mylog.tools.lic.entity;
 
 /**
  * 返回值message

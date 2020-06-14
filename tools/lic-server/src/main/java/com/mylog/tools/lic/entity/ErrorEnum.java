@@ -1,4 +1,4 @@
-package com.mylog.common.licence.enumcenter;
+package com.mylog.tools.lic.entity;
 
 /**
  * 错误信息枚举类

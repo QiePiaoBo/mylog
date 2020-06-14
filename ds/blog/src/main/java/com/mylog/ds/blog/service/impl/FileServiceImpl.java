@@ -2,8 +2,8 @@ package com.mylog.ds.blog.service.impl;
 
 import com.mylog.ds.blog.service.IFileService;
 import com.mylog.tools.lic.entity.Result;
-import com.mylog.tools.lic.settings.Message;
-import com.mylog.tools.lic.settings.Status;
+import com.mylog.tools.lic.entity.Message;
+import com.mylog.tools.lic.entity.Status;
 import com.mylog.tools.lic.sysinfo.SysInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

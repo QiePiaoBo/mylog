@@ -41,7 +41,7 @@ public class User extends Person implements Serializable {
     private String username;
 
     /**
-     * 用户名
+     * 密码
      */
     private String password;
 
@@ -74,6 +74,5 @@ public class User extends Person implements Serializable {
      * 备用字段1
      */
     private String description;
-
 
 }

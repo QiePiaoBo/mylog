@@ -1,7 +1,5 @@
 package com.mylog.tools.lic.entity;
 
-import com.mylog.tools.lic.settings.Message;
-import com.mylog.tools.lic.settings.Status;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
