@@ -31,7 +31,7 @@ public class DynamicRouteServiceImpl implements ApplicationEventPublisherAware {
      */
     public String add(RouteDefinition definition){
         routeDefinitionWriter.save(Mono.just(definition)).subscribe();
-        doLoad();
+        this.publisher.publishEvent(new RefreshRoutesEvent(this));
         return "success";
     }
 
@@ -48,7 +48,7 @@ public class DynamicRouteServiceImpl implements ApplicationEventPublisherAware {
         }
         try {
             routeDefinitionWriter.save(Mono.just(definition)).subscribe();
-            doLoad();
+            this.publisher.publishEvent(new RefreshRoutesEvent(this));
             return "success";
         } catch (Exception e) {
             return "update route  fail";

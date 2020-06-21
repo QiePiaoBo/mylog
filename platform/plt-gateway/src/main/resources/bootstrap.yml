@@ -24,7 +24,6 @@ spring:
         refreshable-dataids: common.yaml
         shared-dataids: common.yaml
         namespace: ${config.namespace}
-
       discovery:
         namespace: ${config.namespace}
         server-addr: logicer.top:8848

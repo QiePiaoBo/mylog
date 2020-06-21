@@ -9,9 +9,7 @@ import com.mylog.tools.lic.entity.Result;
 import com.mylog.tools.lic.session.UserContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -42,8 +40,9 @@ public class LicController {
      * @return
      */
     @AdminPermission
-    @RequestMapping("uploadFile")
-    public Result uploadFile(@RequestParam(value = "file", required = false) MultipartFile file, ArticleDto articleDto){
+    @ResponseBody
+    @PostMapping("uploadFile")
+    public Result uploadFile(@RequestParam(value = "file", required = false) MultipartFile file, @RequestBody(required = true) ArticleDto articleDto){
         if (file==null){
             return new Result().put("status",444).put("msg","File is null.");
         }
