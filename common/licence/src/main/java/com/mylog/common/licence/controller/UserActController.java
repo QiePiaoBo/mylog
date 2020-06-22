@@ -4,6 +4,7 @@ import com.mylog.common.licence.model.dto.UserDTO;
 import com.mylog.common.licence.permission.permissions.AdminPermission;
 import com.mylog.common.licence.service.IUserService;
 import com.mylog.tools.lic.entity.Result;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/licence/act/")
+@Slf4j
 public class UserActController {
 
     @Autowired
@@ -30,6 +32,7 @@ public class UserActController {
     @AdminPermission
     @RequestMapping("who")
     public Result who(){
+        log.info("who local is ?");
         return userService.getCurrentUser();
     }
 

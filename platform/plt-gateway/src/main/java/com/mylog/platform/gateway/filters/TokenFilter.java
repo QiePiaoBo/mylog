@@ -32,7 +32,6 @@ import java.util.concurrent.atomic.AtomicReference;
  * @Version 1.0
  * @author Dylan
  */
-@Component
 public class TokenFilter implements GlobalFilter {
 
 
