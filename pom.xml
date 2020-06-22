@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.mylog</groupId>
-    <artifactId>parent</artifactId>
+    <artifactId>mylog-plat</artifactId>
     <version>0.0.1</version>
     <modules>
         <module>platform</module>
