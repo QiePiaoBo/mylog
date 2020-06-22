@@ -2,7 +2,6 @@ package com.mylog.ds.blog.service;
 
 import com.mylog.ds.blog.entity.dto.ArticleDto;
 import com.mylog.tools.lic.entity.Result;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 文件类接口
@@ -10,5 +9,5 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface IFileService {
 
-    public Result uploadFile(ArticleDto articleDto);
+    Result uploadFile(ArticleDto articleDto);
 }

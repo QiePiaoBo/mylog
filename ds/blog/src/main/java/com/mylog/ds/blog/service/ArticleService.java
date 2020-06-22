@@ -2,7 +2,6 @@ package com.mylog.ds.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.mylog.ds.blog.entity.Article;
-import com.mylog.ds.blog.entity.dto.ArticleDto;
 import com.mylog.tools.lic.entity.Result;
 
 import java.util.List;
