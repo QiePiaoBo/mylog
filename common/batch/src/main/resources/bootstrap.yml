@@ -4,12 +4,6 @@ server:
 spring:
   profiles:
     active: ${default-profile}
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://logicer.top:3306/wcb_batch?&serverTimezone=UTC&characterEncoding=utf8
-    username: root
-    password: 1997o4
-
   application:
     name: cm-batch
   cloud:
