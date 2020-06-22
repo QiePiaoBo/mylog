@@ -35,7 +35,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class TokenFilter implements GlobalFilter {
 
 
-//    final String filterPath = "dl";
+    final String filterPath = "dl";
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -46,33 +46,33 @@ public class TokenFilter implements GlobalFilter {
 
 //         只有综合路由才添加这个全局过滤器（routesId：route_all）
 //         如果请求路径中不存在 routeAll 字符串
-//        if(!request.getURI().toString().contains(filterPath)){
-//            System.out.println("filter -> return");
-//            // 直接跳出
-//            return chain.filter(exchange);
-//        }
+        if(!request.getURI().toString().contains(filterPath)){
+            System.out.println("filter -> return");
+            // 直接跳出
+            return chain.filter(exchange);
+        }
 
 //         从请求中获取 token 参数
-//        String token = exchange.getRequest().getQueryParams().getFirst("token");
+        String token = exchange.getRequest().getQueryParams().getFirst("token");
         // 如果为空，那么将返回 401
-//        if (token == null || token.isEmpty()) {
-//
-//            // 响应消息内容对象
-//            JSONObject message = new JSONObject();
-//            // 响应状态
-//            message.put("code", -1);
-//            // 响应内容
-//            message.put("msg", "缺少凭证");
-//            // 转换响应消息内容对象为字节
-//            byte[] bits = message.toJSONString().getBytes(StandardCharsets.UTF_8);
-//            DataBuffer buffer = response.bufferFactory().wrap(bits);
-//            // 设置响应对象状态码 401
-//            response.setStatusCode(HttpStatus.UNAUTHORIZED);
-//            // 设置响应对象内容并且指定编码，否则在浏览器中会中文乱码
-//            response.getHeaders().add("Content-Type", "text/plain;charset=UTF-8");
-//            // 返回响应对象
-//            return response.writeWith(Mono.just(buffer));
-//        }
+        if (token == null || token.isEmpty()) {
+
+            // 响应消息内容对象
+            JSONObject message = new JSONObject();
+            // 响应状态
+            message.put("code", -1);
+            // 响应内容
+            message.put("msg", "缺少凭证");
+            // 转换响应消息内容对象为字节
+            byte[] bits = message.toJSONString().getBytes(StandardCharsets.UTF_8);
+            DataBuffer buffer = response.bufferFactory().wrap(bits);
+            // 设置响应对象状态码 401
+            response.setStatusCode(HttpStatus.UNAUTHORIZED);
+            // 设置响应对象内容并且指定编码，否则在浏览器中会中文乱码
+            response.getHeaders().add("Content-Type", "text/plain;charset=UTF-8");
+            // 返回响应对象
+            return response.writeWith(Mono.just(buffer));
+        }
         // 获取请求地址
         String beforePath = request.getPath().pathWithinApplication().value();
         // 获取响应状态码

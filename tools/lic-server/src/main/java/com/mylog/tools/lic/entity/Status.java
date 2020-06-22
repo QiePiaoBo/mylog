@@ -16,7 +16,11 @@ public enum  Status {
     /**
      * 入库失败
      */
-    INSERT_ERROR (100002);
+    INSERT_ERROR (100002),
+    /**
+     * 查询失败
+     */
+    QUERY_ERROR(100003);
 
     private long status;
 

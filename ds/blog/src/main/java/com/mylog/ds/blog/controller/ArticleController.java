@@ -2,9 +2,11 @@ package com.mylog.ds.blog.controller;
 
 import com.mylog.ds.blog.entity.Article;
 import com.mylog.ds.blog.service.ArticleService;
+import com.mylog.tools.lic.entity.Result;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Article)表控制层
@@ -13,7 +15,7 @@ import javax.annotation.Resource;
  * @since 2020-06-14 20:24:19
  */
 @RestController
-@RequestMapping("blog")
+@RequestMapping("article")
 public class ArticleController {
     /**
      * 服务对象
@@ -27,9 +29,14 @@ public class ArticleController {
      * @param id 主键
      * @return 单条数据
      */
-    @GetMapping("selectArticle")
-    public Article selectOne(Integer id) {
+    @RequestMapping("selectArticle")
+    public Article selectOne(@RequestParam Integer id) {
         return this.articleService.queryById(id);
+    }
+
+    @RequestMapping("allArticles")
+    public Result getArticles(@RequestBody Article article){
+        return this.articleService.queryRight(article);
     }
 
 }

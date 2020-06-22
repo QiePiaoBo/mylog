@@ -10,6 +10,7 @@ import com.mylog.tools.lic.entity.Result;
 import com.mylog.tools.lic.entity.Message;
 import com.mylog.tools.lic.entity.Status;
 import com.mylog.tools.lic.sysinfo.SysInfo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,8 +38,9 @@ public class FileServiceImpl implements IFileService {
      * @return
      */
     @Override
-    public Result uploadFile(MultipartFile multipartFile, ArticleDto articleDto){
+    public Result uploadFile(ArticleDto articleDto){
         Boolean isWindows = new SysInfo().isWindows();
+        MultipartFile multipartFile = articleDto.getFile();
         long size= multipartFile.getSize();
         String filepath = "";
         //文件设置大小，我这里设置50M。
@@ -74,7 +76,7 @@ public class FileServiceImpl implements IFileService {
         // 文件全路径拼接上文件名
         filepath += fileName;
         // 是否入库成功
-        if(this.insertToDatabase(filepath, name, articleDto)){
+        if(this.insertToDatabase(filepath, articleDto)){
             try {
                 multipartFile.transferTo(new File(filepath));
             }catch (IOException e) {
@@ -87,19 +89,21 @@ public class FileServiceImpl implements IFileService {
         }
     }
 
-    private Boolean insertToDatabase(String filePath, String fileName, ArticleDto articleDto){
+    private Boolean insertToDatabase(String filePath, ArticleDto articleDto){
         // 插入数据库
         Person currentUser = userService.getUser();
         Article article = new Article();
         if (currentUser != null){
+            BeanUtils.copyProperties(articleDto, article);
+            // 默认不封
             article.setIsDel("0");
-            article.setFileName(fileName);
+            // 设置创建时间
             article.setCreateTime(new Date());
+            // 设置作者id为上传者的id
             article.setUserId(currentUser.getId());
+            // 设置真实文件路径
             article.setFilePath(filePath);
-            article.setDescription(articleDto.getDescription());
-            article.setSubTitle(articleDto.getSubTitle());
-            article.setFileType(articleDto.getFileType());
+            // 设置文章是否显示
             article.setIsLock(articleDto.getIsLock()!=null ? articleDto.getIsLock():"0");
         }
         else{

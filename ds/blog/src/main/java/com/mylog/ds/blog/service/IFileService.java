@@ -10,5 +10,5 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface IFileService {
 
-    public Result uploadFile(MultipartFile file, ArticleDto articleDto);
+    public Result uploadFile(ArticleDto articleDto);
 }

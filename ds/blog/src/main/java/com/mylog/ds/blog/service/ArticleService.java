@@ -3,6 +3,7 @@ package com.mylog.ds.blog.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.mylog.ds.blog.entity.Article;
 import com.mylog.ds.blog.entity.dto.ArticleDto;
+import com.mylog.tools.lic.entity.Result;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public interface ArticleService extends IService<Article> {
      * 获取符合条件的文章
      * @return
      */
-    List<Article> queryRight(ArticleDto articleDto);
+    Result queryRight(Article article);
     /**
      * 通过ID查询单条数据
      *

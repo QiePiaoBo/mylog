@@ -1,6 +1,7 @@
 package com.mylog.ds.blog.entity.dto;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 
@@ -11,9 +12,9 @@ import java.util.Date;
 @Data
 public class ArticleDto {
     /**
-     * 文章主键
+     * 文件本体
      */
-    private Integer id;
+    private MultipartFile file;
     /**
      * 文章名
      */
@@ -30,22 +31,6 @@ public class ArticleDto {
      * 文章类型
      */
     private String fileType;
-    /**
-     * 文章路径
-     */
-    private String filePath;
-    /**
-     * 作者id
-     */
-    private Integer userId;
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-    /**
-     *  是否禁止访问(管理员)
-     */
-    private String isDel;
     /**
      * 是否进行展示(作者)
      */

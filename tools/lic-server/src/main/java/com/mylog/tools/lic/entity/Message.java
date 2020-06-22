@@ -16,7 +16,11 @@ public enum  Message {
     /**
      * 入库失败
      */
-    INSERT_ERROR ("插入数据库失败");
+    INSERT_ERROR ("插入数据库失败"),
+    /**
+     * 查询失败
+     */
+    QUERY_ERROR("查询失败");
 
     private String msg;
 
