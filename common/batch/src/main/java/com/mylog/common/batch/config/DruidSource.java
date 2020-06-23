@@ -6,20 +6,24 @@ import com.mylog.common.batch.datainfo.LicenceDataInfo;
 import com.mylog.common.batch.datainfo.TestDataInfo;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 
 /**
  * 数据源配置
+ * @author Dylan
  */
 @Configuration
 public class DruidSource {
 
     /**
-     * 测试用数据源
+     * 批量数据源
      */
     @Bean
-    public DataSource testDataSource(){
+    @Primary
+    public DataSource batchDataSource(){
         DruidDataSource dataSource = new DruidDataSource();
 
         dataSource.setUrl(TestDataInfo.URL.getValue());
@@ -27,6 +31,17 @@ public class DruidSource {
         dataSource.setPassword(TestDataInfo.PASSWORD.getValue());
         dataSource.setDriverClassName(TestDataInfo.DRIVER_CLASS_NAME.getValue());
         return dataSource;
+    }
+
+    /**
+     * 批量jdbcTemplate
+     * @return
+     */
+    @Bean
+    public JdbcTemplate batchJdbcTemplate(){
+        JdbcTemplate jdbcTemplate =  new JdbcTemplate();
+        jdbcTemplate.setDataSource(batchDataSource());
+        return jdbcTemplate;
     }
 
 
@@ -45,6 +60,16 @@ public class DruidSource {
         return dataSource;
     }
 
+    /**
+     * licJdbcTemplate
+     * @return
+     */
+    @Bean
+    public JdbcTemplate licJdbcTemplate(){
+        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        jdbcTemplate.setDataSource(licDataSource());
+        return jdbcTemplate;
+    }
 
     /**
      * blog数据源
@@ -59,6 +84,13 @@ public class DruidSource {
         dataSource.setUsername(BlogDataInfo.USER_NAME.getValue());
         dataSource.setPassword(BlogDataInfo.PASSWORD.getValue());
         return dataSource;
+    }
+
+    @Bean
+    public JdbcTemplate blogJdbcTemplate(){
+        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        jdbcTemplate.setDataSource(blogDataSource());
+        return jdbcTemplate;
     }
 
 

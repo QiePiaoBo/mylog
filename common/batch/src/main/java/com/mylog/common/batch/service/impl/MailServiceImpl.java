@@ -5,17 +5,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
 
 /**
  * 邮件发送实现类
  * @author Dylan
  */
+@Service
 public class MailServiceImpl implements IMailService {
 
     @Autowired
     private JavaMailSender mailSender;
 
-    @Value("${spring.mail.from}")
+    @Value("${spring.mail.username}")
     private String from;
 
     /**

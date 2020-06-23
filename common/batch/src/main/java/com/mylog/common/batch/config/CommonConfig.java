@@ -11,13 +11,13 @@ public class CommonConfig {
 
     /**
      * 注册 jdbcTemplate 用于操作数据库
-     * @param dataSource
+     * @param licDataSource
      * @return
      */
     @Bean
-    public JdbcTemplate jdbcTemplate(DataSource dataSource){
+    public JdbcTemplate jdbcTemplate(DataSource licDataSource){
         JdbcTemplate jdbcTemplate =  new JdbcTemplate();
-        jdbcTemplate.setDataSource(dataSource);
+        jdbcTemplate.setDataSource(licDataSource);
         return jdbcTemplate;
     }
 

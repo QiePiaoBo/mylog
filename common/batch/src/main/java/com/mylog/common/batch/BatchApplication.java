@@ -8,9 +8,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 
 /**
- * 微信银行报表演示服务
+ * 批量服务
  *
- * @author wanghaitao
+ * @author Dylan
  */
 @EnableCaching
 @EnableDiscoveryClient

@@ -1,5 +1,9 @@
 package com.mylog.common.batch.datainfo;
 
+/**
+ * 数据源信息 ds_blog
+ * @author Dylan
+ */
 public enum BlogDataInfo {
 
     DRIVER_CLASS_NAME("com.mysql.cj.jdbc.Driver"),

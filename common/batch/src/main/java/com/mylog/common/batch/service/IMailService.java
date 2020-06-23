@@ -2,6 +2,7 @@ package com.mylog.common.batch.service;
 
 /**
  * 邮件发送接口
+ * @author Dylan
  */
 public interface IMailService {
 

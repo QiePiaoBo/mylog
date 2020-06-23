@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 public class UriKeyResolver implements KeyResolver {
     /**
      * @ClassName UriKeyResolver
-     * @Desc TODO   根据请求的 uri 限流
+     * @Desc   根据请求的 uri 限流
      * @Date 2019/6/29 17:25
      * @Version 1.0
      */
