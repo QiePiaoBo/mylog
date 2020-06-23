@@ -3,7 +3,7 @@ package com.mylog.common.batch.job.Mail;
 
 import com.mylog.common.batch.model.entity.MailEntity;
 import com.mylog.common.batch.model.rowmapper.MailRowMapper;
-import com.mylog.common.batch.processors.MailSendProcessor;
+import com.mylog.common.batch.processors.UserMailSendProcessor;
 import com.mylog.common.batch.writer.CommonFileWriter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.configuration.annotation.StepScope;
@@ -28,9 +28,6 @@ import java.util.Map;
 @Slf4j
 @Component
 public class UserMailJobConfig {
-
-    @Autowired
-    MailSendProcessor mailSendProcessor;
 
     @Autowired
     @Qualifier("licDataSource")
@@ -77,7 +74,7 @@ public class UserMailJobConfig {
      */
     @Bean
     public ItemProcessor<MailEntity, MailEntity> userMailProcessor(){
-        return new MailSendProcessor();
+        return new UserMailSendProcessor();
     }
 
 

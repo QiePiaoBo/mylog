@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-public class MailSendProcessor implements ItemProcessor<MailEntity, MailEntity> {
+public class AdminMailSendProcessor implements ItemProcessor<MailEntity, MailEntity> {
 
     @Autowired
     IMailService mailService;
