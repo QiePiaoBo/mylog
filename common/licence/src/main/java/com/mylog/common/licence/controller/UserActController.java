@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * @author Dylan
  */
 @RestController
-@RequestMapping("/licence/act/")
+@RequestMapping("act")
 @Slf4j
 public class UserActController {
 

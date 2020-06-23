@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2020-05-24
  */
 @RestController
-@RequestMapping("/licence/group")
+@RequestMapping("group")
 public class GroupController {
 
 }
