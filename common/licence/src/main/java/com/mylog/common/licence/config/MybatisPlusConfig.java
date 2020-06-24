@@ -1,6 +1,7 @@
 package com.mylog.common.licence.config;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import com.mylog.tools.lic.session.UserContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,5 +16,14 @@ public class MybatisPlusConfig {
     @Bean
     public PaginationInterceptor paginationInterceptor() {
         return new PaginationInterceptor().setLimit(-1);
+    }
+
+
+    /**
+     * 用户组件
+     */
+    @Bean
+    public UserContext userContext(){
+        return new UserContext();
     }
 }

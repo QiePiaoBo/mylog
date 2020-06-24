@@ -1,6 +1,7 @@
 package com.mylog.tools.lic.session;
 
 import com.mylog.tools.lic.entity.Person;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpSession;
  * 保存和获取当前用户
  * @author Dylan
  */
-@Service
+@Component
 public class UserContext {
 
     private static final String CURRENT_USER_IN_SESSION = "user";

@@ -12,9 +12,9 @@ import com.mylog.common.licence.model.vo.UserVO;
 import com.mylog.common.licence.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mylog.common.licence.service.PasswordService;
-import com.mylog.common.licence.session.UserLoginContext;
 import com.mylog.tools.lic.entity.Person;
 import com.mylog.tools.lic.entity.Result;
+import com.mylog.tools.lic.session.UserContext;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,9 +35,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     private UserMapper userMapper;
     @Autowired
     private PasswordService passwordService;
-
     @Autowired
-    private UserLoginContext userContext;
+    private UserContext userContext;
     /**
      * 获取用户列表
      * @param page
