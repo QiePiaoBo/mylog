@@ -3,11 +3,13 @@ package com.mylog.common.licence.permission;
 import com.mylog.common.licence.permission.interceptor.AuthInterceptor;
 import org.springframework.beans.factory.annotation.Value;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
 
@@ -18,7 +20,7 @@ import java.util.List;
 @Slf4j
 @RefreshScope
 @Configuration
-public class AuthConfigure extends WebMvcConfigurationSupport {
+public class AuthConfigure implements WebMvcConfigurer {
 
     @Value("${licence.interceptors}")
     private List<String> urls;
@@ -31,7 +33,6 @@ public class AuthConfigure extends WebMvcConfigurationSupport {
         registry.addInterceptor(authInterceptor()).addPathPatterns(urls);
     }
 
-    @Bean
     public AuthInterceptor authInterceptor(){
         return new AuthInterceptor();
     }
