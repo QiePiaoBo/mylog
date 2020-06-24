@@ -20,7 +20,11 @@ public enum  Message {
     /**
      * 查询失败
      */
-    QUERY_ERROR("查询失败");
+    QUERY_ERROR("查询失败"),
+    /**
+     * 更新失败
+     */
+    UPDATE_ERROR("更新失败");
 
     private String msg;
 

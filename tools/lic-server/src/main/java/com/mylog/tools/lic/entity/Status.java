@@ -20,7 +20,11 @@ public enum  Status {
     /**
      * 查询失败
      */
-    QUERY_ERROR(100003);
+    QUERY_ERROR(100003),
+    /**
+     * 更新失败
+     */
+    UPDATE_ERROR (100004);
 
     private long status;
 

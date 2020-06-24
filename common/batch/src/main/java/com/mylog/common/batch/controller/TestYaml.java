@@ -14,7 +14,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("yaml")
 public class TestYaml {
-    @Value("#{${websites}}")
+    @Value("#{${ruleMap}}")
     private Map<String, String> map;
 
     @RequestMapping("get")

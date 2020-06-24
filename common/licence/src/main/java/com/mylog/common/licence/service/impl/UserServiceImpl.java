@@ -12,8 +12,10 @@ import com.mylog.common.licence.model.vo.UserVO;
 import com.mylog.common.licence.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mylog.common.licence.service.PasswordService;
+import com.mylog.tools.lic.entity.Message;
 import com.mylog.tools.lic.entity.Person;
 import com.mylog.tools.lic.entity.Result;
+import com.mylog.tools.lic.entity.Status;
 import com.mylog.tools.lic.session.UserContext;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -141,11 +143,27 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         if (userDTO.getUsername()!=null && userDTO.getUsername().length()>0){
             queryWrapper.eq("username",userDTO.getUsername());
         }
-        int resDelete = userMapper.delete(queryWrapper);
-        if (resDelete > 0){
-            result.put("status", 200);
-            result.put("msg","删除成功");
+        List<User> list = userMapper.selectList(queryWrapper);
+        if (list == null || list.size() != 1){
+            result.put("status", Status.QUERY_ERROR.getStatus());
+            result.put("msg", Message.QUERY_ERROR.getMsg());
+        }else {
+            User user = list.get(0);
+            user.setDel(true);
+            int update = userMapper.update(user, queryWrapper);
+            if (update == 0){
+                result.put("status", Status.UPDATE_ERROR.getStatus());
+                result.put("msg", Message.UPDATE_ERROR.getMsg());
+            }
+            result.put("status", Status.SUCCESS.getStatus());
+            result.put("msg", Message.SUCCESS.getMsg());
         }
+        // 真删除
+//        int resDelete = userMapper.delete(queryWrapper);
+//        if (resDelete > 0){
+//            result.put("status", 200);
+//            result.put("msg","删除成功");
+//        }
         return result;
     }
 
@@ -222,6 +240,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }
         return result.put("status",200).put("msg","登出成功");
     }
+
     /**
      * 获取当前的用户
      * @return

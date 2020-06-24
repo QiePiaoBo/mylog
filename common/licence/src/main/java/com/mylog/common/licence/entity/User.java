@@ -70,6 +70,12 @@ public class User extends Person implements Serializable {
      */
     private String cnId;
 
+
+    /**
+     * 用户身份证号
+     */
+    private boolean isDel;
+
     /**
      * 备用字段1
      */
