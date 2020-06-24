@@ -38,5 +38,7 @@ spring:
         namespace: ${config.namespace}
         server-addr: logicer.top:8848
         ip: {ip: 127.0.0.1}
+  session:
+    store-type: redis
 mybatis-plus:
   mapper-locations: classpath:mybatis/mapper/*Mapper.xml

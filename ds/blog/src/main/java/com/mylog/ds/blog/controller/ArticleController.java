@@ -33,6 +33,11 @@ public class ArticleController {
         return this.articleService.queryById(id);
     }
 
+    /**
+     * 获取所有的文章数据
+     * @param article
+     * @return
+     */
     @RequestMapping("allArticles")
     public Result getArticles(@RequestBody Article article){
         return this.articleService.queryRight(article);

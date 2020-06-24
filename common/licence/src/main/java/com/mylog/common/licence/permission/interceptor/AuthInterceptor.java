@@ -4,7 +4,6 @@ import com.mylog.common.licence.permission.permissions.AdminPermission;
 import com.mylog.tools.lic.session.UserContext;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -22,11 +21,9 @@ import java.lang.reflect.Method;
 @Component
 public class AuthInterceptor implements HandlerInterceptor {
 
-    @Autowired
-    UserContext userContext;
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        UserContext userContext = new UserContext();
         boolean result = false;
         if (!(handler instanceof HandlerMethod)){
             result =  true;
@@ -40,14 +37,17 @@ public class AuthInterceptor implements HandlerInterceptor {
             return true;
         }
         // 需要验证的Method
-        if (null != userContext.getCurrentUser()){
-            val userType = authToken.userType();
-            // 数字越小权限越大
-            result =  userType >= Integer.parseInt(userContext.getCurrentUser().getUsergroup());
+        if (userContext.getCurrentUser() == null){
+            response.setContentType("application/json; charset=UTF-8");
+            response.getWriter().write("未登录");
+            return false;
         }
+        val userType = authToken.userType();
+        // 数字越小权限越大
+        result =  userType >= Integer.parseInt(userContext.getCurrentUser().getUsergroup());
         if (!result){
             response.setContentType("application/json; charset=UTF-8");
-            if (userContext.getCurrentUser()==null){
+            if (userContext.getCurrentUser() == null){
                 response.getWriter().write("未登录");
             }
             else {

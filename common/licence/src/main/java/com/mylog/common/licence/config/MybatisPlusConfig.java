@@ -18,9 +18,8 @@ public class MybatisPlusConfig {
         return new PaginationInterceptor().setLimit(-1);
     }
 
-
     /**
-     * 用户组件
+     * 登陆管理
      */
     @Bean
     public UserContext userContext(){

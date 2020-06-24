@@ -248,14 +248,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public Result getCurrentUser(){
         Result result = new Result();
-        User user = new User();
+        UserVO userVo = new UserVO();
         try {
 
             Person p = userContext.getCurrentUser();
-            BeanUtils.copyProperties(p, user);
+            BeanUtils.copyProperties(p, userVo);
         }catch (IllegalArgumentException e){
             e.fillInStackTrace();
         }
-        return result.put("status", 200).put("msg","获取成功").put("data", user);
+        return result.put("status", 200).put("msg","获取成功").put("data", userVo);
     }
 }

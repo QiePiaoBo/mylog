@@ -26,8 +26,7 @@ public class FileController {
      * @return
      */
     @AdminPermission
-    @ResponseBody
-    @RequestMapping("uploadFile")
+    @RequestMapping("upload")
     public Result uploadFile(@ModelAttribute ArticleDto articleDto){
         MultipartFile file = articleDto.getFile();
         if (file==null){

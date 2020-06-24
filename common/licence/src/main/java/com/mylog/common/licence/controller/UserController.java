@@ -48,6 +48,7 @@ public class UserController {
      * @param userDTO
      * @return
      */
+    @AdminPermission
     @RequestMapping("one")
     public Result getUser(@RequestBody UserDTO userDTO){
         return userService.selectOne(userDTO);
@@ -63,6 +64,7 @@ public class UserController {
      * @param userDTO
      * @return
      */
+    @AdminPermission(userType = 1)
     @RequestMapping("delete")
     public Result deleteUser(@RequestBody UserDTO userDTO){
         return userService.deleteOne(userDTO);
@@ -73,7 +75,7 @@ public class UserController {
      * @param userDTO
      * @return
      */
-    @AdminPermission(userType = 2)
+    @AdminPermission
     @RequestMapping("exchange")
     public Result exchange(@RequestBody UserDTO userDTO){
         return userService.exchange(userDTO);

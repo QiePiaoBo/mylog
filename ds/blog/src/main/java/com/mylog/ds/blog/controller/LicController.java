@@ -1,5 +1,6 @@
 package com.mylog.ds.blog.controller;
 
+import com.mylog.ds.blog.entity.vo.UserVO;
 import com.mylog.ds.blog.service.UserService;
 import com.mylog.tools.lic.entity.Person;
 import com.mylog.tools.lic.entity.Result;
@@ -23,8 +24,8 @@ public class LicController {
      */
     @RequestMapping("getUser")
     public Result getUser(){
-        Person p = userService.getUser();
-        return new Result().put("status", 200).put("msg", "ok").put("data", p);
+        UserVO userVO = userService.getUser();
+        return new Result().put("status", 200).put("msg", "ok").put("data", userVO);
     }
 
 

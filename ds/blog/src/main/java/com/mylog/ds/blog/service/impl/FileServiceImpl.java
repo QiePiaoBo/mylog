@@ -2,6 +2,7 @@ package com.mylog.ds.blog.service.impl;
 
 import com.mylog.ds.blog.entity.Article;
 import com.mylog.ds.blog.entity.dto.ArticleDto;
+import com.mylog.ds.blog.entity.vo.UserVO;
 import com.mylog.ds.blog.service.ArticleService;
 import com.mylog.ds.blog.service.IFileService;
 import com.mylog.ds.blog.service.UserService;
@@ -91,7 +92,7 @@ public class FileServiceImpl implements IFileService {
 
     private Boolean insertToDatabase(String filePath, ArticleDto articleDto){
         // 插入数据库
-        Person currentUser = userService.getUser();
+        UserVO currentUser = userService.getUser();
         Article article = new Article();
         if (currentUser != null){
             BeanUtils.copyProperties(articleDto, article);

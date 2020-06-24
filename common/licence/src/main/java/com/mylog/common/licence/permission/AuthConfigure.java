@@ -22,8 +22,7 @@ import java.util.List;
 @Configuration
 public class AuthConfigure implements WebMvcConfigurer {
 
-    @Value("${licence.interceptors}")
-    private List<String> urls;
+    final String urls = "/**";
     /**
      * 注册权限校验拦截器
      * @param registry

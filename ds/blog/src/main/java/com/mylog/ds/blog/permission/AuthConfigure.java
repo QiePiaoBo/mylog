@@ -21,7 +21,7 @@ import java.util.List;
 @Configuration
 public class AuthConfigure implements WebMvcConfigurer {
 
-    private String urls = "/**";
+    final String urls = "/**";
     /**
      * 注册权限校验拦截器
      * @param registry

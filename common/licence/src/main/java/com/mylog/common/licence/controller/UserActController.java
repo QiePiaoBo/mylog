@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 /**
  * @author Dylan
  */
+@Slf4j
 @RestController
 @RequestMapping("act")
-@Slf4j
 public class UserActController {
 
     @Autowired
@@ -24,6 +24,7 @@ public class UserActController {
         return userService.login(userDTO);
     }
 
+    @AdminPermission
     @RequestMapping("logout")
     public Result logout(){
         return userService.logout();
@@ -32,7 +33,7 @@ public class UserActController {
     @AdminPermission
     @RequestMapping("who")
     public Result who(){
-        log.info("who local is ?");
+        log.info("who is logging");
         return userService.getCurrentUser();
     }
 
