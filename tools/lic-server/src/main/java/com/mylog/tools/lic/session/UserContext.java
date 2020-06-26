@@ -31,6 +31,7 @@ public class UserContext {
      * @param currentUser
      */
     public void putCurrentUser(Person currentUser){
+        getSession().setMaxInactiveInterval(30*60);
         getSession().setAttribute(CURRENT_USER_IN_SESSION, currentUser);
     }
 
@@ -46,8 +47,7 @@ public class UserContext {
      */
     public Person getCurrentUser(){
         Object o = getSession().getAttribute(CURRENT_USER_IN_SESSION);
-        Person p = (Person)o;
-        return p;
+        return (Person)o;
     }
 
 }
