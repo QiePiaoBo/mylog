@@ -28,7 +28,7 @@ public class ArticleController {
      * @param id 主键
      * @return 单条数据
      */
-    @RequestMapping("selectArticle")
+    @RequestMapping("select")
     public Article selectOne(@RequestParam Integer id) {
         return this.articleService.queryById(id);
     }
@@ -38,7 +38,7 @@ public class ArticleController {
      * @param article
      * @return
      */
-    @RequestMapping("allArticles")
+    @RequestMapping("all")
     public Result getArticles(@RequestBody Article article){
         return this.articleService.queryRight(article);
     }

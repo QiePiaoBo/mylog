@@ -6,7 +6,6 @@ import com.mylog.ds.blog.entity.vo.UserVO;
 import com.mylog.ds.blog.service.ArticleService;
 import com.mylog.ds.blog.service.IFileService;
 import com.mylog.ds.blog.service.UserService;
-import com.mylog.tools.lic.entity.Person;
 import com.mylog.tools.lic.entity.Result;
 import com.mylog.tools.lic.entity.Message;
 import com.mylog.tools.lic.entity.Status;
@@ -40,26 +39,30 @@ public class FileServiceImpl implements IFileService {
      */
     @Override
     public Result uploadFile(ArticleDto articleDto){
+        // 判断是否是windows平台
         Boolean isWindows = new SysInfo().isWindows();
+        // 获取传来的文件
         MultipartFile multipartFile = articleDto.getFile();
+        // 设置最大大小
+        long maxSize = 52428800;
         long size= multipartFile.getSize();
         String filepath = "";
-        //文件设置大小，我这里设置50M。
-        if(size > UPLOAD_FILE_MAX_SIZE.getSize()){
+        // 文件大小是否超过最大大小。
+        if(size > maxSize){
             return new Result().put("status", Status.OUTOF_SIZE_ERROR.getStatus()).put("msg", Message.OUTOF_SIZE_ERROR.getMsg());
         }
-        // 直接返回文件的名字
+        // 文件的名字
         String name=multipartFile.getOriginalFilename();
-        // 我这里取得文件后缀
+        // 取得文件后缀
         String subffix = name.substring(name.lastIndexOf("."));
-        // 文件保存进来，我给他重新命名，数据库保存有原本的名字，所以输出的时候再把他附上原本的名字就行了。
+        // 文件保存进来，我给他重新命名，新名字存入数据库。
         String fileName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + "_" + name;
         // 文件子目录
         String sonPath = new SimpleDateFormat("yyyyMM").format(new Date());
         // 根据服务器所处平台更改文件存储位置
         if (isWindows){
             // 获取文件存放位置
-            filepath = "E:\\Files\\mylog\\" + subffix.substring(1) + "\\" + sonPath + "\\";
+            filepath = "F:\\Files\\mylog\\" + subffix.substring(1) + "\\" + sonPath + "\\";
             File winFile = new File(filepath);
             // 目录不存在就创建
             if(!winFile.exists()){
