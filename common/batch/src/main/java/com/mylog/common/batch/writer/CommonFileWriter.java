@@ -3,11 +3,16 @@ package com.mylog.common.batch.writer;
 import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
 import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,9 +21,6 @@ import java.util.List;
  * @Description :
  */
 public class CommonFileWriter<T> extends FlatFileItemWriter<T> {
-
-    private FileSystemResource fileSystemResource;
-
     public CommonFileWriter(Class clz){
         BeanWrapperFieldExtractor beanWrapperFieldExtractor = new BeanWrapperFieldExtractor();
         Field[] fields = clz.getDeclaredFields();
@@ -36,12 +38,12 @@ public class CommonFileWriter<T> extends FlatFileItemWriter<T> {
         lineAggregator.setFieldExtractor(beanWrapperFieldExtractor);
         setName(clz.getSimpleName());
         setEncoding("utf-8");
-        fileSystemResource = new FileSystemResource("E:\\Files\\mylog\\mail\\"+ clz.getSimpleName() + ".csv");
+        FileSystemResource fileSystemResource = new FileSystemResource("F:\\Files\\mylog\\mail\\" +
+                new SimpleDateFormat("yyyyMMddHH").format(new Date()) +
+                "\\" + clz.getSimpleName() + "-" +
+                new SimpleDateFormat("mmss").format(new Date()) +
+                ".csv");
         setResource(fileSystemResource);
         setLineAggregator(lineAggregator);
     }
-
-
-
-
 }
