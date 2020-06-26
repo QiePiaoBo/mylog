@@ -47,17 +47,10 @@
             <version>${mybatis-plus-generator.version}</version>
         </dependency>
         <!--    引入自定义库    -->
-<!--        <dependency>-->
-<!--            <groupId>com.mylog.tools</groupId>-->
-<!--            <artifactId>lic-server</artifactId>-->
-<!--            <version>0.0.1</version>-->
-<!--            <scope>compile</scope>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>com.mylog</groupId>
             <artifactId>lic-server</artifactId>
             <version>0.0.1</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

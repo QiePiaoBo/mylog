@@ -61,6 +61,10 @@ public class Person implements Serializable {
      * 用户真实姓名
      */
     private String realname;
+    /**
+     * 用户身份证号
+     */
+    private boolean isDel;
 
     /**
      * 用户身份证号
@@ -76,7 +80,7 @@ public class Person implements Serializable {
                   String username, String password,
                   String phone, String mail,
                   String gender, String realname,
-                  String cnId, String description) {
+                  String cnId, Boolean isDel, String description) {
         this.id = id;
         this.usergroup = usergroup;
         this.username = username;
@@ -86,6 +90,7 @@ public class Person implements Serializable {
         this.gender = gender;
         this.realname = realname;
         this.cnId = cnId;
+        this.isDel = isDel;
         this.description = description;
     }
 

@@ -37,8 +37,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     private UserMapper userMapper;
     @Autowired
     private PasswordService passwordService;
-    @Autowired
-    private UserContext userContext;
+    UserContext userContext = new UserContext();
     /**
      * 获取用户列表
      * @param page

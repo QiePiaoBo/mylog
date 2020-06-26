@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.lang.reflect.Method;
 
 /**
@@ -22,11 +23,12 @@ import java.lang.reflect.Method;
 @Component
 public class AuthInterceptor implements HandlerInterceptor {
 
-    @Autowired
-    UserContext userContext;
+
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
+        UserContext userContext = new UserContext();
         boolean result = false;
         if (!(handler instanceof HandlerMethod)){
             result =  true;
@@ -40,14 +42,17 @@ public class AuthInterceptor implements HandlerInterceptor {
             return true;
         }
         // 需要验证的Method
-        if (null != userContext.getCurrentUser()){
-            val userType = authToken.userType();
-            // 数字越小权限越大
-            result =  userType >= Integer.parseInt(userContext.getCurrentUser().getUsergroup());
+        if (userContext.getCurrentUser() == null){
+            response.setContentType("application/json; charset=UTF-8");
+            response.getWriter().write("未登录");
+            return false;
         }
+        val userType = authToken.userType();
+        // 数字越小权限越大
+        result =  userType >= Integer.parseInt(userContext.getCurrentUser().getUsergroup());
         if (!result){
             response.setContentType("application/json; charset=UTF-8");
-            if (userContext.getCurrentUser()==null){
+            if (userContext.getCurrentUser() == null){
                 response.getWriter().write("未登录");
             }
             else {

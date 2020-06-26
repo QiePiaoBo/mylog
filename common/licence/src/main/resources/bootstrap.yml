@@ -1,8 +1,5 @@
 server:
   port: 9003
-  servlet:
-    context-path: /licence
-
 spring:
   application:
     name: cm-licence
@@ -28,8 +25,6 @@ spring:
         max-wait: -1
         min-idle: 0
   cloud:
-    inetutils:
-      ignored-interfaces: eth.*
     nacos:
       config:
         server-addr: logicer.top:8848

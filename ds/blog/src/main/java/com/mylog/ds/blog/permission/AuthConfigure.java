@@ -31,8 +31,9 @@ public class AuthConfigure implements WebMvcConfigurer {
         registry.addInterceptor(authInterceptor()).addPathPatterns(urls);
     }
 
-    @Bean
     public AuthInterceptor authInterceptor(){
         return new AuthInterceptor();
     }
+
+
 }

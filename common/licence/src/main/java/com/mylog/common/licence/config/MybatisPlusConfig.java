@@ -21,8 +21,8 @@ public class MybatisPlusConfig {
     /**
      * 登陆管理
      */
-    @Bean
-    public UserContext userContext(){
-        return new UserContext();
-    }
+//    @Bean
+//    public UserContext userContext(){
+//        return new UserContext();
+//    }
 }
