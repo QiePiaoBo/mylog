@@ -6,6 +6,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 
+/**
+ * 基本配置
+ * @author Dylan
+ */
 @Configuration
 public class CommonConfig {
 

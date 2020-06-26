@@ -9,5 +9,10 @@ import com.mylog.tools.lic.entity.Result;
  */
 public interface IFileService {
 
+    /**
+     * 文件上传
+     * @param articleDto
+     * @return
+     */
     Result uploadFile(ArticleDto articleDto);
 }

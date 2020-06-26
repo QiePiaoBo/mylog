@@ -1,9 +1,9 @@
-package com.mylog.common.batch.job.Mail;
+package com.mylog.common.batch.job.mail;
 
 
 import com.mylog.common.batch.model.entity.MailEntity;
 import com.mylog.common.batch.model.rowmapper.MailRowMapper;
-import com.mylog.common.batch.processors.UserMailSendProcessor;
+import com.mylog.common.batch.processors.AdminMailSendProcessor;
 import com.mylog.common.batch.writer.CommonFileWriter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.configuration.annotation.StepScope;
@@ -27,7 +27,7 @@ import java.util.Map;
  */
 @Slf4j
 @Component
-public class UserMailJobConfig {
+public class AdminMailJobConfig {
 
     @Autowired
     @Qualifier("licDataSource")
@@ -40,7 +40,7 @@ public class UserMailJobConfig {
      */
     @Bean
     @StepScope
-    public JdbcPagingItemReader<MailEntity> userMailReader(){
+    public JdbcPagingItemReader<MailEntity> adminMailReader(){
         JdbcPagingItemReader<MailEntity> reader = new JdbcPagingItemReader<>();
         reader.setDataSource(licDataSource);
         reader.setFetchSize(100);
@@ -49,8 +49,8 @@ public class UserMailJobConfig {
         MySqlPagingQueryProvider queryProvider = new MySqlPagingQueryProvider();
         queryProvider.setSelectClause("id, username, usergroup, phone, mail");
         queryProvider.setFromClause("from user");
-        queryProvider.setWhereClause("usergroup > 1");
-        Map<String, Order> sortKeys = new HashMap<>();
+        queryProvider.setWhereClause("usergroup <= 1");
+        Map<String, Order> sortKeys = new HashMap<>(10);
         sortKeys.put("id", Order.ASCENDING);
         queryProvider.setSortKeys(sortKeys);
         reader.setQueryProvider(queryProvider);
@@ -73,8 +73,8 @@ public class UserMailJobConfig {
      * 普通数据处理器
      */
     @Bean
-    public ItemProcessor<MailEntity, MailEntity> userMailProcessor(){
-        return new UserMailSendProcessor();
+    public ItemProcessor<MailEntity, MailEntity> adminMailProcessor(){
+        return new AdminMailSendProcessor();
     }
 
 
@@ -83,7 +83,7 @@ public class UserMailJobConfig {
      * @return
      */
     @Bean
-    public FlatFileItemWriter<MailEntity> userMailWriter(){
+    public FlatFileItemWriter<MailEntity> adminMailWriter(){
         return new CommonFileWriter<>(MailEntity.class);
     }
 

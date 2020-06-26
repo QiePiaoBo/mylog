@@ -6,9 +6,21 @@ package com.mylog.common.batch.datainfo;
  */
 public enum BlogDataInfo {
 
+    /**
+     * 连接方法
+     */
     DRIVER_CLASS_NAME("com.mysql.cj.jdbc.Driver"),
+    /**
+     * url
+     */
     URL("jdbc:mysql://logicer.top:3306/ds_blog?&serverTimezone=UTC&characterEncoding=utf8"),
+    /**
+     * 用户名
+     */
     USER_NAME("root"),
+    /**
+     * 密码
+     */
     PASSWORD("1997o4")
 
     ;

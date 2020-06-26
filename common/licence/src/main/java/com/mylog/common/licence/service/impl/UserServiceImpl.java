@@ -157,12 +157,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             result.put("status", Status.SUCCESS.getStatus());
             result.put("msg", Message.SUCCESS.getMsg());
         }
-        // 真删除
-//        int resDelete = userMapper.delete(queryWrapper);
-//        if (resDelete > 0){
-//            result.put("status", 200);
-//            result.put("msg","删除成功");
-//        }
         return result;
     }
 

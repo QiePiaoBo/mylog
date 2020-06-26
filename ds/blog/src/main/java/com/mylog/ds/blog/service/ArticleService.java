@@ -16,6 +16,7 @@ public interface ArticleService extends IService<Article> {
 
     /**
      * 获取符合条件的文章
+     * @param article
      * @return
      */
     Result queryRight(Article article);

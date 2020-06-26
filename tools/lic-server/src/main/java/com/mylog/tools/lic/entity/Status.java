@@ -28,8 +28,8 @@ public enum  Status {
 
     private long status;
 
-    Status(Integer status_num){
-        this.status = status_num;
+    Status(Integer statusNum){
+        this.status = statusNum;
     }
 
     public long getStatus(){

@@ -7,7 +7,16 @@ package com.mylog.common.batch.service;
  */
 public interface IMailSendService {
 
+    /**
+     * 向管理员发送邮件
+     * @return
+     */
     String adminSendMail();
+
+    /**
+     * 向用户发送邮件
+     * @return
+     */
     String userSendMail();
 
 }

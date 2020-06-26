@@ -1,4 +1,4 @@
-package com.mylog.common.batch.job.Mail;
+package com.mylog.common.batch.job.mail;
 
 import com.mylog.common.batch.listener.JobListener;
 import com.mylog.common.batch.model.entity.MailEntity;
@@ -14,13 +14,12 @@ import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 /**
  * 批量邮件发送注册 job
  * @author Dylan
  */
 @Configuration
-public class UserMailJob {
+public class AdminMailJob {
 
     @Autowired
     StepListener stepListener;
@@ -29,25 +28,25 @@ public class UserMailJob {
     JobListener jobListener;
 
     @Bean
-    public Job userMailSendJob(JobBuilderFactory jobs, Step userMailSendStep){
-        return jobs.get("mailSendJob")
+    public Job adminMailSendJob(JobBuilderFactory jobs, Step adminMailSendStep){
+        return jobs.get("adminMailSendJob")
                 .listener(jobListener)
                 .incrementer(new RunIdIncrementer())
-                .start(userMailSendStep)
+                .start(adminMailSendStep)
                 .build();
     }
 
     @Bean
-    public Step userMailSendStep(StepBuilderFactory stepBuilderFactory,
-                             JdbcPagingItemReader<MailEntity> userMailReader,
-                             ItemProcessor<MailEntity, MailEntity> userMailProcessor,
-                             FlatFileItemWriter<MailEntity> userMailWriter){
+    public Step adminMailSendStep(StepBuilderFactory stepBuilderFactory,
+                             JdbcPagingItemReader<MailEntity> adminMailReader,
+                             ItemProcessor<MailEntity, MailEntity> adminMailProcessor,
+                             FlatFileItemWriter<MailEntity> adminMailWriter){
         return stepBuilderFactory.get("mailSendStep")
                 .listener(stepListener)
                 .<MailEntity, MailEntity>chunk(10)
-                .reader(userMailReader)
-                .processor(userMailProcessor)
-                .writer(userMailWriter)
+                .reader(adminMailReader)
+                .processor(adminMailProcessor)
+                .writer(adminMailWriter)
                 .build();
     }
 
