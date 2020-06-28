@@ -6,7 +6,7 @@ import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.stereotype.Component;
+
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -43,12 +43,22 @@ public class CommonFileWriter<T> extends FlatFileItemWriter<T> {
         lineAggregator.setFieldExtractor(beanWrapperFieldExtractor);
         setName(clz.getSimpleName());
         setEncoding("utf-8");
-        FileSystemResource fileSystemResource = new FileSystemResource("F:\\Files\\mylog\\mail\\" +
-                new SimpleDateFormat("yyyyMMddHH").format(new Date()) +
-                "\\" + clz.getSimpleName() + "-" +
-                new SimpleDateFormat("mmss").format(new Date()) +
-                ".csv");
-        setResource(fileSystemResource);
-        setLineAggregator(lineAggregator);
+        if (System.getProperties().getProperty("os.name").toUpperCase().contains("WINDOWS")){
+            FileSystemResource fileSystemResource = new FileSystemResource("F:\\Files\\mylog\\mail\\" +
+                    new SimpleDateFormat("yyyyMMddHH").format(new Date()) +
+                    "\\" + clz.getSimpleName() + "-" +
+                    new SimpleDateFormat("mmss").format(new Date()) +
+                    ".csv");
+            setResource(fileSystemResource);
+            setLineAggregator(lineAggregator);
+        }else {
+            FileSystemResource fileSystemResource = new FileSystemResource("/var/www/springcloud/data/" +
+                    new SimpleDateFormat("yyyyMMddHH").format(new Date()) +
+                    "\\" + clz.getSimpleName() + "-" +
+                    new SimpleDateFormat("mmss").format(new Date()) +
+                    ".csv");
+            setResource(fileSystemResource);
+            setLineAggregator(lineAggregator);
+        }
     }
 }

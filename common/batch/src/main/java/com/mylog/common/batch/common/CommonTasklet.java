@@ -1,4 +1,4 @@
-package com.mylog.common.batch.job.common;
+package com.mylog.common.batch.common;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.StepContribution;

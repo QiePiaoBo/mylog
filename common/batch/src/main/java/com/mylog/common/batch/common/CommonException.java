@@ -1,4 +1,4 @@
-package com.mylog.common.batch.job.common;
+package com.mylog.common.batch.common;
 
 import org.springframework.stereotype.Component;
 
