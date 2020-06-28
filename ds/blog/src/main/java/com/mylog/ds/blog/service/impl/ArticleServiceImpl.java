@@ -2,6 +2,7 @@ package com.mylog.ds.blog.service.impl;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mylog.ds.blog.entity.Article;
 import com.mylog.ds.blog.mapper.ArticleMapper;
@@ -84,6 +85,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return this.articleMapper.queryById(id);
     }
 
+
     /**
      * 查询多条数据
      *
@@ -95,6 +97,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public List<Article> queryAllByLimit(int offset, int limit) {
         return this.articleMapper.queryAllByLimit(offset, limit);
     }
+
 
     /**
      * 新增数据
@@ -112,6 +115,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return null;
     }
 
+
     /**
      * 修改数据
      *
@@ -120,8 +124,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      */
     @Override
     public Result update(Article article) {
-//        Article resArticle = new Article();
-        Article aimArticle = articleMapper.queryById(article.getId());
+        // 根据id获取目标记录
+       Article aimArticle = articleMapper.queryById(article.getId());
+       // 修改非空的某几种属性
         if (article.getFileName() != null){
             aimArticle.setFileName(article.getFileName());
         }
@@ -135,12 +140,20 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             aimArticle.setDescription(article.getDescription());
         }
         // 修改目标对象
-        if (userService.getUser().getId().equals(aimArticle.getId()) || userService.getUser().getUsergroup() < 1){
-            articleMapper.update(aimArticle);
-            return new Result().put("status", Status.SUCCESS).put("msg",Message.SUCCESS).put("data", aimArticle);
+        if (userService.getUser().getId().equals(aimArticle.getUserId()) || userService.getUser().getUsergroup() < 1){
+            // 上传者及管理员可以决定是否展示
+            if (article.getIsLock()!=null){
+                aimArticle.setIsLock(article.getIsLock());
+            }
+            int update = articleMapper.update(aimArticle,new UpdateWrapper<Article>().eq("id", article.getId()));
+            if (update < 1){
+                return new Result().put("status", Status.UPDATE_ERROR.getStatus()).put("msg",Message.UPDATE_ERROR.getMsg());
+            }
+            return new Result().put("status", Status.SUCCESS.getStatus()).put("msg",Message.SUCCESS.getMsg()).put("data", aimArticle);
         }
-        return new Result().put("status", Status.UPDATE_ERROR).put("msg",Message.UPDATE_ERROR).put("data", article);
+        return new Result().put("status", Status.PERMISSION_ERROR.getStatus()).put("msg",Message.PERMISSION_ERROR.getMsg());
     }
+
 
     /**
      * 通过主键删除数据
@@ -149,7 +162,17 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      * @return 是否成功
      */
     @Override
-    public boolean deleteById(Integer id) {
-        return this.articleMapper.deleteById(id) > 0;
+    public Result deleteById(Integer id) {
+        Article article = articleMapper.queryById(id);
+        if (userService.getUser().getId().equals(article.getUserId()) || userService.getUser().getUsergroup() < 1){
+
+            article.setIsDel("1");
+            int delNum = articleMapper.update(article, new UpdateWrapper<>());
+            if (delNum < 1){
+                return new Result().put("status", Status.DELETE_ERROR.getStatus()).put("msg", Message.DELETE_ERROR.getMsg());
+            }
+            return Result.success();
+        }
+        return new Result().put("status", Status.PERMISSION_ERROR.getStatus()).put("msg", Message.PERMISSION_ERROR.getMsg());
     }
 }

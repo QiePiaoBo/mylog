@@ -3,6 +3,7 @@ package com.mylog.ds.blog.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 
 import java.util.Date;
 import java.io.Serializable;
@@ -13,6 +14,7 @@ import java.io.Serializable;
  * @author Dylan
  * @since 2020-06-14 20:24:19
  */
+@Data
 @TableName("article")
 public class Article implements Serializable {
     private static final long serialVersionUID = -66199659751436277L;
@@ -57,86 +59,4 @@ public class Article implements Serializable {
     * 是否进行展示(作者)
     */
     private String isLock;
-
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    public String getSubTitle() {
-        return subTitle;
-    }
-
-    public void setSubTitle(String subTitle) {
-        this.subTitle = subTitle;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getFileType() {
-        return fileType;
-    }
-
-    public void setFileType(String fileType) {
-        this.fileType = fileType;
-    }
-
-    public String getFilePath() {
-        return filePath;
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getIsDel() {
-        return isDel;
-    }
-
-    public void setIsDel(String isDel) {
-        this.isDel = isDel;
-    }
-
-    public String getIsLock() {
-        return isLock;
-    }
-
-    public void setIsLock(String isLock) {
-        this.isLock = isLock;
-    }
-
 }

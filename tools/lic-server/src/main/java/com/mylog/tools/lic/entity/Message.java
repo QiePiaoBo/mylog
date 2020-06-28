@@ -24,7 +24,16 @@ public enum  Message {
     /**
      * 更新失败
      */
-    UPDATE_ERROR("更新失败");
+    UPDATE_ERROR("更新失败"),
+    /**
+     * 权限不足
+     */
+    PERMISSION_ERROR("您没有权限执行此操作"),
+    /**
+     * 删除失败
+     */
+    DELETE_ERROR("删除失败")
+    ;
 
     private String msg;
 

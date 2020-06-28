@@ -24,7 +24,16 @@ public enum  Status {
     /**
      * 更新失败
      */
-    UPDATE_ERROR (100004);
+    UPDATE_ERROR (100004),
+    /**
+     * 权限不足
+     */
+    PERMISSION_ERROR (100005),
+    /**
+     * 删除失败
+     */
+    DELETE_ERROR(100006)
+    ;
 
     private long status;
 

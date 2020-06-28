@@ -53,20 +53,4 @@ public interface ArticleMapper extends BaseMapper<Article> {
     @Override
     int insert(Article article);
 
-    /**
-     * 修改数据
-     *
-     * @param article 实例对象
-     * @return 影响行数
-     */
-    int update(Article article);
-
-    /**
-     * 通过主键删除数据
-     *
-     * @param id 主键
-     * @return 影响行数
-     */
-    int deleteById(Integer id);
-
 }

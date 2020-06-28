@@ -1,6 +1,7 @@
 package com.mylog.ds.blog.controller;
 
 import com.mylog.ds.blog.entity.Article;
+import com.mylog.ds.blog.permission.permissions.AdminPermission;
 import com.mylog.ds.blog.service.ArticleService;
 import com.mylog.tools.lic.entity.Result;
 import org.springframework.web.bind.annotation.*;
@@ -43,9 +44,16 @@ public class ArticleController {
         return this.articleService.queryRight(article);
     }
 
+    @AdminPermission
     @RequestMapping("update")
     public Result updateArticle(@RequestBody Article article){
-        return null;
+        return articleService.update(article);
     }
+
+    @RequestMapping("delete")
+    public Result deleteById(@RequestParam Integer id){
+        return articleService.deleteById(id);
+    }
+
 
 }
