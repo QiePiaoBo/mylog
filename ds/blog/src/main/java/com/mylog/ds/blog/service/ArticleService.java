@@ -51,7 +51,7 @@ public interface ArticleService extends IService<Article> {
      * @param article 实例对象
      * @return 实例对象
      */
-    Article update(Article article);
+    Result update(Article article);
 
     /**
      * 通过主键删除数据

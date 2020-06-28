@@ -1,9 +1,10 @@
 package com.mylog.common.batch.controller;
 
 import com.mylog.common.batch.service.IMailSendService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * @author Dylan
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("mail")
 public class MailSendController {
 
-    @Autowired
+    @Resource
     IMailSendService mailSendService;
 
     @RequestMapping("admin")

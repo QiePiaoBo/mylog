@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -28,10 +29,10 @@ import static com.mylog.tools.lic.settings.Size.UPLOAD_FILE_MAX_SIZE;
 @Service
 public class FileServiceImpl implements IFileService {
 
-    @Autowired
+    @Resource
     UserService userService;
 
-    @Autowired
+    @Resource
     ArticleService articleService;
     /**
      * 上传文件

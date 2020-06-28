@@ -119,9 +119,27 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      * @return 实例对象
      */
     @Override
-    public Article update(Article article) {
-        this.articleMapper.update(article);
-        return this.queryById(article.getId());
+    public Result update(Article article) {
+//        Article resArticle = new Article();
+        Article aimArticle = articleMapper.queryById(article.getId());
+        if (article.getFileName() != null){
+            aimArticle.setFileName(article.getFileName());
+        }
+        if (article.getSubTitle() != null){
+            aimArticle.setSubTitle(article.getSubTitle());
+        }
+        if (article.getFileType() != null){
+            aimArticle.setFileType(article.getFileType());
+        }
+        if (article.getDescription() != null){
+            aimArticle.setDescription(article.getDescription());
+        }
+        // 修改目标对象
+        if (userService.getUser().getId().equals(aimArticle.getId()) || userService.getUser().getUsergroup() < 1){
+            articleMapper.update(aimArticle);
+            return new Result().put("status", Status.SUCCESS).put("msg",Message.SUCCESS).put("data", aimArticle);
+        }
+        return new Result().put("status", Status.UPDATE_ERROR).put("msg",Message.UPDATE_ERROR).put("data", article);
     }
 
     /**

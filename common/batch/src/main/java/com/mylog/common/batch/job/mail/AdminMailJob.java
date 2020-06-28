@@ -14,6 +14,9 @@ import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.annotation.Resource;
+
 /**
  * 批量邮件发送注册 job
  * @author Dylan
@@ -21,10 +24,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AdminMailJob {
 
-    @Autowired
+    @Resource
     StepListener stepListener;
 
-    @Autowired
+    @Resource
     JobListener jobListener;
 
     @Bean
@@ -49,6 +52,4 @@ public class AdminMailJob {
                 .writer(adminMailWriter)
                 .build();
     }
-
-
 }

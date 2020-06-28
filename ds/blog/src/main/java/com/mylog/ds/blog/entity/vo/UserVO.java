@@ -32,7 +32,7 @@ public class UserVO implements Serializable {
     /**
      * 用户权限组
      */
-    private String usergroup;
+    private Integer usergroup;
 
     /**
      * 用户名

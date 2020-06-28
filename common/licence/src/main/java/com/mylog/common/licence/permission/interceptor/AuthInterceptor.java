@@ -46,7 +46,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         }
         val userType = authToken.userType();
         // 数字越小权限越大
-        result =  userType >= Integer.parseInt(userContext.getCurrentUser().getUsergroup());
+        result =  userType >= userContext.getCurrentUser().getUsergroup();
         if (!result){
             response.setContentType("application/json; charset=UTF-8");
             if (userContext.getCurrentUser() == null){

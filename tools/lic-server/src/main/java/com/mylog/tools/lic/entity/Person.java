@@ -30,7 +30,7 @@ public class Person implements Serializable {
     /**
      * 用户权限组
      */
-    private String usergroup;
+    private Integer usergroup;
 
     /**
      * 用户名
@@ -76,7 +76,7 @@ public class Person implements Serializable {
      */
     private String description;
 
-    public Person(Integer id, String usergroup,
+    public Person(Integer id, Integer usergroup,
                   String username, String password,
                   String phone, String mail,
                   String gender, String realname,

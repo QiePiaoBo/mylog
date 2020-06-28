@@ -43,4 +43,9 @@ public class ArticleController {
         return this.articleService.queryRight(article);
     }
 
+    @RequestMapping("update")
+    public Result updateArticle(@RequestBody Article article){
+        return null;
+    }
+
 }
