@@ -18,7 +18,7 @@
     <!--查询单个-->
     <select id="queryById" resultMap="ArticleMap">
         select
-          id, file_name, sub_title, description, file_type, file_path, user_id, create_time, is_del, is_lock
+          *
         from ds_blog.article
         where id = #{id}
     </select>

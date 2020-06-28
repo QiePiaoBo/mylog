@@ -50,6 +50,7 @@ public class ArticleController {
         return articleService.update(article);
     }
 
+    @AdminPermission
     @RequestMapping("delete")
     public Result deleteById(@RequestParam Integer id){
         return articleService.deleteById(id);

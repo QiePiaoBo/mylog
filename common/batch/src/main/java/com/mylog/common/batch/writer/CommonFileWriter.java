@@ -20,7 +20,11 @@ import java.util.List;
  * @Date : Created in 14:24 2020/6/23
  * @Description :
  */
+@RefreshScope
 public class CommonFileWriter<T> extends FlatFileItemWriter<T> {
+
+    @Value("${filePath}")
+    private String filePath;
     public CommonFileWriter(Class clz){
         BeanWrapperFieldExtractor beanWrapperFieldExtractor = new BeanWrapperFieldExtractor();
         Field[] fields = clz.getDeclaredFields();
@@ -30,6 +34,7 @@ public class CommonFileWriter<T> extends FlatFileItemWriter<T> {
                 list.add(field.getName());
             }
         }
+        System.out.println(filePath);
         String[] names = new String[list.size()];
         beanWrapperFieldExtractor.setNames(list.toArray(names));
         beanWrapperFieldExtractor.afterPropertiesSet();

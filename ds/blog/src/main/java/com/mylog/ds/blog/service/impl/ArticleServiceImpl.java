@@ -167,7 +167,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         if (userService.getUser().getId().equals(article.getUserId()) || userService.getUser().getUsergroup() < 1){
 
             article.setIsDel("1");
-            int delNum = articleMapper.update(article, new UpdateWrapper<>());
+            int delNum = articleMapper.update(article, new UpdateWrapper<Article>().eq("id", id));
             if (delNum < 1){
                 return new Result().put("status", Status.DELETE_ERROR.getStatus()).put("msg", Message.DELETE_ERROR.getMsg());
             }
