@@ -1,10 +1,7 @@
 package com.mylog.common.batch.service.impl;
 
 import com.mylog.common.batch.model.dto.MailContentDto;
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobParameters;
-import org.springframework.batch.core.JobParametersBuilder;
-import org.springframework.batch.core.JobParametersInvalidException;
+import org.springframework.batch.core.*;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
@@ -55,8 +52,8 @@ public class MailSendService {
                 .addLong("time",System.currentTimeMillis())
                 .toJobParameters();
 
-        batchJobLauncher.run(mailSendJob, jobParameters);
-        return "loaded";
+        JobExecution jobExecution = batchJobLauncher.run(mailSendJob, jobParameters);
+        return jobExecution.getExitStatus().getExitCode();
     }
 
 

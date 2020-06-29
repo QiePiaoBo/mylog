@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -27,10 +28,10 @@ import java.util.List;
 @Slf4j
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
 
-    @Autowired
+    @Resource
     private ArticleMapper articleMapper;
 
-    @Autowired
+    @Resource
     UserService userService;
 
     /**
