@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:batch="http://www.springframework.org/schema/batch"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--  MailStep  -->
+    <!--  引入配置  -->
+    <import resource="JobConfig.xml"/>
+    <!--  参数传递器  -->
+    <bean id="paramStatementSetter" class="org.springframework.batch.item.database.support.ListPreparedStatementSetter" scope="step">
+        <property name="parameters">
+            <list>
+                <value>#{jobParameters['decide']}</value>
+            </list>
+        </property>
+    </bean>
+    <!--  reader  -->
+    <bean id="mailSendReader" class="org.springframework.batch.item.database.JdbcCursorItemReader" scope="step">
+        <property name="dataSource" ref="licDataSource" />
+        <property name="sql">
+            <value><![CDATA[ select username, usergroup, phone, mail from user where usergroup #{jobParameters['decide']}1 ]]></value>
+        </property>
+        <property name="rowMapper">
+            <bean class="org.springframework.jdbc.core.BeanPropertyRowMapper">
+                <property name="mappedClass" value="com.mylog.common.batch.model.entity.MailEntity"/>
+            </bean>
+        </property>
+    </bean>
+    <!--  processor  -->
+    <bean id="mailSendProcessor" class="com.mylog.common.batch.processors.CommonMailSendProcessor" scope="step">
+        <property name="content" value="#{jobParameters['mailContent']}"/>
+        <property name="subject" value="#{jobParameters['mailSubject']}"/>
+     </bean>
+    <!--  writer  -->
+    <bean id="mailSendWriter" class="org.springframework.batch.item.file.FlatFileItemWriter" scope="step">
+        <property name="encoding" value="utf-8"/>
+        <property name="resource" value="file:#{jobParameters['filePath']}mailLog"/>
+        <property name="lineAggregator">
+            <bean class="org.springframework.batch.item.file.transform.FormatterLineAggregator">
+                <property name="fieldExtractor">
+                    <bean class="org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor">
+                        <property name="names" value="username, usergroup, phone, mail"/>
+                    </bean>
+                </property>
+                <property name="format" value="%-9s %-2d %-15s %-32s"/>
+            </bean>
+        </property>
+    </bean>
+
+    <batch:step id="mailSendStep" job-repository="batchJobRepository">
+        <batch:tasklet transaction-manager="batchTransactionManager">
+            <batch:chunk reader="mailSendReader" processor="mailSendProcessor" writer="mailSendWriter" commit-interval="10"/>
+        </batch:tasklet>
+    </batch:step>
+</beans>

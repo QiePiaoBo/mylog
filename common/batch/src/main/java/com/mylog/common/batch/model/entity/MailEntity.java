@@ -19,4 +19,7 @@ public class MailEntity {
         this.phone = phone;
         this.mail = mail;
     }
+    public MailEntity(){
+
+    }
 }
