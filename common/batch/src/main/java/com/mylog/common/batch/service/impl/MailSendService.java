@@ -21,7 +21,7 @@ import java.util.Date;
  * @Description : job服务
  */
 @Service
-public class XmlCommonMailSendJob {
+public class MailSendService {
 
     @Resource
     private Job mailSendJob;
@@ -29,13 +29,20 @@ public class XmlCommonMailSendJob {
     @Resource
     private JobLauncher batchJobLauncher;
 
-    public String mailSend(MailContentDto mailContentDto) throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
+    public String mailSend(MailContentDto mailDto) throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd hh:mm:ss").format(new Date());
         String decide = ">";
         String filePath = "/var/www/springcloud/data/";
         String mailSubject = "项目运行情况";
-        String mailContent = "正常运行，时间：" + new SimpleDateFormat("yyyyMMdd hhmmss").format(new Date());
-        if (mailContentDto.getUserType().equals("admin")){
+        String mailContent = "正常运行，时间：" + timeStamp;
+        if (mailDto.getUserType()!= null && mailDto.getUserType().equals("admin")){
             decide = "<=";
+        }
+        if (mailDto.getMailSubject()!=null){
+            mailSubject = mailDto.getMailSubject();
+        }
+        if (mailDto.getMailContent() != null){
+            mailContent = mailDto.getMailContent() + timeStamp;
         }
         if (System.getProperties().getProperty("os.name").toUpperCase().contains("WINDOWS")){
             filePath = "F:\\Files\\mylog\\mail\\";
