@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * @author Dylan
  * @Date : Created in 14:24 2020/6/23
- * @Description :
+ * @Description : 生成 年月日时/名字-分秒.csv文件
  */
 @RefreshScope
 public class CommonFileWriter<T> extends FlatFileItemWriter<T> {
