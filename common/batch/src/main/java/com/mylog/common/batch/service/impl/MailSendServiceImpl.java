@@ -18,7 +18,7 @@ import java.util.Date;
  * @Description : job服务
  */
 @Service
-public class MailSendService {
+public class MailSendServiceImpl {
 
     @Resource
     private Job mailSendJob;
@@ -28,6 +28,8 @@ public class MailSendService {
 
     public String mailSend(MailContentDto mailDto) throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd hh:mm:ss").format(new Date());
+        String fileHourStamp = new SimpleDateFormat("yyyyMMddhh").format(new Date());
+        String fileSecondStamp = new SimpleDateFormat("mmss").format(new Date());
         String decide = ">";
         String filePath = "/var/www/springcloud/data/";
         String mailSubject = "项目运行情况";
@@ -49,6 +51,8 @@ public class MailSendService {
                 .addString("filePath", filePath)
                 .addString("mailSubject", mailSubject)
                 .addString("mailContent", mailContent)
+                .addString("fileHourStamp", fileHourStamp)
+                .addString("fileSecondStamp", fileSecondStamp)
                 .addLong("time",System.currentTimeMillis())
                 .toJobParameters();
 

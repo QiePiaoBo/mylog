@@ -36,7 +36,7 @@
     <!--  writer  -->
     <bean id="mailSendWriter" class="org.springframework.batch.item.file.FlatFileItemWriter" scope="step">
         <property name="encoding" value="utf-8"/>
-        <property name="resource" value="file:#{jobParameters['filePath']}mailLog"/>
+        <property name="resource" value="file:#{jobParameters['filePath']}#{jobParameters['fileHourStamp']}/#{jobParameters['fileSecondStamp']}MailLog"/>
         <property name="lineAggregator">
             <bean class="org.springframework.batch.item.file.transform.FormatterLineAggregator">
                 <property name="fieldExtractor">

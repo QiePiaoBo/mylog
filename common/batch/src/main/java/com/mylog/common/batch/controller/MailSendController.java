@@ -1,7 +1,7 @@
 package com.mylog.common.batch.controller;
 
 import com.mylog.common.batch.model.dto.MailContentDto;
-import com.mylog.common.batch.service.impl.MailSendService;
+import com.mylog.common.batch.service.impl.MailSendServiceImpl;
 import org.springframework.batch.core.JobParametersInvalidException;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
@@ -21,10 +21,10 @@ import javax.annotation.Resource;
 @RequestMapping("mail")
 public class MailSendController {
     @Resource
-    private MailSendService mailSendService;
+    private MailSendServiceImpl mailSendServiceImpl;
 
     @RequestMapping("admin")
     public String adminMail(@RequestBody MailContentDto mailContentDto) throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
-        return mailSendService.mailSend(mailContentDto);
+        return mailSendServiceImpl.mailSend(mailContentDto);
     }
 }
