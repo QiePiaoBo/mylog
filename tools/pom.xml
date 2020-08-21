@@ -12,8 +12,8 @@
     <artifactId>tools</artifactId>
     <version>0.0.1</version>
     <modules>
-        <module>lic-server</module>
-        <module>pic-server</module>
+        <module>sdk-server</module>
+        <module>utils-server</module>
     </modules>
     <packaging>pom</packaging>
 

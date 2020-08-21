@@ -1,13 +1,11 @@
-package com.mylog.common.licence.entity;
+package com.mylog.tools.utils.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
-
-import com.mylog.tools.utils.entity.Person;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.springframework.context.annotation.ComponentScan;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -20,14 +18,13 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class User extends Person implements Serializable {
+public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * 用户id
      */
-    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
@@ -41,7 +38,7 @@ public class User extends Person implements Serializable {
     private String username;
 
     /**
-     * 密码
+     * 用户名
      */
     private String password;
 
@@ -64,21 +61,41 @@ public class User extends Person implements Serializable {
      * 用户真实姓名
      */
     private String realname;
-
-    /**
-     * 用户身份证号
-     */
-    private String cnId;
-
-
     /**
      * 用户身份证号
      */
     private boolean isDel;
 
     /**
+     * 用户身份证号
+     */
+    private String cnId;
+
+    /**
      * 备用字段1
      */
     private String description;
+
+    public Person(Integer id, Integer usergroup,
+                  String username, String password,
+                  String phone, String mail,
+                  String gender, String realname,
+                  String cnId, Boolean isDel, String description) {
+        this.id = id;
+        this.usergroup = usergroup;
+        this.username = username;
+        this.password = password;
+        this.phone = phone;
+        this.mail = mail;
+        this.gender = gender;
+        this.realname = realname;
+        this.cnId = cnId;
+        this.isDel = isDel;
+        this.description = description;
+    }
+
+    public Person() {
+    }
+
 
 }

@@ -3,7 +3,7 @@ package com.mylog.common.licence.controller;
 import com.mylog.common.licence.model.dto.UserDTO;
 import com.mylog.common.licence.permission.permissions.AdminPermission;
 import com.mylog.common.licence.service.IUserService;
-import com.mylog.tools.lic.entity.Result;
+import com.mylog.tools.utils.entity.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

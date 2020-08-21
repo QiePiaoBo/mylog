@@ -1,10 +1,9 @@
 package com.mylog.ds.blog.permission.interceptor;
 
 import com.mylog.ds.blog.permission.permissions.AdminPermission;
-import com.mylog.tools.lic.session.UserContext;
+import com.mylog.tools.utils.session.UserContext;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -12,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.lang.reflect.Method;
 
 /**

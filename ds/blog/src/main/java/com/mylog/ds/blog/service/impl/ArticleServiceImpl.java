@@ -8,11 +8,10 @@ import com.mylog.ds.blog.entity.Article;
 import com.mylog.ds.blog.mapper.ArticleMapper;
 import com.mylog.ds.blog.service.ArticleService;
 import com.mylog.ds.blog.service.UserService;
-import com.mylog.tools.lic.entity.Message;
-import com.mylog.tools.lic.entity.Result;
-import com.mylog.tools.lic.entity.Status;
+import com.mylog.tools.utils.entity.Message;
+import com.mylog.tools.utils.entity.Result;
+import com.mylog.tools.utils.entity.Status;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

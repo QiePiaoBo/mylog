@@ -6,12 +6,15 @@ import com.mylog.ds.blog.entity.vo.UserVO;
 import com.mylog.ds.blog.service.ArticleService;
 import com.mylog.ds.blog.service.IFileService;
 import com.mylog.ds.blog.service.UserService;
-import com.mylog.tools.lic.entity.Result;
-import com.mylog.tools.lic.entity.Message;
-import com.mylog.tools.lic.entity.Status;
-import com.mylog.tools.lic.sysinfo.SysInfo;
+import com.mylog.tools.file.filesdk.QiNiuSdk;
+import com.mylog.tools.utils.entity.Result;
+import com.mylog.tools.utils.entity.Message;
+import com.mylog.tools.utils.entity.Status;
+import com.mylog.tools.utils.sysinfo.SysInfo;
+import com.qiniu.common.QiniuException;
+import com.qiniu.http.Response;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,7 +23,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import static com.mylog.tools.lic.settings.Size.UPLOAD_FILE_MAX_SIZE;
 
 /**
  * 文件接口实现
@@ -31,9 +33,16 @@ public class FileServiceImpl implements IFileService {
 
     @Resource
     UserService userService;
-
     @Resource
     ArticleService articleService;
+
+    @Value("${qiniu.accesskey}")
+    String accessKey;
+    @Value("${qiniu.secretkey}")
+    String secretKey;
+    @Value("${qiniu.bucketname}")
+    String bucketName;
+
     /**
      * 上传文件
      * @return
@@ -94,6 +103,12 @@ public class FileServiceImpl implements IFileService {
         }
     }
 
+    /**
+     * 入库
+     * @param filePath
+     * @param articleDto
+     * @return
+     */
     private Boolean insertToDatabase(String filePath, ArticleDto articleDto){
         // 插入数据库
         UserVO currentUser = userService.getUser();
@@ -118,5 +133,20 @@ public class FileServiceImpl implements IFileService {
             return true;
         }
         return false;
+    }
+
+    /**
+     * 上传到七牛云
+     * @param file
+     * @return
+     */
+    public Response upload2QiNiu(File file){
+        Response response = null;
+        try {
+            response = QiNiuSdk.uploadToQiniu(file, accessKey, secretKey, bucketName);
+        }catch (QiniuException e){
+            e.printStackTrace();
+        }
+        return response;
     }
 }
