@@ -37,11 +37,7 @@ public class FileController {
             return new Result().put("status",444).put("msg","File is null.");
         }
         Response response = null;
-        try {
-            response = QiNiuSdk.uploadToQiniu(file, "sd", "sk", "");
-        }catch (QiniuException e){
-            e.printStackTrace();
-        }
+        response = fileService.upload2QiNiu(file);
         return Result.success();
     }
 

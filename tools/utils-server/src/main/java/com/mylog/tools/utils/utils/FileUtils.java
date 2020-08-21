@@ -22,17 +22,18 @@ public class FileUtils {
             logger.error("MultipartFile is null.");
         }
         try {
+            String filePath = "F:\\Files\\mylog\\tmp\\" + multi.getOriginalFilename();
             ins = multi.getInputStream();
-            byte[] bytes = new byte[ins.available()];
-            ins.read(bytes);
-
-            File targetFile = new File("src/main/resources/temp/");
-
-            FileOutputStream downloadFile = new FileOutputStream(targetFile);
-            downloadFile.write(bytes);
-            downloadFile.flush();
+            int index;
+            byte[] bytes = new byte[1024];
+            FileOutputStream downloadFile = new FileOutputStream(filePath);
+            while ((index = ins.read(bytes)) != -1) {
+                downloadFile.write(bytes, 0, index);
+                downloadFile.flush();
+            }
+            ins.close();
             downloadFile.close();
-            return targetFile;
+            return new File(filePath);
         }catch (Exception e){
             e.printStackTrace();
         }

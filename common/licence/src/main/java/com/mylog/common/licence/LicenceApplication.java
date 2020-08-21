@@ -12,7 +12,6 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @SpringBootApplication
 @EnableRedisHttpSession
 @EnableDiscoveryClient
-@ComponentScan("")
 public class LicenceApplication {
     public static void main(String[] args) {
         SpringApplication.run(LicenceApplication.class, args);
