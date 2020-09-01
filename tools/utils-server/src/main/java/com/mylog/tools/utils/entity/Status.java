@@ -32,7 +32,11 @@ public enum  Status {
     /**
      * 删除失败
      */
-    DELETE_ERROR(100006)
+    DELETE_ERROR(100006),
+    /**
+     * 上传失败
+     */
+    UPLOAD_ERROR(100007)
     ;
 
     private long status;

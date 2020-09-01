@@ -15,28 +15,33 @@ import java.io.*;
 public class FileUtils {
     private static final Logger logger = LoggerFactory.getLogger(FileUtils.class);
 
-    public static File multi2File(MultipartFile multi){
-        InputStream ins = null;
+    public static File multi2File(MultipartFile multi) throws IOException {
+
         File f = null;
-        if (multi.getSize() <= 0){
-            logger.error("MultipartFile is null.");
+        if(multi.equals("")||multi.getSize()<=0){
+            multi = null;
+            return null;
+        }else{
+            InputStream ins = multi.getInputStream();
+            f=new File(multi.getOriginalFilename());
+            inputStreamToFile(ins, f);
+            return f;
         }
+    }
+
+    public static void inputStreamToFile(InputStream ins, File file) {
         try {
-            String filePath = "F:\\Files\\mylog\\tmp\\" + multi.getOriginalFilename();
-            ins = multi.getInputStream();
-            int index;
-            byte[] bytes = new byte[1024];
-            FileOutputStream downloadFile = new FileOutputStream(filePath);
-            while ((index = ins.read(bytes)) != -1) {
-                downloadFile.write(bytes, 0, index);
-                downloadFile.flush();
+            OutputStream os = new FileOutputStream(file);
+            int bytesRead = 0;
+            byte[] buffer = new byte[8192];
+            while ((bytesRead = ins.read(buffer, 0, 8192)) != -1) {
+                os.write(buffer, 0, bytesRead);
             }
+            os.close();
             ins.close();
-            downloadFile.close();
-            return new File(filePath);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return f;
     }
+
 }

@@ -32,9 +32,12 @@ public enum  Message {
     /**
      * 删除失败
      */
-    DELETE_ERROR("删除失败")
+    DELETE_ERROR("删除失败"),
+    /**
+     * 上传失败
+     */
+    UPLOAD_ERROR("上传失败")
     ;
-
     private String msg;
 
     Message(String msg){

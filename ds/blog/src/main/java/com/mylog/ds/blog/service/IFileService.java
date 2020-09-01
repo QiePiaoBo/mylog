@@ -17,7 +17,7 @@ public interface IFileService {
      * @param articleDto
      * @return
      */
-    Result uploadFile(ArticleDto articleDto);
+    Result uploadFile(ArticleDto articleDto, Boolean doUpload);
 
     /**
      * 文件上传到七牛
