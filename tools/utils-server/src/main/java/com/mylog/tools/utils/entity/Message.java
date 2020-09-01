@@ -36,8 +36,13 @@ public enum  Message {
     /**
      * 上传失败
      */
-    UPLOAD_ERROR("上传失败")
+    UPLOAD_ERROR("上传失败"),
+    /**
+     * 缺少文件
+     */
+    FILE_NEED("缺少文件")
     ;
+
     private String msg;
 
     Message(String msg){

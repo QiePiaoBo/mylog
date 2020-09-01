@@ -36,7 +36,11 @@ public enum  Status {
     /**
      * 上传失败
      */
-    UPLOAD_ERROR(100007)
+    UPLOAD_ERROR(100007),
+    /**
+     * 文件为空
+     */
+    FILE_NEED(100008)
     ;
 
     private long status;
