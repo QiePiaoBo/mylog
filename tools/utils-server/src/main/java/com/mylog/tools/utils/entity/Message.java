@@ -38,9 +38,9 @@ public enum  Message {
      */
     UPLOAD_ERROR("上传失败"),
     /**
-     * 缺少文件
+     * 文件为空
      */
-    FILE_NEED("缺少文件")
+    FILE_NEED("文件为空")
     ;
 
     private String msg;
