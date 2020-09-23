@@ -49,7 +49,7 @@
         <!--    引入自定义库    -->
         <dependency>
             <groupId>com.mylog</groupId>
-            <artifactId>lic-server</artifactId>
+            <artifactId>utils-server</artifactId>
             <version>0.0.1</version>
         </dependency>
     </dependencies>

@@ -1,8 +1,8 @@
 package com.mylog.ds.blog.service;
 
 import com.mylog.ds.blog.entity.vo.UserVO;
-import com.mylog.tools.lic.entity.Person;
-import com.mylog.tools.lic.session.UserContext;
+import com.mylog.tools.utils.entity.Person;
+import com.mylog.tools.utils.session.UserContext;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 

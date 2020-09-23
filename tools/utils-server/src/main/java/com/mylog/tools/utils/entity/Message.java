@@ -1,4 +1,4 @@
-package com.mylog.tools.lic.entity;
+package com.mylog.tools.utils.entity;
 
 /**
  * 返回值message
@@ -32,7 +32,15 @@ public enum  Message {
     /**
      * 删除失败
      */
-    DELETE_ERROR("删除失败")
+    DELETE_ERROR("删除失败"),
+    /**
+     * 上传失败
+     */
+    UPLOAD_ERROR("上传失败"),
+    /**
+     * 缺少文件
+     */
+    FILE_NEED("缺少文件")
     ;
 
     private String msg;

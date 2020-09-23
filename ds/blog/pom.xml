@@ -40,16 +40,6 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpcore</artifactId>
         </dependency>
-<!--        &lt;!&ndash;        //引入redis&ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-data-redis</artifactId>-->
-<!--        </dependency>-->
-        <!--        //引入spring session-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.session</groupId>-->
-<!--            <artifactId>spring-session-data-redis</artifactId>-->
-<!--        </dependency>-->
         <!--    lombok      -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -75,10 +65,16 @@
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
         </dependency>
-        <!--    引入自定义工具    -->
+        <!--    引入自定义账户工具包    -->
         <dependency>
             <groupId>com.mylog</groupId>
-            <artifactId>lic-server</artifactId>
+            <artifactId>sdk-server</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <!--    引入自定义文件工具包    -->
+        <dependency>
+            <groupId>com.mylog</groupId>
+            <artifactId>utils-server</artifactId>
             <version>0.0.1</version>
         </dependency>
     </dependencies>

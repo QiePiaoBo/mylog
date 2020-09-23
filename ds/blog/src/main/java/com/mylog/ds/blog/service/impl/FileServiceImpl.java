@@ -6,12 +6,17 @@ import com.mylog.ds.blog.entity.vo.UserVO;
 import com.mylog.ds.blog.service.ArticleService;
 import com.mylog.ds.blog.service.IFileService;
 import com.mylog.ds.blog.service.UserService;
-import com.mylog.tools.lic.entity.Result;
-import com.mylog.tools.lic.entity.Message;
-import com.mylog.tools.lic.entity.Status;
-import com.mylog.tools.lic.sysinfo.SysInfo;
+import com.mylog.tools.file.filesdk.QiNiuSdk;
+import com.mylog.tools.utils.entity.Result;
+import com.mylog.tools.utils.entity.Message;
+import com.mylog.tools.utils.entity.Status;
+import com.mylog.tools.utils.sysinfo.SysInfo;
+import com.mylog.tools.utils.utils.FileUtils;
+import com.qiniu.common.QiniuException;
+import com.qiniu.http.Response;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,7 +25,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import static com.mylog.tools.lic.settings.Size.UPLOAD_FILE_MAX_SIZE;
 
 /**
  * 文件接口实现
@@ -31,17 +35,24 @@ public class FileServiceImpl implements IFileService {
 
     @Resource
     UserService userService;
-
     @Resource
     ArticleService articleService;
+
+    @Value("${qiniu.accesskey}")
+    String accessKey;
+    @Value("${qiniu.secretkey}")
+    String secretKey;
+    @Value("${qiniu.bucketname}")
+    String bucketName;
+
     /**
-     * 上传文件
+     * 上传文件 布尔值控制是否上传至七牛云
+     * @param articleDto
+     * @param doUpload
      * @return
      */
     @Override
-    public Result uploadFile(ArticleDto articleDto){
-        // 判断是否是windows平台
-        Boolean isWindows = new SysInfo().isWindows();
+    public Result uploadFile(ArticleDto articleDto, Boolean doUpload){
         // 获取传来的文件
         MultipartFile multipartFile = articleDto.getFile();
         // 设置最大大小
@@ -60,41 +71,32 @@ public class FileServiceImpl implements IFileService {
         String fileName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + "_" + name;
         // 文件子目录
         String sonPath = new SimpleDateFormat("yyyyMM").format(new Date());
-        // 根据服务器所处平台更改文件存储位置
-        if (isWindows){
-            // 获取文件存放位置
-            filepath = "F:\\Files\\mylog\\" + subffix.substring(1) + "\\" + sonPath + "\\";
-            File winFile = new File(filepath);
-            // 目录不存在就创建
-            if(!winFile.exists()){
-                winFile.mkdirs();
-            }
-        } else {
-                // 获取文件存放位置
-                filepath = "/var/files/mylog/" + subffix.substring(1) + "/" + sonPath + "/";
-                File linuxFile = new File(filepath);
-                // 目录不存在就创建
-                if(!linuxFile.exists()){
-                    linuxFile.mkdirs();
-                }
-            }
-        // 文件全路径拼接上文件名
-        filepath += fileName;
-        // 是否入库成功
-        if(this.insertToDatabase(filepath, articleDto)){
+        Response response = null;
+        if (doUpload){
+            // 上传至七牛云
             try {
-                multipartFile.transferTo(new File(filepath));
-            }catch (IOException e) {
+                response = this.upload2QiNiu(FileUtils.multi2File(multipartFile));
+                filepath = "http://pic.logicer.top/" + multipartFile.getOriginalFilename();
+            }catch (IOException e){
                 e.printStackTrace();
             }
-            return new Result().put("status", Status.SUCCESS.getStatus()).put("msg", Message.SUCCESS.getMsg()).put("data", sonPath + "/" + fileName);
+        }else {
+            // 上传至服务器
+            upload2Server(subffix, sonPath, fileName);
         }
-        else {
-            return new Result().put("status", Status.INSERT_ERROR.getStatus()).put("msg", Message.INSERT_ERROR.getMsg());
-        }
+        // 入库并返回结果
+        return this.insertToDatabase(response, filepath, articleDto);
     }
 
-    private Boolean insertToDatabase(String filePath, ArticleDto articleDto){
+
+    /**
+     * 入库 并返回各种情况的结果
+     * @param response
+     * @param filePath
+     * @param articleDto
+     * @return
+     */
+    private Result insertToDatabase(Response response, String filePath, ArticleDto articleDto){
         // 插入数据库
         UserVO currentUser = userService.getUser();
         Article article = new Article();
@@ -112,11 +114,77 @@ public class FileServiceImpl implements IFileService {
             article.setIsLock(articleDto.getIsLock()!=null ? articleDto.getIsLock():"0");
         }
         else{
-            return false;
+            return new Result().put("status", Status.PERMISSION_ERROR.getStatus()).put("msg", Message.PERMISSION_ERROR.getMsg());
         }
-        if (articleService.insert(article)!=null){
-            return true;
+        // 插入的结果是否为空
+        if (articleService.insert(article) != null){
+            // 判断上传至七牛云是否成功
+            if (response != null){
+                if (response.error != null){
+                    return new Result().put("status", Status.UPLOAD_ERROR.getStatus()).put("msg", Message.UPLOAD_ERROR.getMsg()).put("data", response.error);
+                }
+                return new Result().put("status", Status.SUCCESS.getStatus()).put("msg", Message.SUCCESS.getMsg());
+            }else {
+                try {
+                    // 检查文件是否存在
+                    articleDto.getFile().transferTo(new File(filePath));
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return new Result().put("status", Status.SUCCESS.getStatus()).put("msg", Message.SUCCESS.getMsg());
         }
-        return false;
+        return new Result().put("status", Status.INSERT_ERROR.getStatus()).put("msg", Message.INSERT_ERROR.getMsg());
+    }
+
+    /**
+     * 上传到七牛云
+     * @param file
+     * @return
+     */
+    public Response upload2QiNiu(File file){
+        Response response = null;
+        try {
+            response = QiNiuSdk.uploadToQiniu(file, accessKey, secretKey, bucketName);
+        }catch (QiniuException e){
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+    /**
+     * 上传到服务器
+     * @param subffix
+     * @param sonPath
+     * @param fileName
+     */
+    public void upload2Server(String subffix, String sonPath, String fileName){
+        // 判断是否是windows平台
+        boolean isWindows = new SysInfo().isWindows();
+        String filepath = "";
+        // 如果上传至服务器，则根据服务器所处平台更改文件存储位置
+        if (isWindows){
+            // 获取文件存放位置
+            filepath = "F:\\Files\\mylog\\" + subffix.substring(1) + "\\" + sonPath + "\\";
+            // 文件全路径拼接上文件名
+            filepath += fileName;
+            File winFile = new File(filepath);
+            // 目录不存在就创建
+            if(!winFile.exists()){
+                boolean mkWinDirs = winFile.mkdirs();
+                System.out.println(mkWinDirs ? "created a path" : "do not need to create");
+            }
+        } else {
+            // 获取文件存放位置
+            filepath = "/var/files/mylog/" + subffix.substring(1) + "/" + sonPath + "/";
+            // 文件全路径拼接上文件名
+            filepath += fileName;
+            File linuxFile = new File(filepath);
+            // 目录不存在就创建
+            if(!linuxFile.exists()){
+                boolean mkLinuxDirs = linuxFile.mkdirs();
+                System.out.println(mkLinuxDirs ? "created a path" : "do not need to create");
+            }
+        }
     }
 }

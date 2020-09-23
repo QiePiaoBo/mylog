@@ -3,8 +3,7 @@ package com.mylog.ds.blog.controller;
 import com.mylog.ds.blog.entity.vo.UserVO;
 import com.mylog.ds.blog.permission.permissions.AdminPermission;
 import com.mylog.ds.blog.service.UserService;
-import com.mylog.tools.lic.entity.Person;
-import com.mylog.tools.lic.entity.Result;
+import com.mylog.tools.utils.entity.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

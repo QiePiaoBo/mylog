@@ -1,4 +1,4 @@
-package com.mylog.tools.lic.entity;
+package com.mylog.tools.utils.entity;
 
 /**
  * 状态码枚举类
@@ -32,7 +32,15 @@ public enum  Status {
     /**
      * 删除失败
      */
-    DELETE_ERROR(100006)
+    DELETE_ERROR(100006),
+    /**
+     * 上传失败
+     */
+    UPLOAD_ERROR(100007),
+    /**
+     * 文件为空
+     */
+    FILE_NEED(100008)
     ;
 
     private long status;
