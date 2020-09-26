@@ -34,7 +34,7 @@ public class FileController {
             return new Result().put("status",Status.FILE_NEED.getStatus()).put("msg", Message.FILE_NEED.getMsg());
         }
         Result result = null;
-        result = fileService.uploadFile(articleDto, true);
+        result = fileService.uploadFile(articleDto, "qiniu");
         return result;
     }
 

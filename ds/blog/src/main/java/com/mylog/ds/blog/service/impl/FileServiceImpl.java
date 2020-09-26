@@ -48,11 +48,11 @@ public class FileServiceImpl implements IFileService {
     /**
      * 上传文件 布尔值控制是否上传至七牛云
      * @param articleDto
-     * @param doUpload
+     * @param uploadWhere
      * @return
      */
     @Override
-    public Result uploadFile(ArticleDto articleDto, Boolean doUpload){
+    public Result uploadFile(ArticleDto articleDto, String uploadWhere){
         // 获取传来的文件
         MultipartFile multipartFile = articleDto.getFile();
         // 设置最大大小
@@ -72,7 +72,7 @@ public class FileServiceImpl implements IFileService {
         // 文件子目录
         String sonPath = new SimpleDateFormat("yyyyMM").format(new Date());
         Response response = null;
-        if (doUpload){
+        if (uploadWhere.equals("qiniu")){
             // 上传至七牛云
             try {
                 response = this.upload2QiNiu(FileUtils.multi2File(multipartFile));
@@ -87,7 +87,6 @@ public class FileServiceImpl implements IFileService {
         // 入库并返回结果
         return this.insertToDatabase(response, filepath, articleDto);
     }
-
 
     /**
      * 入库 并返回各种情况的结果
