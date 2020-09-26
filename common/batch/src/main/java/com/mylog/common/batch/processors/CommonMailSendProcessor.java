@@ -1,6 +1,6 @@
 package com.mylog.common.batch.processors;
 
-import com.mylog.common.batch.common.CommonException;
+import com.mylog.common.batch.common.CommonSkipException;
 import com.mylog.common.batch.model.entity.MailEntity;
 import com.mylog.common.batch.service.IMailService;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +31,7 @@ public class CommonMailSendProcessor implements ItemProcessor<MailEntity, MailEn
     @Override
     public MailEntity process(MailEntity mailEntity) throws Exception {
         if (mailEntity.getUsername().equals("Dylan")){
-            throw new CommonException();
+            throw new CommonSkipException();
         }
         String mail = mailEntity.getMail();
         log.info("mail is: " + mail);

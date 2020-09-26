@@ -23,7 +23,6 @@ public class UserActController {
 
     @PostMapping("login")
     public Result login(@RequestBody UserDTO userDTO){
-        logger.info("asdaafafsa");
         return userService.login(userDTO);
     }
 

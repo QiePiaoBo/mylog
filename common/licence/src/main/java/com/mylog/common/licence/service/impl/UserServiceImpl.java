@@ -17,8 +17,12 @@ import com.mylog.tools.utils.entity.Person;
 import com.mylog.tools.utils.entity.Result;
 import com.mylog.tools.utils.entity.Status;
 import com.mylog.tools.utils.session.UserContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -32,11 +36,17 @@ import java.util.List;
  * @since 2020-05-24
  */
 @Service
+@RefreshScope
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
     @Autowired
     private UserMapper userMapper;
     @Autowired
     private PasswordService passwordService;
+
+
     UserContext userContext = new UserContext();
     /**
      * 获取用户列表

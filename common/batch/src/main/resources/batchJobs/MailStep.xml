@@ -9,18 +9,18 @@
     <!--  引入配置  -->
     <import resource="JobConfig.xml"/>
     <!--  参数传递器  -->
-    <bean id="paramStatementSetter" class="org.springframework.batch.item.database.support.ListPreparedStatementSetter" scope="step">
+    <bean id="paramStatementSetter" class="org.springframework.batch.item.database.support.ListPreparedStatementSetter" >
         <property name="parameters">
             <list>
-                <value>#{jobParameters['decide']}</value>
+                <value><![CDATA[ #{jobParameters['decide']} ]]></value>
             </list>
         </property>
     </bean>
     <!--  reader  -->
-    <bean id="mailSendReader" class="org.springframework.batch.item.database.JdbcCursorItemReader" scope="step">
+    <bean id="mailSendReader" class="org.springframework.batch.item.database.JdbcCursorItemReader" >
         <property name="dataSource" ref="licDataSource" />
         <property name="sql">
-            <value><![CDATA[ select username, usergroup, phone, mail from user where usergroup #{jobParameters['decide']}1 ]]></value>
+            <value><![CDATA[ select username, usergroup, phone, mail from user where usergroup < 1 ]]></value>
         </property>
         <property name="rowMapper">
             <bean class="org.springframework.jdbc.core.BeanPropertyRowMapper">
@@ -29,12 +29,12 @@
         </property>
     </bean>
     <!--  processor  -->
-    <bean id="mailSendProcessor" class="com.mylog.common.batch.processors.CommonMailSendProcessor" scope="step">
+    <bean id="mailSendProcessor" class="com.mylog.common.batch.processors.CommonMailSendProcessor" >
         <property name="content" value="#{jobParameters['mailContent']}"/>
         <property name="subject" value="#{jobParameters['mailSubject']}"/>
      </bean>
     <!--  writer  -->
-    <bean id="mailSendWriter" class="org.springframework.batch.item.file.FlatFileItemWriter" scope="step">
+    <bean id="mailSendWriter" class="org.springframework.batch.item.file.FlatFileItemWriter" >
         <property name="encoding" value="utf-8"/>
         <property name="resource" value="file:#{jobParameters['filePath']}#{jobParameters['fileHourStamp']}/#{jobParameters['fileSecondStamp']}MailLog"/>
         <property name="lineAggregator">
@@ -56,7 +56,7 @@
             </batch:listeners>
             <batch:chunk reader="mailSendReader" processor="mailSendProcessor" writer="mailSendWriter" skip-limit="1" commit-interval="10">
                 <batch:skippable-exception-classes>
-                    <batch:include class="com.mylog.common.batch.common.CommonException"/>
+                    <batch:include class="com.mylog.common.batch.common.CommonSkipException"/>
                 </batch:skippable-exception-classes>
             </batch:chunk>
         </batch:tasklet>

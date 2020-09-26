@@ -11,10 +11,10 @@ spring:
     nacos:
       config:
         namespace: ${config.namespace}
-        shared-dataids: common.yaml
-        refreshable-dataids: common.yaml
         server-addr: logicer.top:8848
         file-extension: yaml
+        shared-configs[0]: common.yaml
+        refresh-enabled: true
       discovery:
         namespace: ${config.namespace}
         server-addr: logicer.top:8848

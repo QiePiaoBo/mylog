@@ -23,9 +23,12 @@ public class FileController {
 
     @Autowired
     IFileService fileService;
+
     /**
      * 文件上传
+     * @param articleDto
      * @return
+     * @throws IOException
      */
     @AdminPermission
     @RequestMapping("upload")

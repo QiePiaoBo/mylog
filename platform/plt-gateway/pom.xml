@@ -22,11 +22,11 @@
         </dependency>
         <!--    nacos配置 -->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
+            <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
+            <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
         <!--    Slf4j    -->
@@ -109,7 +109,10 @@
             <artifactId>druid</artifactId>
         </dependency>
         <!--        自定义工具  工具中不可引用web相关组件会与gateway冲突     -->
-
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+        </dependency>
     </dependencies>
 
 

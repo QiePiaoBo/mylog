@@ -7,5 +7,5 @@ import org.springframework.stereotype.Component;
  * @author Dylan
  */
 @Component
-public class CommonException extends RuntimeException{
+public class CommonSkipException extends RuntimeException{
 }
