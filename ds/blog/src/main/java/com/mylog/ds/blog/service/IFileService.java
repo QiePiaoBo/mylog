@@ -15,6 +15,7 @@ public interface IFileService {
     /**
      * 文件上传
      * @param articleDto
+     * @param uploadWhere
      * @return
      */
     Result uploadFile(ArticleDto articleDto, String uploadWhere);

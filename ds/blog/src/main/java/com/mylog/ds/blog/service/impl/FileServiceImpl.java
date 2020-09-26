@@ -141,6 +141,7 @@ public class FileServiceImpl implements IFileService {
      * @param file
      * @return
      */
+    @Override
     public Response upload2QiNiu(File file){
         Response response = null;
         try {
