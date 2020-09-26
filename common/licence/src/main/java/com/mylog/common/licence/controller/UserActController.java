@@ -5,6 +5,8 @@ import com.mylog.common.licence.permission.permissions.AdminPermission;
 import com.mylog.common.licence.service.IUserService;
 import com.mylog.tools.utils.entity.Result;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,12 +17,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("act")
 public class UserActController {
-
+    private static final Logger logger = LoggerFactory.getLogger(UserActController.class);
     @Autowired
     IUserService userService;
 
     @PostMapping("login")
     public Result login(@RequestBody UserDTO userDTO){
+        logger.info("asdaafafsa");
         return userService.login(userDTO);
     }
 

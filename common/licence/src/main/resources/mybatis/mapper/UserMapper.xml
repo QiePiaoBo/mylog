@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mylog.common.licence.mapper.UserMapper">
-    <resultMap id="systemUserMap" type="com.mylog.common.licence.entity.User" >
-        <id column="id" property="id"  />
-        <result column="usergroup" property="usergroup" />
-        <result column="username" property="username"  />
-        <result column="password" property="password"  />
-        <result column="phone" property="phone"  />
-        <result column="mail" property="mail"  />
-        <result column="gender" property="gender"  />
-        <result column="realname" property="realname"  />
-        <result column="cn_id" property="cnId"  />
-        <result column="description" property="description"  />
+    <resultMap id="systemUserMap" type="com.mylog.common.licence.entity.User">
+        <id column="id" property="id"/>
+        <result column="usergroup" property="usergroup"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="phone" property="phone"/>
+        <result column="mail" property="mail"/>
+        <result column="gender" property="gender"/>
+        <result column="realname" property="realname"/>
+        <result column="cn_id" property="cnId"/>
+        <result column="description" property="description"/>
     </resultMap>
     <select id="selectUserList" resultMap="systemUserMap">
          SELECT id,usergroup, username,phone,mail,phone,gender, realname, cn_id,description FROM user
