@@ -11,7 +11,9 @@ spring:
         server-addr: logicer.top:8848
         file-extension: yaml
         namespace: ${config.namespace}
-        shared-configs[0]: common.yaml
+        shared-configs[0]:
+          data-id: common.yaml
+          refresh: true
         refresh-enabled: true
       discovery:
         namespace: ${config.namespace}
