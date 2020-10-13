@@ -21,11 +21,11 @@ import java.util.List;
  * @Description : 生成 年月日时/名字-分秒.csv文件
  */
 @RefreshScope
-public class CommonFileWriter<T> extends FlatFileItemWriter<T> {
+public class MailSendWriter<T> extends FlatFileItemWriter<T> {
 
     @Value("${filePath}")
     private String filePath;
-    public CommonFileWriter(Class clz){
+    public MailSendWriter(Class clz){
         BeanWrapperFieldExtractor beanWrapperFieldExtractor = new BeanWrapperFieldExtractor();
         Field[] fields = clz.getDeclaredFields();
         List<String> list = new ArrayList<>();

@@ -7,10 +7,10 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <!--  MailJob  -->
     <import resource="MailStep.xml"/>
-    <batch:job id="mailSendJob" job-repository="batchJobRepository">
-        <batch:listeners>
-            <batch:listener ref="commonJobListener"/>
-        </batch:listeners>
-        <batch:step parent="mailSendStep" id="mailSendJobStep"/>
-    </batch:job>
+<!--    <batch:job id="mailSendJob" job-repository="batchJobRepository">-->
+<!--        <batch:listeners>-->
+<!--            <batch:listener ref="commonJobListener"/>-->
+<!--        </batch:listeners>-->
+<!--        <batch:step parent="mailSendStep" id="mailSendJobStep"/>-->
+<!--    </batch:job>-->
 </beans>

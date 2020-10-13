@@ -30,13 +30,9 @@ public class MailSendServiceImpl {
         String timeStamp = new SimpleDateFormat("yyyyMMdd hh:mm:ss").format(new Date());
         String fileHourStamp = new SimpleDateFormat("yyyyMMddhh").format(new Date());
         String fileSecondStamp = new SimpleDateFormat("mmss").format(new Date());
-        String decide = ">";
         String filePath = "/var/www/springcloud/data/";
         String mailSubject = "项目运行情况";
         String mailContent = "正常运行，时间：" + timeStamp;
-        if (mailDto.getUserType()!= null && mailDto.getUserType().equals("admin")){
-            decide = "<=";
-        }
         if (mailDto.getMailSubject()!=null){
             mailSubject = mailDto.getMailSubject();
         }
@@ -47,10 +43,10 @@ public class MailSendServiceImpl {
             filePath = "F:\\Files\\mylog\\mail\\";
         }
         JobParameters jobParameters = new JobParametersBuilder()
-                .addString("decide", decide)
+                .addString("userType", mailDto.getUserType())
                 .addString("filePath", filePath)
-                .addString("mailSubject", mailSubject)
-                .addString("mailContent", mailContent)
+                .addString("subject", mailSubject)
+                .addString("content", mailContent)
                 .addString("fileHourStamp", fileHourStamp)
                 .addString("fileSecondStamp", fileSecondStamp)
                 .addLong("time",System.currentTimeMillis())
