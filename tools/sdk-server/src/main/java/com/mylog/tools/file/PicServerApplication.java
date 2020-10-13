@@ -3,8 +3,6 @@ package com.mylog.tools.file;
 import com.mylog.tools.file.filesdk.QiNiuSdk;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
@@ -15,7 +13,6 @@ import java.io.File;
  * @Function :
  */
 public class PicServerApplication {
-    private static final Logger logger = LoggerFactory.getLogger(PicServerApplication.class);
 
     public static void main(String[] args) {
         File file = new File("E:\\壁纸\\8k\\诗乃.jpg");

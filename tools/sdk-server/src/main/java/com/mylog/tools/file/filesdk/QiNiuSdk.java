@@ -7,8 +7,6 @@ import com.qiniu.storage.Region;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
 import com.qiniu.util.StringMap;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
@@ -19,7 +17,6 @@ import java.io.File;
  * @Function :
  */
 public class QiNiuSdk {
-    private static final Logger logger = LoggerFactory.getLogger(QiNiuSdk.class);
     private static final long expireSeconds = 3600;
 
     public static Response uploadToQiniu(File file, String accessKey, String secretKey, String bucketName) throws QiniuException {

@@ -12,11 +12,6 @@
     <artifactId>sdk-server</artifactId>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <version>2.2.6.RELEASE</version>
-        </dependency>
         <!--  七牛  -->
         <dependency>
             <groupId>com.qiniu</groupId>

@@ -13,7 +13,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>plt-gateway</module>
-        <module>plt-rpc</module>
     </modules>
     <description>平台建设</description>
     <build>

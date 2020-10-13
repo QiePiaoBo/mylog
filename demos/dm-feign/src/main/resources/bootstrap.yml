@@ -5,17 +5,3 @@ spring:
     active: ${default-profile}
   application:
     name: dm-feign
-  cloud:
-    nacos:
-      config:
-        server-addr: logicer.top:8848
-        file-extension: yaml
-        namespace: ${config.namespace}
-        shared-configs[0]:
-          data-id: common.yaml
-          refresh: true
-        refresh-enabled: true
-      discovery:
-        namespace: ${config.namespace}
-        server-addr: logicer.top:8848
-        ip: {ip: 127.0.0.1}

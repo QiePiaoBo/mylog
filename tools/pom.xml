@@ -14,7 +14,7 @@
     <modules>
         <module>sdk-server</module>
         <module>utils-server</module>
-        <module>data-server</module>
+        <module>entity-server</module>
     </modules>
     <packaging>pom</packaging>
 
