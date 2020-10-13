@@ -76,7 +76,7 @@
 
         <httpclient.version>4.5.12</httpclient.version>
         <httpcore.version>4.4.9</httpcore.version>
-
+        <mybatis-plus.version>3.4.0</mybatis-plus.version>
         <javax-el-api.version>2.2.4</javax-el-api.version>
 
         <!--    自定义配置当前所有jar的profile   -->
@@ -136,8 +136,12 @@
                 <artifactId>spring-webmvc</artifactId>
                 <version>${spring-webmvc.version}</version>
             </dependency>
-
-
+            <!--  mybatis-plus  -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>
