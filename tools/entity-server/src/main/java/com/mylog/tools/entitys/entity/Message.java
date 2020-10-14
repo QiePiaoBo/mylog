@@ -40,7 +40,11 @@ public enum  Message {
     /**
      * 文件为空
      */
-    FILE_NEED("文件为空")
+    FILE_NEED("文件为空"),
+    /**
+     * 参数缺失
+     */
+    PARAM_NEED("参数缺失")
     ;
 
     private String msg;

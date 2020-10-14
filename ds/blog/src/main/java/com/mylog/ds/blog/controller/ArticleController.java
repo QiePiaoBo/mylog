@@ -55,12 +55,22 @@ public class ArticleController {
         return this.articleService.queryRight(article);
     }
 
+    /**
+     * 更新文章
+     * @param article
+     * @return
+     */
     @AdminPermission
     @RequestMapping("update")
     public Result updateArticle(@RequestBody Article article){
         return articleService.update(article);
     }
 
+    /**
+     * 删除文章
+     * @param id
+     * @return
+     */
     @AdminPermission
     @RequestMapping("delete")
     public Result deleteById(@RequestParam Integer id){

@@ -40,7 +40,11 @@ public enum  Status {
     /**
      * 文件为空
      */
-    FILE_NEED(100008)
+    FILE_NEED(100008),
+    /**
+     * 参数缺失
+     */
+    PARAM_NEED(100009)
     ;
 
     private long status;

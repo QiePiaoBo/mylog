@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.util.Objects;
 
 /**
  * @author Dylan
@@ -23,7 +24,7 @@ public class FileUtils {
             return null;
         }else{
             InputStream ins = multi.getInputStream();
-            f=new File(multi.getOriginalFilename());
+            f=new File(Objects.requireNonNull(multi.getOriginalFilename()));
             inputStreamToFile(ins, f);
             return f;
         }

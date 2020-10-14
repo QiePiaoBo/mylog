@@ -36,6 +36,17 @@ public class ArticleDto {
      */
     private String isLock;
 
+    /**
+     * 文件发送到哪去
+     */
     private String sendPlace;
 
+    /**
+     * 作者id
+     */
+    private int authorId;
+    /**
+     * 创建时间
+     */
+    private String createTime;
 }
