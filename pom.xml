@@ -6,7 +6,7 @@
 
     <groupId>com.mylog</groupId>
     <artifactId>mylog-plat</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.1.RELEASE</version>
     <modules>
         <module>platform</module>
         <module>common</module>
@@ -80,11 +80,29 @@
 
         <!--    自定义配置当前所有jar的profile   -->
         <default-profile>dev</default-profile>
+        <!--    自定义配置当前所有jar的版本   -->
+        <default-version>0.0.1.RELEASE</default-version>
 
     </properties>
 
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>com.mylog.tools</groupId>
+                <artifactId>sdk-server</artifactId>
+                <version>0.0.1.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mylog.tools</groupId>
+                <artifactId>utils-server</artifactId>
+                <version>0.0.1.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mylog.tools</groupId>
+                <artifactId>entity-server</artifactId>
+                <version>0.0.1.RELEASE</version>
+            </dependency>
             <!--        添加spring-boot全家桶     -->
             <!--    动态路由相关    -->
             <dependency>

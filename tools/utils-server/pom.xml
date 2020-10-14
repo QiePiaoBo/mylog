@@ -5,12 +5,14 @@
     <parent>
         <artifactId>tools</artifactId>
         <groupId>com.mylog</groupId>
-        <version>0.0.1</version>
+        <version>0.0.1.RELEASE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>utils-server</artifactId>
     <packaging>jar</packaging>
+    <groupId>com.mylog.tools</groupId>
+    <artifactId>utils-server</artifactId>
+    <version>${default-version}</version>
 
     <dependencies>
         <!-- 作为工具类 提供核心功能所要以来的包 -->
@@ -80,7 +82,22 @@
         <dependency>
             <groupId>com.mylog.tools</groupId>
             <artifactId>entity-server</artifactId>
-            <version>0.0.1</version>
+            <version>${default-version}</version>
         </dependency>
     </dependencies>
+    <build>
+        <!-- 打包名称 -->
+        <finalName>${project.artifactId}</finalName>
+        <!--    需要引入这两个插件 不然会没有主清单属性    -->
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
