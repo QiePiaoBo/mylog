@@ -1,6 +1,6 @@
-package com.mylog.ds.blog.permission.interceptor;
+package com.mylog.tools.utils.interceptor;
 
-import com.mylog.ds.blog.permission.permissions.AdminPermission;
+import com.mylog.tools.annos.AdminPermission;
 import com.mylog.tools.utils.session.UserContext;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -25,8 +25,6 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
-        UserContext userContext = new UserContext();
         boolean result = false;
         if (!(handler instanceof HandlerMethod)){
             result =  true;
@@ -40,17 +38,17 @@ public class AuthInterceptor implements HandlerInterceptor {
             return true;
         }
         // 需要验证的Method
-        if (userContext.getCurrentUser() == null){
+        if (UserContext.getCurrentUser() == null){
             response.setContentType("application/json; charset=UTF-8");
             response.getWriter().write("未登录");
             return false;
         }
         val userType = authToken.userType();
         // 数字越小权限越大
-        result =  userType >= userContext.getCurrentUser().getUsergroup();
+        result =  userType >= UserContext.getCurrentUser().getUsergroup();
         if (!result){
             response.setContentType("application/json; charset=UTF-8");
-            if (userContext.getCurrentUser() == null){
+            if (UserContext.getCurrentUser() == null){
                 response.getWriter().write("未登录");
             }
             else {

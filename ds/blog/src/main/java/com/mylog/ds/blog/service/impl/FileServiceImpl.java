@@ -6,6 +6,7 @@ import com.mylog.ds.blog.entity.vo.UserVO;
 import com.mylog.ds.blog.service.ArticleService;
 import com.mylog.ds.blog.service.IFileService;
 import com.mylog.ds.blog.service.UserService;
+import com.mylog.tools.entitys.vo.PersonVo;
 import com.mylog.tools.sdks.filesdk.QiNiuSdk;
 import com.mylog.tools.entitys.entity.Result;
 import com.mylog.tools.entitys.entity.Message;
@@ -96,7 +97,7 @@ public class FileServiceImpl implements IFileService {
      */
     private Result insertToDatabase(Response response, String filePath, ArticleDto articleDto){
         // 插入数据库
-        UserVO currentUser = userService.getUser();
+        PersonVo currentUser = userService.getUser();
         Article article = new Article();
         if (currentUser != null){
             BeanUtils.copyProperties(articleDto, article);

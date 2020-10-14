@@ -1,8 +1,8 @@
 package com.mylog.ds.blog.controller;
 
 import com.mylog.ds.blog.entity.dto.ArticleDto;
-import com.mylog.ds.blog.permission.permissions.AdminPermission;
 import com.mylog.ds.blog.service.IFileService;
+import com.mylog.tools.annos.AdminPermission;
 import com.mylog.tools.entitys.entity.Message;
 import com.mylog.tools.entitys.entity.Result;
 import com.mylog.tools.entitys.entity.Status;

@@ -38,7 +38,7 @@ public class Person implements Serializable {
     private String username;
 
     /**
-     * 用户名
+     * 密码
      */
     private String password;
 
@@ -61,8 +61,9 @@ public class Person implements Serializable {
      * 用户真实姓名
      */
     private String realname;
+
     /**
-     * 用户身份证号
+     * 用户是否已被删除
      */
     private boolean isDel;
 

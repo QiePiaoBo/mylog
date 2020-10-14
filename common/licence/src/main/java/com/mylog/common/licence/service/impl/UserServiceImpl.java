@@ -16,6 +16,7 @@ import com.mylog.tools.entitys.entity.Message;
 import com.mylog.tools.entitys.entity.Person;
 import com.mylog.tools.entitys.entity.Result;
 import com.mylog.tools.entitys.entity.Status;
+import com.mylog.tools.entitys.vo.PersonVo;
 import com.mylog.tools.utils.session.UserContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +47,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     private PasswordService passwordService;
 
 
-    UserContext userContext = new UserContext();
+//    UserContext userContext = new UserContext();
     /**
      * 获取用户列表
      * @param page
@@ -222,7 +223,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         // 验证通过，将当前用户存入session中
         Person p = new Person();
         BeanUtils.copyProperties(user, p);
-        userContext.putCurrentUser(p);
+        UserContext.putCurrentUser(p);
         return result.put("status",200).put("msg","登陆成功");
     }
 
@@ -235,11 +236,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public Result logout() {
         Result result = new Result();
         // 验证通过，将当前用户从session中删除
-        try {
-            userContext.deleteCurrentUser();
-        }catch (IllegalArgumentException e){
-            e.fillInStackTrace();
-        }
+        UserContext.deleteCurrentUser();
         return result.put("status",200).put("msg","登出成功");
     }
 
@@ -250,14 +247,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public Result getCurrentUser(){
         Result result = new Result();
-        UserVO userVo = new UserVO();
+        PersonVo person = new PersonVo();
         try {
-
-            Person p = userContext.getCurrentUser();
-            BeanUtils.copyProperties(p, userVo);
+            person = UserContext.getCurrentUser();
         }catch (IllegalArgumentException e){
             e.fillInStackTrace();
         }
-        return result.put("status", 200).put("msg","获取成功").put("data", userVo);
+        return result.put("status", 200).put("msg","获取成功").put("data", person);
     }
 }

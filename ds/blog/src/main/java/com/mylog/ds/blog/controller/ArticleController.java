@@ -1,8 +1,8 @@
 package com.mylog.ds.blog.controller;
 
 import com.mylog.ds.blog.entity.Article;
-import com.mylog.ds.blog.permission.permissions.AdminPermission;
 import com.mylog.ds.blog.service.ArticleService;
+import com.mylog.tools.annos.AdminPermission;
 import com.mylog.tools.entitys.entity.Result;
 import org.springframework.web.bind.annotation.*;
 

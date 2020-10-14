@@ -1,6 +1,6 @@
 package com.mylog.common.licence.permission;
 
-import com.mylog.common.licence.permission.interceptor.AuthInterceptor;
+import com.mylog.tools.utils.interceptor.AuthInterceptor;
 import org.springframework.beans.factory.annotation.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;

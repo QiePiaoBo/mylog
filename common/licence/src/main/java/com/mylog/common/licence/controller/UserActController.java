@@ -1,8 +1,8 @@
 package com.mylog.common.licence.controller;
 
 import com.mylog.common.licence.model.dto.UserDTO;
-import com.mylog.common.licence.permission.permissions.AdminPermission;
 import com.mylog.common.licence.service.IUserService;
+import com.mylog.tools.annos.AdminPermission;
 import com.mylog.tools.entitys.entity.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;

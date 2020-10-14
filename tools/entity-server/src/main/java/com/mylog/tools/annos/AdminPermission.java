@@ -1,4 +1,4 @@
-package com.mylog.ds.blog.permission.permissions;
+package com.mylog.tools.annos;
 
 import java.lang.annotation.*;
 
