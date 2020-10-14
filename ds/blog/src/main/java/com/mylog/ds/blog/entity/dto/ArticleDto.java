@@ -36,4 +36,6 @@ public class ArticleDto {
      */
     private String isLock;
 
+    private String sendPlace;
+
 }

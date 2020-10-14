@@ -101,14 +101,14 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     /**
      * 新增数据
-     *
+     * 注意：不提供controller使用
      * @param article 实例对象
      * @return 实例对象
      */
     @Override
     public Article insert(Article article) {
 
-        Integer insert = articleMapper.insert(article);
+        int insert = articleMapper.insert(article);
         if (insert > 0) {
             return article;
         }

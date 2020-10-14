@@ -1,12 +1,18 @@
 package com.mylog.ds.blog.controller;
 
 import com.mylog.ds.blog.entity.Article;
+import com.mylog.ds.blog.entity.dto.ArticleDto;
 import com.mylog.ds.blog.service.ArticleService;
+import com.mylog.ds.blog.service.IFileService;
 import com.mylog.tools.annos.AdminPermission;
+import com.mylog.tools.entitys.entity.Message;
 import com.mylog.tools.entitys.entity.Result;
+import com.mylog.tools.entitys.entity.Status;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 
 /**
  * (Article)表控制层
@@ -18,10 +24,15 @@ import javax.annotation.Resource;
 @RequestMapping("article")
 public class ArticleController {
     /**
-     * 服务对象
+     * 文章管理服务
      */
     @Resource
     private ArticleService articleService;
+    /**
+     * 文件上传服务
+     */
+    @Autowired
+    IFileService fileService;
 
     /**
      * 通过主键查询单条数据
@@ -57,4 +68,24 @@ public class ArticleController {
     }
 
 
+    /**
+     * 文件上传
+     * @param articleDto
+     * @return
+     * @throws IOException
+     */
+    @AdminPermission
+    @RequestMapping("upload")
+    public Result uploadFile(@ModelAttribute ArticleDto articleDto) throws IOException {
+        if (articleDto.getFile()==null){
+            return new Result().put("status", Status.FILE_NEED.getStatus()).put("msg", Message.FILE_NEED.getMsg());
+        }
+        Result result = null;
+        if (null == articleDto.getSendPlace() || "qiniu".equals(articleDto.getSendPlace())){
+            result = fileService.uploadFile(articleDto, "qiniu");
+        }else {
+            result = fileService.uploadFile(articleDto, articleDto.getSendPlace());
+        }
+        return result;
+    }
 }
