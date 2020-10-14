@@ -76,5 +76,11 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+        <!-- 公共实体类  -->
+        <dependency>
+            <groupId>com.mylog.tools</groupId>
+            <artifactId>entity-server</artifactId>
+            <version>0.0.1</version>
+        </dependency>
     </dependencies>
 </project>

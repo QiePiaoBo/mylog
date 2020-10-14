@@ -1,7 +1,7 @@
 package com.mylog.ds.blog.service;
 
 import com.mylog.ds.blog.entity.dto.ArticleDto;
-import com.mylog.tools.utils.entity.Result;
+import com.mylog.tools.entitys.entity.Result;
 import com.qiniu.http.Response;
 
 import java.io.File;

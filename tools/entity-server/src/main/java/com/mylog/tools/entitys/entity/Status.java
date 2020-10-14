@@ -1,4 +1,4 @@
-package com.mylog.tools.utils.entity;
+package com.mylog.tools.entitys.entity;
 
 /**
  * 状态码枚举类

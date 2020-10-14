@@ -10,15 +10,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.mylog.tools</groupId>
-    <artifactId>data-server</artifactId>
+    <artifactId>entity-server</artifactId>
+    <version>0.0.1</version>
     <dependencies>
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
 

@@ -5,7 +5,7 @@ import com.mylog.common.licence.entity.User;
 import com.mylog.common.licence.model.dto.UserDTO;
 import com.mylog.common.licence.permission.permissions.AdminPermission;
 import com.mylog.common.licence.service.IUserService;
-import com.mylog.tools.utils.entity.Result;
+import com.mylog.tools.entitys.entity.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
