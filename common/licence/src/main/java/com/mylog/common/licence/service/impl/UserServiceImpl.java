@@ -106,6 +106,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
 
+    /**
+     * 添加用户
+     * @param userDTO
+     * @return
+     */
     @Override
     public Result addUser(UserDTO userDTO){
         Result result = new Result();

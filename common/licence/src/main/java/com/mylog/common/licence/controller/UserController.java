@@ -13,12 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 
 /**
- * <p>
- *  前端控制器
- * </p>
- *
  * @author Dylan
  * @since 2020-05-24
+ * 用户管理中心
  */
 @RestController
 @RequestMapping("manage")
@@ -54,6 +51,11 @@ public class UserController {
         return userService.selectOne(userDTO);
     }
 
+    /**
+     * 添加一个用户
+     * @param userDTO
+     * @return
+     */
     @RequestMapping("add")
     public Result addUser(@RequestBody UserDTO userDTO){
         return userService.addUser(userDTO);

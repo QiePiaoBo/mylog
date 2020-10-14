@@ -1,9 +1,7 @@
 package com.mylog.common.licence.entity;
 
 import java.io.Serializable;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
+
 
 /**
  * <p>
@@ -13,9 +11,6 @@ import lombok.experimental.Accessors;
  * @author Dylan
  * @since 2020-05-24
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 public class Permission implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,5 +30,27 @@ public class Permission implements Serializable {
      */
     private String description;
 
+    public Integer getId() {
+        return id;
+    }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

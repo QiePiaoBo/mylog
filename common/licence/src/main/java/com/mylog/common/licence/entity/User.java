@@ -4,11 +4,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 
-import com.mylog.tools.entitys.entity.Person;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
-
 /**
  * <p>
  * 
@@ -17,10 +12,7 @@ import lombok.experimental.Accessors;
  * @author Dylan
  * @since 2020-05-24
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-public class User extends Person implements Serializable {
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -81,4 +73,108 @@ public class User extends Person implements Serializable {
      */
     private String description;
 
+    public User() {
+    }
+
+    public User(Integer id, Integer usergroup, String username, String password, String phone, String mail, String gender, String realname, String cnId, boolean isDel, String description) {
+        this.id = id;
+        this.usergroup = usergroup;
+        this.username = username;
+        this.password = password;
+        this.phone = phone;
+        this.mail = mail;
+        this.gender = gender;
+        this.realname = realname;
+        this.cnId = cnId;
+        this.isDel = isDel;
+        this.description = description;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getUsergroup() {
+        return usergroup;
+    }
+
+    public void setUsergroup(Integer usergroup) {
+        this.usergroup = usergroup;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
+
+    public String getCnId() {
+        return cnId;
+    }
+
+    public void setCnId(String cnId) {
+        this.cnId = cnId;
+    }
+
+    public boolean isDel() {
+        return isDel;
+    }
+
+    public void setDel(boolean del) {
+        isDel = del;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

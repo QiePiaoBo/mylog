@@ -1,6 +1,5 @@
 package com.mylog.tools.utils.session;
 
-import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.mylog.tools.entitys.entity.Person;
 import com.mylog.tools.entitys.vo.PersonVo;
 import org.springframework.beans.BeanUtils;
@@ -51,6 +50,9 @@ public class UserContext {
     public static PersonVo getCurrentUser(){
         Object o = getSession().getAttribute(CURRENT_USER_IN_SESSION);
         PersonVo personVo = new PersonVo();
+        if (null == o){
+            return null;
+        }
         BeanUtils.copyProperties((Person)o, personVo);
         return personVo;
     }

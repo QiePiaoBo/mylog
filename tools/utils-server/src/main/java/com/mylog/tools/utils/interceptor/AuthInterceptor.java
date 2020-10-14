@@ -38,7 +38,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             return true;
         }
         // 需要验证的Method
-        if (UserContext.getCurrentUser() == null){
+        if (null == UserContext.getCurrentUser()){
             response.setContentType("application/json; charset=UTF-8");
             response.getWriter().write("未登录");
             return false;
