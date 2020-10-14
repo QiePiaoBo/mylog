@@ -12,6 +12,8 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.mail.SendFailedException;
+
 /**
  * 批量邮件发送processor
  * @author Dylan
@@ -39,7 +41,10 @@ public class MailSendProcessor extends JobExecutionListenerSupport implements It
         }
         String mail = mailEntity.getMail();
         logger.info("mail is: " + mail);
-        mailService.sendSimpleMail(mail, subject, content);
+        try {
+            mailService.sendSimpleMail(mail, subject, content);
+        }catch (Exception e){
+        }
         return mailEntity;
     }
 

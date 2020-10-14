@@ -1,16 +1,12 @@
 package com.mylog.common.batch.job;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.mylog.common.batch.common.CommonSkipException;
-import com.mylog.common.batch.listener.BatchSkipListener;
 import com.mylog.common.batch.listener.JobListener;
 import com.mylog.common.batch.listener.StepListener;
 import com.mylog.common.batch.model.entity.MailEntity;
 import com.mylog.common.batch.model.rowmapper.MailSendRowMapper;
 import com.mylog.common.batch.processors.MailSendProcessor;
-import com.mylog.common.batch.reader.MailSendReader;
 import com.mylog.common.batch.writer.CommonFlatFileItemWriter;
-import com.mylog.common.batch.writer.MailSendLineAggregator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
@@ -18,7 +14,6 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepScope;
-import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
@@ -27,11 +22,9 @@ import org.springframework.batch.item.database.Order;
 import org.springframework.batch.item.database.support.MySqlPagingQueryProvider;
 import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.FileSystemResource;
 
 import java.util.HashMap;
 import java.util.Map;
