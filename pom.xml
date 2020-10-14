@@ -9,7 +9,6 @@
     <version>0.0.1</version>
     <modules>
         <module>platform</module>
-        <module>demos</module>
         <module>common</module>
         <module>ds</module>
         <module>tools</module>
