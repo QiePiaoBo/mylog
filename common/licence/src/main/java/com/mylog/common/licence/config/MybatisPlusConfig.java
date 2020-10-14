@@ -1,6 +1,7 @@
 package com.mylog.common.licence.config;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,18 +11,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MybatisPlusConfig {
     /**
-     * 分页插件
+     * 分页插件设置每一页最大容量
      */
     @Bean
-    public PaginationInterceptor paginationInterceptor() {
-        return new PaginationInterceptor().setLimit(-1);
+    public PaginationInnerInterceptor getPaginationInnerInterceptor() {
+        PaginationInnerInterceptor paginationInnerInterceptor = new PaginationInnerInterceptor();
+        paginationInnerInterceptor.setMaxLimit(1000L);
+        return paginationInnerInterceptor;
     }
-
-    /**
-     * 登陆管理
-     */
-//    @Bean
-//    public UserContext userContext(){
-//        return new UserContext();
-//    }
 }
