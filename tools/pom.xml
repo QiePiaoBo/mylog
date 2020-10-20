@@ -10,7 +10,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>tools</artifactId>
-    <version>0.0.1.RELEASE</version>
     <modules>
         <module>sdk-server</module>
         <module>utils-server</module>
