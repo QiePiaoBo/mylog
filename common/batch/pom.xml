@@ -13,6 +13,7 @@
     <artifactId>batch</artifactId>
     <version>${default-version}</version>
     <packaging>jar</packaging>
+    <description>批量</description>
 
     <dependencies>
         <!--    batch    -->
@@ -92,7 +93,7 @@
 
     <build>
         <!-- 打包名称 -->
-        <finalName>${project.artifactId}</finalName>
+        <finalName>${project.artifactId}-${default-version}</finalName>
         <!--    需要引入这两个插件 不然会没有主清单属性    -->
         <plugins>
             <plugin>

@@ -23,7 +23,7 @@ public class AuthConfigure implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(authInterceptor()).addPathPatterns(urls);
+        registry.addInterceptor(authInterceptor()).addPathPatterns(urls).excludePathPatterns("/file/**");
     }
 
     public AuthInterceptor authInterceptor(){

@@ -72,7 +72,7 @@ public class FileServiceImpl implements IFileService {
         // 文件子目录
         String sonPath = new SimpleDateFormat("yyyyMM").format(new Date());
         Response response = null;
-        if (uploadWhere.equals("qiniu")){
+        if ("qiniu".equals(uploadWhere)){
             // 上传至七牛云
             try {
                 response = this.upload2QiNiu(FileUtils.multi2File(multipartFile));
@@ -86,6 +86,57 @@ public class FileServiceImpl implements IFileService {
         }
         // 入库并返回结果
         return this.insertToDatabase(response, filepath, articleDto);
+    }
+
+    /**
+     * 上传到七牛云
+     * @param file
+     * @return
+     */
+    public Response upload2QiNiu(File file){
+        Response response = null;
+        try {
+            response = QiNiuSdk.uploadToQiniu(file, accessKey, secretKey, bucketName);
+        }catch (QiniuException e){
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+    /**
+     * 上传到服务器
+     * @param subffix
+     * @param sonPath
+     * @param fileName
+     */
+    public void upload2Server(String subffix, String sonPath, String fileName){
+        // 判断是否是windows平台
+        boolean isWindows = new SysInfo().isWindows();
+        String filepath = "";
+        // 如果上传至服务器，则根据服务器所处平台更改文件存储位置
+        if (isWindows){
+            // 获取文件存放位置
+            filepath = "F:\\Files\\mylog\\" + subffix.substring(1) + "\\" + sonPath + "\\";
+            // 文件全路径拼接上文件名
+            filepath += fileName;
+            File winFile = new File(filepath);
+            // 目录不存在就创建
+            if(!winFile.exists()){
+                boolean mkWinDirs = winFile.mkdirs();
+                System.out.println(mkWinDirs ? "created a path" : "do not need to create");
+            }
+        } else {
+            // 获取文件存放位置
+            filepath = "/var/files/mylog/" + subffix.substring(1) + "/" + sonPath + "/";
+            // 文件全路径拼接上文件名
+            filepath += fileName;
+            File linuxFile = new File(filepath);
+            // 目录不存在就创建
+            if(!linuxFile.exists()){
+                boolean mkLinuxDirs = linuxFile.mkdirs();
+                System.out.println(mkLinuxDirs ? "created a path" : "do not need to create");
+            }
+        }
     }
 
     /**
@@ -134,57 +185,5 @@ public class FileServiceImpl implements IFileService {
             return new Result().put("status", Status.SUCCESS.getStatus()).put("msg", Message.SUCCESS.getMsg());
         }
         return new Result().put("status", Status.INSERT_ERROR.getStatus()).put("msg", Message.INSERT_ERROR.getMsg());
-    }
-
-    /**
-     * 上传到七牛云
-     * @param file
-     * @return
-     */
-    @Override
-    public Response upload2QiNiu(File file){
-        Response response = null;
-        try {
-            response = QiNiuSdk.uploadToQiniu(file, accessKey, secretKey, bucketName);
-        }catch (QiniuException e){
-            e.printStackTrace();
-        }
-        return response;
-    }
-
-    /**
-     * 上传到服务器
-     * @param subffix
-     * @param sonPath
-     * @param fileName
-     */
-    public void upload2Server(String subffix, String sonPath, String fileName){
-        // 判断是否是windows平台
-        boolean isWindows = new SysInfo().isWindows();
-        String filepath = "";
-        // 如果上传至服务器，则根据服务器所处平台更改文件存储位置
-        if (isWindows){
-            // 获取文件存放位置
-            filepath = "F:\\Files\\mylog\\" + subffix.substring(1) + "\\" + sonPath + "\\";
-            // 文件全路径拼接上文件名
-            filepath += fileName;
-            File winFile = new File(filepath);
-            // 目录不存在就创建
-            if(!winFile.exists()){
-                boolean mkWinDirs = winFile.mkdirs();
-                System.out.println(mkWinDirs ? "created a path" : "do not need to create");
-            }
-        } else {
-            // 获取文件存放位置
-            filepath = "/var/files/mylog/" + subffix.substring(1) + "/" + sonPath + "/";
-            // 文件全路径拼接上文件名
-            filepath += fileName;
-            File linuxFile = new File(filepath);
-            // 目录不存在就创建
-            if(!linuxFile.exists()){
-                boolean mkLinuxDirs = linuxFile.mkdirs();
-                System.out.println(mkLinuxDirs ? "created a path" : "do not need to create");
-            }
-        }
     }
 }

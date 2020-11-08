@@ -19,11 +19,4 @@ public interface IFileService {
      * @return
      */
     Result uploadFile(ArticleDto articleDto, String uploadWhere);
-
-    /**
-     * 文件上传到七牛
-     * @param file
-     * @return
-     */
-    Response upload2QiNiu(File file);
 }
