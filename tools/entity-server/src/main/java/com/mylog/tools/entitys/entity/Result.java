@@ -1,18 +1,11 @@
 package com.mylog.tools.entitys.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
  * @author Dylan
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 public class Result {
 
     private Map<String,Object> result = new LinkedHashMap<>();

@@ -4,7 +4,6 @@ import com.mylog.common.licence.model.dto.UserDTO;
 import com.mylog.common.licence.service.IUserService;
 import com.mylog.tools.annos.AdminPermission;
 import com.mylog.tools.entitys.entity.Result;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
  * @author Dylan
  * 用户行为中心
  */
-@Slf4j
 @RestController
 @RequestMapping("act")
 public class UserActController {
@@ -49,7 +47,7 @@ public class UserActController {
     @AdminPermission
     @RequestMapping("who")
     public Result who(){
-        log.info("who is logging");
+        logger.info("who is logging");
         return userService.getCurrentUser();
     }
 

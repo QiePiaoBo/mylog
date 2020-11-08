@@ -1,7 +1,5 @@
 package com.mylog.tools.entitys.vo;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author Dylan
@@ -10,7 +8,6 @@ import org.slf4j.LoggerFactory;
  * @Function :
  */
 public class PersonVo {
-    private static final Logger logger = LoggerFactory.getLogger(PersonVo.class);
 
     /**
      * 用户id

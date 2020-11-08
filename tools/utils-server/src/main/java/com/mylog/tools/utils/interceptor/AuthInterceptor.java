@@ -2,8 +2,6 @@ package com.mylog.tools.utils.interceptor;
 
 import com.mylog.tools.annos.AdminPermission;
 import com.mylog.tools.utils.session.UserContext;
-import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -17,7 +15,6 @@ import java.lang.reflect.Method;
  * 创建拦截器，拦截所有请求
  * @author Dylan
  */
-@Slf4j
 @Component
 public class AuthInterceptor implements HandlerInterceptor {
 
@@ -43,7 +40,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             response.getWriter().write("未登录");
             return false;
         }
-        val userType = authToken.userType();
+        int userType = authToken.userType();
         // 数字越小权限越大
         result =  userType >= UserContext.getCurrentUser().getUsergroup();
         if (!result){
