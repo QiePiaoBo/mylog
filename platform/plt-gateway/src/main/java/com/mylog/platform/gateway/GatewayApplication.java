@@ -7,7 +7,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 /**
  * @author Dylan
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.mylog.platform.gateway", "com.mylog.tools.utils-server"})
 @EnableDiscoveryClient
 public class GatewayApplication {
 

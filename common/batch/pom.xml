@@ -89,6 +89,11 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.11.2</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.mylog.tools</groupId>
+            <artifactId>utils-server</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
