@@ -8,7 +8,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 /**
  * @author Dylan
  */
-@SpringBootApplication(scanBasePackages = {"com.mylog.common.licence", "com.mylog.entitys.utils-server"})
+@SpringBootApplication(scanBasePackages = {"com.mylog.common.licence", "com.mylog.tools.utils"})
 @EnableRedisHttpSession
 @EnableDiscoveryClient
 public class LicenceApplication {

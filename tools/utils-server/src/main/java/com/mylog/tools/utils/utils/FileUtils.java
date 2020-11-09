@@ -1,4 +1,4 @@
-package com.mylog.entitys.utils.utils;
+package com.mylog.tools.utils.utils;
 
 
 import org.springframework.web.multipart.MultipartFile;

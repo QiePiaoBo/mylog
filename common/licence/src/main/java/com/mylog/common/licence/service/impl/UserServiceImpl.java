@@ -17,7 +17,7 @@ import com.mylog.entitys.entitys.entity.Person;
 import com.mylog.entitys.entitys.entity.Result;
 import com.mylog.entitys.entitys.entity.Status;
 import com.mylog.entitys.entitys.vo.PersonVo;
-import com.mylog.entitys.utils.session.UserContext;
+import com.mylog.tools.utils.session.UserContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;

@@ -115,10 +115,6 @@
             <artifactId>slf4j-log4j12</artifactId>
         </dependency>
         <!--        自定义工具  工具中不可引用web相关组件会与gateway冲突     -->
-        <dependency>
-            <groupId>com.mylog.tools</groupId>
-            <artifactId>utils-server</artifactId>
-        </dependency>
     </dependencies>
 
 

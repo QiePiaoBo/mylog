@@ -1,4 +1,4 @@
-package com.mylog.entitys.utils.session;
+package com.mylog.tools.utils.session;
 
 import com.mylog.entitys.entitys.entity.Person;
 import com.mylog.entitys.entitys.vo.PersonVo;

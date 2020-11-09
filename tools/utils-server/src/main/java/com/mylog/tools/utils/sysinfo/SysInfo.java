@@ -1,4 +1,4 @@
-package com.mylog.entitys.utils.sysinfo;
+package com.mylog.tools.utils.sysinfo;
 
 /**
  * 系统信息类
