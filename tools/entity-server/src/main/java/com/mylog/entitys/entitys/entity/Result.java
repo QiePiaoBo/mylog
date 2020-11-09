@@ -50,20 +50,6 @@ public class Result {
         }
     }
 
-    /**
-     * 用来存值，对象，集合
-     * @param key
-     * @param value
-     * @return
-     */
-    public  Result put (String key,Object value){
-        this.result.put(key,value);
-        return this;
-    }
-    public void setMap(Map<String, Object> map) {
-        this.result = map;
-    }
-
     private Result(Builder builder){
         status = builder.status;
         message = builder.message;
