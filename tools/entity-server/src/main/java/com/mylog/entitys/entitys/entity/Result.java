@@ -1,5 +1,6 @@
 package com.mylog.entitys.entitys.entity;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -10,12 +11,43 @@ public class Result {
 
     private Map<String,Object> result = new LinkedHashMap<>();
 
+    private final long status;
+
+    private final String message;
+
+    private Object data;
+
+
     public static Result success(){
         //相当于调用下面的map 然后把值存map里面。
-        Result entity = new Result();
-        entity.result.put("status", Status.SUCCESS.getStatus());
-        entity.result.put("message", Message.SUCCESS.getMsg());
-        return entity;
+        return new Result.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).build();
+    }
+
+    public static class Builder {
+        private final long status;
+
+        private final String message;
+
+        private Object data;
+
+        public Builder(long status, String message){
+            this.status = status;
+            this.message = message;
+        }
+
+        public Builder() {
+            this.status = Status.SUCCESS.getStatus();
+            this.message = Message.SUCCESS.getMsg();
+        }
+
+        public Builder data(Object data) {
+            this.data = data;
+            return this;
+        }
+
+        public Result build(){
+            return new Result(this);
+        }
     }
 
     /**
@@ -30,5 +62,11 @@ public class Result {
     }
     public void setMap(Map<String, Object> map) {
         this.result = map;
+    }
+
+    private Result(Builder builder){
+        status = builder.status;
+        message = builder.message;
+        data = builder.data;
     }
 }

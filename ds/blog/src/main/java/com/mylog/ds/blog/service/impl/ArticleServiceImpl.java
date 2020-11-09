@@ -42,9 +42,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      */
     @Override
     public Result queryRight(Article article) {
-        Result result = new Result();
+        Result result = new Result.Builder().build();
         QueryWrapper<Article> articleQueryWrapper = new QueryWrapper<>();
-        if ( null == userService.getUser() || Integer.valueOf(userService.getUser().getUsergroup())>1) {
+        if ( null == userService.getUser() || userService.getUser().getUsergroup() >1) {
             articleQueryWrapper.eq("is_del", 0);
             articleQueryWrapper.eq("is_lock", 0);
         }
@@ -147,11 +147,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             }
             int update = articleMapper.update(aimArticle,new UpdateWrapper<Article>().eq("id", article.getId()));
             if (update < 1){
-                return new Result().put("status", Status.UPDATE_ERROR.getStatus()).put("msg",Message.UPDATE_ERROR.getMsg());
+                return new Result.Builder(Status.UPDATE_ERROR.getStatus(), Message.UPDATE_ERROR.getMsg()).build();
             }
-            return new Result().put("status", Status.SUCCESS.getStatus()).put("msg",Message.SUCCESS.getMsg()).put("data", aimArticle);
+            return new Result.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).data(aimArticle).build();
         }
-        return new Result().put("status", Status.PERMISSION_ERROR.getStatus()).put("msg",Message.PERMISSION_ERROR.getMsg());
+        return new Result.Builder(Status.PERMISSION_ERROR.getStatus(), Message.PERMISSION_ERROR.getMsg()).build();
     }
 
 
@@ -169,10 +169,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             article.setIsDel("1");
             int delNum = articleMapper.update(article, new UpdateWrapper<Article>().eq("id", id));
             if (delNum < 1){
-                return new Result().put("status", Status.DELETE_ERROR.getStatus()).put("msg", Message.DELETE_ERROR.getMsg());
+                return new Result.Builder(Status.DELETE_ERROR.getStatus(), Message.DELETE_ERROR.getMsg()).build();
             }
             return Result.success();
         }
-        return new Result().put("status", Status.PERMISSION_ERROR.getStatus()).put("msg", Message.PERMISSION_ERROR.getMsg());
+        return new Result.Builder(Status.PERMISSION_ERROR.getStatus(), Message.PERMISSION_ERROR.getMsg()).build();
     }
 }

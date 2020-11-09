@@ -29,7 +29,7 @@ public class ArticleQueryService {
     ArticleMapper articleMapper;
 
     public Result queryArticleTime(@RequestBody ArticleDto articleDto){
-        Result result = new Result();
+        Result result;
         Set<String> countSet = new HashSet<>();
         List<Date> queryResult;
         int authorId = articleDto.getAuthorId();
@@ -40,22 +40,22 @@ public class ArticleQueryService {
             countSet.add(dateString);
         }
         List<String> countResult = new ArrayList<>(countSet);
-        result.put("status", Status.SUCCESS.getStatus());
-        result.put("message", Message.SUCCESS.getMsg());
-        result.put("data", countResult);
+        result = new Result.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg())
+                .data(countResult)
+                .build();
         return result;
     }
     public Result queryArticleByTime(@RequestBody ArticleDto articleDto){
-        Result result = new Result();
+        Result result;
         if ("0".equals(String.valueOf(articleDto.getAuthorId())) || null == articleDto.getCreateTime()){
-            result.put("status", Status.PARAM_NEED.getStatus());
-            result.put("message", Message.PARAM_NEED.getMsg());
+            result = new Result.Builder(Status.PARAM_NEED.getStatus(), Message.PARAM_NEED.getMsg())
+                    .build();
             return result;
         }
         List<Article> queryResult = articleMapper.queryArticlesInOneDay(articleDto.getCreateTime(), articleDto.getAuthorId());
-        result.put("status", Status.SUCCESS.getStatus());
-        result.put("message", Message.SUCCESS.getMsg());
-        result.put("data", queryResult);
+        result = new Result.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg())
+                .data(queryResult)
+                .build();
         return result;
     }
 
