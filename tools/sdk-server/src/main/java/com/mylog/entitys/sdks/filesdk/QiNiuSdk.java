@@ -1,4 +1,4 @@
-package com.mylog.tools.sdks.filesdk;
+package com.mylog.entitys.sdks.filesdk;
 
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;

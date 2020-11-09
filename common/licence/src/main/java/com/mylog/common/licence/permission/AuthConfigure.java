@@ -1,17 +1,11 @@
 package com.mylog.common.licence.permission;
 
-import com.mylog.tools.utils.interceptor.AuthInterceptor;
-import org.springframework.beans.factory.annotation.Value;
+import com.mylog.entitys.utils.interceptor.AuthInterceptor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import java.util.List;
 
 /**
  * 拦截器注册中心

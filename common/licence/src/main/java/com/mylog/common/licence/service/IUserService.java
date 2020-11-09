@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mylog.common.licence.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.mylog.common.licence.model.dto.UserDTO;
-import com.mylog.tools.entitys.entity.Result;
+import com.mylog.entitys.entitys.entity.Result;
 
 
 /**

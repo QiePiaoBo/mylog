@@ -1,4 +1,4 @@
-package com.mylog.tools.entitys.vo;
+package com.mylog.entitys.entitys.vo;
 
 
 /**

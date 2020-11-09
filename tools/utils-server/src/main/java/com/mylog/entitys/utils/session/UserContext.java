@@ -1,7 +1,7 @@
-package com.mylog.tools.utils.session;
+package com.mylog.entitys.utils.session;
 
-import com.mylog.tools.entitys.entity.Person;
-import com.mylog.tools.entitys.vo.PersonVo;
+import com.mylog.entitys.entitys.entity.Person;
+import com.mylog.entitys.entitys.vo.PersonVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;

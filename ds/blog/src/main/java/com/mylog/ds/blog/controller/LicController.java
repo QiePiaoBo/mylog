@@ -1,10 +1,9 @@
 package com.mylog.ds.blog.controller;
 
-import com.mylog.ds.blog.entity.vo.UserVO;
 import com.mylog.ds.blog.service.UserService;
-import com.mylog.tools.annos.AdminPermission;
-import com.mylog.tools.entitys.entity.Result;
-import com.mylog.tools.entitys.vo.PersonVo;
+import com.mylog.entitys.annos.AdminPermission;
+import com.mylog.entitys.entitys.entity.Result;
+import com.mylog.entitys.entitys.vo.PersonVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

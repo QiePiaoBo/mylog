@@ -15,7 +15,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  */
 @EnableCaching
 @EnableDiscoveryClient
-@SpringBootApplication(scanBasePackages = {"com.mylog.common.batch", "com.mylog.tools.utils-server"})
+@SpringBootApplication(scanBasePackages = {"com.mylog.common.batch", "com.mylog.entitys.utils"})
 @EnableScheduling
 @ImportResource(locations = "classpath:/batchJobs/**.xml")
 public class BatchApplication {

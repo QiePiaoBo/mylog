@@ -1,6 +1,6 @@
-package com.mylog.tools.sdks;
+package com.mylog.entitys.sdks;
 
-import com.mylog.tools.sdks.filesdk.QiNiuSdk;
+import com.mylog.entitys.sdks.filesdk.QiNiuSdk;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
 

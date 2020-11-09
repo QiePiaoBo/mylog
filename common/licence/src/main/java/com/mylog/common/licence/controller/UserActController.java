@@ -2,8 +2,8 @@ package com.mylog.common.licence.controller;
 
 import com.mylog.common.licence.model.dto.UserDTO;
 import com.mylog.common.licence.service.IUserService;
-import com.mylog.tools.annos.AdminPermission;
-import com.mylog.tools.entitys.entity.Result;
+import com.mylog.entitys.annos.AdminPermission;
+import com.mylog.entitys.entitys.entity.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

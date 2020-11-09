@@ -1,4 +1,4 @@
-package com.mylog.tools.utils.settings;
+package com.mylog.entitys.utils.settings;
 
 /**
  * size设置枚举类

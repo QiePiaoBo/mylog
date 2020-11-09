@@ -1,10 +1,7 @@
 package com.mylog.ds.blog.service;
 
 import com.mylog.ds.blog.entity.dto.ArticleDto;
-import com.mylog.tools.entitys.entity.Result;
-import com.qiniu.http.Response;
-
-import java.io.File;
+import com.mylog.entitys.entitys.entity.Result;
 
 /**
  * 文件类接口

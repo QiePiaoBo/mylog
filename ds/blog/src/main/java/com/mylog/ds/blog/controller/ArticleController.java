@@ -4,10 +4,10 @@ import com.mylog.ds.blog.entity.Article;
 import com.mylog.ds.blog.entity.dto.ArticleDto;
 import com.mylog.ds.blog.service.ArticleService;
 import com.mylog.ds.blog.service.IFileService;
-import com.mylog.tools.annos.AdminPermission;
-import com.mylog.tools.entitys.entity.Message;
-import com.mylog.tools.entitys.entity.Result;
-import com.mylog.tools.entitys.entity.Status;
+import com.mylog.entitys.annos.AdminPermission;
+import com.mylog.entitys.entitys.entity.Message;
+import com.mylog.entitys.entitys.entity.Result;
+import com.mylog.entitys.entitys.entity.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

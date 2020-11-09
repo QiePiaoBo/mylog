@@ -1,6 +1,6 @@
 package com.mylog.ds.blog.permission;
 
-import com.mylog.tools.utils.interceptor.AuthInterceptor;
+import com.mylog.entitys.utils.interceptor.AuthInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Configuration;
