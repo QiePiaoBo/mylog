@@ -6,7 +6,7 @@ import com.mylog.ds.blog.service.ArticleService;
 import com.mylog.ds.blog.service.IFileService;
 import com.mylog.ds.blog.service.UserService;
 import com.mylog.entitys.entitys.vo.PersonVo;
-import com.mylog.entitys.sdks.filesdk.QiNiuSdk;
+import com.mylog.tools.sdks.filesdk.QiNiuSdk;
 import com.mylog.entitys.entitys.entity.Result;
 import com.mylog.entitys.entitys.entity.Message;
 import com.mylog.entitys.entitys.entity.Status;
