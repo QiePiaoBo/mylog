@@ -44,7 +44,15 @@ public enum  Status {
     /**
      * 参数缺失
      */
-    PARAM_NEED(100009)
+    PARAM_NEED(100009),
+    /**
+     * 用户名不存在
+     */
+    USER_NOT_FOUND(100010),
+    /**
+     * 密码错误
+     */
+    ERROR_PASSWORD(100011)
     ;
 
     private long status;

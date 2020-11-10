@@ -54,7 +54,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      */
     @Override
     public Result selectUserList(Page<User> page) {
-        Result result = new Result();
+        Result result = null;
         IPage<User> userPage = userMapper.selectUserList(page);
         List<User> userList = userPage.getRecords();
         List<UserVO> userVOList = new ArrayList<>();
@@ -63,12 +63,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             BeanUtils.copyProperties(user, userVO);
             userVOList.add(userVO);
         }
-        result.put("status", 200);
-        result.put("message", "查询成功");
-        result.put("data", userVOList);
-        result.put("pageNumber", page.getCurrent());
-        result.put("pageSize", page.getSize());
-        result.put("totalSize", page.getTotal());
+        result = new Result.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).data(userVOList).page(page.getCurrent()).size(page.getSize()).total(page.getTotal()).build();
         return result;
     }
 
@@ -79,7 +74,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      */
     @Override
     public Result selectOne(UserDTO userDTO) {
-        Result result = new Result();
+        Result result;
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         if (userDTO.getId()!=null && userDTO.getId()!=0){
             queryWrapper.eq("id", userDTO.getId());
@@ -97,9 +92,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         UserVO userVO = new UserVO();
         BeanUtils.copyProperties(user,userVO);
         if (userVO.getId()!=null && userVO.getId() > 0){
-            result.put("status",200);
-            result.put("msg","查询成功");
-            result.put("data",userVO);
+            result = new Result.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).data(userVO).build();
+        }else {
+            return null;
         }
         return result;
     }
@@ -112,7 +107,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      */
     @Override
     public Result addUser(UserDTO userDTO){
-        Result result = new Result();
+        Result result;
         // 设置默认用户组
         userDTO.setUsergroup(GroupEnum.USER_GROUP.getGroupId());
         // 若未传入密码，则设置默认密码为123456
@@ -120,11 +115,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             userDTO.setPassword(passwordService.createPassword("123456"));
         }
         if (userDTO.getUsername()==null || userDTO.getUsername().length()==0){
-            result.put("status", 1001).put("msg","添加失败").put("data","用户名缺失");
+            result = new Result.Builder(Status.INSERT_ERROR.getStatus(), Message.INSERT_ERROR.getMsg()).build();
             return result;
         }
         if (userDTO.getPhone()==null || userDTO.getPhone().length()==0){
-            result.put("status", 1001).put("msg","添加失败").put("data","手机号缺失");
+            result = new Result.Builder(Status.INSERT_ERROR.getStatus(), Message.INSERT_ERROR.getMsg()).build();
             return result;
         }
         User user = new User();
@@ -133,10 +128,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         BeanUtils.copyProperties(userDTO, userVO);
         int addResult = userMapper.insert(user);
         if (addResult>0){
-            return result.put("status",200).put("msg","添加成功").put("data", user);
+            return new Result.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).data(user).build();
         }
         else {
-            return result.put("status",1000).put("msg","添加失败").put("data", userDTO);
+            return new Result.Builder(Status.INSERT_ERROR.getStatus(), Message.INSERT_ERROR.getMsg()).build();
         }
     }
 
@@ -148,7 +143,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      */
     @Override
     public Result deleteOne(UserDTO userDTO){
-        Result result = new Result();
+        Result result;
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         if (userDTO.getId()!=null && userDTO.getId()>0){
             queryWrapper.eq("id", userDTO.getId());
@@ -158,18 +153,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }
         List<User> list = userMapper.selectList(queryWrapper);
         if (list == null || list.size() != 1){
-            result.put("status", Status.QUERY_ERROR.getStatus());
-            result.put("msg", Message.QUERY_ERROR.getMsg());
+            result = new Result.Builder(Status.QUERY_ERROR.getStatus(), Message.QUERY_ERROR.getMsg()).build();
         }else {
             User user = list.get(0);
             user.setDel(true);
             int update = userMapper.update(user, queryWrapper);
             if (update == 0){
-                result.put("status", Status.UPDATE_ERROR.getStatus());
-                result.put("msg", Message.UPDATE_ERROR.getMsg());
+                result = new Result.Builder(Status.UPDATE_ERROR.getStatus(),Message.UPDATE_ERROR.getMsg()).build();
             }
-            result.put("status", Status.SUCCESS.getStatus());
-            result.put("msg", Message.SUCCESS.getMsg());
+            result = new Result.Builder().build();
         }
         return result;
     }
@@ -181,7 +173,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      */
     @Override
     public Result exchange(UserDTO userDTO){
-        Result result = new Result();
+        Result result;
         User user = new User();
         // 密码加密
         if (userDTO.getPassword()!=null && userDTO.getPassword().length()>0){
@@ -195,14 +187,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         UserVO userVO = new UserVO();
         if (update>0){
             BeanUtils.copyProperties(userDTO, userVO);
-            result.put("status", 200);
-            result.put("msg","更新成功");
-            result.put("data", userVO);
+            result = new Result.Builder().data(userVO).build();
         }
         else {
-            result.put("status",2222);
-            result.put("msg", "更新失败");
-            result.put("data",userDTO);
+            result = new Result.Builder(Status.UPDATE_ERROR.getStatus(), Message.UPDATE_ERROR.getMsg()).data(userDTO).build();
         }
         return result;
     }
@@ -214,21 +202,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      */
     @Override
     public Result login(UserDTO userDTO) {
-        Result result = new Result();
+        Result result;
         String queryConditionName = "username";
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         if (null == userMapper.selectOne(queryWrapper.eq(queryConditionName, userDTO.getUsername()))){
-            return result.put("status", 1001).put("msg", "用户名不存在");
+            return new Result.Builder(Status.USER_NOT_FOUND.getStatus(), Message.USER_NOT_FOUND.getMsg()).build();
         }
         User user = userMapper.selectOne(queryWrapper.eq(queryConditionName, userDTO.getUsername()));
         if (!passwordService.authenticatePassword(user.getPassword(), userDTO.getPassword())){
-            return result.put("status", 1002).put("msg","密码校验失败");
+            return new Result.Builder(Status.ERROR_PASSWORD.getStatus(), Message.ERROR_PASSWORD.getMsg()).build();
         }
         // 验证通过，将当前用户存入session中
         Person p = new Person();
         BeanUtils.copyProperties(user, p);
         UserContext.putCurrentUser(p);
-        return result.put("status",200).put("msg","登陆成功");
+        return new Result.Builder(Status.SUCCESS.getStatus(), Message.WELCOME_TO_LOGIN.getMsg()).data(p).build();
     }
 
     /**
@@ -238,10 +226,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      */
     @Override
     public Result logout() {
-        Result result = new Result();
+        Result result;
         // 验证通过，将当前用户从session中删除
         UserContext.deleteCurrentUser();
-        return result.put("status",200).put("msg","登出成功");
+        return new Result.Builder(Status.SUCCESS.getStatus(), Message.BYE_BYE.getMsg()).build();
     }
 
     /**
@@ -250,13 +238,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      */
     @Override
     public Result getCurrentUser(){
-        Result result = new Result();
         PersonVo person = new PersonVo();
         try {
             person = UserContext.getCurrentUser();
         }catch (IllegalArgumentException e){
             e.fillInStackTrace();
         }
-        return result.put("status", 200).put("msg","获取成功").put("data", person);
+        return new Result.Builder().data(person).build();
     }
 }

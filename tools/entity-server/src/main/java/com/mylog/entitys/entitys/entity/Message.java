@@ -44,7 +44,23 @@ public enum  Message {
     /**
      * 参数缺失
      */
-    PARAM_NEED("参数缺失")
+    PARAM_NEED("参数缺失"),
+    /**
+     * 参数缺失
+     */
+    USER_NOT_FOUND("用户名不存在"),
+    /**
+     * 密码错误
+     */
+    ERROR_PASSWORD("密码错误"),
+    /**
+     * 登陆成功
+     */
+    WELCOME_TO_LOGIN("登陆成功"),
+    /**
+     * 再见
+     */
+    BYE_BYE("再见")
     ;
 
     private String msg;
