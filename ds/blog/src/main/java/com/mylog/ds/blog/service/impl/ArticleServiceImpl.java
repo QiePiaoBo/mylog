@@ -66,11 +66,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
         List<Article> list = articleMapper.selectList(articleQueryWrapper);
         if (list.size() > 0) {
-            result = Result.success();
-            result.put("data", list);
+            result = new Result.Builder().data(list).build();
             return result;
         }
-        return result.put("status", Status.QUERY_ERROR.getStatus()).put("msg", Message.QUERY_ERROR.getMsg());
+        return new Result.Builder(Status.QUERY_ERROR.getStatus(), Message.QUERY_ERROR.getMsg()).build();
     }
 
 
