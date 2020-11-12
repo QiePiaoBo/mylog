@@ -10,11 +10,11 @@
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
         <property name="url">
             <value>
-                <![CDATA[ jdbc:mysql://logicer.top:3306/ds?useSSL=false&serverTimezone=UTC&characterEncoding=utf8 ]]>
+                <![CDATA[ jdbc:mysql://8.131.90.159:3306/ds?useSSL=false&serverTimezone=UTC&characterEncoding=utf8 ]]>
             </value>
         </property>
         <property name="username" value="root"/>
-        <property name="password" value="1997o4"/>
+        <property name="password" value="mylog"/>
     </bean>
     <!-- 配置spring batch的jobRepository，负责与数据库打交道 * 3 入库只入batch数据库的  -->
     <batch:job-repository id="batchJobRepository"

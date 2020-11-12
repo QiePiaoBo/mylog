@@ -117,9 +117,9 @@ public class MailSendJobImpl {
             throw new Exception("Cannot get userType for itemReader");
         }
         if ("admin".equals(userType)){
-            queryProvider.setWhereClause("usergroup < 1");
+            queryProvider.setWhereClause("usergroup <= 1");
         }else if ("user".equals(userType)){
-            queryProvider.setWhereClause("usergroup >= 1");
+            queryProvider.setWhereClause("usergroup > 1");
         }
         Map<String, Order> sortKeys = new HashMap<>();
         sortKeys.put("id", Order.DESCENDING);
