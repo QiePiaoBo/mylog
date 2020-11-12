@@ -17,6 +17,9 @@ public class TestYaml {
     @Value("#{${ruleMap}}")
     private Map<String, String> map;
 
+    @Value("${datasource.mysql.url}")
+    private String url;
+
     @RequestMapping("get")
     public String getYaml(){
         System.out.println("aaaaaaaaaa");
@@ -27,7 +30,15 @@ public class TestYaml {
         }
         return "ok";
     }
-
+    @RequestMapping("check")
+    public String checkYaml(){
+        try {
+            System.out.println(url);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return url;
+    }
 
 
 }
