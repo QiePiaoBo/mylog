@@ -214,8 +214,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }
         // 验证通过，将当前用户存入session中
         Person p = new Person();
-        BeanUtils.copyProperties(user, p);
+        PersonVo pv = new PersonVo();
+        BeanUtils.copyProperties(user, pv);
+        BeanUtils.copyProperties(pv, p);
         UserContext.putCurrentUser(p);
+
         return new Result.Builder(Status.SUCCESS.getStatus(), Message.WELCOME_TO_LOGIN.getMsg()).data(p).build();
     }
 

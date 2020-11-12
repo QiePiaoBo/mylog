@@ -1,15 +1,9 @@
 package com.mylog.entitys.entitys.entity;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 /**
  * @author Dylan
  */
 public class Result {
-
-    private Map<String,Object> result = new LinkedHashMap<>();
 
     private final long status;
 
@@ -21,7 +15,7 @@ public class Result {
 
     private final long total;
 
-    private Object data;
+    private final Object data;
 
 
     public static Result success(){
@@ -84,5 +78,29 @@ public class Result {
         page = builder.page;
         size = builder.size;
         total = builder.total;
+    }
+
+    public long getStatus() {
+        return status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public long getPage() {
+        return page;
+    }
+
+    public long getSize() {
+        return size;
+    }
+
+    public long getTotal() {
+        return total;
+    }
+
+    public Object getData() {
+        return data;
     }
 }

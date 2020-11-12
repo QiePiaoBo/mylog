@@ -7,9 +7,9 @@ spring:
     active: ${default-profile}
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://logicer.top:3306/ds?characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&serverTimezone=UTC
+    url: jdbc:mysql://8.131.90.159:3306/ds?characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&serverTimezone=UTC
     username: root
-    password: 1997o4
+    password: mylog
     type: com.alibaba.druid.pool.DruidDataSource
   main:
     allow-bean-definition-overriding: true
