@@ -42,7 +42,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      */
     @Override
     public Result queryRight(Article article) {
-        Result result = new Result.Builder().build();
+        Result result;
         QueryWrapper<Article> articleQueryWrapper = new QueryWrapper<>();
         if ( null == userService.getUser() || userService.getUser().getUsergroup() >1) {
             articleQueryWrapper.eq("is_del", 0);
@@ -106,7 +106,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      */
     @Override
     public Article insert(Article article) {
-
         int insert = articleMapper.insert(article);
         if (insert > 0) {
             return article;
@@ -164,7 +163,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public Result deleteById(Integer id) {
         Article article = articleMapper.queryById(id);
         if (userService.getUser().getId().equals(article.getUserId()) || userService.getUser().getUsergroup() < 1){
-
             article.setIsDel("1");
             int delNum = articleMapper.update(article, new UpdateWrapper<Article>().eq("id", id));
             if (delNum < 1){

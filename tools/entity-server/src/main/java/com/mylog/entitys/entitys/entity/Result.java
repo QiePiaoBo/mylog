@@ -24,6 +24,7 @@ public class Result {
     }
 
     public static class Builder {
+
         private final long status;
 
         private final String message;
