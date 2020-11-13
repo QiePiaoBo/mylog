@@ -17,7 +17,7 @@ spring:
           data-id: common.yaml
           refresh: true
         shared-configs[1]:
-          data-id: db.yaml
+          data-id: batch_db.yaml
           refresh: true
         refresh-enabled: true
       discovery:

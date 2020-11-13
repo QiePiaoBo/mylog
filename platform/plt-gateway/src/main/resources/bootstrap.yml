@@ -3,28 +3,34 @@ server:
 spring:
   profiles:
     active: ${default-profile}
-  redis:
-    database: 0
-    password: 1997o4
-    port: 6379
-    host: logicer.top
+#  redis:
+#    database: 0
+#    password: 1997o4
+#    port: 6379
+#    host: logicer.top
   application:
     name: plt-gateway
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://logicer.top:3306/plt?characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&serverTimezone=UTC
-    username: root
-    password: 1997o4
-    type: com.alibaba.druid.pool.DruidDataSource
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://logicer.top:3306/plt?characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&serverTimezone=UTC
+#    username: root
+#    password: 1997o4
+#    type: com.alibaba.druid.pool.DruidDataSource
   cloud:
     nacos:
       config:
         server-addr: logicer.top:8848
         file-extension: yaml
+        namespace: ${config.namespace}
         shared-configs[0]:
           data-id: common.yaml
           refresh: true
-        namespace: ${config.namespace}
+        shared-configs[1]:
+          data-id: plt_db.yaml
+          refresh: true
+        shared-configs[2]:
+          data-id: redis.yaml
+          refresh: true
       discovery:
         namespace: ${config.namespace}
         server-addr: logicer.top:8848
