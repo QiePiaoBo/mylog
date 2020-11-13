@@ -37,7 +37,6 @@ import java.util.Map;
  */
 @Configuration
 public class MailSendJobImpl {
-    private static final Logger logger = LoggerFactory.getLogger(MailSendJobImpl.class);
 
     @Autowired
     JobBuilderFactory jobs;

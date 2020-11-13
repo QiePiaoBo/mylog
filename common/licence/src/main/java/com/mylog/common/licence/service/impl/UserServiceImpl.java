@@ -202,7 +202,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      */
     @Override
     public Result login(UserDTO userDTO) {
-        Result result;
         String queryConditionName = "username";
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         if (null == userMapper.selectOne(queryWrapper.eq(queryConditionName, userDTO.getUsername()))){
@@ -229,7 +228,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      */
     @Override
     public Result logout() {
-        Result result;
         // 验证通过，将当前用户从session中删除
         UserContext.deleteCurrentUser();
         return new Result.Builder(Status.SUCCESS.getStatus(), Message.BYE_BYE.getMsg()).build();
