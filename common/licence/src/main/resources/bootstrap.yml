@@ -5,25 +5,8 @@ spring:
     name: cm-licence
   profiles:
     active: ${default-profile}
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://8.131.90.159:3306/ds?characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&serverTimezone=UTC
-#    username: root
-#    password: mylog
-#    type: com.alibaba.druid.pool.DruidDataSource
   main:
     allow-bean-definition-overriding: true
-#  redis:
-#    host: logicer.top
-#    port: 6379
-#    database: 0
-#    password: 1997o4
-#    jedis:
-#      pool:
-#        max-idle: 10
-#        max-active: 200
-#        max-wait: -1
-#        min-idle: 0
   cloud:
     nacos:
       config:

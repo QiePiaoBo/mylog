@@ -3,19 +3,8 @@ server:
 spring:
   profiles:
     active: ${default-profile}
-#  redis:
-#    database: 0
-#    password: 1997o4
-#    port: 6379
-#    host: logicer.top
   application:
     name: plt-gateway
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://logicer.top:3306/plt?characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&serverTimezone=UTC
-#    username: root
-#    password: 1997o4
-#    type: com.alibaba.druid.pool.DruidDataSource
   cloud:
     nacos:
       config:
