@@ -5,33 +5,24 @@ spring:
     name: cm-licence
   profiles:
     active: ${default-profile}
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://logicer.top:3306/ds?characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&serverTimezone=UTC
-    username: root
-    password: 1997o4
-    type: com.alibaba.druid.pool.DruidDataSource
   main:
     allow-bean-definition-overriding: true
-  redis:
-    host: logicer.top
-    port: 6379
-    database: 0
-    password: 1997o4
-    jedis:
-      pool:
-        max-idle: 10
-        max-active: 200
-        max-wait: -1
-        min-idle: 0
   cloud:
     nacos:
       config:
         server-addr: logicer.top:8848
         namespace: ${config.namespace}
-        refreshable-dataids: common.yaml
-        shared-dataids: common.yaml
         file-extension: yaml
+        shared-configs[0]:
+          data-id: common.yaml
+          refresh: true
+        shared-configs[1]:
+          data-id: base_db.yaml
+          refresh: true
+        shared-configs[2]:
+          data-id: redis.yaml
+          refresh: true
+        refresh-enabled: true
       discovery:
         namespace: ${config.namespace}
         server-addr: logicer.top:8848

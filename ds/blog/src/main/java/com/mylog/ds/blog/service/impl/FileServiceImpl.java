@@ -2,19 +2,18 @@ package com.mylog.ds.blog.service.impl;
 
 import com.mylog.ds.blog.entity.Article;
 import com.mylog.ds.blog.entity.dto.ArticleDto;
-import com.mylog.ds.blog.entity.vo.UserVO;
 import com.mylog.ds.blog.service.ArticleService;
 import com.mylog.ds.blog.service.IFileService;
 import com.mylog.ds.blog.service.UserService;
-import com.mylog.tools.file.filesdk.QiNiuSdk;
-import com.mylog.tools.utils.entity.Result;
-import com.mylog.tools.utils.entity.Message;
-import com.mylog.tools.utils.entity.Status;
+import com.mylog.entitys.entitys.vo.PersonVo;
+import com.mylog.tools.sdks.filesdk.QiNiuSdk;
+import com.mylog.entitys.entitys.entity.Result;
+import com.mylog.entitys.entitys.entity.Message;
+import com.mylog.entitys.entitys.entity.Status;
 import com.mylog.tools.utils.sysinfo.SysInfo;
 import com.mylog.tools.utils.utils.FileUtils;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -61,7 +60,7 @@ public class FileServiceImpl implements IFileService {
         String filepath = "";
         // 文件大小是否超过最大大小。
         if(size > maxSize){
-            return new Result().put("status", Status.OUTOF_SIZE_ERROR.getStatus()).put("msg", Message.OUTOF_SIZE_ERROR.getMsg());
+            return new Result.Builder(Status.OUTOF_SIZE_ERROR.getStatus(), Message.OUTOF_SIZE_ERROR.getMsg()).build();
         }
         // 文件的名字
         String name=multipartFile.getOriginalFilename();
@@ -72,7 +71,7 @@ public class FileServiceImpl implements IFileService {
         // 文件子目录
         String sonPath = new SimpleDateFormat("yyyyMM").format(new Date());
         Response response = null;
-        if (uploadWhere.equals("qiniu")){
+        if ("qiniu".equals(uploadWhere)){
             // 上传至七牛云
             try {
                 response = this.upload2QiNiu(FileUtils.multi2File(multipartFile));
@@ -86,54 +85,6 @@ public class FileServiceImpl implements IFileService {
         }
         // 入库并返回结果
         return this.insertToDatabase(response, filepath, articleDto);
-    }
-
-    /**
-     * 入库 并返回各种情况的结果
-     * @param response
-     * @param filePath
-     * @param articleDto
-     * @return
-     */
-    private Result insertToDatabase(Response response, String filePath, ArticleDto articleDto){
-        // 插入数据库
-        UserVO currentUser = userService.getUser();
-        Article article = new Article();
-        if (currentUser != null){
-            BeanUtils.copyProperties(articleDto, article);
-            // 默认不封
-            article.setIsDel("0");
-            // 设置创建时间
-            article.setCreateTime(new Date());
-            // 设置作者id为上传者的id
-            article.setUserId(currentUser.getId());
-            // 设置真实文件路径
-            article.setFilePath(filePath);
-            // 设置文章是否显示
-            article.setIsLock(articleDto.getIsLock()!=null ? articleDto.getIsLock():"0");
-        }
-        else{
-            return new Result().put("status", Status.PERMISSION_ERROR.getStatus()).put("msg", Message.PERMISSION_ERROR.getMsg());
-        }
-        // 插入的结果是否为空
-        if (articleService.insert(article) != null){
-            // 判断上传至七牛云是否成功
-            if (response != null){
-                if (response.error != null){
-                    return new Result().put("status", Status.UPLOAD_ERROR.getStatus()).put("msg", Message.UPLOAD_ERROR.getMsg()).put("data", response.error);
-                }
-                return new Result().put("status", Status.SUCCESS.getStatus()).put("msg", Message.SUCCESS.getMsg());
-            }else {
-                try {
-                    // 检查文件是否存在
-                    articleDto.getFile().transferTo(new File(filePath));
-                }catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            return new Result().put("status", Status.SUCCESS.getStatus()).put("msg", Message.SUCCESS.getMsg());
-        }
-        return new Result().put("status", Status.INSERT_ERROR.getStatus()).put("msg", Message.INSERT_ERROR.getMsg());
     }
 
     /**
@@ -185,5 +136,53 @@ public class FileServiceImpl implements IFileService {
                 System.out.println(mkLinuxDirs ? "created a path" : "do not need to create");
             }
         }
+    }
+
+    /**
+     * 入库 并返回各种情况的结果
+     * @param response
+     * @param filePath
+     * @param articleDto
+     * @return
+     */
+    private Result insertToDatabase(Response response, String filePath, ArticleDto articleDto){
+        // 插入数据库
+        PersonVo currentUser = userService.getUser();
+        Article article = new Article();
+        if (currentUser != null){
+            BeanUtils.copyProperties(articleDto, article);
+            // 默认不封
+            article.setIsDel("0");
+            // 设置创建时间
+            article.setCreateTime(new Date());
+            // 设置作者id为上传者的id
+            article.setUserId(currentUser.getId());
+            // 设置真实文件路径
+            article.setFilePath(filePath);
+            // 设置文章是否显示
+            article.setIsLock(articleDto.getIsLock()!=null ? articleDto.getIsLock():"0");
+        }
+        else{
+            return new Result.Builder(Status.PERMISSION_ERROR.getStatus(), Message.PERMISSION_ERROR.getMsg()).build();
+        }
+        // 插入的结果是否为空
+        if (articleService.insert(article) != null){
+            // 判断上传至七牛云是否成功
+            if (response != null){
+                if (response.error != null){
+                    return new Result.Builder(Status.UPLOAD_ERROR.getStatus(), Message.UPLOAD_ERROR.getMsg()).data(response.error).build();
+                }
+                return new Result.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).build();
+            }else {
+                try {
+                    // 检查文件是否存在
+                    articleDto.getFile().transferTo(new File(filePath));
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return new Result.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).build();
+        }
+        return new Result.Builder(Status.INSERT_ERROR.getStatus(), Message.INSERT_ERROR.getMsg()).build();
     }
 }

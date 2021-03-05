@@ -9,58 +9,58 @@
     <!--  引入配置  -->
     <import resource="JobConfig.xml"/>
     <!--  参数传递器  -->
-    <bean id="paramStatementSetter" class="org.springframework.batch.item.database.support.ListPreparedStatementSetter" scope="step">
-        <property name="parameters">
-            <list>
-                <value>#{jobParameters['decide']}</value>
-            </list>
-        </property>
-    </bean>
+<!--    <bean id="paramStatementSetter" class="org.springframework.batch.item.database.support.ListPreparedStatementSetter" >-->
+<!--        <property name="parameters">-->
+<!--            <list>-->
+<!--                <value><![CDATA[ #{jobParameters['decide']} ]]></value>-->
+<!--            </list>-->
+<!--        </property>-->
+<!--    </bean>-->
     <!--  reader  -->
-    <bean id="mailSendReader" class="org.springframework.batch.item.database.JdbcCursorItemReader" scope="step">
-        <property name="dataSource" ref="licDataSource" />
-        <property name="sql">
-            <value><![CDATA[ select username, usergroup, phone, mail from user where usergroup #{jobParameters['decide']}1 ]]></value>
-        </property>
-        <property name="rowMapper">
-            <bean class="org.springframework.jdbc.core.BeanPropertyRowMapper">
-                <property name="mappedClass" value="com.mylog.common.batch.model.entity.MailEntity"/>
-            </bean>
-        </property>
-    </bean>
+<!--    <bean id="mailSendReader" class="org.springframework.batch.item.database.JdbcCursorItemReader" >-->
+<!--        <property name="dataSource" ref="licDataSource" />-->
+<!--        <property name="sql">-->
+<!--            <value><![CDATA[ select username, usergroup, phone, mail from user where usergroup < 1 ]]></value>-->
+<!--        </property>-->
+<!--        <property name="rowMapper">-->
+<!--            <bean class="org.springframework.jdbc.core.BeanPropertyRowMapper">-->
+<!--                <property name="mappedClass" value="com.mylog.common.batch.model.entity.MailEntity"/>-->
+<!--            </bean>-->
+<!--        </property>-->
+<!--    </bean>-->
     <!--  processor  -->
-    <bean id="mailSendProcessor" class="com.mylog.common.batch.processors.CommonMailSendProcessor" scope="step">
-        <property name="content" value="#{jobParameters['mailContent']}"/>
-        <property name="subject" value="#{jobParameters['mailSubject']}"/>
-     </bean>
+<!--    <bean id="mailSendProcessor" class="com.mylog.common.batch.processors.MailSendProcessor" >-->
+<!--        <property name="content" value="#{jobParameters['mailContent']}"/>-->
+<!--        <property name="subject" value="#{jobParameters['mailSubject']}"/>-->
+<!--     </bean>-->
     <!--  writer  -->
-    <bean id="mailSendWriter" class="org.springframework.batch.item.file.FlatFileItemWriter" scope="step">
-        <property name="encoding" value="utf-8"/>
-        <property name="resource" value="file:#{jobParameters['filePath']}#{jobParameters['fileHourStamp']}/#{jobParameters['fileSecondStamp']}MailLog"/>
-        <property name="lineAggregator">
-            <bean class="org.springframework.batch.item.file.transform.FormatterLineAggregator">
-                <property name="fieldExtractor">
-                    <bean class="org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor">
-                        <property name="names" value="username, usergroup, phone, mail"/>
-                    </bean>
-                </property>
-                <property name="format" value="%-9s %-2d %-15s %-32s"/>
-            </bean>
-        </property>
-    </bean>
+<!--    <bean id="mailSendWriter" class="org.springframework.batch.item.file.FlatFileItemWriter" >-->
+<!--        <property name="encoding" value="utf-8"/>-->
+<!--        <property name="resource" value="file:#{jobParameters['filePath']}#{jobParameters['fileHourStamp']}/#{jobParameters['fileSecondStamp']}MailLog"/>-->
+<!--        <property name="lineAggregator">-->
+<!--            <bean class="org.springframework.batch.item.file.transform.FormatterLineAggregator">-->
+<!--                <property name="fieldExtractor">-->
+<!--                    <bean class="org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor">-->
+<!--                        <property name="names" value="username, usergroup, phone, mail"/>-->
+<!--                    </bean>-->
+<!--                </property>-->
+<!--                <property name="format" value="%-9s %-2d %-15s %-32s"/>-->
+<!--            </bean>-->
+<!--        </property>-->
+<!--    </bean>-->
 
-    <batch:step id="mailSendStep" job-repository="batchJobRepository">
-        <batch:tasklet transaction-manager="batchTransactionManager">
-            <batch:listeners>
-                <batch:listener ref="batchSkipListener" />
-            </batch:listeners>
-            <batch:chunk reader="mailSendReader" processor="mailSendProcessor" writer="mailSendWriter" skip-limit="1" commit-interval="10">
-                <batch:skippable-exception-classes>
-                    <batch:include class="com.mylog.common.batch.common.CommonException"/>
-                </batch:skippable-exception-classes>
-            </batch:chunk>
-        </batch:tasklet>
-    </batch:step>
+<!--    <batch:step id="mailSendStep" job-repository="batchJobRepository">-->
+<!--        <batch:tasklet transaction-manager="batchTransactionManager">-->
+<!--            <batch:listeners>-->
+<!--                <batch:listener ref="batchSkipListener" />-->
+<!--            </batch:listeners>-->
+<!--            <batch:chunk reader="mailSendReader" processor="mailSendProcessor" writer="mailSendWriter" skip-limit="1" commit-interval="10">-->
+<!--                <batch:skippable-exception-classes>-->
+<!--                    <batch:include class="com.mylog.common.batch.common.CommonSkipException"/>-->
+<!--                </batch:skippable-exception-classes>-->
+<!--            </batch:chunk>-->
+<!--        </batch:tasklet>-->
+<!--    </batch:step>-->
 
-    <bean id="batchSkipListener" class="com.mylog.common.batch.listener.BatchSkipListener" />
+<!--    <bean id="batchSkipListener" class="com.mylog.common.batch.listener.BatchSkipListener" />-->
 </beans>

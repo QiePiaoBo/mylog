@@ -1,16 +1,11 @@
 package com.mylog.ds.blog.permission;
 
-import com.mylog.ds.blog.permission.interceptor.AuthInterceptor;
+import com.mylog.tools.utils.interceptor.AuthInterceptor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import java.util.List;
 
 /**
  * 拦截器注册中心
@@ -28,7 +23,7 @@ public class AuthConfigure implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(authInterceptor()).addPathPatterns(urls);
+        registry.addInterceptor(authInterceptor()).addPathPatterns(urls).excludePathPatterns("/file/**");
     }
 
     public AuthInterceptor authInterceptor(){

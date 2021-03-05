@@ -1,6 +1,8 @@
 package com.mylog.tools.utils.session;
 
-import com.mylog.tools.utils.entity.Person;
+import com.mylog.entitys.entitys.entity.Person;
+import com.mylog.entitys.entitys.vo.PersonVo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -20,7 +22,7 @@ public class UserContext {
      * 获取session
      * @return
      */
-    public HttpSession getSession(){
+    public static HttpSession getSession(){
         // SpringMVC获取session的方式通过RequestContextHolder
         return ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
                 .getRequest().getSession();
@@ -30,7 +32,7 @@ public class UserContext {
      * 设置当前用户到session中
      * @param currentUser
      */
-    public void putCurrentUser(Person currentUser){
+    public static void putCurrentUser(Person currentUser){
         getSession().setMaxInactiveInterval(30*60);
         getSession().setAttribute(CURRENT_USER_IN_SESSION, currentUser);
     }
@@ -38,16 +40,21 @@ public class UserContext {
     /**
      * 删除当前的人的session
      */
-    public void deleteCurrentUser(){
+    public static void deleteCurrentUser(){
         getSession().removeAttribute(CURRENT_USER_IN_SESSION);
     }
     /**
      * 获取当前用户
      * @return
      */
-    public Person getCurrentUser(){
+    public static PersonVo getCurrentUser(){
         Object o = getSession().getAttribute(CURRENT_USER_IN_SESSION);
-        return (Person)o;
+        PersonVo personVo = new PersonVo();
+        if (null == o){
+            return null;
+        }
+        BeanUtils.copyProperties((Person)o, personVo);
+        return personVo;
     }
 
 }

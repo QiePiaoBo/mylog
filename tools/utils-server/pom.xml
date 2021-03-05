@@ -5,12 +5,14 @@
     <parent>
         <artifactId>tools</artifactId>
         <groupId>com.mylog</groupId>
-        <version>0.0.1</version>
+        <version>0.0.1.RELEASE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>utils-server</artifactId>
     <packaging>jar</packaging>
+    <groupId>com.mylog.tools</groupId>
+    <artifactId>utils-server</artifactId>
+    <version>${default-version}</version>
 
     <dependencies>
         <!-- 作为工具类 提供核心功能所要以来的包 -->
@@ -31,54 +33,28 @@
             <artifactId>aspectjweaver</artifactId>
             <version>1.9.4</version>
         </dependency>
-        <!-- //引入spring session-->
         <dependency>
-            <groupId>org.springframework.session</groupId>
-            <artifactId>spring-session-data-redis</artifactId>
-        </dependency>
-        <!-- //引入redis-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-        <!-- 引入nacos，作为工具类被引入时会自动加载nacos -->
-        <!-- nacos配置 -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-        <!-- Slf4j -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-        </dependency>
-        <!-- httpClient依赖 -->
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpcore</artifactId>
-        </dependency>
-        <!-- 引入常用工具类 -->
-        <!-- alibaba fastjson -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-        </dependency>
-        <!-- lombok-->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
+            <groupId>com.mylog.tools</groupId>
+            <artifactId>entity-server</artifactId>
         </dependency>
     </dependencies>
+
+    <!--  本地安装jar包：javax.servlet.servlet-api 注意要用cmd安装 shell命令安装貌似会将命令中的javax转义  -->
+    <!--  mvn install:install-file -Dfile=E:\Download\ChromeDownload\javax.servlet-api-4.0.1.jar -DgroupId=javax.servlet -DartifactId=servlet-api -Dversion=4.0.1 -Dpackaging=jar -DgeneratePom=true  -->
+
+    <build>
+        <!-- 打包名称 -->
+        <finalName>${project.artifactId}-${default-version}</finalName>
+        <!--    需要引入这两个插件 不然会没有主清单属性    -->
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

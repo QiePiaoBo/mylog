@@ -17,6 +17,7 @@ import java.util.Scanner;
 
 /**
  * @author Dylan
+ * @apiNote 代码生成
  */
 public class MyGenerator {
 

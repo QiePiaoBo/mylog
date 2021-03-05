@@ -2,10 +2,10 @@ package com.mylog.ds.blog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.mylog.ds.blog.entity.Article;
-import io.lettuce.core.dynamic.annotation.Param;
-import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -53,4 +53,8 @@ public interface ArticleMapper extends BaseMapper<Article> {
     @Override
     int insert(Article article);
 
+
+    List<Date> queryWithCreateTime(int id);
+
+    List<Article> queryArticlesInOneDay(@Param("createTime") String createTime,@Param("authorId") int authorId);
 }

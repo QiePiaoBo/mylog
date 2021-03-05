@@ -1,9 +1,11 @@
 package com.mylog.ds.blog.controller;
 
-import com.mylog.ds.blog.entity.vo.UserVO;
-import com.mylog.ds.blog.permission.permissions.AdminPermission;
 import com.mylog.ds.blog.service.UserService;
-import com.mylog.tools.utils.entity.Result;
+import com.mylog.entitys.annos.AdminPermission;
+import com.mylog.entitys.entitys.entity.Message;
+import com.mylog.entitys.entitys.entity.Result;
+import com.mylog.entitys.entitys.entity.Status;
+import com.mylog.entitys.entitys.vo.PersonVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +27,10 @@ public class LicController {
     @AdminPermission
     @RequestMapping("getUser")
     public Result getUser(){
-        UserVO userVO = userService.getUser();
-        return new Result().put("status", 200).put("msg", "ok").put("data", userVO);
+        PersonVo userVO = userService.getUser();
+        return new Result.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg())
+                .data(userVO)
+                .build();
     }
 
 

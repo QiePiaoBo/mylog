@@ -5,60 +5,55 @@
     <parent>
         <artifactId>common</artifactId>
         <groupId>com.mylog</groupId>
-        <version>0.0.1</version>
+        <version>0.0.1.RELEASE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.mylog.common</groupId>
     <artifactId>batch</artifactId>
+    <version>${default-version}</version>
     <packaging>jar</packaging>
+    <description>批量</description>
 
     <dependencies>
         <!--    batch    -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-batch</artifactId>
-            <version>${spring-boot-starter-batch.version}</version>
         </dependency>
         <!--    hibernate.valicator    -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>${hibernate-validator.version}</version>
         </dependency>
         <!--    mysql    -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql-connector-java.version}</version>
         </dependency>
         <!--    druid    -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
-            <version>${druid.version}</version>
         </dependency>
         <!--    sprint-boot-starter-test    -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>${spring-boot-starter-web.version}</version>
         </dependency>
 
         <!--    配置、注册   -->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
+            <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-            <version>${spring-cloud-starter-alibaba-nacos-config.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
+            <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-            <version>${spring-cloud-starter-alibaba-nacos-discovery.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
+            <artifactId>slf4j-log4j12</artifactId>
         </dependency>
         <!--    httpClient依赖    -->
         <dependency>
@@ -70,18 +65,9 @@
             <artifactId>httpcore</artifactId>
         </dependency>
         <!--    servlet     -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
+
         <!--mvn install:install-file -Dfile=javax.servlet-api-4.0.1.jar -DgroupId=javax.servlet -DartifactId=servlet-api -Dversion=4.0.1 -Dpackaging=jar-->
 
-        <!--    lombok    -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
         <dependency>
             <groupId>javax.el</groupId>
             <artifactId>javax.el-api</artifactId>
@@ -99,16 +85,41 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.11.2</version>
         </dependency>
 
         <dependency>
-            <groupId>org.jboss.logging</groupId>
-            <artifactId>jboss-logging</artifactId>
-            <version>3.3.0.Final</version>
-            <scope>compile</scope>
+            <groupId>com.mylog.tools</groupId>
+            <artifactId>utils-server</artifactId>
         </dependency>
     </dependencies>
 
+    <build>
+        <!-- 打包名称 -->
+        <finalName>${project.artifactId}-${default-version}</finalName>
+        <!--    需要引入这两个插件 不然会没有主清单属性    -->
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

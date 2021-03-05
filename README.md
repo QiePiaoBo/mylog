@@ -1,65 +1,56 @@
 # mylog
 ## 项目梗概：mylog(springcloud)
 ## 端口设置
-* 网关
-  * plt-gateway 8888
+* 批处理
+    * batch 9001
 * 登陆注册中心
     * licence 9003
-* 工具集成中心
-    * lic-engine 无
-* 批处理与格式转化
-    * batch 9001
-    * format 9002
-* 功能测试项目
-    * dm-ribbon 8088
-    * dm-feign 8087
+* 网关
+    * plt-gateway 8888
+* 工具集成中心 tools
+    * entity-server 无
+    * sdk-server 无
+    * utils-server 无
+* 应用中心 ds
+    * blog 9011
     
 ## 项目目的：搭建基于springcloud的微服务平台
 
 ### 项目目录简介：
 * common    各种功能性微服务
-* demos     feign、ribbon等微服务示例
 * ds        业务中心
 * platform  平台基础微服务
 * tools     新抽出公用jar包
 
 ### 项目路由（持续更新 注：路由报文仅限本人电脑，如欲实验需执行下方sql以在对应库中建表插数据）
-* feign:
-    * localhost:8888/dl/ + feign中的接口
-    * localhost:8888/qy/ + feign中的接口
 * licence
     * localhost:8888/jx/ + licence中的接口
 
 ## plt-gateway
 ### gateway说明：
-* 由于目前gateway只配了一个路由转发目的服务，即feign，所以只有访问feign上的接口才行
-* 示例：
-    * http://localhost:8888/dl/routeAll
-    * http://localhost:8888/dl/routeMe
-* 说明：当前gateway配置下，上述请求会被转发到feign的/routeAll接口上，dl必须加上，不然请求会被拦截掉（全局过滤器TokenFilter）
-* 由于/routeMe设置了sleep(2000)所以会超出服务熔断时间，进而触发熔断条件而执行fallback方法，想屏蔽熔断可以将sleep注掉（熔断器Hystrix）
-* 快速刷新会触发429错误，因为网关限流器设置了一秒内最大请求次数3次（限流器requestRateLimiter）
+* 说明：dl必须加上，不然请求会被拦截掉（全局过滤器TokenFilter）
+* 熔断器Hystrix
+* 限流器requestRateLimiter
 ### 平台网关
 * 主要功能:
     * 路由分配
     * 熔断
     * 限流
     * 全局过滤
-
-## lic-engine
+## tools
 ### 工具中心
 * 主要功能:
     * 工具jar包
     * 为其他服务所调用
     * 目前提供以下功能
-        * 提供用户session的增删改查方法
-        * 待添加······
+        * entity-server 公共实体类
+        * sdk-server sdk引入并提供公共方法供使用
+        * utils-server 提供常用工具
 ## 特别注意:
 * jar包引入相关的坑
-    * springboot相关的包最好是相近的版本的 不然会出现一些莫名其妙的方法找不到的错误
+    * springboot版本按照官网来
 * 工具中心相关的坑
-    * 切记切记，在添加功能时一定要尽可能减少所添加的功能与其他jar包的交互，不然会很麻烦
-    * 现在提供的session的增删改查所使用到的用户实体类就是经过继承才解决问题的
+    * 在添加功能时一定要尽可能减少所添加的功能与其他jar包的交互，不然会很麻烦 现在提供的session的增删改查所使用到的用户实体类就是经过继承才解决问题的
 * 其他坑
     * 还没想起来，待添加
     
@@ -93,8 +84,8 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 INSERT INTO `user` VALUES (1, '0', 'Dylan', 'CBACCCEDFC9DD12051CFAC29A06015EF', '15966245906', '15966245906@163.com', 'man', '段其伦', '371522199704136514', '超级管理员');
-INSERT INTO `user` VALUES (2, '1', 'Lucifer', '123456', '15966245907', NULL, NULL, '孙梓翰', '371522', NULL);
-INSERT INTO `user` VALUES (4, '2', 'Duke', 'E10ADC3949BA59ABBE56E057F20F883E', '15966245908', NULL, NULL, '刘长昊', '371522', NULL);
+INSERT INTO `user` VALUES (2, '1', 'Lucifer', '123456', '15966245907', NULL, NULL, 'SunZihan', '371522', '管理员');
+INSERT INTO `user` VALUES (4, '2', 'Duke', 'E10ADC3949BA59ABBE56E057F20F883E', '15966245908', NULL, NULL, 'LiuChanghao', '371522', '平民');
 
 CREATE TABLE `permission` (
   `id` int(11) NOT NULL COMMENT '权限id',
@@ -109,20 +100,3 @@ CREATE TABLE `group` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ~~~
-    
-    
-## 批处理结果
-### 137907条数据
-* 第一次记录：
-    * 分区批处理：2229ms
-    * 单线程批处理：3855ms
-* 第二次记录：
-    * 分区批处理执行时间：2525ms
-    * 普通批处理执行时间：3510ms
-* 第三次记录：
-    * 分区批处理执行时间：3041ms    
-    * 普通批处理执行时间：4260ms
-### 274739条数据
-* 第一次记录：
-    * 分区批处理执行时间：5170ms
-    * 普通批处理执行时间：7885ms

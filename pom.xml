@@ -6,10 +6,9 @@
 
     <groupId>com.mylog</groupId>
     <artifactId>mylog-plat</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.1.RELEASE</version>
     <modules>
         <module>platform</module>
-        <module>demos</module>
         <module>common</module>
         <module>ds</module>
         <module>tools</module>
@@ -42,7 +41,7 @@
         <mybatis-plus-boot-starter.version>3.4.0</mybatis-plus-boot-starter.version>
         <mysql-connector-java.version>8.0.16</mysql-connector-java.version>
 
-        <hibernate-validator.version>5.1.0.Final</hibernate-validator.version>
+        <hibernate-validator.version>7.0.0.Alpha6</hibernate-validator.version>
 
         <spring-web.version>5.2.8.RELEASE</spring-web.version>
         <spring-webmvc.version>5.2.8.RELEASE</spring-webmvc.version>
@@ -56,8 +55,8 @@
         <spring-cloud-starter-netflix-hystrix.version>2.0.2.RELEASE</spring-cloud-starter-netflix-hystrix.version>
         <spring-cloud-starter-netflix-eureka-client.version>2.1.2.RELEASE</spring-cloud-starter-netflix-eureka-client.version>
         <spring-cloud-config-server.version>1.2.2.RELEASE</spring-cloud-config-server.version>
-        <spring-cloud-starter-alibaba-nacos-config.version>0.9.0.RELEASE</spring-cloud-starter-alibaba-nacos-config.version>
-        <spring-cloud-starter-alibaba-nacos-discovery.version>0.9.0.RELEASE</spring-cloud-starter-alibaba-nacos-discovery.version>
+        <spring-cloud-starter-alibaba-nacos-config.version>2.2.3.RELEASE</spring-cloud-starter-alibaba-nacos-config.version>
+        <spring-cloud-starter-alibaba-nacos-discovery.version>2.2.3.RELEASE</spring-cloud-starter-alibaba-nacos-discovery.version>
         <spring-cloud-alibaba-nacos-config.version>0.9.0.RELEASE</spring-cloud-alibaba-nacos-config.version>
         <spring-cloud-alibaba-nacos-discovery.version>0.9.0.RELEASE</spring-cloud-alibaba-nacos-discovery.version>
 
@@ -67,25 +66,43 @@
         <lombok.version>1.18.8</lombok.version>
 
         <jackson-annotations.version>2.9.8</jackson-annotations.version>
-        <jackson-databind.version>2.9.8</jackson-databind.version>
+        <jackson-databind.version>2.11.2</jackson-databind.version>
 
         <snakeyaml.version>1.26</snakeyaml.version>
         <slf4j.version>2.0.0-alpha1</slf4j.version>
         <slf4j-log4j12.version>2.0.0-alpha1</slf4j-log4j12.version>
         <servlet-api.version>4.0.1</servlet-api.version>
 
-        <httpclient.version>4.5.5</httpclient.version>
+        <httpclient.version>4.5.12</httpclient.version>
         <httpcore.version>4.4.9</httpcore.version>
-
+        <mybatis-plus.version>3.4.0</mybatis-plus.version>
         <javax-el-api.version>2.2.4</javax-el-api.version>
 
         <!--    自定义配置当前所有jar的profile   -->
         <default-profile>dev</default-profile>
+        <!--    自定义配置当前所有jar的版本   -->
+        <default-version>0.0.1.RELEASE</default-version>
 
     </properties>
 
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>com.mylog.tools</groupId>
+                <artifactId>sdk-server</artifactId>
+                <version>0.0.1.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mylog.tools</groupId>
+                <artifactId>utils-server</artifactId>
+                <version>0.0.1.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mylog.tools</groupId>
+                <artifactId>entity-server</artifactId>
+                <version>0.0.1.RELEASE</version>
+            </dependency>
             <!--        添加spring-boot全家桶     -->
             <!--    动态路由相关    -->
             <dependency>
@@ -103,6 +120,12 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-mail</artifactId>
                 <version>${spring-boot-starter-mail.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-batch</artifactId>
+                <version>${spring-boot-starter-batch.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -130,15 +153,27 @@
                 <artifactId>spring-webmvc</artifactId>
                 <version>${spring-webmvc.version}</version>
             </dependency>
+            <!--  mybatis-plus  -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${hibernate-validator.version}</version>
+            </dependency>
+
             <!-- nacos-discovery 默认集成ribbon -->
             <!--    nacos配置 -->
             <dependency>
-                <groupId>org.springframework.cloud</groupId>
+                <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
                 <version>${spring-cloud-starter-alibaba-nacos-config.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.springframework.cloud</groupId>
+                <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
                 <version>${spring-cloud-starter-alibaba-nacos-discovery.version}</version>
             </dependency>
@@ -205,6 +240,7 @@
                 <groupId>javax.servlet</groupId>
                 <artifactId>servlet-api</artifactId>
                 <version>${servlet-api.version}</version>
+                <scope>provided</scope>
             </dependency>
             <!--    javax    -->
             <dependency>
@@ -264,6 +300,8 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+
         </dependencies>
     </dependencyManagement>
 

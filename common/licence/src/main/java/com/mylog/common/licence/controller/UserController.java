@@ -3,9 +3,11 @@ package com.mylog.common.licence.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mylog.common.licence.entity.User;
 import com.mylog.common.licence.model.dto.UserDTO;
-import com.mylog.common.licence.permission.permissions.AdminPermission;
 import com.mylog.common.licence.service.IUserService;
-import com.mylog.tools.utils.entity.Result;
+import com.mylog.entitys.annos.AdminPermission;
+import com.mylog.entitys.entitys.entity.Message;
+import com.mylog.entitys.entitys.entity.Result;
+import com.mylog.entitys.entitys.entity.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,12 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 
 /**
- * <p>
- *  前端控制器
- * </p>
- *
  * @author Dylan
  * @since 2020-05-24
+ * 用户管理中心
  */
 @RestController
 @RequestMapping("manage")
@@ -37,7 +36,7 @@ public class UserController {
     @RequestMapping("all")
     public Result getUsers(Integer page, Integer limit){
         if (page == null || limit == null){
-            return new Result().put("status","1110").put("msg","获取失败").put("data", new ArrayList<>());
+            return new Result.Builder(Status.PARAM_NEED.getStatus(), Message.PARAM_NEED.getMsg()).data(new ArrayList<>()).build();
         }
         Page<User> users = new Page<>(page, limit);
         return userService.selectUserList(users);
@@ -54,6 +53,11 @@ public class UserController {
         return userService.selectOne(userDTO);
     }
 
+    /**
+     * 添加一个用户
+     * @param userDTO
+     * @return
+     */
     @RequestMapping("add")
     public Result addUser(@RequestBody UserDTO userDTO){
         return userService.addUser(userDTO);
