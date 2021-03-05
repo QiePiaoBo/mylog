@@ -1,22 +1,24 @@
-package com.mylog.common.licence.service;
+package com.mylog.tools.utils.utils;
 
-import org.springframework.stereotype.Service;
+
 import org.springframework.util.Base64Utils;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author Dylan
+ * @Date : Created in 9:40 2021/3/5
+ * @Description :
+ * @Function :
  */
-@Service
-public class AesService {
+public class AesUtil {
 
     private static final String KEY_ALGORITHM = "AES";
     private static final String DEFAULT_CIPHER_ALGORITHM = "AES/ECB/PKCS5Padding";
@@ -44,7 +46,7 @@ public class AesService {
             //通过Base64转码返回
             return new String(Base64Utils.encode(result));
         } catch (Exception ex) {
-            Logger.getLogger(AesService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AesUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -70,7 +72,7 @@ public class AesService {
 
             return new String(result, "utf-8");
         } catch (Exception ex) {
-            Logger.getLogger(AesService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AesUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
@@ -93,7 +95,7 @@ public class AesService {
             // 转换为AES专用密钥
             return new SecretKeySpec(secretKey.getEncoded(), KEY_ALGORITHM);
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(AesService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AesUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
