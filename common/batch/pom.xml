@@ -64,9 +64,6 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpcore</artifactId>
         </dependency>
-        <!--    servlet     -->
-
-        <!--mvn install:install-file -Dfile=javax.servlet-api-4.0.1.jar -DgroupId=javax.servlet -DartifactId=servlet-api -Dversion=4.0.1 -Dpackaging=jar-->
 
         <dependency>
             <groupId>javax.el</groupId>

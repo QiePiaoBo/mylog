@@ -15,7 +15,7 @@
     <version>${default-version}</version>
 
     <dependencies>
-        <!-- 作为工具类 提供核心功能所要以来的包 -->
+        <!-- 作为工具类 提供核心功能所要依赖的包 -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
