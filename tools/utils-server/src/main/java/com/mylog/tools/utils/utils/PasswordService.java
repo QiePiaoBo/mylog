@@ -1,4 +1,4 @@
-package com.mylog.common.licence.service;
+package com.mylog.tools.utils.utils;
 
 import java.security.MessageDigest;
 

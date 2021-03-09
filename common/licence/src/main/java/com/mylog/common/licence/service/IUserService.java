@@ -1,10 +1,9 @@
 package com.mylog.common.licence.service;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-
 import com.mylog.common.licence.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.mylog.common.licence.model.dto.UserDTO;
+import com.mylog.entitys.entitys.page.MyPage;
 import com.mylog.entitys.entitys.entity.Result;
 
 
@@ -23,7 +22,7 @@ public interface IUserService extends IService<User> {
      * @param page
      * @return
      */
-    Result selectUserList(Page<User> page);
+    Result selectUserList(MyPage page);
 
     /**
      * 获取单个用户

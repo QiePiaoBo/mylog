@@ -2,8 +2,6 @@ package com.mylog.common.licence.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mylog.common.licence.enumcenter.GroupEnum;
 import com.mylog.common.licence.entity.User;
 import com.mylog.common.licence.mapper.UserMapper;
@@ -11,7 +9,8 @@ import com.mylog.common.licence.model.dto.UserDTO;
 import com.mylog.common.licence.model.vo.UserVO;
 import com.mylog.common.licence.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.mylog.common.licence.service.PasswordService;
+import com.mylog.entitys.entitys.page.MyPage;
+import com.mylog.tools.utils.utils.PasswordService;
 import com.mylog.entitys.entitys.entity.Message;
 import com.mylog.entitys.entitys.entity.Person;
 import com.mylog.entitys.entitys.entity.Result;
@@ -53,17 +52,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @return
      */
     @Override
-    public Result selectUserList(Page<User> page) {
+    public Result selectUserList(MyPage page) {
         Result result = null;
-        IPage<User> userPage = userMapper.selectUserList(page);
-        List<User> userList = userPage.getRecords();
+        List<User> userList = userMapper.selectUserList(page);
         List<UserVO> userVOList = new ArrayList<>();
         for (User user:userList){
             UserVO userVO = new UserVO();
             BeanUtils.copyProperties(user, userVO);
             userVOList.add(userVO);
         }
-        result = new Result.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).data(userVOList).page(page.getCurrent()).size(page.getSize()).total(page.getTotal()).build();
+        result = new Result.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).data(userVOList).page(page.getPageNo()).size(page.getPageSize()).build();
         return result;
     }
 

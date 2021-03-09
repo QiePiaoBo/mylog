@@ -1,11 +1,12 @@
 package com.mylog.common.licence.mapper;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mylog.common.licence.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.mylog.entitys.entitys.page.MyPage;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * <p>
@@ -24,5 +25,5 @@ public interface UserMapper extends BaseMapper<User> {
      * @param page
      * @return
      */
-    IPage<User> selectUserList(Page<User> page);
+    List<User> selectUserList(MyPage page);
 }

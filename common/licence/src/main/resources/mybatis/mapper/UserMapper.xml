@@ -15,5 +15,6 @@
     </resultMap>
     <select id="selectUserList" resultMap="systemUserMap">
          SELECT id,usergroup, username,phone,mail,phone,gender, realname, cn_id,description FROM user
+        limit #{startNo}, #{pageSize}
     </select>
 </mapper>

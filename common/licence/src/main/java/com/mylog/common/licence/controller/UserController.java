@@ -1,10 +1,9 @@
 package com.mylog.common.licence.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.mylog.common.licence.entity.User;
 import com.mylog.common.licence.model.dto.UserDTO;
 import com.mylog.common.licence.service.IUserService;
 import com.mylog.entitys.annos.AdminPermission;
+import com.mylog.entitys.entitys.page.MyPage;
 import com.mylog.entitys.entitys.entity.Message;
 import com.mylog.entitys.entitys.entity.Result;
 import com.mylog.entitys.entitys.entity.Status;
@@ -38,8 +37,8 @@ public class UserController {
         if (page == null || limit == null){
             return new Result.Builder(Status.PARAM_NEED.getStatus(), Message.PARAM_NEED.getMsg()).data(new ArrayList<>()).build();
         }
-        Page<User> users = new Page<>(page, limit);
-        return userService.selectUserList(users);
+        MyPage myPage = new MyPage(page, limit);
+        return userService.selectUserList(myPage);
     }
 
     /**
