@@ -5,6 +5,7 @@ import com.mylog.entitys.annos.AdminPermission;
 import com.mylog.entitys.entitys.info.Message;
 import com.mylog.entitys.entitys.result.DataResult;
 import com.mylog.entitys.entitys.info.Status;
+import com.mylog.entitys.entitys.result.HttpResult;
 import com.mylog.entitys.entitys.vo.PersonVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,11 +27,9 @@ public class LicController {
      */
     @AdminPermission
     @RequestMapping("getUser")
-    public DataResult getUser(){
+    public HttpResult getUser(){
         PersonVo userVO = userService.getUser();
-        return new DataResult.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg())
-                .data(userVO)
-                .build();
+        return new HttpResult(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg(), userVO);
     }
 
 

@@ -25,6 +25,10 @@ public class MyException extends RuntimeException{
     public MyException() {
     }
 
+    /**
+     * 允许自定义异常内容
+     * @param message
+     */
     public MyException(String message) {
         super(message);
         this.errorMsg = message;
