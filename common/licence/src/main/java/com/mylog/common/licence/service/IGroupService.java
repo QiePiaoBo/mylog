@@ -12,5 +12,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2020-05-24
  */
 public interface IGroupService extends IService<Group> {
-
+    public String testex();
 }

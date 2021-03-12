@@ -1,9 +1,13 @@
-package com.mylog.entitys.entitys.entity;
+package com.mylog.entitys.entitys.result;
+
+import com.mylog.entitys.entitys.info.Message;
+import com.mylog.entitys.entitys.info.Status;
 
 /**
  * @author Dylan
+ * @description 数据相关的result
  */
-public class Result {
+public class DataResult extends HttpResult{
 
     private final long status;
 
@@ -18,9 +22,21 @@ public class Result {
     private final Object data;
 
 
-    public static Result success(){
+    /**
+     * 成功
+     * @return
+     */
+    public static DataResult success(){
         //相当于调用下面的map 然后把值存map里面。
-        return new Result.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).build();
+        return new DataResult.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).build();
+    }
+
+    /**
+     * 失败
+     * @return
+     */
+    public static DataResult failed(){
+        return new DataResult.Builder(Status.ERROR_BASE.getStatus(), Message.ERROR.getMsg()).build();
     }
 
     public static class Builder {
@@ -67,12 +83,12 @@ public class Result {
             return this;
         }
 
-        public Result build(){
-            return new Result(this);
+        public DataResult build(){
+            return new DataResult(this);
         }
     }
 
-    private Result(Builder builder){
+    private DataResult(Builder builder){
         status = builder.status;
         message = builder.message;
         data = builder.data;

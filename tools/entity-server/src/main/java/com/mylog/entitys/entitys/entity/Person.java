@@ -4,10 +4,6 @@ package com.mylog.entitys.entitys.entity;
 import java.io.Serializable;
 
 /**
- * <p>
- * 
- * </p>
- *
  * @author Dylan
  * @since 2020-05-24
  */

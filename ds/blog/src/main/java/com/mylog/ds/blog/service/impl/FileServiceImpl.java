@@ -5,11 +5,11 @@ import com.mylog.ds.blog.entity.dto.ArticleDto;
 import com.mylog.ds.blog.service.ArticleService;
 import com.mylog.ds.blog.service.IFileService;
 import com.mylog.ds.blog.service.UserService;
+import com.mylog.entitys.entitys.result.DataResult;
 import com.mylog.entitys.entitys.vo.PersonVo;
 import com.mylog.tools.sdks.filesdk.QiNiuSdk;
-import com.mylog.entitys.entitys.entity.Result;
-import com.mylog.entitys.entitys.entity.Message;
-import com.mylog.entitys.entitys.entity.Status;
+import com.mylog.entitys.entitys.info.Message;
+import com.mylog.entitys.entitys.info.Status;
 import com.mylog.tools.utils.sysinfo.SysInfo;
 import com.mylog.tools.utils.utils.FileUtils;
 import com.qiniu.common.QiniuException;
@@ -51,7 +51,7 @@ public class FileServiceImpl implements IFileService {
      * @return
      */
     @Override
-    public Result uploadFile(ArticleDto articleDto, String uploadWhere){
+    public DataResult uploadFile(ArticleDto articleDto, String uploadWhere){
         // 获取传来的文件
         MultipartFile multipartFile = articleDto.getFile();
         // 设置最大大小
@@ -60,7 +60,7 @@ public class FileServiceImpl implements IFileService {
         String filepath = "";
         // 文件大小是否超过最大大小。
         if(size > maxSize){
-            return new Result.Builder(Status.OUTOF_SIZE_ERROR.getStatus(), Message.OUTOF_SIZE_ERROR.getMsg()).build();
+            return new DataResult.Builder(Status.OUTOF_SIZE_ERROR.getStatus(), Message.OUTOF_SIZE_ERROR.getMsg()).build();
         }
         // 文件的名字
         String name=multipartFile.getOriginalFilename();
@@ -145,7 +145,7 @@ public class FileServiceImpl implements IFileService {
      * @param articleDto
      * @return
      */
-    private Result insertToDatabase(Response response, String filePath, ArticleDto articleDto){
+    private DataResult insertToDatabase(Response response, String filePath, ArticleDto articleDto){
         // 插入数据库
         PersonVo currentUser = userService.getUser();
         Article article = new Article();
@@ -163,16 +163,16 @@ public class FileServiceImpl implements IFileService {
             article.setIsLock(articleDto.getIsLock()!=null ? articleDto.getIsLock():"0");
         }
         else{
-            return new Result.Builder(Status.PERMISSION_ERROR.getStatus(), Message.PERMISSION_ERROR.getMsg()).build();
+            return new DataResult.Builder(Status.PERMISSION_ERROR.getStatus(), Message.PERMISSION_ERROR.getMsg()).build();
         }
         // 插入的结果是否为空
         if (articleService.insert(article) != null){
             // 判断上传至七牛云是否成功
             if (response != null){
                 if (response.error != null){
-                    return new Result.Builder(Status.UPLOAD_ERROR.getStatus(), Message.UPLOAD_ERROR.getMsg()).data(response.error).build();
+                    return new DataResult.Builder(Status.UPLOAD_ERROR.getStatus(), Message.UPLOAD_ERROR.getMsg()).data(response.error).build();
                 }
-                return new Result.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).build();
+                return new DataResult.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).build();
             }else {
                 try {
                     // 检查文件是否存在
@@ -181,8 +181,8 @@ public class FileServiceImpl implements IFileService {
                     e.printStackTrace();
                 }
             }
-            return new Result.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).build();
+            return new DataResult.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).build();
         }
-        return new Result.Builder(Status.INSERT_ERROR.getStatus(), Message.INSERT_ERROR.getMsg()).build();
+        return new DataResult.Builder(Status.INSERT_ERROR.getStatus(), Message.INSERT_ERROR.getMsg()).build();
     }
 }

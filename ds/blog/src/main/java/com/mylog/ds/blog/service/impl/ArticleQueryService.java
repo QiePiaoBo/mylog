@@ -3,9 +3,9 @@ package com.mylog.ds.blog.service.impl;
 import com.mylog.ds.blog.entity.Article;
 import com.mylog.ds.blog.entity.dto.ArticleDto;
 import com.mylog.ds.blog.mapper.ArticleMapper;
-import com.mylog.entitys.entitys.entity.Message;
-import com.mylog.entitys.entitys.entity.Result;
-import com.mylog.entitys.entitys.entity.Status;
+import com.mylog.entitys.entitys.result.DataResult;
+import com.mylog.entitys.entitys.info.Message;
+import com.mylog.entitys.entitys.info.Status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +28,8 @@ public class ArticleQueryService {
     @Autowired
     ArticleMapper articleMapper;
 
-    public Result queryArticleTime(@RequestBody ArticleDto articleDto){
-        Result result;
+    public DataResult queryArticleTime(@RequestBody ArticleDto articleDto){
+        DataResult dataResult;
         Set<String> countSet = new HashSet<>();
         List<Date> queryResult;
         int authorId = articleDto.getAuthorId();
@@ -40,23 +40,23 @@ public class ArticleQueryService {
             countSet.add(dateString);
         }
         List<String> countResult = new ArrayList<>(countSet);
-        result = new Result.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg())
+        dataResult = new DataResult.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg())
                 .data(countResult)
                 .build();
-        return result;
+        return dataResult;
     }
-    public Result queryArticleByTime(@RequestBody ArticleDto articleDto){
-        Result result;
+    public DataResult queryArticleByTime(@RequestBody ArticleDto articleDto){
+        DataResult dataResult;
         if ("0".equals(String.valueOf(articleDto.getAuthorId())) || null == articleDto.getCreateTime()){
-            result = new Result.Builder(Status.PARAM_NEED.getStatus(), Message.PARAM_NEED.getMsg())
+            dataResult = new DataResult.Builder(Status.PARAM_NEED.getStatus(), Message.PARAM_NEED.getMsg())
                     .build();
-            return result;
+            return dataResult;
         }
         List<Article> queryResult = articleMapper.queryArticlesInOneDay(articleDto.getCreateTime(), articleDto.getAuthorId());
-        result = new Result.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg())
+        dataResult = new DataResult.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg())
                 .data(queryResult)
                 .build();
-        return result;
+        return dataResult;
     }
 
 }

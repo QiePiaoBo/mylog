@@ -1,4 +1,4 @@
-package com.mylog.entitys.entitys.entity;
+package com.mylog.entitys.entitys.info;
 
 /**
  * 返回值message
@@ -60,7 +60,9 @@ public enum  Message {
     /**
      * 再见
      */
-    BYE_BYE("再见")
+    BYE_BYE("再见"),
+
+    ERROR("错误")
     ;
 
     private String msg;

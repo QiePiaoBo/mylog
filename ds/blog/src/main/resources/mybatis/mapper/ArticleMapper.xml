@@ -3,16 +3,16 @@
 <mapper namespace="com.mylog.ds.blog.mapper.ArticleMapper">
 
     <resultMap type="com.mylog.ds.blog.entity.Article" id="ArticleMap">
-        <result property="id" column="id" jdbcType="INTEGER"/>
-        <result property="fileName" column="file_name" jdbcType="VARCHAR"/>
-        <result property="subTitle" column="sub_title" jdbcType="VARCHAR"/>
-        <result property="description" column="description" jdbcType="VARCHAR"/>
-        <result property="fileType" column="file_type" jdbcType="VARCHAR"/>
-        <result property="filePath" column="file_path" jdbcType="VARCHAR"/>
-        <result property="userId" column="user_id" jdbcType="INTEGER"/>
-        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-        <result property="isDel" column="is_del" jdbcType="VARCHAR"/>
-        <result property="isLock" column="is_lock" jdbcType="VARCHAR"/>
+        <dataResult property="id" column="id" jdbcType="INTEGER"/>
+        <dataResult property="fileName" column="file_name" jdbcType="VARCHAR"/>
+        <dataResult property="subTitle" column="sub_title" jdbcType="VARCHAR"/>
+        <dataResult property="description" column="description" jdbcType="VARCHAR"/>
+        <dataResult property="fileType" column="file_type" jdbcType="VARCHAR"/>
+        <dataResult property="filePath" column="file_path" jdbcType="VARCHAR"/>
+        <dataResult property="userId" column="user_id" jdbcType="INTEGER"/>
+        <dataResult property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <dataResult property="isDel" column="is_del" jdbcType="VARCHAR"/>
+        <dataResult property="isLock" column="is_lock" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查询单个-->

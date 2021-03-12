@@ -2,7 +2,7 @@ package com.mylog.ds.blog.controller;
 
 import com.mylog.ds.blog.entity.dto.ArticleDto;
 import com.mylog.ds.blog.service.impl.ArticleQueryService;
-import com.mylog.entitys.entitys.entity.Result;
+import com.mylog.entitys.entitys.result.DataResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class ArticleQueryController {
      * @return
      */
     @RequestMapping("time")
-    public Result queryArticleTime(@RequestBody ArticleDto articleDto){
+    public DataResult queryArticleTime(@RequestBody ArticleDto articleDto){
 
         return articleQueryService.queryArticleTime(articleDto);
     }
@@ -41,7 +41,7 @@ public class ArticleQueryController {
      * @return
      */
     @RequestMapping("articleOneDay")
-    public Result queryArticleByTime(@RequestBody ArticleDto articleDto){
+    public DataResult queryArticleByTime(@RequestBody ArticleDto articleDto){
 
         return articleQueryService.queryArticleByTime(articleDto);
     }

@@ -3,10 +3,10 @@ package com.mylog.common.licence.controller;
 import com.mylog.common.licence.model.dto.UserDTO;
 import com.mylog.common.licence.service.IUserService;
 import com.mylog.entitys.annos.AdminPermission;
+import com.mylog.entitys.entitys.result.DataResult;
 import com.mylog.entitys.entitys.page.MyPage;
-import com.mylog.entitys.entitys.entity.Message;
-import com.mylog.entitys.entitys.entity.Result;
-import com.mylog.entitys.entitys.entity.Status;
+import com.mylog.entitys.entitys.info.Message;
+import com.mylog.entitys.entitys.info.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,9 +33,9 @@ public class UserController {
      */
     @AdminPermission(userType = 1)
     @RequestMapping("all")
-    public Result getUsers(Integer page, Integer limit){
+    public DataResult getUsers(Integer page, Integer limit){
         if (page == null || limit == null){
-            return new Result.Builder(Status.PARAM_NEED.getStatus(), Message.PARAM_NEED.getMsg()).data(new ArrayList<>()).build();
+            return new DataResult.Builder(Status.PARAM_NEED.getStatus(), Message.PARAM_NEED.getMsg()).data(new ArrayList<>()).build();
         }
         MyPage myPage = new MyPage(page, limit);
         return userService.selectUserList(myPage);
@@ -48,7 +48,7 @@ public class UserController {
      */
     @AdminPermission
     @RequestMapping("one")
-    public Result getUser(@RequestBody UserDTO userDTO){
+    public DataResult getUser(@RequestBody UserDTO userDTO){
         return userService.selectOne(userDTO);
     }
 
@@ -58,7 +58,7 @@ public class UserController {
      * @return
      */
     @RequestMapping("add")
-    public Result addUser(@RequestBody UserDTO userDTO){
+    public DataResult addUser(@RequestBody UserDTO userDTO){
         return userService.addUser(userDTO);
     }
 
@@ -69,7 +69,7 @@ public class UserController {
      */
     @AdminPermission(userType = 1)
     @RequestMapping("delete")
-    public Result deleteUser(@RequestBody UserDTO userDTO){
+    public DataResult deleteUser(@RequestBody UserDTO userDTO){
         return userService.deleteOne(userDTO);
     }
 
@@ -80,7 +80,7 @@ public class UserController {
      */
     @AdminPermission
     @RequestMapping("exchange")
-    public Result exchange(@RequestBody UserDTO userDTO){
+    public DataResult exchange(@RequestBody UserDTO userDTO){
         return userService.exchange(userDTO);
     }
 

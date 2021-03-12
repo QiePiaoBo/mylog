@@ -8,9 +8,9 @@ import com.mylog.ds.blog.entity.Article;
 import com.mylog.ds.blog.mapper.ArticleMapper;
 import com.mylog.ds.blog.service.ArticleService;
 import com.mylog.ds.blog.service.UserService;
-import com.mylog.entitys.entitys.entity.Message;
-import com.mylog.entitys.entitys.entity.Result;
-import com.mylog.entitys.entitys.entity.Status;
+import com.mylog.entitys.entitys.result.DataResult;
+import com.mylog.entitys.entitys.info.Message;
+import com.mylog.entitys.entitys.info.Status;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -41,8 +41,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      * @return
      */
     @Override
-    public Result queryRight(Article article) {
-        Result result;
+    public DataResult queryRight(Article article) {
+        DataResult dataResult;
         QueryWrapper<Article> articleQueryWrapper = new QueryWrapper<>();
         if ( null == userService.getUser() || userService.getUser().getUsergroup() >1) {
             articleQueryWrapper.eq("is_del", 0);
@@ -66,10 +66,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
         List<Article> list = articleMapper.selectList(articleQueryWrapper);
         if (list.size() > 0) {
-            result = new Result.Builder().data(list).build();
-            return result;
+            dataResult = new DataResult.Builder().data(list).build();
+            return dataResult;
         }
-        return new Result.Builder(Status.QUERY_ERROR.getStatus(), Message.QUERY_ERROR.getMsg()).build();
+        return new DataResult.Builder(Status.QUERY_ERROR.getStatus(), Message.QUERY_ERROR.getMsg()).build();
     }
 
 
@@ -121,7 +121,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      * @return 实例对象
      */
     @Override
-    public Result update(Article article) {
+    public DataResult update(Article article) {
         // 根据id获取目标记录
        Article aimArticle = articleMapper.queryById(article.getId());
        // 修改非空的某几种属性
@@ -145,11 +145,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             }
             int update = articleMapper.update(aimArticle,new UpdateWrapper<Article>().eq("id", article.getId()));
             if (update < 1){
-                return new Result.Builder(Status.UPDATE_ERROR.getStatus(), Message.UPDATE_ERROR.getMsg()).build();
+                return new DataResult.Builder(Status.UPDATE_ERROR.getStatus(), Message.UPDATE_ERROR.getMsg()).build();
             }
-            return new Result.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).data(aimArticle).build();
+            return new DataResult.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).data(aimArticle).build();
         }
-        return new Result.Builder(Status.PERMISSION_ERROR.getStatus(), Message.PERMISSION_ERROR.getMsg()).build();
+        return new DataResult.Builder(Status.PERMISSION_ERROR.getStatus(), Message.PERMISSION_ERROR.getMsg()).build();
     }
 
 
@@ -160,16 +160,16 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      * @return 是否成功
      */
     @Override
-    public Result deleteById(Integer id) {
+    public DataResult deleteById(Integer id) {
         Article article = articleMapper.queryById(id);
         if (userService.getUser().getId().equals(article.getUserId()) || userService.getUser().getUsergroup() < 1){
             article.setIsDel("1");
             int delNum = articleMapper.update(article, new UpdateWrapper<Article>().eq("id", id));
             if (delNum < 1){
-                return new Result.Builder(Status.DELETE_ERROR.getStatus(), Message.DELETE_ERROR.getMsg()).build();
+                return new DataResult.Builder(Status.DELETE_ERROR.getStatus(), Message.DELETE_ERROR.getMsg()).build();
             }
-            return Result.success();
+            return DataResult.success();
         }
-        return new Result.Builder(Status.PERMISSION_ERROR.getStatus(), Message.PERMISSION_ERROR.getMsg()).build();
+        return new DataResult.Builder(Status.PERMISSION_ERROR.getStatus(), Message.PERMISSION_ERROR.getMsg()).build();
     }
 }

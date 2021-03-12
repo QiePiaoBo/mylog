@@ -3,7 +3,7 @@ package com.mylog.common.licence.controller;
 import com.mylog.common.licence.model.dto.UserDTO;
 import com.mylog.common.licence.service.IUserService;
 import com.mylog.entitys.annos.AdminPermission;
-import com.mylog.entitys.entitys.entity.Result;
+import com.mylog.entitys.entitys.result.DataResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class UserActController {
      * @return
      */
     @PostMapping("login")
-    public Result login(@RequestBody UserDTO userDTO){
+    public DataResult login(@RequestBody UserDTO userDTO){
         return userService.login(userDTO);
     }
 
@@ -36,7 +36,7 @@ public class UserActController {
      */
     @AdminPermission
     @RequestMapping("logout")
-    public Result logout(){
+    public DataResult logout(){
         return userService.logout();
     }
 
@@ -46,7 +46,7 @@ public class UserActController {
      */
     @AdminPermission
     @RequestMapping("who")
-    public Result who(){
+    public DataResult who(){
         logger.info("who is logging");
         return userService.getCurrentUser();
     }

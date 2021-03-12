@@ -1,7 +1,7 @@
 package com.mylog.ds.blog.service;
 
 import com.mylog.ds.blog.entity.dto.ArticleDto;
-import com.mylog.entitys.entitys.entity.Result;
+import com.mylog.entitys.entitys.result.DataResult;
 
 /**
  * 文件类接口
@@ -15,5 +15,5 @@ public interface IFileService {
      * @param uploadWhere
      * @return
      */
-    Result uploadFile(ArticleDto articleDto, String uploadWhere);
+    DataResult uploadFile(ArticleDto articleDto, String uploadWhere);
 }

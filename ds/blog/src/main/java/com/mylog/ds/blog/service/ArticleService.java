@@ -2,7 +2,7 @@ package com.mylog.ds.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.mylog.ds.blog.entity.Article;
-import com.mylog.entitys.entitys.entity.Result;
+import com.mylog.entitys.entitys.result.DataResult;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public interface ArticleService extends IService<Article> {
      * @param article
      * @return
      */
-    Result queryRight(Article article);
+    DataResult queryRight(Article article);
     /**
      * 通过ID查询单条数据
      *
@@ -51,7 +51,7 @@ public interface ArticleService extends IService<Article> {
      * @param article 实例对象
      * @return 实例对象
      */
-    Result update(Article article);
+    DataResult update(Article article);
 
     /**
      * 通过主键删除数据
@@ -59,6 +59,6 @@ public interface ArticleService extends IService<Article> {
      * @param id 主键
      * @return 是否成功
      */
-    Result deleteById(Integer id);
+    DataResult deleteById(Integer id);
 
 }

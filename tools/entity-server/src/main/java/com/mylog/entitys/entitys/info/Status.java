@@ -1,4 +1,4 @@
-package com.mylog.entitys.entitys.entity;
+package com.mylog.entitys.entitys.info;
 
 /**
  * 状态码枚举类
@@ -52,7 +52,12 @@ public enum  Status {
     /**
      * 密码错误
      */
-    ERROR_PASSWORD(100011)
+    ERROR_PASSWORD(100011),
+
+    /**
+     * 未确定错误，基础错误
+     */
+    ERROR_BASE(100012)
     ;
 
     private long status;

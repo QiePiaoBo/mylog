@@ -5,9 +5,9 @@ import com.mylog.ds.blog.entity.dto.ArticleDto;
 import com.mylog.ds.blog.service.ArticleService;
 import com.mylog.ds.blog.service.IFileService;
 import com.mylog.entitys.annos.AdminPermission;
-import com.mylog.entitys.entitys.entity.Message;
-import com.mylog.entitys.entitys.entity.Result;
-import com.mylog.entitys.entitys.entity.Status;
+import com.mylog.entitys.entitys.result.DataResult;
+import com.mylog.entitys.entitys.info.Message;
+import com.mylog.entitys.entitys.info.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,7 +51,7 @@ public class ArticleController {
      * @return
      */
     @RequestMapping("all")
-    public Result getArticles(@RequestBody Article article){
+    public DataResult getArticles(@RequestBody Article article){
         return this.articleService.queryRight(article);
     }
 
@@ -62,7 +62,7 @@ public class ArticleController {
      */
     @AdminPermission
     @RequestMapping("update")
-    public Result updateArticle(@RequestBody Article article){
+    public DataResult updateArticle(@RequestBody Article article){
         return articleService.update(article);
     }
 
@@ -73,7 +73,7 @@ public class ArticleController {
      */
     @AdminPermission
     @RequestMapping("delete")
-    public Result deleteById(@RequestParam Integer id){
+    public DataResult deleteById(@RequestParam Integer id){
         return articleService.deleteById(id);
     }
 
@@ -86,16 +86,16 @@ public class ArticleController {
      */
     @AdminPermission
     @RequestMapping("upload")
-    public Result uploadFile(@ModelAttribute ArticleDto articleDto) throws IOException {
+    public DataResult uploadFile(@ModelAttribute ArticleDto articleDto) throws IOException {
         if (articleDto.getFile()==null){
-            return new Result.Builder(Status.FILE_NEED.getStatus(), Message.FILE_NEED.getMsg()).build();
+            return new DataResult.Builder(Status.FILE_NEED.getStatus(), Message.FILE_NEED.getMsg()).build();
         }
-        Result result = null;
+        DataResult dataResult = null;
         if (null == articleDto.getSendPlace() || "qiniu".equals(articleDto.getSendPlace())){
-            result = fileService.uploadFile(articleDto, "qiniu");
+            dataResult = fileService.uploadFile(articleDto, "qiniu");
         }else {
-            result = fileService.uploadFile(articleDto, articleDto.getSendPlace());
+            dataResult = fileService.uploadFile(articleDto, articleDto.getSendPlace());
         }
-        return result;
+        return dataResult;
     }
 }

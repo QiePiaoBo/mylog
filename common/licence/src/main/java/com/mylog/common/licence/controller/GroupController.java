@@ -1,6 +1,9 @@
 package com.mylog.common.licence.controller;
 
 
+import com.mylog.common.licence.service.IGroupService;
+import com.mylog.entitys.entitys.exception.MyException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -17,4 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("group")
 public class GroupController {
 
+    @Autowired
+    IGroupService groupService;
+
+    @RequestMapping("testex")
+    public String checkExceptionHandler(){
+        return groupService.testex();
+    }
 }
