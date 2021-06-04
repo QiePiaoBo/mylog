@@ -73,7 +73,7 @@
         <slf4j-log4j12.version>2.0.0-alpha1</slf4j-log4j12.version>
         <servlet-api.version>4.0.1</servlet-api.version>
 
-        <httpclient.version>4.5.12</httpclient.version>
+        <httpclient.version>4.5.13</httpclient.version>
         <httpcore.version>4.4.9</httpcore.version>
         <mybatis-plus.version>3.4.0</mybatis-plus.version>
         <javax-el-api.version>2.2.4</javax-el-api.version>
