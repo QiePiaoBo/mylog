@@ -5,9 +5,10 @@
     <parent>
         <artifactId>mylog-plat</artifactId>
         <groupId>com.mylog</groupId>
-        <version>0.0.1.RELEASE</version>
+        <version>1.0.0.RELEASE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+    <version>1.0.0.RELEASE</version>
 
     <artifactId>platform</artifactId>
     <packaging>pom</packaging>
