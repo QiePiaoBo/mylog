@@ -1,4 +1,4 @@
-package com.mylog.entitys.annos;
+package com.mylog.tools.model.annos;
 
 import java.lang.annotation.*;
 

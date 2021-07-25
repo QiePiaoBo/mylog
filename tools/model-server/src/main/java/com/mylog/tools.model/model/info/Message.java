@@ -1,4 +1,4 @@
-package com.mylog.entitys.entitys.info;
+package com.mylog.tools.model.model.info;
 
 /**
  * 返回值message

@@ -2,7 +2,7 @@ package com.mylog.common.licence.mapper;
 
 import com.mylog.common.licence.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.mylog.entitys.entitys.page.MyPage;
+import com.mylog.tools.model.model.page.MyPage;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 

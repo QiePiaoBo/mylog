@@ -2,7 +2,7 @@ package com.mylog.ds.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.mylog.ds.blog.entity.Article;
-import com.mylog.entitys.entitys.result.DataResult;
+import com.mylog.tools.model.model.result.DataResult;
 
 import java.util.List;
 

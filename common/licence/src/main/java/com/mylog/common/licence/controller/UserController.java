@@ -2,11 +2,11 @@ package com.mylog.common.licence.controller;
 
 import com.mylog.common.licence.model.dto.UserDTO;
 import com.mylog.common.licence.service.IUserService;
-import com.mylog.entitys.annos.AdminPermission;
-import com.mylog.entitys.entitys.result.DataResult;
-import com.mylog.entitys.entitys.page.MyPage;
-import com.mylog.entitys.entitys.info.Message;
-import com.mylog.entitys.entitys.info.Status;
+import com.mylog.tools.model.annos.AdminPermission;
+import com.mylog.tools.model.model.result.DataResult;
+import com.mylog.tools.model.model.page.MyPage;
+import com.mylog.tools.model.model.info.Message;
+import com.mylog.tools.model.model.info.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

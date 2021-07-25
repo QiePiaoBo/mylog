@@ -1,4 +1,4 @@
-package com.mylog.entitys.entitys.vo;
+package com.mylog.tools.model.model.vo;
 
 
 /**

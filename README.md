@@ -8,7 +8,7 @@
 * 网关
     * plt-gateway 8888
 * 工具集成中心 tools
-    * entity-server 无
+    * model-server 无
     * sdk-server 无
     * utils-server 无
 * 应用中心 ds
@@ -43,7 +43,7 @@
     * 工具jar包
     * 为其他服务所调用
     * 目前提供以下功能
-        * entity-server 公共实体类
+        * model-server 公共实体类
         * sdk-server sdk引入并提供公共方法供使用
         * utils-server 提供常用工具
 ## 特别注意:

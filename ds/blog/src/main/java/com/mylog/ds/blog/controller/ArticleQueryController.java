@@ -2,7 +2,7 @@ package com.mylog.ds.blog.controller;
 
 import com.mylog.ds.blog.entity.dto.ArticleDto;
 import com.mylog.ds.blog.service.impl.ArticleQueryService;
-import com.mylog.entitys.entitys.result.DataResult;
+import com.mylog.tools.model.model.result.DataResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

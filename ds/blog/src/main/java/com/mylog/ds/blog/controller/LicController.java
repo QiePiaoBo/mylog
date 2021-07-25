@@ -1,12 +1,11 @@
 package com.mylog.ds.blog.controller;
 
 import com.mylog.ds.blog.service.UserService;
-import com.mylog.entitys.annos.AdminPermission;
-import com.mylog.entitys.entitys.info.Message;
-import com.mylog.entitys.entitys.result.DataResult;
-import com.mylog.entitys.entitys.info.Status;
-import com.mylog.entitys.entitys.result.HttpResult;
-import com.mylog.entitys.entitys.vo.PersonVo;
+import com.mylog.tools.model.annos.AdminPermission;
+import com.mylog.tools.model.model.info.Message;
+import com.mylog.tools.model.model.info.Status;
+import com.mylog.tools.model.model.result.HttpResult;
+import com.mylog.tools.model.model.vo.PersonVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

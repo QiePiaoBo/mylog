@@ -1,7 +1,7 @@
 package com.mylog.tools.utils.exceptionhandler;
 
-import com.mylog.entitys.entitys.result.HttpResult;
-import com.mylog.entitys.entitys.exception.MyException;
+import com.mylog.tools.model.model.result.HttpResult;
+import com.mylog.tools.model.model.exception.MyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;

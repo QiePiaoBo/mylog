@@ -2,7 +2,6 @@ package com.mylog.common.licence.controller;
 
 
 import com.mylog.common.licence.service.IGroupService;
-import com.mylog.entitys.entitys.exception.MyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 

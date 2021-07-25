@@ -45,7 +45,6 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
-            <version>${mybatis-plus-generator.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -71,11 +70,6 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
-        <!--    日志输出    -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-        </dependency>
         <!-- 解决构建失败问题 -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -98,6 +92,10 @@
         <dependency>
             <groupId>com.mylog.tools</groupId>
             <artifactId>utils-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mylog.tools</groupId>
+            <artifactId>model-server</artifactId>
         </dependency>
     </dependencies>
     <build>

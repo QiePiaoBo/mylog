@@ -3,8 +3,8 @@ package com.mylog.common.licence.service;
 import com.mylog.common.licence.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.mylog.common.licence.model.dto.UserDTO;
-import com.mylog.entitys.entitys.result.DataResult;
-import com.mylog.entitys.entitys.page.MyPage;
+import com.mylog.tools.model.model.result.DataResult;
+import com.mylog.tools.model.model.page.MyPage;
 
 
 /**

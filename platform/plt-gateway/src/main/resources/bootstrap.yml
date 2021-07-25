@@ -20,6 +20,7 @@ spring:
         shared-configs[2]:
           data-id: redis.yaml
           refresh: true
+
       discovery:
         namespace: ${config.namespace}
         server-addr: logicer.top:8848

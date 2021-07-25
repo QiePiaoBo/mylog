@@ -1,8 +1,8 @@
-package com.mylog.entitys.entitys.exception;
+package com.mylog.tools.model.model.exception;
 
 
-import com.mylog.entitys.entitys.info.Message;
-import com.mylog.entitys.entitys.info.Status;
+import com.mylog.tools.model.model.info.Message;
+import com.mylog.tools.model.model.info.Status;
 
 /**
  * @author Dylan

@@ -1,7 +1,7 @@
-package com.mylog.entitys.entitys.result;
+package com.mylog.tools.model.model.result;
 
-import com.mylog.entitys.entitys.info.Message;
-import com.mylog.entitys.entitys.info.Status;
+import com.mylog.tools.model.model.info.Message;
+import com.mylog.tools.model.model.info.Status;
 
 /**
  * @author Dylan

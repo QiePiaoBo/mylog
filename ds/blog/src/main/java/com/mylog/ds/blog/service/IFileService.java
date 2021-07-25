@@ -1,7 +1,7 @@
 package com.mylog.ds.blog.service;
 
 import com.mylog.ds.blog.entity.dto.ArticleDto;
-import com.mylog.entitys.entitys.result.DataResult;
+import com.mylog.tools.model.model.result.DataResult;
 
 /**
  * 文件类接口

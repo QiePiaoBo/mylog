@@ -1,4 +1,4 @@
-package com.mylog.entitys.entitys.page;
+package com.mylog.tools.model.model.page;
 
 
 /**

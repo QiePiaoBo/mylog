@@ -8,9 +8,9 @@ import com.mylog.ds.blog.entity.Article;
 import com.mylog.ds.blog.mapper.ArticleMapper;
 import com.mylog.ds.blog.service.ArticleService;
 import com.mylog.ds.blog.service.UserService;
-import com.mylog.entitys.entitys.result.DataResult;
-import com.mylog.entitys.entitys.info.Message;
-import com.mylog.entitys.entitys.info.Status;
+import com.mylog.tools.model.model.result.DataResult;
+import com.mylog.tools.model.model.info.Message;
+import com.mylog.tools.model.model.info.Status;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

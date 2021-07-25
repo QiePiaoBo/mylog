@@ -1,4 +1,4 @@
-package com.mylog.entitys.entitys.entity;
+package com.mylog.tools.model.model.entity;
 
 
 import java.io.Serializable;

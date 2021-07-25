@@ -19,7 +19,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-            <version>${spring-boot-starter-actuator.version}</version>
         </dependency>
         <!--    nacos配置 -->
         <dependency>
@@ -54,12 +53,13 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-databind</artifactId>
+                </exclusion>
+            </exclusions>
             <version>${spring-cloud-starter-netflix-hystrix.version}</version>
-        </dependency>
-        <!--    gateway与spring-boot-starter-web貌似有冲突，应与webflux配套    -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
         <!--    redis相关依赖    -->
         <dependency>
@@ -77,27 +77,15 @@
             <artifactId>lombok</artifactId>
         </dependency>
         <!-- 解决jacksonObjectMapper构建失败问题 -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson-databind.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.fasterxml.jackson.core</groupId>
-                    <artifactId>jackson-annotations</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>${jackson-annotations.version}</version>
-            <!-- 版本可以使用2.9.3、2.9.5 、2.9.8，不能忽略version属性-->
-        </dependency>
-        <!--    mybatis-plus 核心库    -->
+<!--        <dependency>-->
+<!--            <groupId>com.fasterxml.jackson.core</groupId>-->
+<!--            <artifactId>jackson-databind</artifactId>-->
+<!--            <version>${jackson-databind.version}</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis-plus.version}</version>
         </dependency>
         <!--    连接数据库依赖    -->
         <dependency>
@@ -108,13 +96,9 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
+            <version>${druid.version}</version>
         </dependency>
-        <!--    日志输出    -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-        </dependency>
-        <!--        自定义工具  工具中不可引用web相关组件会与gateway冲突     -->
+        <!--    工具中不可引用web相关组件会与gateway冲突     -->
     </dependencies>
 
 
@@ -134,7 +118,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
                 <executions>
                     <execution>
                         <goals>

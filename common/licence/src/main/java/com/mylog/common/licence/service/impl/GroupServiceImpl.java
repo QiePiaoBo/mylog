@@ -4,7 +4,7 @@ import com.mylog.common.licence.entity.Group;
 import com.mylog.common.licence.mapper.GroupMapper;
 import com.mylog.common.licence.service.IGroupService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.mylog.entitys.entitys.exception.MyException;
+import com.mylog.tools.model.model.exception.MyException;
 import org.springframework.stereotype.Service;
 
 /**

@@ -1,6 +1,6 @@
 package com.mylog.tools.utils.interceptor;
 
-import com.mylog.entitys.annos.AdminPermission;
+import com.mylog.tools.model.annos.AdminPermission;
 import com.mylog.tools.utils.session.UserContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;

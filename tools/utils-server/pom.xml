@@ -35,7 +35,7 @@
         </dependency>
         <dependency>
             <groupId>com.mylog.tools</groupId>
-            <artifactId>entity-server</artifactId>
+            <artifactId>model-server</artifactId>
         </dependency>
     </dependencies>
 
