@@ -3,6 +3,8 @@ package com.mylog.ds.blog.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.mylog.ds.blog.entity.Article;
 import org.apache.ibatis.annotations.*;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -16,6 +18,7 @@ import java.util.List;
  */
 @Mapper
 @Component
+@CacheConfig(cacheManager = "myCacheManager", cacheNames = {"articles"})
 public interface ArticleMapper extends BaseMapper<Article> {
 
     /**
@@ -24,6 +27,7 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @param id 主键
      * @return 实例对象
      */
+    @Cacheable(key = "#p0")
     Article queryById(Integer id);
 
     /**

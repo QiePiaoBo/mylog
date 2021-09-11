@@ -13,15 +13,10 @@ spring:
         server-addr: logicer.top:8848
         namespace: ${config.namespace}
         file-extension: yaml
-        shared-configs[0]:
-          data-id: common.yaml
-          refresh: true
-        shared-configs[1]:
-          data-id: base_db.yaml
-          refresh: true
-        shared-configs[2]:
-          data-id: redis.yaml
-          refresh: true
+        shared-configs:
+          - {dataId: common.yaml, group: 'DEFAULT_GROUP', refresh: true}
+          - {dataId: base_db.yaml, group: 'DEFAULT_GROUP', refresh: true}
+          - {dataId: redis.yaml, group: 'DEFAULT_GROUP', refresh: true}
         refresh-enabled: true
       discovery:
         namespace: ${config.namespace}

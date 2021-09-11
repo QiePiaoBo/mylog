@@ -6,6 +6,7 @@
     <groupId>com.mydep</groupId>
     <artifactId>mydep</artifactId>
     <version>2.3.5.RELEASE</version>
+    <packaging>pom</packaging>
     <properties>
         <activemq.version>5.15.13</activemq.version>
         <antlr2.version>2.7.7</antlr2.version>

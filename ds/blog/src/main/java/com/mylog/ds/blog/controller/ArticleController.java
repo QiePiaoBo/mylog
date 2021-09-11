@@ -31,7 +31,7 @@ public class ArticleController {
     /**
      * 文件上传服务
      */
-    @Autowired
+    @Resource
     IFileService fileService;
 
     /**
@@ -76,7 +76,6 @@ public class ArticleController {
     public DataResult deleteById(@RequestParam Integer id){
         return articleService.deleteById(id);
     }
-
 
     /**
      * 文件上传
