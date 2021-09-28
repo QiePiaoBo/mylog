@@ -1,0 +1,13 @@
+server:
+  port: 10002
+
+spring:
+  rabbitmq:
+    host: sucifitz.top
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    listener:
+      direct:
+        acknowledge-mode: manual
