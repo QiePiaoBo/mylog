@@ -9,6 +9,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 
 /**
  * @author Dylan
+ * @Description 用户及权限管理
  */
 @SpringBootApplication(scanBasePackages = {"com.mylog.common.licence", "com.mylog.tools.utils"})
 @EnableRedisHttpSession
