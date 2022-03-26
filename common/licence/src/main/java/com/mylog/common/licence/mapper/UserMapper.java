@@ -16,7 +16,6 @@ import java.util.List;
  * @author Dylan
  * @since 2020-05-24
  */
-@Component
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
 

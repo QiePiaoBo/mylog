@@ -36,7 +36,7 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 @Slf4j
 @Configuration
-public class TokenFilter implements GlobalFilter {
+public class TokenFilter implements Ordered, GlobalFilter {
 
 
     final String filterPath = "dl";
@@ -57,7 +57,7 @@ public class TokenFilter implements GlobalFilter {
         }
 
 //         从请求中获取 token 参数
-        String token = exchange.getRequest().getQueryParams().getFirst("token");
+        String token = request.getQueryParams().getFirst("token");
         if (!request.getPath().toString().contains("act")){
             // 如果为空，那么将返回 401
             if (token == null || token.isEmpty()) {
@@ -99,4 +99,8 @@ public class TokenFilter implements GlobalFilter {
     }
 
 
+    @Override
+    public int getOrder() {
+        return 0;
+    }
 }
