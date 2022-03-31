@@ -31,7 +31,7 @@
         <spring-boot-starter-mail.version>2.3.4.RELEASE</spring-boot-starter-mail.version>
         <spring-boot-starter-data-redis.version>2.3.4.RELEASE</spring-boot-starter-data-redis.version>
         <spring-boot-starter-data-redis-reactive.version>2.3.4.RELEASE</spring-boot-starter-data-redis-reactive.version>
-        <spring-boot-starter-webflux.version>2.3.4.RELEASE</spring-boot-starter-webflux.version>
+        <spring-boot-starter-webflux.version>2.5.12</spring-boot-starter-webflux.version>
         <spring-boot-starter-actuator.version>2.3.4.RELEASE</spring-boot-starter-actuator.version>
         <spring-boot-starter-batch.version>2.3.4.RELEASE</spring-boot-starter-batch.version>
         <spring-boot-starter-data-jpa.version>2.3.4.RELEASE</spring-boot-starter-data-jpa.version>
