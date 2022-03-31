@@ -44,7 +44,7 @@
         <hibernate-validator.version>7.0.0.Alpha6</hibernate-validator.version>
 
         <spring-web.version>5.2.8.RELEASE</spring-web.version>
-        <spring-webmvc.version>5.2.8.RELEASE</spring-webmvc.version>
+        <spring-webmvc.version>5.3.18</spring-webmvc.version>
         <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
         <spring-cloud-starter-netflix-eureka-server.version>2.1.2.RELEASE</spring-cloud-starter-netflix-eureka-server.version>
         <spring-cloud-starter-openfeign.version>2.1.0.RELEASE</spring-cloud-starter-openfeign.version>
