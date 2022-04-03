@@ -31,8 +31,8 @@
 
         <!--        spring-boot系列   -->
 
-        <mybatis-plus-generator.version>3.4.0</mybatis-plus-generator.version>
-        <mybatis-plus-boot-starter.version>3.4.0</mybatis-plus-boot-starter.version>
+        <mybatis-plus-generator.version>3.5.1</mybatis-plus-generator.version>
+        <mybatis-plus-boot-starter.version>3.5.1</mybatis-plus-boot-starter.version>
         <mysql-connector-java.version>8.0.16</mysql-connector-java.version>
 
         <hibernate-validator.version>7.0.0.Alpha6</hibernate-validator.version>
@@ -69,7 +69,7 @@
 
         <httpclient.version>4.5.13</httpclient.version>
         <httpcore.version>4.4.9</httpcore.version>
-        <mybatis-plus.version>3.4.0</mybatis-plus.version>
+        <mybatis-plus.version>3.5.1</mybatis-plus.version>
         <javax-el-api.version>2.2.4</javax-el-api.version>
 
 
