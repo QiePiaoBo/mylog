@@ -17,27 +17,17 @@ public class PersonVo {
     /**
      * 用户权限组
      */
-    private Integer usergroup;
+    private Integer userGroup;
 
     /**
      * 用户名
      */
-    private String username;
+    private String userName;
 
     /**
      * 用户手机
      */
-    private String phone;
-
-    /**
-     * 用户邮箱
-     */
-    private String mail;
-
-    /**
-     * 用户性别
-     */
-    private String gender;
+    private String userPhone;
 
 
     public Integer getId() {
@@ -48,43 +38,27 @@ public class PersonVo {
         this.id = id;
     }
 
-    public Integer getUsergroup() {
-        return usergroup;
+    public Integer getUserGroup() {
+        return userGroup;
     }
 
-    public void setUsergroup(Integer usergroup) {
-        this.usergroup = usergroup;
+    public void setUserGroup(Integer userGroup) {
+        this.userGroup = userGroup;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getUserPhone() {
+        return userPhone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
     }
 }

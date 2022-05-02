@@ -13,8 +13,28 @@
         <result column="cn_id" property="cnId"/>
         <result column="description" property="description"/>
     </resultMap>
+
+    <sql id="TableField">
+        id, user_name, user_phone, user_password, user_group, created_at, updated_at, del_flag
+    </sql>
+
+    <sql id="TableName">
+        user
+    </sql>
+
     <select id="selectUserList" resultMap="systemUserMap">
-         SELECT id, usergroup, username, phone, mail, phone,gender, realname, cn_id, description FROM user
+        SELECT
+            <include refid="TableField" />
+        FROM
+            <include refid="TableName" />
         limit #{startNo}, #{pageSize}
+    </select>
+
+    <select id="selectUserTotal" resultType="java.lang.Long">
+        SELECT
+            count(*)
+        FROM
+            <include refid="TableName" />
+        WHERE del_flag = 0
     </select>
 </mapper>

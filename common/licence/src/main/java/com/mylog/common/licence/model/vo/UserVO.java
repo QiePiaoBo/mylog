@@ -1,7 +1,5 @@
 package com.mylog.common.licence.model.vo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -26,39 +24,23 @@ public class UserVO implements Serializable {
     /**
      * 用户id
      */
-    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
      * 用户权限组
      */
-    private Integer usergroup;
+    private Integer userGroup;
 
     /**
      * 用户名
      */
-    private String username;
+    private String userName;
 
 
     /**
      * 用户手机
      */
-    private String phone;
-
-    /**
-     * 用户邮箱
-     */
-    private String mail;
-
-    /**
-     * 用户性别
-     */
-    private String gender;
-
-    /**
-     * 备用字段1
-     */
-    private String description;
+    private String userPhone;
 
 
 }

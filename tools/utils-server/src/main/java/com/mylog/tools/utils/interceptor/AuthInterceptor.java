@@ -40,9 +40,10 @@ public class AuthInterceptor implements HandlerInterceptor {
                 response.getWriter().write("未登录");
                 return false;
             }
+            // todo 修改权限校验方式
             int userType = authToken.userType();
             // 数字越小权限越大
-            result = userType >= UserContext.getCurrentUser().getUsergroup();
+            result = userType >= UserContext.getCurrentUser().getUserGroup();
             if (!result) {
                 response.setContentType("application/json; charset=UTF-8");
                 if (UserContext.getCurrentUser() == null) {

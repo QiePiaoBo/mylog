@@ -44,7 +44,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public DataResult queryRight(Article article) {
         DataResult dataResult;
         QueryWrapper<Article> articleQueryWrapper = new QueryWrapper<>();
-        if ( null == userService.getUser() || userService.getUser().getUsergroup() >1) {
+        if ( null == userService.getUser() || userService.getUser().getUserGroup() >1) {
             articleQueryWrapper.eq("is_del", 0);
             articleQueryWrapper.eq("is_lock", 0);
         }
@@ -138,7 +138,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             aimArticle.setDescription(article.getDescription());
         }
         // 修改目标对象
-        if (userService.getUser().getId().equals(aimArticle.getUserId()) || userService.getUser().getUsergroup() < 1){
+        if (userService.getUser().getId().equals(aimArticle.getUserId()) || userService.getUser().getUserGroup() < 1){
             // 上传者及管理员可以决定是否展示
             if (article.getIsLock()!=null){
                 aimArticle.setIsLock(article.getIsLock());
@@ -162,7 +162,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     public DataResult deleteById(Integer id) {
         Article article = articleMapper.queryById(id);
-        if (userService.getUser().getId().equals(article.getUserId()) || userService.getUser().getUsergroup() < 1){
+        if (userService.getUser().getId().equals(article.getUserId()) || userService.getUser().getUserGroup() < 1){
             article.setIsDel("1");
             int delNum = articleMapper.update(article, new UpdateWrapper<Article>().eq("id", id));
             if (delNum < 1){

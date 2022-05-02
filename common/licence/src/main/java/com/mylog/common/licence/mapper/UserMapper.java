@@ -25,4 +25,10 @@ public interface UserMapper extends BaseMapper<User> {
      * @return
      */
     List<User> selectUserList(MyPage page);
+
+    /**
+     * 获取user总数量
+     * @return
+     */
+    Long selectUserTotal();
 }

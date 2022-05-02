@@ -61,8 +61,14 @@ public enum  Message {
      * 再见
      */
     BYE_BYE("再见"),
-
-    ERROR("错误")
+    /**
+     * 统一错误
+     */
+    ERROR("错误"),
+    /**
+     * 用户已存在
+     */
+    USER_EXISTS("用户已存在")
     ;
 
     private String msg;

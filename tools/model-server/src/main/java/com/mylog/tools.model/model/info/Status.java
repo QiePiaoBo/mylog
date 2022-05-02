@@ -57,7 +57,11 @@ public enum  Status {
     /**
      * 未确定错误，基础错误
      */
-    ERROR_BASE(100012)
+    ERROR_BASE(100012),
+    /**
+     * 未确定错误，基础错误
+     */
+    USER_EXISTS(100013)
     ;
 
     private long status;
