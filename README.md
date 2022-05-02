@@ -69,7 +69,7 @@ CREATE TABLE `route` (
 INSERT INTO `route` VALUES (1, 'feign', 'lb://my-feign', 0, '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/qy/**\"}}]', '[{\"name\":\"StripPrefix\",\"args\":{\"_genkey_0\":\"1\"}}]', 1);
 INSERT INTO `route` VALUES (2, 'licence', 'lb://licence', 1, '[{\"args\":{\"pattern\":\"/jx/**\"},\"name\":\"Path\"}]', '[{\"args\":{\"_genkey_0\":\"1\"},\"name\":\"StripPrefix\"}]', 1);
 
--- 用户表（应用数据库即 ds数据库）
+-- 用户表（应用数据库即 ds数据库） 已废弃
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户id',
   `usergroup` varchar(32) DEFAULT NULL COMMENT '用户权限组',
@@ -86,7 +86,7 @@ CREATE TABLE `user` (
 INSERT INTO `user` VALUES (1, '0', 'Dylan', 'CBACCCEDFC9DD12051CFAC29A06015EF', '15966245906', '15966245906@163.com', 'man', '段其伦', '371522199704136514', '超级管理员');
 INSERT INTO `user` VALUES (2, '1', 'Lucifer', '123456', '15966245907', NULL, NULL, 'SunZihan', '371522', '管理员');
 INSERT INTO `user` VALUES (4, '2', 'Duke', 'E10ADC3949BA59ABBE56E057F20F883E', '15966245908', NULL, NULL, 'LiuChanghao', '371522', '平民');
-
+-- 权限表 已废弃
 CREATE TABLE `permission` (
   `id` int(11) NOT NULL COMMENT '权限id',
   `name` varchar(64) DEFAULT NULL COMMENT '权限名',
