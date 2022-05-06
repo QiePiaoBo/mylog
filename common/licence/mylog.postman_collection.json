@@ -1,0 +1,220 @@
+{
+	"info": {
+		"_postman_id": "f78ae350-0cc0-4f71-9de4-85d6deec90f1",
+		"name": "mylog",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Local",
+			"item": [
+				{
+					"name": "登录",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"Dylan\",\r\n    \"userPassword\": \"19970413\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9003/act/login",
+							"host": [
+								"localhost"
+							],
+							"port": "9003",
+							"path": [
+								"act",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取当前用户",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9003/act/who",
+							"host": [
+								"localhost"
+							],
+							"port": "9003",
+							"path": [
+								"act",
+								"who"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "分页获取用户",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9003/user?page=1&limit=10",
+							"host": [
+								"localhost"
+							],
+							"port": "9003",
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "根据id获取单个用户",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9003/user/1",
+							"host": [
+								"localhost"
+							],
+							"port": "9003",
+							"path": [
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改用户",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"userName\": \"Dylan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9003/user",
+							"host": [
+								"localhost"
+							],
+							"port": "9003",
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "根据id删除用户",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:9003/user/7",
+							"host": [
+								"localhost"
+							],
+							"port": "9003",
+							"path": [
+								"user",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "添加用户",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\":\"patrick4\",\r\n    \"userPhone\":\"15966245916\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9003/user",
+							"host": [
+								"localhost"
+							],
+							"port": "9003",
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "localhost:9011/article/upload",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Files/疑.png"
+						},
+						{
+							"key": "fileName",
+							"value": "test0000.png",
+							"type": "text"
+						},
+						{
+							"key": "sendPlace",
+							"value": "qiniu",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:9011/article/upload",
+					"host": [
+						"localhost"
+					],
+					"port": "9011",
+					"path": [
+						"article",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

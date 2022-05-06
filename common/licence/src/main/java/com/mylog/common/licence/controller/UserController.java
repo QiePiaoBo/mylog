@@ -8,9 +8,8 @@ import com.mylog.tools.model.model.page.MyPage;
 import com.mylog.tools.model.model.info.Message;
 import com.mylog.tools.model.model.info.Status;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 
 /**
@@ -19,7 +18,7 @@ import java.util.ArrayList;
  * 用户管理中心
  */
 @RestController
-@RequestMapping("manage")
+@RequestMapping("user")
 public class UserController {
 
     @Autowired
@@ -32,8 +31,8 @@ public class UserController {
      * @return
      */
     @AdminPermission(userType = 1)
-    @RequestMapping("all")
-    public DataResult getUsers(Integer page, Integer limit){
+    @GetMapping
+    public DataResult getUsers(@RequestParam("page") Integer page,@RequestParam("limit") Integer limit){
         if (page == null || limit == null){
             return new DataResult.Builder(Status.PARAM_NEED.getStatus(), Message.PARAM_NEED.getMsg()).data(new ArrayList<>()).build();
         }
@@ -43,13 +42,13 @@ public class UserController {
 
     /**
      * 获取一个用户
-     * @param userDTO
+     * @param id
      * @return
      */
     @AdminPermission
-    @RequestMapping("one")
-    public DataResult getUser(@RequestBody UserDTO userDTO){
-        return userService.selectOne(userDTO);
+    @GetMapping("/{id:\\d+}")
+    public DataResult getUserById(@PathVariable Integer id){
+        return userService.selectOne(UserDTO.builder().id(id).build());
     }
 
     /**
@@ -57,20 +56,20 @@ public class UserController {
      * @param userDTO
      * @return
      */
-    @RequestMapping("add")
-    public DataResult addUser(@RequestBody UserDTO userDTO){
+    @PostMapping
+    public DataResult create(@RequestBody UserDTO userDTO){
         return userService.addUser(userDTO);
     }
 
     /**
      * 删除一个用户
-     * @param userDTO
+     * @param id
      * @return
      */
     @AdminPermission(userType = 1)
-    @RequestMapping("delete")
-    public DataResult deleteUser(@RequestBody UserDTO userDTO){
-        return userService.deleteOne(userDTO);
+    @DeleteMapping("/{id:\\d+}")
+    public DataResult deleteUser(@PathVariable Integer id){
+        return userService.deleteOne(UserDTO.builder().id(id).build());
     }
 
     /**
@@ -79,7 +78,7 @@ public class UserController {
      * @return
      */
     @AdminPermission
-    @RequestMapping("exchange")
+    @PatchMapping
     public DataResult exchange(@RequestBody UserDTO userDTO){
         return userService.exchange(userDTO);
     }
