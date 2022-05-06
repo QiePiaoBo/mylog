@@ -3,7 +3,7 @@
 #### 请求方式
 > POST
 #### 请求路径
-> /manage/add
+> /user
 #### 请求报文
 ```json
 {
@@ -32,7 +32,7 @@
 #### 请求方式
 > DELETE
 #### 请求路径
-> /manage/delete
+> /user/7
 #### 请求报文
 ```json
 

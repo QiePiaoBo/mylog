@@ -11,6 +11,7 @@ import com.mylog.common.licence.model.dto.UserDTO;
 import com.mylog.common.licence.model.vo.UserVO;
 import com.mylog.common.licence.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.mylog.common.licence.transformer.UserTransformer;
 import com.mylog.tools.model.model.result.DataResult;
 import com.mylog.tools.model.model.page.MyPage;
 import com.mylog.tools.utils.utils.PasswordService;
@@ -140,8 +141,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         int addResult = userMapper.insert(user);
         if (addResult>0){
             return selectOne(userDTO);
-        }
-        else {
+        }else {
             return new DataResult.Builder(Status.INSERT_ERROR.getStatus(), Message.INSERT_ERROR.getMsg()).build();
         }
     }
@@ -172,7 +172,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             if (update == 0){
                 dataResult = new DataResult.Builder(Status.UPDATE_ERROR.getStatus(),Message.UPDATE_ERROR.getMsg()).build();
             }
-            dataResult = new DataResult.Builder().build();
+            dataResult = new DataResult.Builder().data(UserTransformer.user2UserVo(user)).build();
         }
         return dataResult;
     }
@@ -195,12 +195,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         userUpdateWrapper.eq("id", userDTO.getId());
 
         int update = userMapper.update(user, userUpdateWrapper);
-        UserVO userVO = new UserVO();
         if (update>0){
-            BeanUtils.copyProperties(userDTO, userVO);
-            dataResult = new DataResult.Builder().data(userVO).build();
-        }
-        else {
+            dataResult = new DataResult.Builder().data(UserTransformer.userDTO2UserVO(userDTO)).build();
+        }else {
             dataResult = new DataResult.Builder(Status.UPDATE_ERROR.getStatus(), Message.UPDATE_ERROR.getMsg()).data(userDTO).build();
         }
         return dataResult;
@@ -223,10 +220,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             return new DataResult.Builder(Status.ERROR_PASSWORD.getStatus(), Message.ERROR_PASSWORD.getMsg()).build();
         }
         // 验证通过，将当前用户存入session中
-        Person p = new Person();
-        BeanUtils.copyProperties(user, p);
-        UserContext.putCurrentUser(p);
-
+        Person p = UserTransformer.user2Person(user);
         return new DataResult.Builder(Status.SUCCESS.getStatus(), Message.WELCOME_TO_LOGIN.getMsg()).data(p).build();
     }
 

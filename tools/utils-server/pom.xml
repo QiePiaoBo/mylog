@@ -37,6 +37,11 @@
             <groupId>com.mylog.tools</groupId>
             <artifactId>model-server</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
     </dependencies>
 
     <!--  本地安装jar包：javax.servlet.servlet-api 注意要用cmd安装 shell命令安装貌似会将命令中的javax转义  -->
