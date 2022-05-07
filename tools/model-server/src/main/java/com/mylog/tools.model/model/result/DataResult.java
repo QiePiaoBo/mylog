@@ -26,17 +26,17 @@ public class DataResult extends HttpResult{
      * 成功
      * @return
      */
-    public static DataResult success(){
+    public static DataResult.Builder success(){
         //相当于调用下面的map 然后把值存map里面。
-        return new DataResult.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).build();
+        return new DataResult.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg());
     }
 
     /**
      * 失败
      * @return
      */
-    public static DataResult failed(){
-        return new DataResult.Builder(Status.ERROR_BASE.getStatus(), Message.ERROR.getMsg()).build();
+    public static DataResult.Builder fail(){
+        return new DataResult.Builder(Status.ERROR_BASE.getStatus(), Message.ERROR.getMsg());
     }
 
     public static class Builder {

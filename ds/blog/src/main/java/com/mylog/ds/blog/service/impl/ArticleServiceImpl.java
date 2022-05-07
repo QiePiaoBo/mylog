@@ -168,7 +168,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             if (delNum < 1){
                 return new DataResult.Builder(Status.DELETE_ERROR.getStatus(), Message.DELETE_ERROR.getMsg()).build();
             }
-            return DataResult.success();
+            return DataResult.success().build();
         }
         return new DataResult.Builder(Status.PERMISSION_ERROR.getStatus(), Message.PERMISSION_ERROR.getMsg()).build();
     }

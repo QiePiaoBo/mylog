@@ -230,7 +230,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public DataResult logout() {
         PersonVo currentUser = UserContext.getCurrentUser();
         if (Objects.isNull(currentUser)){
-            return DataResult.failed();
+            return DataResult.fail().build();
         }
         UserVO userVO = UserTransformer.personVO2UserVO(currentUser);
         // 验证通过，将当前用户从session中删除
