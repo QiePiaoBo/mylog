@@ -135,11 +135,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             return new DataResult.Builder(Status.USER_EXISTS.getStatus(), Message.USER_EXISTS.getMsg()).data(userDTO).build();
         }
         User user = new User();
-        UserVO userVO = new UserVO();
         BeanUtils.copyProperties(userDTO, user);
-        BeanUtils.copyProperties(userDTO, userVO);
         int addResult = userMapper.insert(user);
-        if (addResult>0){
+        if (addResult > 0){
             return selectOne(userDTO);
         }else {
             return new DataResult.Builder(Status.INSERT_ERROR.getStatus(), Message.INSERT_ERROR.getMsg()).build();
