@@ -40,7 +40,7 @@ public class ArticleQueryService {
             countSet.add(dateString);
         }
         List<String> countResult = new ArrayList<>(countSet);
-        dataResult = new DataResult.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg())
+        dataResult = DataResult.getBuilder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg())
                 .data(countResult)
                 .build();
         return dataResult;
@@ -48,12 +48,12 @@ public class ArticleQueryService {
     public DataResult queryArticleByTime(@RequestBody ArticleDto articleDto){
         DataResult dataResult;
         if ("0".equals(String.valueOf(articleDto.getAuthorId())) || null == articleDto.getCreateTime()){
-            dataResult = new DataResult.Builder(Status.PARAM_NEED.getStatus(), Message.PARAM_NEED.getMsg())
+            dataResult = DataResult.getBuilder(Status.PARAM_NEED.getStatus(), Message.PARAM_NEED.getMsg())
                     .build();
             return dataResult;
         }
         List<Article> queryResult = articleMapper.queryArticlesInOneDay(articleDto.getCreateTime(), articleDto.getAuthorId());
-        dataResult = new DataResult.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg())
+        dataResult = DataResult.getBuilder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg())
                 .data(queryResult)
                 .build();
         return dataResult;

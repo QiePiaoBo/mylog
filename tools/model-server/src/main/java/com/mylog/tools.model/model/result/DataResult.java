@@ -28,7 +28,7 @@ public class DataResult extends HttpResult{
      */
     public static DataResult.Builder success(){
         //相当于调用下面的map 然后把值存map里面。
-        return new DataResult.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg());
+        return DataResult.getBuilder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg());
     }
 
     /**
@@ -36,7 +36,23 @@ public class DataResult extends HttpResult{
      * @return
      */
     public static DataResult.Builder fail(){
-        return new DataResult.Builder(Status.ERROR_BASE.getStatus(), Message.ERROR.getMsg());
+        return DataResult.getBuilder(Status.ERROR_BASE.getStatus(), Message.ERROR.getMsg());
+    }
+
+    /**
+     * 获取Builder
+     * @return
+     */
+    public static DataResult.Builder getBuilder(Long status, String msg){
+        return DataResult.getBuilder(status, msg);
+    }
+
+    /**
+     * 获取Builder
+     * @return
+     */
+    public static DataResult.Builder getBuilder(){
+        return DataResult.getBuilder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg());
     }
 
     public static class Builder {

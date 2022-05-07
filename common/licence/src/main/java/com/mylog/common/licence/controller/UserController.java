@@ -7,6 +7,7 @@ import com.mylog.tools.model.model.result.DataResult;
 import com.mylog.tools.model.model.page.MyPage;
 import com.mylog.tools.model.model.info.Message;
 import com.mylog.tools.model.model.info.Status;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,7 @@ import java.util.ArrayList;
  * @since 2020-05-24
  * 用户管理中心
  */
+@Slf4j
 @RestController
 @RequestMapping("user")
 public class UserController {
@@ -34,7 +36,7 @@ public class UserController {
     @GetMapping
     public DataResult getUsers(@RequestParam("page") Integer page,@RequestParam("limit") Integer limit){
         if (page == null || limit == null){
-            return new DataResult.Builder(Status.PARAM_NEED.getStatus(), Message.PARAM_NEED.getMsg()).data(new ArrayList<>()).build();
+            return DataResult.getBuilder(Status.PARAM_NEED.getStatus(), Message.PARAM_NEED.getMsg()).data(new ArrayList<>()).build();
         }
         MyPage myPage = new MyPage(page, limit);
         return userService.selectUserList(myPage);

@@ -87,7 +87,7 @@ public class ArticleController {
     @RequestMapping("upload")
     public DataResult uploadFile(@ModelAttribute ArticleDto articleDto) throws IOException {
         if (articleDto.getFile()==null){
-            return new DataResult.Builder(Status.FILE_NEED.getStatus(), Message.FILE_NEED.getMsg()).build();
+            return DataResult.getBuilder(Status.FILE_NEED.getStatus(), Message.FILE_NEED.getMsg()).build();
         }
         DataResult dataResult = null;
         if (null == articleDto.getSendPlace() || "qiniu".equals(articleDto.getSendPlace())){

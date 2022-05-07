@@ -66,10 +66,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
         List<Article> list = articleMapper.selectList(articleQueryWrapper);
         if (list.size() > 0) {
-            dataResult = new DataResult.Builder().data(list).build();
+            dataResult = DataResult.getBuilder().data(list).build();
             return dataResult;
         }
-        return new DataResult.Builder(Status.QUERY_ERROR.getStatus(), Message.QUERY_ERROR.getMsg()).build();
+        return DataResult.getBuilder(Status.QUERY_ERROR.getStatus(), Message.QUERY_ERROR.getMsg()).build();
     }
 
 
@@ -145,11 +145,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             }
             int update = articleMapper.update(aimArticle,new UpdateWrapper<Article>().eq("id", article.getId()));
             if (update < 1){
-                return new DataResult.Builder(Status.UPDATE_ERROR.getStatus(), Message.UPDATE_ERROR.getMsg()).build();
+                return DataResult.getBuilder(Status.UPDATE_ERROR.getStatus(), Message.UPDATE_ERROR.getMsg()).build();
             }
-            return new DataResult.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).data(aimArticle).build();
+            return DataResult.getBuilder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).data(aimArticle).build();
         }
-        return new DataResult.Builder(Status.PERMISSION_ERROR.getStatus(), Message.PERMISSION_ERROR.getMsg()).build();
+        return DataResult.getBuilder(Status.PERMISSION_ERROR.getStatus(), Message.PERMISSION_ERROR.getMsg()).build();
     }
 
 
@@ -166,10 +166,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             article.setIsDel("1");
             int delNum = articleMapper.update(article, new UpdateWrapper<Article>().eq("id", id));
             if (delNum < 1){
-                return new DataResult.Builder(Status.DELETE_ERROR.getStatus(), Message.DELETE_ERROR.getMsg()).build();
+                return DataResult.getBuilder(Status.DELETE_ERROR.getStatus(), Message.DELETE_ERROR.getMsg()).build();
             }
             return DataResult.success().build();
         }
-        return new DataResult.Builder(Status.PERMISSION_ERROR.getStatus(), Message.PERMISSION_ERROR.getMsg()).build();
+        return DataResult.getBuilder(Status.PERMISSION_ERROR.getStatus(), Message.PERMISSION_ERROR.getMsg()).build();
     }
 }

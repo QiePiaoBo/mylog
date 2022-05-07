@@ -4,6 +4,7 @@ import com.mylog.common.licence.model.dto.UserDTO;
 import com.mylog.common.licence.service.IUserService;
 import com.mylog.tools.model.annos.AdminPermission;
 import com.mylog.tools.model.model.result.DataResult;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * @author Dylan
  * 用户行为中心
  */
+@Slf4j
 @RestController
 @RequestMapping("act")
 public class UserActController {

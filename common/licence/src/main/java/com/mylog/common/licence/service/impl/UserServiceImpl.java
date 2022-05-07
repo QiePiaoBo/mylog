@@ -61,7 +61,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             userVOList.add(UserTransformer.user2UserVo(u));
         });
         log.info("MyPage : {}, ", page);
-        dataResult = new DataResult.Builder(
+        dataResult = DataResult.getBuilder(
                 Status.SUCCESS.getStatus(),
                 Message.SUCCESS.getMsg())
                 .data(userVOList)
@@ -94,7 +94,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         UserVO userVO = new UserVO();
         BeanUtils.copyProperties(user,userVO);
         if (userVO.getId()!=null && userVO.getId() > 0){
-            dataResult = new DataResult.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).data(userVO).build();
+            dataResult = DataResult.getBuilder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).data(userVO).build();
         }else {
             return null;
         }
@@ -117,11 +117,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             userDTO.setUserPassword(passwordService.createPassword("123456"));
         }
         if (userDTO.getUserName()==null || userDTO.getUserName().length()==0){
-            dataResult = new DataResult.Builder(Status.INSERT_ERROR.getStatus(), Message.INSERT_ERROR.getMsg()).build();
+            dataResult = DataResult.getBuilder(Status.INSERT_ERROR.getStatus(), Message.INSERT_ERROR.getMsg()).build();
             return dataResult;
         }
         if (userDTO.getUserPhone()==null || userDTO.getUserPhone().length()==0){
-            dataResult = new DataResult.Builder(Status.INSERT_ERROR.getStatus(), Message.INSERT_ERROR.getMsg()).build();
+            dataResult = DataResult.getBuilder(Status.INSERT_ERROR.getStatus(), Message.INSERT_ERROR.getMsg()).build();
             return dataResult;
         }
         // 判断用户是否已经存在
@@ -129,7 +129,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
                 Wrappers.query(new User())
                         .eq("user_name", userDTO.getUserName())
                         .eq("user_phone", userDTO.getUserPhone())) > 0){
-            return new DataResult.Builder(Status.USER_EXISTS.getStatus(), Message.USER_EXISTS.getMsg()).data(userDTO).build();
+            return DataResult.getBuilder(Status.USER_EXISTS.getStatus(), Message.USER_EXISTS.getMsg()).data(userDTO).build();
         }
         User user = new User();
         BeanUtils.copyProperties(userDTO, user);
@@ -137,7 +137,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         if (addResult > 0){
             return selectOne(userDTO);
         }else {
-            return new DataResult.Builder(Status.INSERT_ERROR.getStatus(), Message.INSERT_ERROR.getMsg()).build();
+            return DataResult.getBuilder(Status.INSERT_ERROR.getStatus(), Message.INSERT_ERROR.getMsg()).build();
         }
     }
 
@@ -159,15 +159,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }
         List<User> list = userMapper.selectList(queryWrapper);
         if (list == null || list.size() != 1){
-            dataResult = new DataResult.Builder(Status.QUERY_ERROR.getStatus(), Message.QUERY_ERROR.getMsg()).build();
+            dataResult = DataResult.getBuilder(Status.QUERY_ERROR.getStatus(), Message.QUERY_ERROR.getMsg()).build();
         }else {
             User user = list.get(0);
             user.setDelFlag(1);
             int update = userMapper.update(user, queryWrapper);
             if (update == 0){
-                dataResult = new DataResult.Builder(Status.UPDATE_ERROR.getStatus(),Message.UPDATE_ERROR.getMsg()).build();
+                dataResult = DataResult.getBuilder(Status.UPDATE_ERROR.getStatus(),Message.UPDATE_ERROR.getMsg()).build();
             }
-            dataResult = new DataResult.Builder().data(UserTransformer.user2UserVo(user)).build();
+            dataResult = DataResult.getBuilder().data(UserTransformer.user2UserVo(user)).build();
         }
         return dataResult;
     }
@@ -181,7 +181,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public DataResult exchange(UserDTO userDTO){
         DataResult dataResult;
         if (Objects.isNull(userDTO.getId())){
-            return new DataResult.Builder(Status.PARAM_NEED.getStatus(), Message.PARAM_NEED.getMsg()).build();
+            return DataResult.getBuilder(Status.PARAM_NEED.getStatus(), Message.PARAM_NEED.getMsg()).build();
         }
         // 密码加密
         if (userDTO.getUserPassword()!=null && userDTO.getUserPassword().length()>0){
@@ -190,9 +190,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         int update = userMapper.updateById(UserTransformer.userDTO2User(userDTO));
         if (update>0){
             User completeUser = userMapper.selectById(userDTO.getId());
-            dataResult = new DataResult.Builder().data(UserTransformer.user2UserVo(completeUser)).build();
+            dataResult = DataResult.getBuilder().data(UserTransformer.user2UserVo(completeUser)).build();
         }else {
-            dataResult = new DataResult.Builder(Status.UPDATE_ERROR.getStatus(), Message.UPDATE_ERROR.getMsg()).data(userDTO).build();
+            dataResult = DataResult.getBuilder(Status.UPDATE_ERROR.getStatus(), Message.UPDATE_ERROR.getMsg()).data(userDTO).build();
         }
         return dataResult;
     }
@@ -207,16 +207,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         String queryConditionName = "user_name";
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         if (null == userMapper.selectOne(queryWrapper.eq(queryConditionName, userDTO.getUserName()))){
-            return new DataResult.Builder(Status.USER_NOT_FOUND.getStatus(), Message.USER_NOT_FOUND.getMsg()).build();
+            return DataResult.getBuilder(Status.USER_NOT_FOUND.getStatus(), Message.USER_NOT_FOUND.getMsg()).build();
         }
         User user = userMapper.selectOne(queryWrapper.eq(queryConditionName, userDTO.getUserName()));
         if (!passwordService.authenticatePassword(user.getUserPassword(), userDTO.getUserPassword())){
-            return new DataResult.Builder(Status.ERROR_PASSWORD.getStatus(), Message.ERROR_PASSWORD.getMsg()).build();
+            return DataResult.getBuilder(Status.ERROR_PASSWORD.getStatus(), Message.ERROR_PASSWORD.getMsg()).build();
         }
         // 验证通过，将当前用户存入session中
         Person p = UserTransformer.user2Person(user);
         UserContext.putCurrentUser(p);
-        return new DataResult.Builder(Status.SUCCESS.getStatus(), Message.WELCOME_TO_LOGIN.getMsg())
+        return DataResult.getBuilder(Status.SUCCESS.getStatus(), Message.WELCOME_TO_LOGIN.getMsg())
                 .data(UserTransformer.user2UserVo(user))
                 .build();
     }
@@ -253,6 +253,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }catch (IllegalArgumentException e){
             e.fillInStackTrace();
         }
-        return new DataResult.Builder().data(person).build();
+        return DataResult.getBuilder().data(person).build();
     }
 }

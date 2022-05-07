@@ -60,7 +60,7 @@ public class FileServiceImpl implements IFileService {
         String filepath = "";
         // 文件大小是否超过最大大小。
         if(size > maxSize){
-            return new DataResult.Builder(Status.OUTOF_SIZE_ERROR.getStatus(), Message.OUTOF_SIZE_ERROR.getMsg()).build();
+            return DataResult.getBuilder(Status.OUTOF_SIZE_ERROR.getStatus(), Message.OUTOF_SIZE_ERROR.getMsg()).build();
         }
         // 文件的名字
         String name=multipartFile.getOriginalFilename();
@@ -163,16 +163,16 @@ public class FileServiceImpl implements IFileService {
             article.setIsLock(articleDto.getIsLock()!=null ? articleDto.getIsLock():"0");
         }
         else{
-            return new DataResult.Builder(Status.PERMISSION_ERROR.getStatus(), Message.PERMISSION_ERROR.getMsg()).build();
+            return DataResult.getBuilder(Status.PERMISSION_ERROR.getStatus(), Message.PERMISSION_ERROR.getMsg()).build();
         }
         // 插入的结果是否为空
         if (articleService.insert(article) != null){
             // 判断上传至七牛云是否成功
             if (response != null){
                 if (response.error != null){
-                    return new DataResult.Builder(Status.UPLOAD_ERROR.getStatus(), Message.UPLOAD_ERROR.getMsg()).data(response.error).build();
+                    return DataResult.getBuilder(Status.UPLOAD_ERROR.getStatus(), Message.UPLOAD_ERROR.getMsg()).data(response.error).build();
                 }
-                return new DataResult.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).build();
+                return DataResult.getBuilder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).build();
             }else {
                 try {
                     // 检查文件是否存在
@@ -181,8 +181,8 @@ public class FileServiceImpl implements IFileService {
                     e.printStackTrace();
                 }
             }
-            return new DataResult.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).build();
+            return DataResult.getBuilder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).build();
         }
-        return new DataResult.Builder(Status.INSERT_ERROR.getStatus(), Message.INSERT_ERROR.getMsg()).build();
+        return DataResult.getBuilder(Status.INSERT_ERROR.getStatus(), Message.INSERT_ERROR.getMsg()).build();
     }
 }
