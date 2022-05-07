@@ -1,6 +1,7 @@
 package com.mylog.common.licence.transformer;
 
 import com.mylog.common.licence.entity.UserInfo;
+import com.mylog.common.licence.model.dto.UserInfoDTO;
 import com.mylog.common.licence.model.vo.UserInfoVO;
 import com.mylog.tools.utils.utils.Safes;
 
@@ -25,5 +26,24 @@ public class UserInfoTransformer {
         userInfoVO.setWechatCode(Safes.of(userInfo.getWechatCode()));
         return userInfoVO;
     }
+
+    /**
+     * userInfoDTO -> userInfo
+     * @param userInfoDTO
+     * @return
+     */
+    public static UserInfo userInfoDTO2UserInfo(UserInfoDTO userInfoDTO){
+        UserInfo userInfo = new UserInfo();
+        userInfo.setId(userInfoDTO.getId());
+        userInfo.setUserId(userInfoDTO.getUserId());
+        userInfo.setMail(userInfoDTO.getMail());
+        userInfo.setGender(userInfoDTO.getGender());
+        userInfo.setRealName(userInfoDTO.getRealName());
+        userInfo.setIdType(userInfoDTO.getIdType());
+        userInfo.setIdCode(userInfoDTO.getIdCode());
+        userInfo.setWechatCode(userInfoDTO.getWechatCode());
+        return userInfo;
+    }
+
 
 }

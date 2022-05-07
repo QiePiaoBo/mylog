@@ -1,6 +1,7 @@
 package com.mylog.common.licence.service;
 
 import com.mylog.common.licence.entity.UserInfo;
+import com.mylog.common.licence.model.dto.UserInfoDTO;
 import com.mylog.tools.model.model.result.DataResult;
 
 /**
@@ -16,5 +17,10 @@ public interface IUserInfoService {
      * @return
      */
     DataResult selectUserInfoByUserId(Integer userId);
+
+    /**
+     * 更新userInfo的信息
+     */
+    DataResult updateUserInfo(UserInfoDTO userInfoDTO);
 
 }
