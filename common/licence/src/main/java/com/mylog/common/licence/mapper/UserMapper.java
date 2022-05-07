@@ -1,10 +1,8 @@
 package com.mylog.common.licence.mapper;
 
-import com.mylog.common.licence.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.mylog.common.licence.entity.User;
 import com.mylog.tools.model.model.page.MyPage;
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -16,7 +14,6 @@ import java.util.List;
  * @author Dylan
  * @since 2020-05-24
  */
-@Mapper
 public interface UserMapper extends BaseMapper<User> {
 
     /**
