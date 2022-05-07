@@ -76,7 +76,7 @@ public class UserTransformer {
      * @param person
      * @return
      */
-    public PersonVo person2PersonVO(Person person){
+    public static PersonVo person2PersonVO(Person person){
         PersonVo personVo = new PersonVo();
         personVo.setId(person.getId());
         personVo.setUserGroup(person.getUserGroup());
@@ -85,5 +85,18 @@ public class UserTransformer {
         return personVo;
     }
 
+    /**
+     * PersonVo -> UserVo
+     * @param personVo
+     * @return
+     */
+    public static UserVO personVO2UserVO(PersonVo personVo){
+        UserVO userVO = new UserVO();
+        userVO.setId(personVo.getId());
+        userVO.setUserGroup(personVo.getUserGroup());
+        userVO.setUserPhone(Safes.of(personVo.getUserPhone()));
+        userVO.setUserName(Safes.of(personVo.getUserName()));
+        return userVO;
+    }
 
 }
