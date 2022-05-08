@@ -25,12 +25,22 @@ public class UserInfoServiceImpl implements IUserInfoService {
     @Resource
     private UserInfoMapper mapper;
 
+    /**
+     * 根据userId获取该用户对应的信息
+     * @param userId
+     * @return
+     */
     @Override
     public DataResult selectUserInfoByUserId(Integer userId) {
         UserInfo userInfo = mapper.selectUserInfoByUserId(userId);
         return DataResult.success().data(UserInfoTransformer.userInfo2UserInfoVO(userInfo)).build();
     }
 
+    /**
+     * 根据id更新用户信息
+     * @param userInfoDTO
+     * @return
+     */
     @Override
     public DataResult updateUserInfo(UserInfoDTO userInfoDTO) {
         if (Objects.isNull(userInfoDTO.getId())){

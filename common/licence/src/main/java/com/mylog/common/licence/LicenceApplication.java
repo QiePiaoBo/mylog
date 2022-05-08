@@ -15,7 +15,6 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @SpringBootApplication(scanBasePackages = {"com.mylog.common.licence", "com.mylog.tools.utils"})
 @EnableRedisHttpSession
 @EnableDiscoveryClient
-@MapperScan(basePackages = "com.mylog.common.licence.mapper")
 public class LicenceApplication {
 
     private static final Logger logger = LoggerFactory.getLogger(LicenceApplication.class);

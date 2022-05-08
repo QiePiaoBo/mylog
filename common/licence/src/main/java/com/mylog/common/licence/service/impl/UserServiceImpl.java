@@ -46,7 +46,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Autowired
     private PasswordService passwordService;
 
-
     /**
      * 获取用户列表
      * @param page
@@ -101,7 +100,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         return dataResult;
     }
 
-
     /**
      * 添加用户
      * @param userDTO
@@ -140,7 +138,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             return DataResult.getBuilder(Status.INSERT_ERROR.getStatus(), Message.INSERT_ERROR.getMsg()).build();
         }
     }
-
 
     /**
      * 删除一个用户

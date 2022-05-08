@@ -2,6 +2,7 @@ package com.mylog.common.licence.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.mylog.common.licence.entity.UserInfo;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -9,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
  * @Description userInfoMapper
  * @Date 5/7/2022 3:56 PM
  */
+@Mapper
 public interface UserInfoMapper extends BaseMapper<UserInfo> {
 
     /**
