@@ -40,11 +40,19 @@ public class DataResult extends HttpResult{
     }
 
     /**
+     * 失败 自定义原因
+     * @return
+     */
+    public static DataResult.Builder fail(Long status, String msg){
+        return DataResult.getBuilder(status, msg);
+    }
+
+    /**
      * 获取Builder
      * @return
      */
     public static DataResult.Builder getBuilder(Long status, String msg){
-        return DataResult.getBuilder(status, msg);
+        return new Builder(status, msg);
     }
 
     /**
