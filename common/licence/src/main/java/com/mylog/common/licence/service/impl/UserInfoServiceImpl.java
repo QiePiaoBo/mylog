@@ -6,6 +6,8 @@ import com.mylog.common.licence.model.dto.UserInfoDTO;
 import com.mylog.common.licence.model.vo.UserInfoVO;
 import com.mylog.common.licence.service.IUserInfoService;
 import com.mylog.common.licence.transformer.UserInfoTransformer;
+import com.mylog.tools.model.model.info.Message;
+import com.mylog.tools.model.model.info.Status;
 import com.mylog.tools.model.model.result.DataResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -50,7 +52,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
         log.info("UserInfo to insert : {}", userInfo);
         int updated = mapper.updateById(userInfo);
         if (updated <= 0){
-            return DataResult.fail().build();
+            return DataResult.fail(Status.UPDATE_ERROR.getStatus(), Message.UPDATE_ERROR.getMsg()).build();
         }
         UserInfoVO userInfoVO = UserInfoTransformer.userInfo2UserInfoVO(mapper.selectById(userInfo.getId()));
         return DataResult.success().data(userInfoVO).build();
