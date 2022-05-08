@@ -7,6 +7,8 @@ package com.mylog.common.licence.model.vo;
  */
 public class UserInfoVO {
 
+    private Integer id;
+
     private Integer userId;
 
     private String realName;
@@ -16,6 +18,14 @@ public class UserInfoVO {
     private String wechatCode;
 
     private String mail;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getUserId() {
         return userId;

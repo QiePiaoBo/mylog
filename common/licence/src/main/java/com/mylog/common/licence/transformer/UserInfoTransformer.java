@@ -19,6 +19,7 @@ public class UserInfoTransformer {
      */
     public static UserInfoVO userInfo2UserInfoVO(UserInfo userInfo){
         UserInfoVO userInfoVO = new UserInfoVO();
+        userInfoVO.setId(userInfo.getId());
         userInfoVO.setUserId(userInfo.getUserId());
         userInfoVO.setGender(userInfo.getGender());
         userInfoVO.setMail(Safes.of(userInfo.getMail()));

@@ -3,6 +3,7 @@ package com.mylog.common.licence.controller;
 import com.mylog.common.licence.model.dto.UserInfoDTO;
 import com.mylog.common.licence.service.IUserInfoService;
 import com.mylog.tools.model.model.result.DataResult;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +32,11 @@ public class UserInfoController {
     @GetMapping("get-by-userid")
     public DataResult getUserInfoByUserId(@Param("userId") Integer userId){
         return userInfoService.selectUserInfoByUserId(userId);
+    }
+
+    @GetMapping
+    public DataResult getPagedUserInfo(@Param("page") Integer page, @Param("limit") Integer limit){
+        return userInfoService.getPagedUserInfo(page, limit);
     }
 
     /**

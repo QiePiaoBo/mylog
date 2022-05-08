@@ -53,14 +53,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      */
     @Override
     public DataResult selectUserList(MyPage page) {
-        DataResult dataResult = null;
         List<User> userList = userMapper.selectUserList(page);
         List<UserVO> userVOList = new ArrayList<>();
         Safes.of(userList).forEach(u -> {
             userVOList.add(UserTransformer.user2UserVo(u));
         });
         log.info("MyPage : {}, ", page);
-        dataResult = DataResult.getBuilder(
+        return DataResult.getBuilder(
                 Status.SUCCESS.getStatus(),
                 Message.SUCCESS.getMsg())
                 .data(userVOList)
@@ -68,7 +67,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
                 .size(page.getPageSize())
                 .total(userMapper.selectUserTotal())
                 .build();
-        return dataResult;
     }
 
     /**

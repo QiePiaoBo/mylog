@@ -17,7 +17,7 @@
             <include refid="TableField" />
         FROM
             <include refid="TableName" />
-        limit #{startNo}, #{pageSize}
+        limit #{myPage.startNo}, #{myPage.pageSize}
     </select>
 
     <select id="selectUserTotal" resultType="java.lang.Long">

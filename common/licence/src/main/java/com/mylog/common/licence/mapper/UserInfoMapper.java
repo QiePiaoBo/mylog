@@ -2,8 +2,11 @@ package com.mylog.common.licence.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.mylog.common.licence.entity.UserInfo;
+import com.mylog.tools.model.model.page.MyPage;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @Classname UserInfoMapper
@@ -19,5 +22,18 @@ public interface UserInfoMapper extends BaseMapper<UserInfo> {
      * @return
      */
     UserInfo selectUserInfoByUserId(@Param("userId") Integer userId);
+
+    /**
+     * 分页获取userInfo
+     * @param myPage
+     * @return
+     */
+    List<UserInfo> getPagedUserInfo(@Param("myPage")MyPage myPage);
+
+    /**
+     * 获取user总数量
+     * @return
+     */
+    Long selectUserInfoTotal();
 
 }

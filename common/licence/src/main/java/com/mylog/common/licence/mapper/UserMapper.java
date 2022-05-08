@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.mylog.common.licence.entity.User;
 import com.mylog.tools.model.model.page.MyPage;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ public interface UserMapper extends BaseMapper<User> {
      * @param page
      * @return
      */
-    List<User> selectUserList(MyPage page);
+    List<User> selectUserList(@Param("myPage") MyPage myPage);
 
     /**
      * 获取user总数量

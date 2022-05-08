@@ -1,6 +1,5 @@
 package com.mylog.common.licence.service;
 
-import com.mylog.common.licence.entity.UserInfo;
 import com.mylog.common.licence.model.dto.UserInfoDTO;
 import com.mylog.tools.model.model.result.DataResult;
 
@@ -17,6 +16,8 @@ public interface IUserInfoService {
      * @return
      */
     DataResult selectUserInfoByUserId(Integer userId);
+
+    DataResult getPagedUserInfo(Integer page, Integer limit);
 
     /**
      * 更新userInfo的信息
