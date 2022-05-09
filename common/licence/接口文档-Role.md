@@ -14,12 +14,12 @@
 
 ```json
 {
-  "pid": 0,
-  "roleCode": "r1",
-  "roleName": "admin",
-  "roleDescription": "admin role",
-  "roleSort": 1,
-  "roleStatus": 1
+  "roleCode": "r2",
+  "roleName": "common",
+  "pid": 1,
+  "roleDescription": "common user",
+  "roleStatus": 1,
+  "roleSort": 0
 }
 ```
 
@@ -27,29 +27,29 @@
 
 ```json
 {
-  "code": 0,
+  "status": 100000,
   "message": "成功",
   "data": {
-    "id": 1,
-    "pid": 0,
-    "roleCode": "r1",
-    "roleName": "admin",
-    "roleDescription": "admin role",
-    "roleSort": 1,
-    "roleStatus": 1
+    "id": 2,
+    "roleCode": "r2",
+    "roleName": "common",
+    "pid": 1,
+    "roleDescription": "common user",
+    "roleStatus": 1,
+    "roleSort": 0
   }
 }
 ```
 
-### asd
+### 2. 分页查询角色
 
 #### 请求方式
 
->
+> GET
 
 #### 请求路径
 
->
+> /role?page=1&limit=3
 
 #### 请求报文
 
@@ -60,7 +60,33 @@
 #### 返回报文
 
 ```json
-
+{
+    "status": 100000,
+    "message": "成功",
+    "data": [
+        {
+            "id": 1,
+            "roleCode": "r1",
+            "roleName": "admin",
+            "pid": 0,
+            "roleDescription": "role of admin",
+            "roleStatus": 1,
+            "roleSort": 1
+        },
+        {
+            "id": 2,
+            "roleCode": "r2",
+            "roleName": "common",
+            "pid": 1,
+            "roleDescription": "common user",
+            "roleStatus": 1,
+            "roleSort": 0
+        }
+    ],
+    "page": 1,
+    "size": 3,
+    "total": 2
+}
 ```
 
 ### asd

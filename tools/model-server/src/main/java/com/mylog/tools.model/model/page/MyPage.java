@@ -20,8 +20,8 @@ public class MyPage {
     }
 
     public MyPage(Integer pageNo, Integer pageSize) {
-        this.pageNo = pageNo > 0 ? pageNo : 1;
-        this.pageSize = pageSize > 0 ? pageSize : 3;
+        this.pageNo = Objects.nonNull(pageNo) && pageNo > 0 ? pageNo : 1;
+        this.pageSize = Objects.nonNull(pageSize) && pageSize > 0 ? pageSize : 3;
         this.startNo = (getPageNo() - 1) * getPageSize();
     }
 
