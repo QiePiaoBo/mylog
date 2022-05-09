@@ -15,7 +15,7 @@ public class HttpResult {
     /**
      * 返回码
      */
-    private long code;
+    private long status;
 
     /**
      * 返回信息
@@ -27,12 +27,12 @@ public class HttpResult {
      */
     private Object data;
 
-    public long getCode() {
-        return code;
+    public long getStatus() {
+        return status;
     }
 
-    public void setCode(long code) {
-        this.code = code;
+    public void setStatus(long status) {
+        this.status = status;
     }
 
     public String getMessage() {
@@ -51,16 +51,12 @@ public class HttpResult {
         this.data = data;
     }
 
-    public HttpResult(long code, String message, Object data) {
-        this.code = code;
+    public HttpResult(long status, String message, Object data) {
+        this.status = status;
         this.message = message;
         this.data = data;
     }
 
     public HttpResult() {
-    }
-
-    public static HttpResult failed(){
-        return new HttpResult(Status.ERROR_BASE.getStatus(), Message.ERROR.getMsg(), "");
     }
 }

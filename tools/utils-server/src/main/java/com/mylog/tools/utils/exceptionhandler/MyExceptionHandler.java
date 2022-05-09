@@ -1,5 +1,7 @@
 package com.mylog.tools.utils.exceptionhandler;
 
+import com.mylog.tools.model.model.info.Message;
+import com.mylog.tools.model.model.info.Status;
 import com.mylog.tools.model.model.result.HttpResult;
 import com.mylog.tools.model.model.exception.MyException;
 import org.springframework.http.HttpStatus;
@@ -32,7 +34,7 @@ public class MyExceptionHandler {
                                              HttpServletResponse response){
         HttpResult dataResult = confirmAccurateResult(exception, request.getRequestURI());
         if(null == dataResult){
-            return HttpResult.failed();
+            return new HttpResult(Status.ERROR_BASE.getStatus(), Message.ERROR.getMsg(), "");
         }
         response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
         return dataResult;

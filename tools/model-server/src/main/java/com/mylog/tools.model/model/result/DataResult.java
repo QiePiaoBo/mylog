@@ -8,20 +8,6 @@ import com.mylog.tools.model.model.info.Status;
  * @description 数据相关的result
  */
 public class DataResult extends HttpResult{
-
-    private final long status;
-
-    private final String message;
-
-    private final long page;
-
-    private final long size;
-
-    private final long total;
-
-    private final Object data;
-
-
     /**
      * 成功
      * @return
@@ -72,6 +58,12 @@ public class DataResult extends HttpResult{
         return DataResult.getBuilder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg());
     }
 
+    DataResult(Builder builder){
+        setStatus(builder.status);
+        setMessage(builder.message);
+        setData(builder.data);
+    }
+
     public static class Builder {
 
         private final long status;
@@ -79,12 +71,6 @@ public class DataResult extends HttpResult{
         private final String message;
 
         private Object data;
-
-        private long page;
-
-        private long size;
-
-        private long total;
 
         public Builder(long status, String message){
             this.status = status;
@@ -101,56 +87,9 @@ public class DataResult extends HttpResult{
             return this;
         }
 
-        public Builder page(long page){
-            this.page = page;
-            return this;
-        }
-
-        public Builder size(long size){
-            this.size = size;
-            return this;
-        }
-
-        public Builder total(long total){
-            this.total = total;
-            return this;
-        }
-
         public DataResult build(){
             return new DataResult(this);
         }
     }
 
-    private DataResult(Builder builder){
-        status = builder.status;
-        message = builder.message;
-        data = builder.data;
-        page = builder.page;
-        size = builder.size;
-        total = builder.total;
-    }
-
-    public long getStatus() {
-        return status;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public long getPage() {
-        return page;
-    }
-
-    public long getSize() {
-        return size;
-    }
-
-    public long getTotal() {
-        return total;
-    }
-
-    public Object getData() {
-        return data;
-    }
 }

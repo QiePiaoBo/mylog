@@ -1,6 +1,8 @@
 package com.mylog.tools.model.model.page;
 
 
+import java.util.Objects;
+
 /**
  * @author Dylan
  * @Date : Created in 14:35 2021/3/9
@@ -14,12 +16,10 @@ public class MyPage {
 
     private Integer startNo;
 
-    private Long totalSize;
-
     public MyPage(Integer pageNo, Integer pageSize) {
-        this.pageNo = pageNo;
-        this.pageSize = pageSize;
-        this.startNo = (pageNo - 1) * pageSize;
+        this.pageNo = pageNo > 0 ? pageNo : 1;
+        this.pageSize = pageSize > 0 ? pageSize : 3;
+        this.startNo = (getPageNo() - 1) * getPageSize();
     }
 
     public Integer getPageNo() {
@@ -46,11 +46,11 @@ public class MyPage {
         this.startNo = startNo;
     }
 
-    public Long getTotalSize() {
-        return totalSize;
-    }
-
-    public void setTotalSize(Long totalSize) {
-        this.totalSize = totalSize;
+    /**
+     * myPage对象完整
+     * @return
+     */
+    public boolean isValid(){
+        return Objects.nonNull(startNo) && Objects.nonNull(pageNo) && Objects.nonNull(pageSize);
     }
 }
