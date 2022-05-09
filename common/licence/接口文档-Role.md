@@ -37,11 +37,7 @@
     "roleDescription": "admin role",
     "roleSort": 1,
     "roleStatus": 1
-  },
-  "status": 100000,
-  "page": 0,
-  "size": 0,
-  "total": 0
+  }
 }
 ```
 

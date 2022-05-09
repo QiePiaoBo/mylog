@@ -28,11 +28,7 @@
     "gender": 0,
     "wechatCode": "duan1637",
     "mail": "15966245906@163.com"
-  },
-  "status": 100000,
-  "page": 0,
-  "size": 0,
-  "total": 0
+  }
 }
 ```
 
@@ -115,10 +111,6 @@
     "gender": 0,
     "wechatCode": "duan1637",
     "mail": "15966245906@163.com"
-  },
-  "status": 100000,
-  "page": 0,
-  "size": 0,
-  "total": 0
+  }
 }
 ```

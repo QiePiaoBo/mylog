@@ -21,7 +21,6 @@ public class PageDataResult extends HttpResult {
      * @return
      */
     public static Builder success(){
-        //相当于调用下面的map 然后把值存map里面。
         return getBuilder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg());
     }
 
@@ -30,7 +29,6 @@ public class PageDataResult extends HttpResult {
      * @return
      */
     public static Builder success(Long status, String msg){
-        //相当于调用下面的map 然后把值存map里面。
         return getBuilder(status, msg);
     }
 

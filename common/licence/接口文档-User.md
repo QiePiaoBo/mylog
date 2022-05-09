@@ -21,11 +21,7 @@
         "userGroup": 2,
         "userName": "patrick3",
         "userPhone": "15966245915"
-    },
-    "status": 100000,
-    "page": 0,
-    "size": 0,
-    "total": 0
+    }
 }
 ```
 ### 2. 删除用户
@@ -47,11 +43,7 @@
         "userGroup": 2,
         "userName": "patrick2",
         "userPhone": "15966245914"
-    },
-    "status": 100000,
-    "page": 0,
-    "size": 0,
-    "total": 0
+    }
 }
 ```
 ### 3. 修改用户
@@ -76,11 +68,7 @@
     "userGroup": 2,
     "userName": "patrick5",
     "userPhone": "15866245917"
-  },
-  "status": 100000,
-  "page": 0,
-  "size": 0,
-  "total": 0
+  }
 }
 ```
 ### 4. 根据id查询用户
@@ -102,11 +90,7 @@
         "userGroup": 0,
         "userName": "Dylan",
         "userPhone": "15966245906"
-    },
-    "status": 100000,
-    "page": 0,
-    "size": 0,
-    "total": 0
+    }
 }
 ```
 ### 5. 分页查询用户
@@ -172,11 +156,7 @@
         "userName": "Dylan",
         "userPassword": "CBACCCEDFC9DD12051CFAC29A06015EF",
         "userPhone": "15966245906"
-    },
-    "status": 100000,
-    "page": 0,
-    "size": 0,
-    "total": 0
+    }
 }
 ```
 ### 7. 登出
@@ -198,11 +178,7 @@
         "userGroup": 0,
         "userName": "Dylan",
         "userPhone": "15966245906"
-    },
-    "status": 100000,
-    "page": 0,
-    "size": 0,
-    "total": 0
+    }
 }
 ```
 ### 8. 获取当前用户
@@ -224,10 +200,6 @@
         "userGroup": 0,
         "userName": "Dylan",
         "userPhone": "15966245906"
-    },
-    "status": 100000,
-    "page": 0,
-    "size": 0,
-    "total": 0
+    }
 }
 ```

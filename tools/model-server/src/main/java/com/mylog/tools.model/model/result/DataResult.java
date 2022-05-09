@@ -13,7 +13,6 @@ public class DataResult extends HttpResult{
      * @return
      */
     public static DataResult.Builder success(){
-        //相当于调用下面的map 然后把值存map里面。
         return DataResult.getBuilder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg());
     }
 
@@ -22,7 +21,6 @@ public class DataResult extends HttpResult{
      * @return
      */
     public static DataResult.Builder success(Long status, String msg){
-        //相当于调用下面的map 然后把值存map里面。
         return DataResult.getBuilder(status, msg);
     }
 
