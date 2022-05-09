@@ -16,6 +16,9 @@ public class MyPage {
 
     private Integer startNo;
 
+    public MyPage() {
+    }
+
     public MyPage(Integer pageNo, Integer pageSize) {
         this.pageNo = pageNo > 0 ? pageNo : 1;
         this.pageSize = pageSize > 0 ? pageSize : 3;
@@ -27,7 +30,10 @@ public class MyPage {
     }
 
     public void setPageNo(Integer pageNo) {
-        this.pageNo = pageNo;
+        this.pageNo = pageNo > 0 ? pageNo : 1;
+        if (Objects.nonNull(pageSize)){
+            this.startNo = (getPageNo() - 1) * getPageSize();
+        }
     }
 
     public Integer getPageSize() {
@@ -35,7 +41,10 @@ public class MyPage {
     }
 
     public void setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
+        this.pageSize = pageSize > 0 ? pageSize : 3;
+        if (Objects.nonNull(pageNo)){
+            this.startNo = (getPageNo() - 1) * getPageSize();
+        }
     }
 
     public Integer getStartNo() {
