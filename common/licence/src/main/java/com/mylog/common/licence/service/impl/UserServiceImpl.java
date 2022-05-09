@@ -15,6 +15,8 @@ import com.mylog.tools.model.model.info.Message;
 import com.mylog.tools.model.model.info.Status;
 import com.mylog.tools.model.model.page.MyPage;
 import com.mylog.tools.model.model.result.DataResult;
+import com.mylog.tools.model.model.result.HttpResult;
+import com.mylog.tools.model.model.result.PageDataResult;
 import com.mylog.tools.model.model.vo.PersonVo;
 import com.mylog.tools.utils.session.UserContext;
 import com.mylog.tools.utils.utils.PasswordService;
@@ -52,14 +54,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @return
      */
     @Override
-    public DataResult selectUserList(MyPage page) {
+    public HttpResult selectUserList(MyPage page) {
         List<User> userList = userMapper.selectUserList(page);
         List<UserVO> userVOList = new ArrayList<>();
         Safes.of(userList).forEach(u -> {
             userVOList.add(UserTransformer.user2UserVo(u));
         });
         log.info("MyPage : {}, ", page);
-        return DataResult.getBuilder(
+        return PageDataResult.getBuilder(
                 Status.SUCCESS.getStatus(),
                 Message.SUCCESS.getMsg())
                 .data(userVOList)
@@ -75,7 +77,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @return
      */
     @Override
-    public DataResult selectOne(UserDTO userDTO) {
+    public HttpResult selectOne(UserDTO userDTO) {
         DataResult dataResult;
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         if (userDTO.getId()!=null && userDTO.getId()!=0){
@@ -104,7 +106,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @return
      */
     @Override
-    public DataResult addUser(UserDTO userDTO){
+    public HttpResult addUser(UserDTO userDTO){
         DataResult dataResult;
         // 设置默认用户组
         userDTO.setUserGroup(GroupEnum.USER_GROUP.getGroupId());
@@ -143,7 +145,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @return
      */
     @Override
-    public DataResult deleteOne(UserDTO userDTO){
+    public HttpResult deleteOne(UserDTO userDTO){
         DataResult dataResult;
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         if (userDTO.getId()!=null && userDTO.getId()>0){
@@ -173,7 +175,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @return
      */
     @Override
-    public DataResult exchange(UserDTO userDTO){
+    public HttpResult exchange(UserDTO userDTO){
         DataResult dataResult;
         if (Objects.isNull(userDTO.getId())){
             return DataResult.getBuilder(Status.PARAM_NEED.getStatus(), Message.PARAM_NEED.getMsg()).build();
@@ -198,7 +200,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @return
      */
     @Override
-    public DataResult login(UserDTO userDTO) {
+    public HttpResult login(UserDTO userDTO) {
         String queryConditionName = "user_name";
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         if (null == userMapper.selectOne(queryWrapper.eq(queryConditionName, userDTO.getUserName()))){
@@ -222,7 +224,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @return
      */
     @Override
-    public DataResult logout() {
+    public HttpResult logout() {
         PersonVo currentUser = UserContext.getCurrentUser();
         if (Objects.isNull(currentUser)){
             return DataResult.fail().build();
@@ -241,7 +243,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @return
      */
     @Override
-    public DataResult getCurrentUser(){
+    public HttpResult getCurrentUser(){
         PersonVo person = new PersonVo();
         try {
             person = UserContext.getCurrentUser();

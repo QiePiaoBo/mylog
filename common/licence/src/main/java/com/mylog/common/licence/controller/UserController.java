@@ -3,10 +3,11 @@ package com.mylog.common.licence.controller;
 import com.mylog.common.licence.model.dto.UserDTO;
 import com.mylog.common.licence.service.IUserService;
 import com.mylog.tools.model.annos.AdminPermission;
-import com.mylog.tools.model.model.result.DataResult;
-import com.mylog.tools.model.model.page.MyPage;
 import com.mylog.tools.model.model.info.Message;
 import com.mylog.tools.model.model.info.Status;
+import com.mylog.tools.model.model.page.MyPage;
+import com.mylog.tools.model.model.result.DataResult;
+import com.mylog.tools.model.model.result.HttpResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,7 @@ public class UserController {
      */
     @AdminPermission(userType = 1)
     @GetMapping
-    public DataResult getUsers(@RequestParam("page") Integer page,@RequestParam("limit") Integer limit){
+    public HttpResult getUsers(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit){
         if (page == null || limit == null){
             return DataResult.getBuilder(Status.PARAM_NEED.getStatus(), Message.PARAM_NEED.getMsg()).data(new ArrayList<>()).build();
         }
@@ -49,7 +50,7 @@ public class UserController {
      */
     @AdminPermission
     @GetMapping("/{id:\\d+}")
-    public DataResult getUserById(@PathVariable Integer id){
+    public HttpResult getUserById(@PathVariable Integer id){
         return userService.selectOne(UserDTO.builder().id(id).build());
     }
 
@@ -59,7 +60,7 @@ public class UserController {
      * @return
      */
     @PostMapping
-    public DataResult create(@RequestBody UserDTO userDTO){
+    public HttpResult create(@RequestBody UserDTO userDTO){
         return userService.addUser(userDTO);
     }
 
@@ -70,7 +71,7 @@ public class UserController {
      */
     @AdminPermission(userType = 1)
     @DeleteMapping("/{id:\\d+}")
-    public DataResult deleteUser(@PathVariable Integer id){
+    public HttpResult deleteUser(@PathVariable Integer id){
         return userService.deleteOne(UserDTO.builder().id(id).build());
     }
 
@@ -81,7 +82,7 @@ public class UserController {
      */
     @AdminPermission
     @PatchMapping
-    public DataResult exchange(@RequestBody UserDTO userDTO){
+    public HttpResult exchange(@RequestBody UserDTO userDTO){
         return userService.exchange(userDTO);
     }
 

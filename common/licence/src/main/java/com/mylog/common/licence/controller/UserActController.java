@@ -3,7 +3,7 @@ package com.mylog.common.licence.controller;
 import com.mylog.common.licence.model.dto.UserDTO;
 import com.mylog.common.licence.service.IUserService;
 import com.mylog.tools.model.annos.AdminPermission;
-import com.mylog.tools.model.model.result.DataResult;
+import com.mylog.tools.model.model.result.HttpResult;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +28,7 @@ public class UserActController {
      * @return
      */
     @PostMapping("login")
-    public DataResult login(@RequestBody UserDTO userDTO){
+    public HttpResult login(@RequestBody UserDTO userDTO){
         return userService.login(userDTO);
     }
 
@@ -38,7 +38,7 @@ public class UserActController {
      */
     @AdminPermission
     @GetMapping("logout")
-    public DataResult logout(){
+    public HttpResult logout(){
         return userService.logout();
     }
 
@@ -48,7 +48,7 @@ public class UserActController {
      */
     @AdminPermission
     @GetMapping("who")
-    public DataResult who(){
+    public HttpResult who(){
         logger.info("who is logging");
         return userService.getCurrentUser();
     }

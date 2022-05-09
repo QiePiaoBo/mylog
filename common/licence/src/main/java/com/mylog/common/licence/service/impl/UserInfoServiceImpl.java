@@ -10,6 +10,8 @@ import com.mylog.tools.model.model.info.Message;
 import com.mylog.tools.model.model.info.Status;
 import com.mylog.tools.model.model.page.MyPage;
 import com.mylog.tools.model.model.result.DataResult;
+import com.mylog.tools.model.model.result.HttpResult;
+import com.mylog.tools.model.model.result.PageDataResult;
 import com.mylog.tools.utils.utils.Safes;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -37,7 +39,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
      * @return
      */
     @Override
-    public DataResult selectUserInfoByUserId(Integer userId) {
+    public HttpResult selectUserInfoByUserId(Integer userId) {
         UserInfo userInfo = mapper.selectUserInfoByUserId(userId);
         return DataResult.success().data(UserInfoTransformer.userInfo2UserInfoVO(userInfo)).build();
     }
@@ -49,7 +51,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
      * @return
      */
     @Override
-    public DataResult getPagedUserInfo(Integer page, Integer limit) {
+    public HttpResult getPagedUserInfo(Integer page, Integer limit) {
         MyPage myPage = new MyPage(page, limit);
         List<UserInfo> userInfos = mapper.getPagedUserInfo(myPage);
         List<UserInfoVO> userInfoVOS = new ArrayList<>();
@@ -57,7 +59,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
             userInfoVOS.add(UserInfoTransformer.userInfo2UserInfoVO(m));
         });
         log.info("MyPage: {}, userInfoVos: {}", myPage, userInfoVOS);
-        return DataResult.success()
+        return PageDataResult.success()
                 .page(page)
                 .size(limit)
                 .data(userInfoVOS)
@@ -71,7 +73,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
      * @return
      */
     @Override
-    public DataResult updateUserInfo(UserInfoDTO userInfoDTO) {
+    public HttpResult updateUserInfo(UserInfoDTO userInfoDTO) {
         if (Objects.isNull(userInfoDTO.getId())){
             return DataResult.fail().build();
         }
