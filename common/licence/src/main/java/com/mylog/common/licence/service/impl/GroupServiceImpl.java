@@ -80,4 +80,59 @@ public class GroupServiceImpl implements IGroupService {
                 .build();
     }
 
+    /**
+     * 根据id查询用户组
+     * @param id
+     * @return
+     */
+    @Override
+    public HttpResult getById(Integer id) {
+        if (Objects.isNull(id)){
+            throw new MyException("Error, id in getById must not be null.");
+        }
+        Group group = mapper.selectById(id);
+        return DataResult
+                .success()
+                .data(GroupTransformer.group2GroupVO(group))
+                .build();
+    }
+
+    /**
+     * 根据id删除用户组
+     * @param id
+     * @return
+     */
+    @Override
+    public HttpResult deleteById(Integer id) {
+        if (Objects.isNull(id)){
+            throw new MyException("Error, id in deleteById must not be null.");
+        }
+        Group group = mapper.selectById(id);
+        group.setDelFlag(1);
+        mapper.updateById(group);
+        return DataResult
+                .success()
+                .data(GroupTransformer.group2GroupVO(group))
+                .build();
+    }
+
+    /**
+     * 根据id更新用户组
+     * @param groupDTO
+     * @return
+     */
+    @Override
+    public HttpResult updateById(GroupDTO groupDTO) {
+        if (Objects.isNull(groupDTO.getId())){
+            throw new MyException("Error, id in updateById must not be null.");
+        }
+        Group group = GroupTransformer.groupDTO2Group(groupDTO);
+        mapper.updateById(group);
+        Group completeGroup = mapper.selectById(groupDTO.getId());
+        return DataResult
+                .success()
+                .data(GroupTransformer.group2GroupVO(completeGroup))
+                .build();
+    }
+
 }

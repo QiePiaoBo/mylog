@@ -21,16 +21,36 @@ public class GroupController {
     @Resource
     private IGroupService groupService;
 
+    /**
+     * 分页获取用户组
+     * @param page
+     * @param limit
+     * @return
+     */
     @GetMapping
     public HttpResult getPagedGroup(@Param("page") Integer page, @Param("limit") Integer limit){
         MyPage myPage = new MyPage(page, limit);
         return groupService.getPagedGroup(myPage);
     }
 
+    /**
+     * 创建用户组
+     * @param groupDTO
+     * @return
+     */
     @PostMapping
     public HttpResult createGroup(@RequestBody GroupDTO groupDTO){
-
         return groupService.createGroup(groupDTO);
+    }
+
+    /**
+     * 根据id获取用户组
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id:\\d+}")
+    public HttpResult getById(@PathVariable Integer id){
+        return groupService.getById(id);
     }
 
 }
