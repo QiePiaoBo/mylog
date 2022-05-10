@@ -4,6 +4,8 @@ import com.mylog.common.licence.entity.Access;
 import com.mylog.common.licence.model.dto.AccessDTO;
 import com.mylog.common.licence.model.vo.AccessVO;
 
+import java.util.Objects;
+
 /**
  * @author Dylan
  * @Date : 2022/5/9 - 23:30
@@ -17,6 +19,9 @@ public class AccessTransformer {
      */
     public static Access accessDTO2Access(AccessDTO accessDTO){
         Access access = new Access();
+        if (Objects.isNull(accessDTO)){
+            return access;
+        }
         access.setId(accessDTO.getId());
         access.setAccessCode(accessDTO.getAccessCode());
         access.setAccessName(accessDTO.getAccessName());
@@ -34,6 +39,9 @@ public class AccessTransformer {
      */
     public static AccessVO access2AccessVO(Access access){
         AccessVO accessVO = new AccessVO();
+        if (Objects.isNull(access)){
+            return accessVO;
+        }
         accessVO.setId(access.getId());
         accessVO.setAccessCode(access.getAccessCode());
         accessVO.setAccessName(access.getAccessName());

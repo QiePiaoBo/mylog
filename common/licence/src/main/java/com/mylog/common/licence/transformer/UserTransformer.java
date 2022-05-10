@@ -7,6 +7,8 @@ import com.mylog.tools.model.model.entity.Person;
 import com.mylog.tools.model.model.vo.PersonVo;
 import com.mylog.tools.utils.utils.Safes;
 
+import java.util.Objects;
+
 /**
  * @Classname UserTransformer
  * @Description User实体类转换器
@@ -21,6 +23,9 @@ public class UserTransformer {
      */
     public static UserVO user2UserVo(User user){
         UserVO userVO = new UserVO();
+        if (Objects.isNull(user)){
+            return userVO;
+        }
         userVO.setId(user.getId());
         userVO.setUserGroup(user.getUserGroup());
         userVO.setUserName(Safes.of(user.getUserName()));
@@ -35,6 +40,9 @@ public class UserTransformer {
      */
     public static Person user2Person(User user){
         Person person = new Person();
+        if (Objects.isNull(user)){
+            return person;
+        }
         person.setId(user.getId());
         person.setUserGroup(user.getUserGroup());
         person.setUserPassword(Safes.of(user.getUserPassword()));
@@ -50,6 +58,9 @@ public class UserTransformer {
      */
     public static User userDTO2User(UserDTO userDTO){
         User user = new User();
+        if (Objects.isNull(userDTO)){
+            return user;
+        }
         user.setUserName(userDTO.getUserName());
         user.setUserPhone(userDTO.getUserPhone());
         user.setUserGroup(userDTO.getUserGroup());
@@ -64,6 +75,9 @@ public class UserTransformer {
      */
     public static UserVO userDTO2UserVO(UserDTO userDTO){
         UserVO userVO = new UserVO();
+        if (Objects.isNull(userDTO)){
+            return userVO;
+        }
         userVO.setId(userDTO.getId());
         userVO.setUserGroup(userDTO.getUserGroup());
         userVO.setUserName(Safes.of(userDTO.getUserName()));
@@ -78,6 +92,9 @@ public class UserTransformer {
      */
     public static PersonVo person2PersonVO(Person person){
         PersonVo personVo = new PersonVo();
+        if (Objects.isNull(person)){
+            return personVo;
+        }
         personVo.setId(person.getId());
         personVo.setUserGroup(person.getUserGroup());
         personVo.setUserName(Safes.of(person.getUserName()));
@@ -92,6 +109,9 @@ public class UserTransformer {
      */
     public static UserVO personVO2UserVO(PersonVo personVo){
         UserVO userVO = new UserVO();
+        if (Objects.isNull(personVo)){
+            return userVO;
+        }
         userVO.setId(personVo.getId());
         userVO.setUserGroup(personVo.getUserGroup());
         userVO.setUserPhone(Safes.of(personVo.getUserPhone()));

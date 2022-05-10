@@ -4,6 +4,8 @@ import com.mylog.common.licence.entity.Group;
 import com.mylog.common.licence.model.dto.GroupDTO;
 import com.mylog.common.licence.model.vo.GroupVO;
 
+import java.util.Objects;
+
 /**
  * @Classname GroupTransformer
  * @Description GroupTransformer
@@ -18,6 +20,9 @@ public class GroupTransformer {
      */
     public static Group groupDTO2Group(GroupDTO groupDTO){
         Group group = new Group();
+        if (Objects.isNull(groupDTO)){
+            return group;
+        }
         group.setId(groupDTO.getId());
         group.setGroupCode(groupDTO.getGroupCode());
         group.setGroupName(groupDTO.getGroupName());
@@ -33,6 +38,9 @@ public class GroupTransformer {
      */
     public static GroupVO group2GroupVO(Group group){
         GroupVO groupVO = new GroupVO();
+        if (Objects.isNull(group)){
+            return groupVO;
+        }
         groupVO.setId(group.getId());
         groupVO.setGroupCode(group.getGroupCode());
         groupVO.setGroupName(group.getGroupName());

@@ -5,6 +5,8 @@ import com.mylog.common.licence.model.dto.UserInfoDTO;
 import com.mylog.common.licence.model.vo.UserInfoVO;
 import com.mylog.tools.utils.utils.Safes;
 
+import java.util.Objects;
+
 /**
  * @Classname UserInfoTransformer
  * @Description UserInfoTransformer
@@ -19,6 +21,9 @@ public class UserInfoTransformer {
      */
     public static UserInfoVO userInfo2UserInfoVO(UserInfo userInfo){
         UserInfoVO userInfoVO = new UserInfoVO();
+        if (Objects.isNull(userInfo)){
+            return userInfoVO;
+        }
         userInfoVO.setId(userInfo.getId());
         userInfoVO.setUserId(userInfo.getUserId());
         userInfoVO.setGender(userInfo.getGender());
@@ -35,6 +40,9 @@ public class UserInfoTransformer {
      */
     public static UserInfo userInfoDTO2UserInfo(UserInfoDTO userInfoDTO){
         UserInfo userInfo = new UserInfo();
+        if (Objects.isNull(userInfoDTO)){
+            return userInfo;
+        }
         userInfo.setId(userInfoDTO.getId());
         userInfo.setUserId(userInfoDTO.getUserId());
         userInfo.setMail(userInfoDTO.getMail());

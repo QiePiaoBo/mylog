@@ -5,6 +5,8 @@ import com.mylog.common.licence.model.dto.RoleDTO;
 import com.mylog.common.licence.model.vo.RoleVO;
 import com.mylog.tools.utils.utils.Safes;
 
+import java.util.Objects;
+
 /**
  * @Classname RoleTransformer
  * @Description RoleTransformer
@@ -19,6 +21,9 @@ public class RoleTransformer {
      */
     public static Role roleDTO2Role(RoleDTO roleDTO){
         Role role = new Role();
+        if (Objects.isNull(roleDTO)){
+            return role;
+        }
         role.setId(roleDTO.getId());
         role.setRoleCode(roleDTO.getRoleCode());
         role.setRoleName(roleDTO.getRoleName());
@@ -36,6 +41,9 @@ public class RoleTransformer {
      */
     public static RoleVO role2RoleVO(Role role){
         RoleVO roleVO = new RoleVO();
+        if (Objects.isNull(role)){
+            return roleVO;
+        }
         roleVO.setId(role.getId());
         roleVO.setPid(role.getPid());
         roleVO.setRoleCode(Safes.of(role.getRoleCode()));
