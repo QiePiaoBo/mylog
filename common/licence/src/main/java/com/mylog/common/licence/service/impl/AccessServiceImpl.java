@@ -78,4 +78,48 @@ public class AccessServiceImpl implements IAccessService {
                 .selectOne(query.eq("access_code", accessDTO.getAccessCode()));
         return DataResult.success().data(AccessTransformer.access2AccessVO(returnAccess)).build();
     }
+
+    @Override
+    public HttpResult getById(Integer id) {
+        if (Objects.isNull(id)){
+            throw new MyException("Error id in getById.");
+        }
+        Access access = mapper.selectById(id);
+        return DataResult
+                .success()
+                .data(AccessTransformer.access2AccessVO(access))
+                .build();
+    }
+
+    @Override
+    public HttpResult deleteById(Integer id) {
+        if (Objects.isNull(id)){
+            throw new MyException("Error id in getById.");
+        }
+        Access access = mapper.selectById(id);
+        access.setDelFlag(1);
+        mapper.updateById(access);
+        return DataResult
+                .success()
+                .data(AccessTransformer.access2AccessVO(access))
+                .build();
+    }
+
+    /**
+     * 根据id更新权限信息
+     * @param accessDTO
+     * @return
+     */
+    @Override
+    public HttpResult updateById(AccessDTO accessDTO) {
+        if (Objects.isNull(accessDTO.getId())){
+            throw new MyException("Error, id must be not null while update.");
+        }
+        Access access = AccessTransformer.accessDTO2Access(accessDTO);
+        mapper.updateById(access);
+        return DataResult
+                .success()
+                .data(accessDTO)
+                .build();
+    }
 }

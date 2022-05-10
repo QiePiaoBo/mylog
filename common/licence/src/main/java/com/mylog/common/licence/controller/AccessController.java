@@ -38,5 +38,18 @@ public class AccessController {
         return accessService.createAccess(accessDTO);
     }
 
+    @GetMapping("/{id:\\d+}")
+    public HttpResult getById(@PathVariable Integer id){
+        return accessService.getById(id);
+    }
 
+    @DeleteMapping("/{id:\\d+}")
+    public HttpResult deleteById(@PathVariable Integer id){
+        return accessService.deleteById(id);
+    }
+
+    @PatchMapping
+    public HttpResult updateById(@RequestBody AccessDTO accessDTO){
+        return accessService.updateById(accessDTO);
+    }
 }

@@ -24,4 +24,25 @@ public interface IAccessService {
      * @return
      */
     HttpResult createAccess(AccessDTO accessDTO);
+
+    /**
+     * 根据id获取权限
+     * @param id
+     * @return
+     */
+    HttpResult getById(Integer id);
+
+    /**
+     * 根据id删除权限
+     * @param id
+     * @return
+     */
+    HttpResult deleteById(Integer id);
+
+    /**
+     * 根据Id修改权限
+     * @param accessDTO
+     * @return
+     */
+    HttpResult updateById(AccessDTO accessDTO);
 }
