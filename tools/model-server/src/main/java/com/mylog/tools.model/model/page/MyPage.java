@@ -62,4 +62,20 @@ public class MyPage {
     public boolean isValid(){
         return Objects.nonNull(startNo) && Objects.nonNull(pageNo) && Objects.nonNull(pageSize);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuffer = new StringBuilder();
+        stringBuffer
+                .append("PageNo = ")
+                .append(getPageNo())
+                .append(", ")
+                .append("PageSize = ")
+                .append(getPageSize())
+                .append(", ")
+                .append("StartNo = ")
+                .append(getStartNo())
+                .append(", ");
+        return new String(stringBuffer);
+    }
 }

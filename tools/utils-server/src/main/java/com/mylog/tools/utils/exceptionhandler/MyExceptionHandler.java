@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Objects;
 
 /**
  * @author Dylan
@@ -29,14 +30,11 @@ public class MyExceptionHandler {
      * @param response
      * @return
      */
-    @ExceptionHandler({MyException.class})
+    @ExceptionHandler({Exception.class})
     public HttpResult commonExceptionHandler(Exception exception, HttpServletRequest request,
                                              HttpServletResponse response){
         HttpResult dataResult = confirmAccurateResult(exception, request.getRequestURI());
-        if(null == dataResult){
-            return new HttpResult(Status.ERROR_BASE.getStatus(), Message.ERROR.getMsg(), "");
-        }
-        response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
+        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         return dataResult;
     }
 
@@ -47,11 +45,13 @@ public class MyExceptionHandler {
      * @return
      */
     private HttpResult confirmAccurateResult(Exception e, String uri){
-        HttpResult dataResult = null;
-        if (e instanceof MyException){
-            dataResult = new HttpResult(((MyException) e).getErrorCode(), ((MyException) e).getErrorMsg(), uri);
+        if (Objects.nonNull(e) && e instanceof MyException){
+            return new HttpResult(((MyException) e).getErrorCode(), ((MyException) e).getErrorMsg(), uri);
         }
-        return dataResult;
+        if (e != null){
+            return new HttpResult(Status.ERROR_BASE.getStatus(), e.getMessage(), uri);
+        }
+        return new HttpResult(Status.ERROR_BASE.getStatus(), Message.ERROR.getMsg(), uri);
     }
 
 }

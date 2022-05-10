@@ -60,7 +60,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         Safes.of(userList).forEach(u -> {
             userVOList.add(UserTransformer.user2UserVo(u));
         });
-        log.info("MyPage : {}, ", page);
+        log.info("MyPage : {}", page);
         return PageDataResult.getBuilder(
                 Status.SUCCESS.getStatus(),
                 Message.SUCCESS.getMsg())
