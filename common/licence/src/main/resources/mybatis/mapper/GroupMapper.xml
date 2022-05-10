@@ -9,7 +9,7 @@
     </sql>
 
     <sql id="TableName">
-        `group`
+        `lgc_group`
     </sql>
 
     <select id="selectGroupList" resultMap="systemGroupMap">

@@ -15,7 +15,7 @@ import java.sql.Timestamp;
  * @author Dylan
  * @since 2020-05-24
  */
-@TableName("user")
+@TableName("lgc_user")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;

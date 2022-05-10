@@ -11,7 +11,7 @@ import java.sql.Timestamp;
  * @Description Role
  * @Date 5/9/2022 11:02 AM
  */
-@TableName("role")
+@TableName("lgc_role")
 public class Role {
 
     private static final long serialVersionUID = 1L;

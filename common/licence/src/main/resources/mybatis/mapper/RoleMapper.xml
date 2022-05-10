@@ -9,7 +9,7 @@
     </sql>
 
     <sql id="TableName">
-        `role`
+        `lgc_role`
     </sql>
 
     <select id="selectRoleList" resultMap="systemRoleMap">

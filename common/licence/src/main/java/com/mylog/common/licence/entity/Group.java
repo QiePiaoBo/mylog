@@ -11,7 +11,7 @@ import java.sql.Timestamp;
  * @Description Group
  * @Date 5/10/2022 3:50 PM
  */
-@TableName("group")
+@TableName("lgc_group")
 public class Group {
 
     @TableId(value = "id", type = IdType.AUTO)

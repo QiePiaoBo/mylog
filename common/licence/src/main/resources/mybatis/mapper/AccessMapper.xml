@@ -9,7 +9,7 @@
     </sql>
 
     <sql id="TableName">
-        `access`
+        `lgc_access`
     </sql>
 
     <select id="selectAccessList" resultMap="systemAccessMap">

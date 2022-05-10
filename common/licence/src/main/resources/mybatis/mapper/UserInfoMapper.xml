@@ -9,7 +9,7 @@
     </sql>
 
     <sql id="TableName">
-        `user_info`
+        `lgc_user_info`
     </sql>
 
     <select id="selectUserInfoByUserId" resultMap="userInfoMap">

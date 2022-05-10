@@ -12,7 +12,7 @@ import java.sql.Timestamp;
  * @Description 用户信息
  * @Date 5/7/2022 3:48 PM
  */
-@TableName("user_info")
+@TableName("lgc_user_info")
 public class UserInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;

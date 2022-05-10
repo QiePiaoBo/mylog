@@ -11,7 +11,7 @@ import java.sql.Timestamp;
  * @Description 权限实体类
  * @Date : 2022/5/9 - 23:25
  */
-@TableName("access")
+@TableName("lgc_access")
 public class Access {
 
     private static final long serialVersionUID = 1L;
