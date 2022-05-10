@@ -59,7 +59,8 @@ public class UserInfoServiceImpl implements IUserInfoService {
             userInfoVOS.add(UserInfoTransformer.userInfo2UserInfoVO(m));
         });
         log.info("MyPage: {}, userInfoVos: {}", myPage, userInfoVOS);
-        return PageDataResult.success()
+        return PageDataResult
+                .success()
                 .page(page)
                 .size(limit)
                 .data(userInfoVOS)

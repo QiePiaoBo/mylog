@@ -61,9 +61,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             userVOList.add(UserTransformer.user2UserVo(u));
         });
         log.info("MyPage : {}", page);
-        return PageDataResult.getBuilder(
-                Status.SUCCESS.getStatus(),
-                Message.SUCCESS.getMsg())
+        return PageDataResult
+                .success()
                 .data(userVOList)
                 .page(page.getPageNo())
                 .size(page.getPageSize())

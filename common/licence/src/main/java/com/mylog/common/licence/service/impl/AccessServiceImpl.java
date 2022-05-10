@@ -36,9 +36,7 @@ public class AccessServiceImpl implements IAccessService {
 
     @Override
     public HttpResult getPagedAccess(MyPage myPage) {
-        if (!myPage.isValid()){
-            throw new MyException("Invalid myPage object : " + myPage);
-        }
+        myPage.checkValid();
         List<Access> accesses = mapper.selectAccessList(myPage);
 
         List<AccessVO> accessVOS = Safes

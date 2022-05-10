@@ -9,7 +9,7 @@
     </sql>
 
     <sql id="TableName">
-        role
+        `role`
     </sql>
 
     <select id="selectRoleList" resultMap="systemRoleMap">
@@ -27,7 +27,5 @@
             <include refid="TableName" />
         WHERE
             del_flag = 0
-        and
-            role_status = 1
     </select>
 </mapper>

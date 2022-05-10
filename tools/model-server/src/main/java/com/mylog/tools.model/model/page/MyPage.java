@@ -1,6 +1,8 @@
 package com.mylog.tools.model.model.page;
 
 
+import com.mylog.tools.model.model.exception.MyException;
+
 import java.util.Objects;
 
 /**
@@ -59,8 +61,10 @@ public class MyPage {
      * myPage对象完整
      * @return
      */
-    public boolean isValid(){
-        return Objects.nonNull(startNo) && Objects.nonNull(pageNo) && Objects.nonNull(pageSize);
+    public void checkValid(){
+        if (!(Objects.nonNull(getPageNo()) && Objects.nonNull(getPageSize()) && Objects.nonNull(getStartNo()))){
+            throw new MyException("Invalid myPage object : " + this);
+        }
     }
 
     @Override

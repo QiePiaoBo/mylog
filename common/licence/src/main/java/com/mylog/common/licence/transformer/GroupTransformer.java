@@ -1,0 +1,45 @@
+package com.mylog.common.licence.transformer;
+
+import com.mylog.common.licence.entity.Group;
+import com.mylog.common.licence.model.dto.GroupDTO;
+import com.mylog.common.licence.model.vo.GroupVO;
+
+/**
+ * @Classname GroupTransformer
+ * @Description GroupTransformer
+ * @Date 5/10/2022 3:54 PM
+ */
+public class GroupTransformer {
+
+    /**
+     * groupDTO -> group
+     * @param groupDTO
+     * @return
+     */
+    public static Group groupDTO2Group(GroupDTO groupDTO){
+        Group group = new Group();
+        group.setId(groupDTO.getId());
+        group.setGroupCode(groupDTO.getGroupCode());
+        group.setGroupName(groupDTO.getGroupName());
+        group.setGroupRole(groupDTO.getGroupRole());
+        group.setGroupStatus(groupDTO.getGroupStatus());
+        return group;
+    }
+
+    /**
+     * group -> groupVO
+     * @param group
+     * @return
+     */
+    public static GroupVO group2GroupVO(Group group){
+        GroupVO groupVO = new GroupVO();
+        groupVO.setId(group.getId());
+        groupVO.setGroupCode(group.getGroupCode());
+        groupVO.setGroupName(group.getGroupName());
+        groupVO.setGroupRole(group.getGroupRole());
+        groupVO.setGroupStatus(group.getGroupStatus());
+        return groupVO;
+    }
+
+
+}

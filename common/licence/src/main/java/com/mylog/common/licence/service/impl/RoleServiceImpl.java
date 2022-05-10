@@ -40,9 +40,7 @@ public class RoleServiceImpl implements IRoleService {
      */
     @Override
     public HttpResult selectRoleList(MyPage myPage) {
-        if (!myPage.isValid()) {
-            return PageDataResult.failed().data(new ArrayList<RoleVO>()).build();
-        }
+        myPage.checkValid();
         List<Role> roles = mapper.selectRoleList(myPage);
         List<RoleVO> roleVOS = new ArrayList<>();
         Safes.of(roles).forEach(m -> roleVOS.add(RoleTransformer.role2RoleVO(m)));

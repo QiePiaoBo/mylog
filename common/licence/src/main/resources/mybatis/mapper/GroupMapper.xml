@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mylog.common.licence.mapper.UserMapper">
-    <resultMap id="systemUserMap" type="com.mylog.common.licence.entity.User">
+<mapper namespace="com.mylog.common.licence.mapper.GroupMapper">
+    <resultMap id="systemGroupMap" type="com.mylog.common.licence.entity.Group">
     </resultMap>
 
     <sql id="TableField">
-        id, user_name, user_phone, user_password, user_group, created_at, updated_at, del_flag
+        id, group_code, group_name, group_role, group_status, created_at, updated_at, del_flag
     </sql>
 
     <sql id="TableName">
-        `user`
+        `group`
     </sql>
 
-    <select id="selectUserList" resultMap="systemUserMap">
+    <select id="selectGroupList" resultMap="systemGroupMap">
         SELECT
             <include refid="TableField" />
         FROM
@@ -20,11 +20,12 @@
         limit #{myPage.startNo}, #{myPage.pageSize}
     </select>
 
-    <select id="selectUserTotal" resultType="java.lang.Long">
+    <select id="selectGroupTotal" resultType="java.lang.Long">
         SELECT
             count(*)
         FROM
             <include refid="TableName" />
-        WHERE del_flag = 0
+        WHERE
+            del_flag = 0
     </select>
 </mapper>
