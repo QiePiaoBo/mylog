@@ -38,16 +38,31 @@ public class AccessController {
         return accessService.createAccess(accessDTO);
     }
 
+    /**
+     * 根据id查询
+     * @param id
+     * @return
+     */
     @GetMapping("/{id:\\d+}")
     public HttpResult getById(@PathVariable Integer id){
         return accessService.getById(id);
     }
 
+    /**
+     * 根据id删除
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id:\\d+}")
     public HttpResult deleteById(@PathVariable Integer id){
         return accessService.deleteById(id);
     }
 
+    /**
+     * 根据id更新
+     * @param accessDTO
+     * @return
+     */
     @PatchMapping
     public HttpResult updateById(@RequestBody AccessDTO accessDTO){
         return accessService.updateById(accessDTO);

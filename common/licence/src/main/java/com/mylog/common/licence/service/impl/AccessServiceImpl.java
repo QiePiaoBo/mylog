@@ -82,7 +82,7 @@ public class AccessServiceImpl implements IAccessService {
     @Override
     public HttpResult getById(Integer id) {
         if (Objects.isNull(id)){
-            throw new MyException("Error id in getById.");
+            throw new MyException("Error, id in getById must not be null.");
         }
         Access access = mapper.selectById(id);
         return DataResult
@@ -94,7 +94,7 @@ public class AccessServiceImpl implements IAccessService {
     @Override
     public HttpResult deleteById(Integer id) {
         if (Objects.isNull(id)){
-            throw new MyException("Error id in getById.");
+            throw new MyException("Error, id in deleteById must not be null.");
         }
         Access access = mapper.selectById(id);
         access.setDelFlag(1);
@@ -113,7 +113,7 @@ public class AccessServiceImpl implements IAccessService {
     @Override
     public HttpResult updateById(AccessDTO accessDTO) {
         if (Objects.isNull(accessDTO.getId())){
-            throw new MyException("Error, id must be not null while update.");
+            throw new MyException("Error, id in updateById must not be null.");
         }
         Access access = AccessTransformer.accessDTO2Access(accessDTO);
         mapper.updateById(access);
