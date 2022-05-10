@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mylog.common.licence.entity.User;
 import com.mylog.common.licence.enumcenter.GroupEnum;
 import com.mylog.common.licence.mapper.UserMapper;
+import com.mylog.common.licence.mapper.UserRoleMapper;
 import com.mylog.common.licence.model.dto.UserDTO;
 import com.mylog.common.licence.model.vo.UserVO;
 import com.mylog.common.licence.service.IUserService;
@@ -27,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -43,9 +45,9 @@ import java.util.Objects;
 @RefreshScope
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
-    @Autowired
+    @Resource
     private UserMapper userMapper;
-    @Autowired
+    @Resource
     private PasswordService passwordService;
 
     /**

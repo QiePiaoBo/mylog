@@ -36,4 +36,10 @@ public interface RoleMapper extends BaseMapper<Role> {
      */
     Integer logicalDeletionById(@Param("id") Integer id);
 
+    /**
+     * 根据id列表查询角色列表
+     * @param ids
+     * @return
+     */
+    List<Role> selectRoleListByIds(@Param("ids") List<Integer> ids);
 }

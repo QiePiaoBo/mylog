@@ -20,6 +20,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @Classname RoleServiceImpl
@@ -130,6 +131,25 @@ public class RoleServiceImpl implements IRoleService {
         return DataResult
                 .success()
                 .data(RoleTransformer.role2RoleVO(updated))
+                .build();
+    }
+
+    /**
+     * 根据id列表获取角色列表
+     *
+     * @param ids
+     * @return
+     */
+    @Override
+    public HttpResult selectRoleListByIds(List<Integer> ids) {
+        List<Role> roles = mapper.selectRoleListByIds(ids);
+        List<RoleVO> roleVOS = Safes.of(roles)
+                .stream()
+                .map(RoleTransformer::role2RoleVO)
+                .collect(Collectors.toList());
+        return DataResult
+                .success()
+                .data(roleVOS)
                 .build();
     }
 }

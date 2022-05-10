@@ -4,6 +4,8 @@ import com.mylog.common.licence.model.dto.RoleDTO;
 import com.mylog.tools.model.model.page.MyPage;
 import com.mylog.tools.model.model.result.HttpResult;
 
+import java.util.List;
+
 /**
  * @Classname IRoleService
  * @Description IRoleService
@@ -46,4 +48,10 @@ public interface IRoleService {
      */
     HttpResult updateById(RoleDTO roleDTO);
 
+    /**
+     * 根据id列表获取角色列表
+     * @param ids
+     * @return
+     */
+    HttpResult selectRoleListByIds(List<Integer> ids);
 }
