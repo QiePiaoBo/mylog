@@ -1,12 +1,11 @@
 package com.mylog.common.licence.controller;
 
+import com.mylog.common.licence.model.dto.GroupDTO;
 import com.mylog.common.licence.service.IGroupService;
 import com.mylog.tools.model.model.page.MyPage;
 import com.mylog.tools.model.model.result.HttpResult;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -26,6 +25,12 @@ public class GroupController {
     public HttpResult getPagedGroup(@Param("page") Integer page, @Param("limit") Integer limit){
         MyPage myPage = new MyPage(page, limit);
         return groupService.getPagedGroup(myPage);
+    }
+
+    @PostMapping
+    public HttpResult createGroup(@RequestBody GroupDTO groupDTO){
+
+        return groupService.createGroup(groupDTO);
     }
 
 }

@@ -49,6 +49,7 @@ public class MyExceptionHandler {
             return new HttpResult(((MyException) e).getErrorCode(), ((MyException) e).getErrorMsg(), uri);
         }
         if (e != null){
+            e.printStackTrace();
             return new HttpResult(Status.ERROR_BASE.getStatus(), e.getMessage(), uri);
         }
         return new HttpResult(Status.ERROR_BASE.getStatus(), Message.ERROR.getMsg(), uri);

@@ -29,3 +29,4 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
     call-setters-on-nulls: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
