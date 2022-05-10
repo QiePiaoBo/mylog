@@ -53,6 +53,25 @@ public class GroupController {
         return groupService.getById(id);
     }
 
+    /**
+     * 根据id删除用户组
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/{id:\\d+}")
+    public HttpResult deleteById(@PathVariable Integer id){
+        return groupService.deleteById(id);
+    }
+
+    /**
+     * 根据id更新用户组信息
+     * @param groupDTO
+     * @return
+     */
+    @PatchMapping
+    public HttpResult updateById(@RequestBody GroupDTO groupDTO){
+        return groupService.updateById(groupDTO);
+    }
 }
 
 
