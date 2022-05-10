@@ -1,5 +1,6 @@
 package com.mylog.common.licence.service;
 
+import com.mylog.common.licence.model.dto.AccessDTO;
 import com.mylog.tools.model.model.page.MyPage;
 import com.mylog.tools.model.model.result.HttpResult;
 
@@ -17,4 +18,10 @@ public interface IAccessService {
      */
     HttpResult getPagedAccess(MyPage myPage);
 
+    /**
+     * 创建权限
+     * @param accessDTO
+     * @return
+     */
+    HttpResult createAccess(AccessDTO accessDTO);
 }

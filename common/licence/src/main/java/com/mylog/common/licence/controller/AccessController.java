@@ -1,12 +1,11 @@
 package com.mylog.common.licence.controller;
 
+import com.mylog.common.licence.model.dto.AccessDTO;
 import com.mylog.common.licence.service.IAccessService;
 import com.mylog.tools.model.model.page.MyPage;
 import com.mylog.tools.model.model.result.HttpResult;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -22,10 +21,22 @@ public class AccessController {
     @Resource
     private IAccessService accessService;
 
+    /**
+     * 分页获取access
+     * @param page
+     * @param limit
+     * @return
+     */
     @GetMapping
     public HttpResult getPagedAccess(@Param("page") Integer page, @Param("limit") Integer limit){
         MyPage myPage = new MyPage(page, limit);
         return accessService.getPagedAccess(myPage);
     }
+
+    @PostMapping
+    public HttpResult createAccess(@RequestBody AccessDTO accessDTO){
+        return accessService.createAccess(accessDTO);
+    }
+
 
 }

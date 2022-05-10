@@ -1,6 +1,7 @@
 package com.mylog.common.licence.mapper;
 
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.mylog.common.licence.entity.Access;
 import com.mylog.tools.model.model.page.MyPage;
 import org.apache.ibatis.annotations.Mapper;
@@ -14,7 +15,7 @@ import java.util.List;
  * @Date 5/9/2022 11:20 AM
  */
 @Mapper
-public interface AccessMapper {
+public interface AccessMapper extends BaseMapper<Access> {
 
     /**
      * 查询角色列表
