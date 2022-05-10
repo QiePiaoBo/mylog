@@ -25,4 +25,25 @@ public interface IRoleService {
      */
     HttpResult create(RoleDTO roleDTO);
 
+    /**
+     * 根据id获取角色
+     * @param id
+     * @return
+     */
+    HttpResult getById(Integer id);
+
+    /**
+     * 根据id删除角色
+     * @param id
+     * @return
+     */
+    HttpResult deleteById(Integer id);
+
+    /**
+     * 根据id更新角色
+     * @param roleDTO
+     * @return
+     */
+    HttpResult updateById(RoleDTO roleDTO);
+
 }

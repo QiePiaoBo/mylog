@@ -76,5 +76,54 @@ public class RoleServiceImpl implements IRoleService {
         return DataResult.getBuilder().data(RoleTransformer.role2RoleVO(inserted)).build();
     }
 
+    /**
+     * 根据id获取角色
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public HttpResult getById(Integer id) {
+        if (Objects.isNull(id)){
+            throw new MyException("Error, id in getById must not be null.");
+        }
+        Role role = mapper.selectById(id);
+        return DataResult
+                .success()
+                .data(RoleTransformer.role2RoleVO(role))
+                .build();
+    }
+
+    /**
+     * 根据id删除角色
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public HttpResult deleteById(Integer id) {
+        if (Objects.isNull(id)){
+            throw new MyException("Error, id in deleteById must not be null.");
+        }
+        Role role = mapper.selectById(id);
+        role.setDelFlag(1);
+        mapper.updateById(role);
+        return DataResult
+                .success()
+                .data(RoleTransformer.role2RoleVO(role))
+                .build();
+    }
+
+    /**
+     * 根据id更新角色
+     *
+     * @param roleDTO
+     * @return
+     */
+    @Override
+    public HttpResult updateById(RoleDTO roleDTO) {
+        return null;
+    }
+
 
 }
