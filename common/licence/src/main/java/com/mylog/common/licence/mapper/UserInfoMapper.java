@@ -36,4 +36,11 @@ public interface UserInfoMapper extends BaseMapper<UserInfo> {
      */
     Long selectUserInfoTotal();
 
+    /**
+     * 根据id逻辑删除
+     * @param id
+     * @return
+     */
+    Integer logicalDeletionById(@Param("id") Integer id);
+
 }

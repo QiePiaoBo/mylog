@@ -29,4 +29,11 @@ public interface RoleMapper extends BaseMapper<Role> {
      */
     Long selectRoleTotal();
 
+    /**
+     * 根据id逻辑删除
+     * @param id
+     * @return
+     */
+    Integer logicalDeletionById(@Param("id") Integer id);
+
 }

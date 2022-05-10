@@ -107,9 +107,8 @@ public class GroupServiceImpl implements IGroupService {
         if (Objects.isNull(id)){
             throw new MyException("Error, id in deleteById must not be null.");
         }
+        mapper.logicalDeletionById(id);
         Group group = mapper.selectById(id);
-        group.setDelFlag(1);
-        mapper.updateById(group);
         return DataResult
                 .success()
                 .data(GroupTransformer.group2GroupVO(group))

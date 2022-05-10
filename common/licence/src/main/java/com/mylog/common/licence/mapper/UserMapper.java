@@ -21,7 +21,7 @@ public interface UserMapper extends BaseMapper<User> {
 
     /**
      * 获取用户列表 mapper
-     * @param page
+     * @param myPage
      * @return
      */
     List<User> selectUserList(@Param("myPage") MyPage myPage);
@@ -31,4 +31,11 @@ public interface UserMapper extends BaseMapper<User> {
      * @return
      */
     Long selectUserTotal();
+
+    /**
+     * 根据id逻辑删除
+     * @param id
+     * @return
+     */
+    Integer logicalDeletionById(@Param("id") Integer id);
 }

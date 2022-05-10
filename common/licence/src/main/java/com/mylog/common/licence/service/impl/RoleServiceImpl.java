@@ -105,9 +105,8 @@ public class RoleServiceImpl implements IRoleService {
         if (Objects.isNull(id)){
             throw new MyException("Error, id in deleteById must not be null.");
         }
+        mapper.logicalDeletionById(id);
         Role role = mapper.selectById(id);
-        role.setDelFlag(1);
-        mapper.updateById(role);
         return DataResult
                 .success()
                 .data(RoleTransformer.role2RoleVO(role))
@@ -122,8 +121,15 @@ public class RoleServiceImpl implements IRoleService {
      */
     @Override
     public HttpResult updateById(RoleDTO roleDTO) {
-        return null;
+        if (Objects.isNull(roleDTO.getId())){
+            throw new MyException("Error, id in updateById must not be null.");
+        }
+        Role role = RoleTransformer.roleDTO2Role(roleDTO);
+        mapper.updateById(role);
+        Role updated = mapper.selectById(roleDTO.getId());
+        return DataResult
+                .success()
+                .data(RoleTransformer.role2RoleVO(updated))
+                .build();
     }
-
-
 }

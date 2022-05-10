@@ -96,9 +96,8 @@ public class AccessServiceImpl implements IAccessService {
         if (Objects.isNull(id)){
             throw new MyException("Error, id in deleteById must not be null.");
         }
+        mapper.logicalDeletionById(id);
         Access access = mapper.selectById(id);
-        access.setDelFlag(1);
-        mapper.updateById(access);
         return DataResult
                 .success()
                 .data(AccessTransformer.access2AccessVO(access))

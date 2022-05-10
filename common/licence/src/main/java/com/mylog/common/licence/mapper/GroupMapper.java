@@ -29,4 +29,11 @@ public interface GroupMapper extends BaseMapper<Group> {
      */
     Long selectGroupTotal();
 
+    /**
+     * 根据id逻辑删除
+     * @param id
+     * @return
+     */
+    Integer logicalDeletionById(@Param("id") Integer id);
+
 }

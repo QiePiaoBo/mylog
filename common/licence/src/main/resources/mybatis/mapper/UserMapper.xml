@@ -27,4 +27,14 @@
             <include refid="TableName" />
         WHERE del_flag = 0
     </select>
+
+
+    <update id="logicalDeletionById">
+        update
+        <include refid="TableName" />
+        set
+        `del_flag` = 1
+        where
+        `id` = #{id}
+    </update>
 </mapper>
