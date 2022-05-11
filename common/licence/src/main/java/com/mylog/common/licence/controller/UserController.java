@@ -114,4 +114,15 @@ public class UserController {
     public HttpResult getAccesses4User(@Param("id") Integer id){
         return userAccessService.getAccesses4User(id);
     }
+
+    /**
+     * 查看当前用户是否有某url的权限
+     * @param url
+     * @return
+     */
+    @AdminPermission
+    @GetMapping("check-access")
+    public HttpResult checkHavePermission(@Param("uri") String url){
+        return userAccessService.hasPermission(url);
+    }
 }

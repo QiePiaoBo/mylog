@@ -24,4 +24,11 @@ public interface IUserAccessService {
      */
     HttpResult hasPermission(Integer id, String url);
 
+    /**
+     * 当前用户是否拥有url的权限
+     * @param url
+     * @return
+     */
+    HttpResult hasPermission(String url);
+
 }

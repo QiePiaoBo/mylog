@@ -31,8 +31,16 @@ public class PermissionCheckerImpl implements PermissionChecker {
      */
     @Override
     public boolean hasPermission(Integer type, String url) {
+        /**
+         * 需要同时满足
+         * 1. 接口所需的权限 >= 用户的userType
+         * 2. 当前用户的权限列表中存在该url
+         */
         PersonVo currentUser = UserContext.getCurrentUser();
         if (Objects.isNull(currentUser)){
+            return false;
+        }
+        if (type < currentUser.getUserType()){
             return false;
         }
         HttpResult httpResult = userAccessService.hasPermission(currentUser.getId(), url);

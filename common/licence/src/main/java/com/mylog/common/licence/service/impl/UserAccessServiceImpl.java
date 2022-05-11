@@ -6,8 +6,11 @@ import com.mylog.common.licence.mapper.UserMapper;
 import com.mylog.common.licence.model.vo.AccessVO;
 import com.mylog.common.licence.service.IUserAccessService;
 import com.mylog.common.licence.transformer.AccessTransformer;
+import com.mylog.tools.model.model.exception.MyException;
 import com.mylog.tools.model.model.result.DataResult;
 import com.mylog.tools.model.model.result.HttpResult;
+import com.mylog.tools.model.model.vo.PersonVo;
+import com.mylog.tools.utils.session.UserContext;
 import com.mylog.tools.utils.utils.Safes;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -85,5 +88,20 @@ public class UserAccessServiceImpl implements IUserAccessService {
             }
         }
         return DataResult.fail().build();
+    }
+
+    /**
+     * 当前用户是否拥有url的权限
+     *
+     * @param url
+     * @return
+     */
+    @Override
+    public HttpResult hasPermission(String url) {
+        PersonVo currentUser = UserContext.getCurrentUser();
+        if (Objects.isNull(currentUser)){
+            throw new MyException("未登录");
+        }
+        return hasPermission(currentUser.getId(), url);
     }
 }
