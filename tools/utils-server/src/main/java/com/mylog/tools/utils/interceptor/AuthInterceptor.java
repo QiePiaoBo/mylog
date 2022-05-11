@@ -36,11 +36,11 @@ public class AuthInterceptor implements HandlerInterceptor{
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             Method method = handlerMethod.getMethod();
             AdminPermission authToken = method.getAnnotation(AdminPermission.class);
-
+            // authToken为空说明无需校验 也就是方法上并没有添加AdminPermission注解
             if (authToken == null) {
                 return true;
             }
-            // 需要验证的Method
+            // 走到这里说明需要校验 若当前用户为空 则直接校验不通过 因为添加AdminPermission注解的接口都是必须登录的接口
             if (null == UserContext.getCurrentUser()) {
                 response.setContentType("application/json; charset=UTF-8");
                 response.getWriter().write(DataResult
@@ -48,7 +48,7 @@ public class AuthInterceptor implements HandlerInterceptor{
                         .build().toString());
                 return false;
             }
-            // 通过
+            // 使用spring容器中的permissionChecker实例对用户权限进行校验
             if (permissionChecker.hasPermission(authToken.userType(), request.getRequestURI())){
                 return true;
             }else {

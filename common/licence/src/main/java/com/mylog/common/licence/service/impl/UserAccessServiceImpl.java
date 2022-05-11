@@ -9,6 +9,7 @@ import com.mylog.common.licence.transformer.AccessTransformer;
 import com.mylog.tools.model.model.result.DataResult;
 import com.mylog.tools.model.model.result.HttpResult;
 import com.mylog.tools.utils.utils.Safes;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -68,8 +69,19 @@ public class UserAccessServiceImpl implements IUserAccessService {
         // 根据roleIds获取accesses
         List<Access> accesses = roleAccessMapper.getAccesses4RoleIds(roleIds);
         for (Access a : Safes.of(accesses)){
-            if (Objects.equals(url, a.getAccessUri())){
-                return DataResult.success().data(true).build();
+            // 如果权限url不包含 * 直接判断目标url与有权限的uri是否匹配
+            if (!a.getAccessUri().contains("**")){
+                if (Objects.equals(url, a.getAccessUri())){
+                    return DataResult.success().data(true).build();
+                }
+            }else {
+                // 如果权限url包含** 那么就截取**之前的部分
+                String accessUri = a.getAccessUri();
+                String front = StringUtils.substringBefore(accessUri, "**");
+                // 如果**之前的部分不为空且目的url以**之前的部分开头 那就判定为有权限
+                if (StringUtils.isNotEmpty(front) && url.startsWith(front)){
+                    return DataResult.success().data(true).build();
+                }
             }
         }
         return DataResult.fail().build();
