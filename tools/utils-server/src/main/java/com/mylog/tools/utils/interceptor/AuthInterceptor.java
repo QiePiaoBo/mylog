@@ -5,6 +5,8 @@ import com.mylog.tools.model.model.info.Message;
 import com.mylog.tools.model.model.info.Status;
 import com.mylog.tools.model.model.result.DataResult;
 import com.mylog.tools.utils.session.UserContext;
+import com.mylog.tools.utils.utils.PermissionChecker;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -20,8 +22,10 @@ import java.lang.reflect.Method;
  * @author Dylan
  */
 @Component
-public class AuthInterceptor implements HandlerInterceptor {
+public class AuthInterceptor implements HandlerInterceptor{
 
+    @Autowired
+    private PermissionChecker permissionChecker;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -47,21 +51,27 @@ public class AuthInterceptor implements HandlerInterceptor {
             }
             // todo 修改权限校验方式
             int userType = authToken.userType();
-            // 数字越小权限越大
-            result = userType >= UserContext.getCurrentUser().getUserGroup();
-            if (!result) {
-                response.setContentType("application/json; charset=UTF-8");
-                if (UserContext.getCurrentUser() == null) {
-                    response.getWriter().write(DataResult
-                            .fail(Status.NOT_LOGIN.getStatus(), Message.NOT_LOGIN.getMsg())
-                            .build().toString());
-                } else {
-                    response.getWriter().write(DataResult
-                            .fail(Status.PERMISSION_ERROR.getStatus(), Message.PERMISSION_ERROR.getMsg())
-                            .build().toString());
-                }
+            // 通过
+            if (permissionChecker.hasPermission(userType, request.getRequestURI())){
+                return true;
+            }else {
+                return false;
             }
-            return result;
+            // 数字越小权限越大
+            //            result = userType >= UserContext.getCurrentUser().getUserGroup();
+            //            if (!result) {
+            //                response.setContentType("application/json; charset=UTF-8");
+            //                if (UserContext.getCurrentUser() == null) {
+            //                    response.getWriter().write(DataResult
+            //                            .fail(Status.NOT_LOGIN.getStatus(), Message.NOT_LOGIN.getMsg())
+            //                            .build().toString());
+            //                } else {
+            //                    response.getWriter().write(DataResult
+            //                            .fail(Status.PERMISSION_ERROR.getStatus(), Message.PERMISSION_ERROR.getMsg())
+            //                            .build().toString());
+            //                }
+            //            }
+            //            return result;
         }
     }
 

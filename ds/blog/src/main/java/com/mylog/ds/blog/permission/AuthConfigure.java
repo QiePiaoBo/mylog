@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.annotation.Resource;
+
 /**
  * 拦截器注册中心
  * @author Dylan
@@ -16,6 +18,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class AuthConfigure implements WebMvcConfigurer {
 
+    @Resource
+    private AuthInterceptor authInterceptor;
+
     final String urls = "/**";
     /**
      * 注册权限校验拦截器
@@ -23,12 +28,7 @@ public class AuthConfigure implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(authInterceptor()).addPathPatterns(urls).excludePathPatterns("/file/**");
+        registry.addInterceptor(authInterceptor).addPathPatterns(urls).excludePathPatterns("/file/**");
     }
-
-    public AuthInterceptor authInterceptor(){
-        return new AuthInterceptor();
-    }
-
 
 }

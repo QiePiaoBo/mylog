@@ -15,4 +15,6 @@ import java.lang.annotation.*;
 @Documented
 public @interface AdminPermission {
     int userType() default 2;
+
+    String queryUrl() default "";
 }

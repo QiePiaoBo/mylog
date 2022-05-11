@@ -1,6 +1,7 @@
 package com.mylog.common.licence.mapper;
 
 import com.mylog.common.licence.entity.Access;
+import com.mylog.tools.utils.utils.PermissionChecker;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +25,9 @@ public class RoleAccessMapperTest {
     @Resource
     private RoleAccessMapper roleAccessMapper;
 
+    @Resource
+    private PermissionChecker permissionChecker;
+
     @Test
     public void getRoleId4UserFromGroup(){
         List<Integer> roleIds = new ArrayList<>();
@@ -31,4 +35,11 @@ public class RoleAccessMapperTest {
         List<Access> accesses4RoleIds = roleAccessMapper.getAccesses4RoleIds(roleIds);
         log.info("accesses for roleIds is : {}", accesses4RoleIds);
     }
+
+    @Test
+    public void permissionCheckerTest(){
+        permissionChecker.hasPermission(1, "1");
+    }
+
+
 }

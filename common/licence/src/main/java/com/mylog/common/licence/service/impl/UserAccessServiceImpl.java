@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -51,5 +52,26 @@ public class UserAccessServiceImpl implements IUserAccessService {
                 .success()
                 .data(accessVOS)
                 .build();
+    }
+
+    /**
+     * id为id的用户是否拥有url的权限
+     *
+     * @param id
+     * @param url
+     * @return
+     */
+    @Override
+    public HttpResult hasPermission(Integer id, String url) {
+        // 两种途径获取角色列表
+        List<Integer> roleIds = userMapper.getAllRole4User(id);
+        // 根据roleIds获取accesses
+        List<Access> accesses = roleAccessMapper.getAccesses4RoleIds(roleIds);
+        for (Access a : Safes.of(accesses)){
+            if (Objects.equals(url, a.getAccessUri())){
+                return DataResult.success().data(true).build();
+            }
+        }
+        return DataResult.fail().build();
     }
 }
