@@ -19,6 +19,8 @@ public class PersonVo {
      */
     private Integer userGroup;
 
+    private Integer userType;
+
     /**
      * 用户名
      */
@@ -60,5 +62,24 @@ public class PersonVo {
 
     public void setUserPhone(String userPhone) {
         this.userPhone = userPhone;
+    }
+
+    public Integer getUserType() {
+        return userType;
+    }
+
+    public void setUserType(Integer userType) {
+        this.userType = userType;
+    }
+
+    @Override
+    public String toString() {
+        return "PersonVo{" +
+                "id=" + id +
+                ", userGroup=" + userGroup +
+                ", userType=" + userType +
+                ", userName='" + userName + '\'' +
+                ", userPhone='" + userPhone + '\'' +
+                '}';
     }
 }

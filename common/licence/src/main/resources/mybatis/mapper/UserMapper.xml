@@ -6,7 +6,7 @@
 
     <sql id="TableField">
         id
-        , user_name, user_phone, user_password, user_group, created_at, updated_at, del_flag
+        , user_name, user_phone, user_password, user_group, user_type, created_at, updated_at, del_flag
     </sql>
 
     <sql id="TableName">

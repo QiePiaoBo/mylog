@@ -22,6 +22,11 @@ public class Person implements Serializable {
     private Integer userGroup;
 
     /**
+     * 用户权限组
+     */
+    private Integer userType;
+
+    /**
      * 用户名
      */
     private String userName;
@@ -88,5 +93,25 @@ public class Person implements Serializable {
 
     public void setUserPhone(String userPhone) {
         this.userPhone = userPhone;
+    }
+
+    public Integer getUserType() {
+        return userType;
+    }
+
+    public void setUserType(Integer userType) {
+        this.userType = userType;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", userGroup=" + userGroup +
+                ", userType=" + userType +
+                ", userName='" + userName + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", userPhone='" + userPhone + '\'' +
+                '}';
     }
 }

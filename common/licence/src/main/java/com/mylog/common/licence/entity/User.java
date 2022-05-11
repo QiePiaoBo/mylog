@@ -31,6 +31,8 @@ public class User implements Serializable {
 
     private Integer userGroup;
 
+    private Integer userType;
+
     private Timestamp createdAt;
 
     private Timestamp updatedAt;
@@ -104,6 +106,14 @@ public class User implements Serializable {
         this.delFlag = delFlag;
     }
 
+    public Integer getUserType() {
+        return userType;
+    }
+
+    public void setUserType(Integer userType) {
+        this.userType = userType;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -112,6 +122,7 @@ public class User implements Serializable {
                 ", userPhone='" + userPhone + '\'' +
                 ", userPassword='" + userPassword + '\'' +
                 ", userGroup=" + userGroup +
+                ", userType=" + userType +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 ", delFlag=" + delFlag +

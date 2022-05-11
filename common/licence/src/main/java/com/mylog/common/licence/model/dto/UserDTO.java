@@ -45,4 +45,6 @@ public class UserDTO implements Serializable {
 
     private Integer userGroup;
 
+    private Integer userType;
+
 }

@@ -53,15 +53,9 @@ public class AuthInterceptor implements HandlerInterceptor{
                 return true;
             }else {
                 response.setContentType("application/json; charset=UTF-8");
-                if (UserContext.getCurrentUser() == null) {
-                    response.getWriter().write(DataResult
-                            .fail(Status.NOT_LOGIN.getStatus(), Message.NOT_LOGIN.getMsg())
-                            .build().toString());
-                } else {
-                    response.getWriter().write(DataResult
-                            .fail(Status.PERMISSION_ERROR.getStatus(), Message.PERMISSION_ERROR.getMsg())
-                            .build().toString());
-                }
+                response.getWriter().write(DataResult
+                        .fail(Status.PERMISSION_ERROR.getStatus(), Message.PERMISSION_ERROR.getMsg())
+                        .build().toString());
                 return false;
             }
         }

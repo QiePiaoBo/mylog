@@ -28,7 +28,7 @@ public class DefaultComponents{
             if (Objects.isNull(UserContext.getCurrentUser())){
                 return false;
             }
-            return type >= UserContext.getCurrentUser().getUserGroup();
+            return type >= UserContext.getCurrentUser().getUserType();
         };
     }
 }

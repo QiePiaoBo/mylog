@@ -44,5 +44,7 @@ public class UserVO implements Serializable {
      */
     private String userPhone;
 
+    private Integer userType;
+
 
 }

@@ -30,6 +30,7 @@ public class UserTransformer {
         userVO.setUserGroup(user.getUserGroup());
         userVO.setUserName(Safes.of(user.getUserName()));
         userVO.setUserPhone(Safes.of(user.getUserPhone()));
+        userVO.setUserType(user.getUserType());
         return userVO;
     }
 
@@ -45,6 +46,7 @@ public class UserTransformer {
         }
         person.setId(user.getId());
         person.setUserGroup(user.getUserGroup());
+        person.setUserType(user.getUserType());
         person.setUserPassword(Safes.of(user.getUserPassword()));
         person.setUserName(Safes.of(user.getUserName()));
         person.setUserPhone(Safes.of(user.getUserPhone()));
@@ -65,6 +67,7 @@ public class UserTransformer {
         user.setUserPhone(userDTO.getUserPhone());
         user.setUserGroup(userDTO.getUserGroup());
         user.setId(userDTO.getId());
+        user.setUserType(userDTO.getUserType());
         return user;
     }
 
@@ -82,6 +85,7 @@ public class UserTransformer {
         userVO.setUserGroup(userDTO.getUserGroup());
         userVO.setUserName(Safes.of(userDTO.getUserName()));
         userVO.setUserPhone(Safes.of(userDTO.getUserPhone()));
+        userVO.setUserType(userDTO.getUserType());
         return userVO;
     }
 
@@ -99,6 +103,7 @@ public class UserTransformer {
         personVo.setUserGroup(person.getUserGroup());
         personVo.setUserName(Safes.of(person.getUserName()));
         personVo.setUserPhone(Safes.of(person.getUserPhone()));
+        personVo.setUserType(person.getUserType());
         return personVo;
     }
 
@@ -116,6 +121,7 @@ public class UserTransformer {
         userVO.setUserGroup(personVo.getUserGroup());
         userVO.setUserPhone(Safes.of(personVo.getUserPhone()));
         userVO.setUserName(Safes.of(personVo.getUserName()));
+        userVO.setUserType(personVo.getUserType());
         return userVO;
     }
 
