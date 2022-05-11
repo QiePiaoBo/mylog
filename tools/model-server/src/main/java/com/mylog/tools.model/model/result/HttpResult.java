@@ -1,9 +1,6 @@
 package com.mylog.tools.model.model.result;
 
 
-import com.mylog.tools.model.model.info.Message;
-import com.mylog.tools.model.model.info.Status;
-
 /**
  * @author Dylan
  * @Date : Created in 10:51 2021/3/12
@@ -58,5 +55,14 @@ public class HttpResult {
     }
 
     public HttpResult() {
+    }
+
+    @Override
+    public String toString() {
+        return "HttpResult{" +
+                "status=" + status +
+                ", message='" + message + '\'' +
+                ", data=" + data +
+                '}';
     }
 }

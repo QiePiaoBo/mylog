@@ -116,4 +116,20 @@ public class Role {
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", roleCode='" + roleCode + '\'' +
+                ", roleName='" + roleName + '\'' +
+                ", pid=" + pid +
+                ", roleDescription='" + roleDescription + '\'' +
+                ", roleStatus=" + roleStatus +
+                ", roleSort=" + roleSort +
+                ", delFlag=" + delFlag +
+                ", updatedAt=" + updatedAt +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }

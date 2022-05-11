@@ -56,4 +56,15 @@ public class GroupVO {
     public void setGroupStatus(Integer groupStatus) {
         this.groupStatus = groupStatus;
     }
+
+    @Override
+    public String toString() {
+        return "GroupVO{" +
+                "id=" + id +
+                ", groupCode='" + groupCode + '\'' +
+                ", groupName='" + groupName + '\'' +
+                ", groupRole=" + groupRole +
+                ", groupStatus=" + groupStatus +
+                '}';
+    }
 }

@@ -56,4 +56,15 @@ public class GroupDTO {
     public void setGroupStatus(Integer groupStatus) {
         this.groupStatus = groupStatus;
     }
+
+    @Override
+    public String toString() {
+        return "GroupDTO{" +
+                "id=" + id +
+                ", groupCode='" + groupCode + '\'' +
+                ", groupName='" + groupName + '\'' +
+                ", groupRole=" + groupRole +
+                ", groupStatus=" + groupStatus +
+                '}';
+    }
 }

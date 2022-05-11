@@ -76,4 +76,17 @@ public class RoleVO {
     public void setRoleSort(Integer roleSort) {
         this.roleSort = roleSort;
     }
+
+    @Override
+    public String toString() {
+        return "RoleVO{" +
+                "id=" + id +
+                ", roleCode='" + roleCode + '\'' +
+                ", roleName='" + roleName + '\'' +
+                ", pid=" + pid +
+                ", roleDescription='" + roleDescription + '\'' +
+                ", roleStatus=" + roleStatus +
+                ", roleSort=" + roleSort +
+                '}';
+    }
 }

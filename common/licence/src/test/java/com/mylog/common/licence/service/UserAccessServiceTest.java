@@ -1,5 +1,6 @@
 package com.mylog.common.licence.service;
 
+import com.mylog.tools.model.model.result.HttpResult;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +22,11 @@ public class UserAccessServiceTest {
     @Resource
     private IUserAccessService userAccessService;
 
+    @Test
+    public void test1(){
+        HttpResult accesses4User = userAccessService.getAccesses4User(1);
+        log.info("accesses 4 user 1 is : {}", accesses4User);
+    }
 
 
 }

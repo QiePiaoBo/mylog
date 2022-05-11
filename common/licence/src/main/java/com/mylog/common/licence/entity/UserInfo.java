@@ -127,4 +127,21 @@ public class UserInfo implements Serializable {
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", realName='" + realName + '\'' +
+                ", gender=" + gender +
+                ", idType=" + idType +
+                ", idCode='" + idCode + '\'' +
+                ", wechatCode='" + wechatCode + '\'' +
+                ", mail='" + mail + '\'' +
+                ", delFlag=" + delFlag +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }

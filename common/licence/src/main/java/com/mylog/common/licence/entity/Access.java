@@ -116,4 +116,20 @@ public class Access {
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
+
+    @Override
+    public String toString() {
+        return "Access{" +
+                "id=" + id +
+                ", accessCode='" + accessCode + '\'' +
+                ", accessName='" + accessName + '\'' +
+                ", accessType=" + accessType +
+                ", accessUri='" + accessUri + '\'' +
+                ", accessDescription='" + accessDescription + '\'' +
+                ", accessStatus=" + accessStatus +
+                ", delFlag=" + delFlag +
+                ", updatedAt=" + updatedAt +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }

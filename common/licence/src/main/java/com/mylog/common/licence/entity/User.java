@@ -103,4 +103,18 @@ public class User implements Serializable {
     public void setDelFlag(Integer delFlag) {
         this.delFlag = delFlag;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", userPhone='" + userPhone + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", userGroup=" + userGroup +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", delFlag=" + delFlag +
+                '}';
+    }
 }

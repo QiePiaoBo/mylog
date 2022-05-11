@@ -75,4 +75,17 @@ public class AccessDTO {
     public void setAccessStatus(Integer accessStatus) {
         this.accessStatus = accessStatus;
     }
+
+    @Override
+    public String toString() {
+        return "AccessDTO{" +
+                "id=" + id +
+                ", accessCode='" + accessCode + '\'' +
+                ", accessName='" + accessName + '\'' +
+                ", accessType=" + accessType +
+                ", accessUri='" + accessUri + '\'' +
+                ", accessDescription='" + accessDescription + '\'' +
+                ", accessStatus=" + accessStatus +
+                '}';
+    }
 }

@@ -66,4 +66,16 @@ public class UserInfoVO {
     public void setMail(String mail) {
         this.mail = mail;
     }
+
+    @Override
+    public String toString() {
+        return "UserInfoVO{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", realName='" + realName + '\'' +
+                ", gender=" + gender +
+                ", wechatCode='" + wechatCode + '\'' +
+                ", mail='" + mail + '\'' +
+                '}';
+    }
 }

@@ -86,4 +86,18 @@ public class SimpleUserInfo {
     public void setMail(String mail) {
         this.mail = mail;
     }
+
+    @Override
+    public String toString() {
+        return "SimpleUserInfo{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", realName='" + realName + '\'' +
+                ", gender=" + gender +
+                ", idType=" + idType +
+                ", idCode='" + idCode + '\'' +
+                ", wechatCode='" + wechatCode + '\'' +
+                ", mail='" + mail + '\'' +
+                '}';
+    }
 }
