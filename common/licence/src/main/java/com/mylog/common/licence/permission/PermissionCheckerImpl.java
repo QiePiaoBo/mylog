@@ -6,7 +6,7 @@ import com.mylog.tools.model.model.result.HttpResult;
 import com.mylog.tools.model.model.vo.PersonVo;
 import com.mylog.tools.utils.session.UserContext;
 import com.mylog.tools.utils.utils.PermissionChecker;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.Objects;
@@ -16,7 +16,7 @@ import java.util.Objects;
  * @Description PermissionCheckerImpl
  * @Date 5/11/2022 6:52 PM
  */
-@Service
+@Component
 public class PermissionCheckerImpl implements PermissionChecker {
 
     @Resource
