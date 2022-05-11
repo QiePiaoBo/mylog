@@ -1,5 +1,6 @@
 package com.mylog.common.licence.mapper;
 
+import com.mylog.common.licence.entity.Access;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,7 +19,14 @@ public interface RoleAccessMapper {
      * @param roleId
      * @return
      */
-    List<Integer> getAccessList4Role(@Param("roleId") Integer roleId);
+    List<Integer> getAccessIds4Role(@Param("roleId") Integer roleId);
+
+    /**
+     * 根据角色id查询权限列表
+     * @param ids
+     * @return
+     */
+    List<Access> getAccesses4RoleIds(@Param("ids") List<Integer> ids);
 
     /**
      * 根据id逻辑删除

@@ -12,7 +12,7 @@
         `role_access`
     </sql>
 
-    <select id="getAccessList4Role" resultType="java.lang.Integer">
+    <select id="getAccessIds4Role" resultType="java.lang.Integer">
         select
         `access_id`
         from
@@ -21,6 +21,28 @@
         `role_id` = #{roleId}
         and
         `del_flag` = 0;
+    </select>
+
+    <select id="getAccesses4RoleIds" resultType="com.mylog.common.licence.entity.Access">
+        select
+            lgc_access.*
+        from
+            lgc_access
+        where
+            lgc_access.id in
+            (select
+                 role_access.access_id
+             from
+                 role_access
+             where
+                 role_access.role_id
+             in
+             <foreach collection="ids" item="id" index="index" open="(" close=")" separator=",">
+                 #{id}
+             </foreach>
+             )
+        and
+            del_flag = 0
     </select>
 
     <update id="logicalDeletionById">

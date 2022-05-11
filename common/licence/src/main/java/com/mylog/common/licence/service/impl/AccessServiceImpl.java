@@ -56,22 +56,22 @@ public class AccessServiceImpl implements IAccessService {
 
     @Override
     public HttpResult createAccess(AccessDTO accessDTO) {
-        if (Objects.isNull(accessDTO)){
+        if (Objects.isNull(accessDTO)) {
             throw new MyException("Error, create obj is null.");
         }
-        if (Objects.nonNull(accessDTO.getId())){
+        if (Objects.nonNull(accessDTO.getId())) {
             throw new MyException("Error, id found in create obj.");
         }
-        if (Objects.isNull(accessDTO.getAccessCode())){
+        if (Objects.isNull(accessDTO.getAccessCode())) {
             throw new MyException("Error, access code must be not null");
         }
         QueryWrapper<Access> query = Wrappers.query(new Access()).eq("access_code", accessDTO.getAccessCode());
-        if (mapper.selectCount(query) > 0){
+        if (mapper.selectCount(query) > 0) {
             throw new MyException("Duplicate error, record already exists.");
         }
         Access access = AccessTransformer.accessDTO2Access(accessDTO);
         int inserted = mapper.insert(access);
-        if (inserted <= 0){
+        if (inserted <= 0) {
             log.error("Error insert access: {}", access);
         }
         Access returnAccess = mapper
@@ -81,7 +81,7 @@ public class AccessServiceImpl implements IAccessService {
 
     @Override
     public HttpResult getById(Integer id) {
-        if (Objects.isNull(id)){
+        if (Objects.isNull(id)) {
             throw new MyException("Error, id in getById must not be null.");
         }
         Access access = mapper.selectById(id);
@@ -93,7 +93,7 @@ public class AccessServiceImpl implements IAccessService {
 
     @Override
     public HttpResult deleteById(Integer id) {
-        if (Objects.isNull(id)){
+        if (Objects.isNull(id)) {
             throw new MyException("Error, id in deleteById must not be null.");
         }
         mapper.logicalDeletionById(id);
@@ -106,12 +106,13 @@ public class AccessServiceImpl implements IAccessService {
 
     /**
      * 根据id更新权限信息
+     *
      * @param accessDTO
      * @return
      */
     @Override
     public HttpResult updateById(AccessDTO accessDTO) {
-        if (Objects.isNull(accessDTO.getId())){
+        if (Objects.isNull(accessDTO.getId())) {
             throw new MyException("Error, id in updateById must not be null.");
         }
         Access access = AccessTransformer.accessDTO2Access(accessDTO);
@@ -131,9 +132,14 @@ public class AccessServiceImpl implements IAccessService {
     @Override
     public HttpResult selectAccessListByIds(List<Integer> ids) {
         List<Access> accesses = mapper.selectAccessListByIds(ids);
+        List<AccessVO> accessVOS = Safes
+                .of(accesses)
+                .stream()
+                .map(AccessTransformer::access2AccessVO)
+                .collect(Collectors.toList());
         return DataResult
                 .success()
-                .data(accesses)
+                .data(accessVOS)
                 .build();
     }
 }

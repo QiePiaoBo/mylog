@@ -36,4 +36,5 @@ public interface GroupMapper extends BaseMapper<Group> {
      */
     Integer logicalDeletionById(@Param("id") Integer id);
 
+
 }

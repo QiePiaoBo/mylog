@@ -1,6 +1,5 @@
 package com.mylog.common.licence.service.impl;
 
-import com.mylog.common.licence.entity.Access;
 import com.mylog.common.licence.mapper.RoleAccessMapper;
 import com.mylog.common.licence.service.IAccessService;
 import com.mylog.common.licence.service.IRoleAccessService;
@@ -23,9 +22,6 @@ public class RoleAccessServiceImpl implements IRoleAccessService {
     private RoleAccessMapper roleAccessMapper;
 
     @Resource
-    private IRoleService roleService;
-
-    @Resource
     private IAccessService accessService;
 
 
@@ -37,7 +33,7 @@ public class RoleAccessServiceImpl implements IRoleAccessService {
      */
     @Override
     public HttpResult getAccesses4Role(Integer rId) {
-        List<Integer> accessIds = roleAccessMapper.getAccessList4Role(rId);
+        List<Integer> accessIds = roleAccessMapper.getAccessIds4Role(rId);
         return accessService.selectAccessListByIds(accessIds);
     }
 }

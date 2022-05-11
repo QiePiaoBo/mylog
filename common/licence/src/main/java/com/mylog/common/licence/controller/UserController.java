@@ -1,6 +1,7 @@
 package com.mylog.common.licence.controller;
 
 import com.mylog.common.licence.model.dto.UserDTO;
+import com.mylog.common.licence.service.IUserAccessService;
 import com.mylog.common.licence.service.IUserRoleService;
 import com.mylog.common.licence.service.IUserService;
 import com.mylog.tools.model.annos.AdminPermission;
@@ -32,6 +33,9 @@ public class UserController {
 
     @Resource
     private IUserRoleService userRoleService;
+
+    @Resource
+    private IUserAccessService userAccessService;
 
     /**
      * 获取所有用户
@@ -100,5 +104,15 @@ public class UserController {
     @GetMapping("get-roles")
     public HttpResult getRoles4User(@Param("id") Integer id){
         return userRoleService.getRoleList4User(id);
+    }
+
+    /**
+     * 根据userId获取所有的权限
+     * @param id
+     * @return
+     */
+    @GetMapping("get-accesses")
+    public HttpResult getAccesses4User(@Param("id") Integer id){
+        return userAccessService.getAccesses4User(id);
     }
 }

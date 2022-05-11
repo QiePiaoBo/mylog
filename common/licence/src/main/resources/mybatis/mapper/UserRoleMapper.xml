@@ -20,7 +20,7 @@
         where
             `user_id` = #{userId}
         and
-            `del_flag` = 0;
+            `del_flag` = 0
     </select>
 
     <update id="logicalDeletionById">

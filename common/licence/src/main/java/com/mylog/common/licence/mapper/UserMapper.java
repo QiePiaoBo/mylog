@@ -38,4 +38,18 @@ public interface UserMapper extends BaseMapper<User> {
      * @return
      */
     Integer logicalDeletionById(@Param("id") Integer id);
+
+    /**
+     * 根据userId从group里获取角色id
+     * @param id
+     * @return
+     */
+    Integer getRoleIdFromGroup(@Param("id") Integer id);
+
+    /**
+     * 获取用户的所有的角色
+     * @param id
+     * @return
+     */
+    List<Integer> getAllRole4User(@Param("id") Integer id);
 }
