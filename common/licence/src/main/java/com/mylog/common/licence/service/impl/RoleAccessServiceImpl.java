@@ -3,7 +3,6 @@ package com.mylog.common.licence.service.impl;
 import com.mylog.common.licence.mapper.RoleAccessMapper;
 import com.mylog.common.licence.service.IAccessService;
 import com.mylog.common.licence.service.IRoleAccessService;
-import com.mylog.common.licence.service.IRoleService;
 import com.mylog.tools.model.model.result.HttpResult;
 import org.springframework.stereotype.Service;
 

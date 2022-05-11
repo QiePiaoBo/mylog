@@ -1,6 +1,5 @@
 package com.mylog.common.licence.model.dto;
 
-import jdk.nashorn.internal.objects.annotations.Constructor;
 import lombok.*;
 import lombok.experimental.Accessors;
 

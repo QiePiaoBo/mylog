@@ -1,6 +1,5 @@
 package com.mylog.common.licence.service.impl;
 
-import com.mylog.common.licence.entity.Role;
 import com.mylog.common.licence.mapper.UserRoleMapper;
 import com.mylog.common.licence.service.IRoleService;
 import com.mylog.common.licence.service.IUserRoleService;
