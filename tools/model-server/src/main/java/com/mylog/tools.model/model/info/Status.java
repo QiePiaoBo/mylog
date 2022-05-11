@@ -59,9 +59,14 @@ public enum  Status {
      */
     ERROR_BASE(100012),
     /**
-     * 未确定错误，基础错误
+     * 用户已经存在
      */
-    USER_EXISTS(100013)
+    USER_EXISTS(100013),
+
+    /**
+     * 未登录
+     */
+    NOT_LOGIN(100014)
     ;
 
     private long status;

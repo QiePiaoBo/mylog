@@ -68,7 +68,12 @@ public enum  Message {
     /**
      * 用户已存在
      */
-    USER_EXISTS("用户已存在")
+    USER_EXISTS("用户已存在"),
+
+    /**
+     * 未登录
+     */
+    NOT_LOGIN("未登录")
     ;
 
     private String msg;

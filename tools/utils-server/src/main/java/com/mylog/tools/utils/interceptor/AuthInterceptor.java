@@ -1,6 +1,9 @@
 package com.mylog.tools.utils.interceptor;
 
 import com.mylog.tools.model.annos.AdminPermission;
+import com.mylog.tools.model.model.info.Message;
+import com.mylog.tools.model.model.info.Status;
+import com.mylog.tools.model.model.result.DataResult;
 import com.mylog.tools.utils.session.UserContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -37,7 +40,9 @@ public class AuthInterceptor implements HandlerInterceptor {
             // 需要验证的Method
             if (null == UserContext.getCurrentUser()) {
                 response.setContentType("application/json; charset=UTF-8");
-                response.getWriter().write("未登录");
+                response.getWriter().write(DataResult
+                        .fail(Status.NOT_LOGIN.getStatus(), Message.NOT_LOGIN.getMsg())
+                        .build().toString());
                 return false;
             }
             // todo 修改权限校验方式
@@ -47,9 +52,13 @@ public class AuthInterceptor implements HandlerInterceptor {
             if (!result) {
                 response.setContentType("application/json; charset=UTF-8");
                 if (UserContext.getCurrentUser() == null) {
-                    response.getWriter().write("未登录");
+                    response.getWriter().write(DataResult
+                            .fail(Status.NOT_LOGIN.getStatus(), Message.NOT_LOGIN.getMsg())
+                            .build().toString());
                 } else {
-                    response.getWriter().write("权限不足");
+                    response.getWriter().write(DataResult
+                            .fail(Status.PERMISSION_ERROR.getStatus(), Message.PERMISSION_ERROR.getMsg())
+                            .build().toString());
                 }
             }
             return result;
