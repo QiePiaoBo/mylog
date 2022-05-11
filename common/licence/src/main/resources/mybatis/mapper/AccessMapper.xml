@@ -29,7 +29,7 @@
             del_flag = 0
     </select>
 
-    <select id="selectAccessListByIds" resultMap="systemRoleMap">
+    <select id="selectAccessListByIds" resultMap="systemAccessMap">
         select
         <include refid="TableField" />
         from
