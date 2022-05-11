@@ -110,7 +110,7 @@ public class FileServiceImpl implements IFileService {
      */
     public void upload2Server(String subffix, String sonPath, String fileName){
         // 判断是否是windows平台
-        boolean isWindows = new SysInfo().isWindows();
+        boolean isWindows = SysInfo.isWindows();
         String filepath = "";
         // 如果上传至服务器，则根据服务器所处平台更改文件存储位置
         if (isWindows){
