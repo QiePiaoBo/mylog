@@ -29,6 +29,21 @@
             del_flag = 0
     </select>
 
+    <select id="selectAccessListByIds" resultMap="systemRoleMap">
+        select
+        <include refid="TableField" />
+        from
+        <include refid="TableName" />
+        where
+        `id`
+        in
+        <foreach collection="ids" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+        and
+        `del_flag` = 0
+    </select>
+
     <update id="logicalDeletionById">
         update
             <include refid="TableName" />

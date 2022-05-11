@@ -35,4 +35,11 @@ public interface AccessMapper extends BaseMapper<Access> {
      * @return
      */
     Integer logicalDeletionById(@Param("id") Integer id);
+
+    /**
+     * 根据id列表查询权限列表
+     * @param ids
+     * @return
+     */
+    List<Access> selectAccessListByIds(@Param("ids") List<Integer> ids);
 }

@@ -121,4 +121,19 @@ public class AccessServiceImpl implements IAccessService {
                 .data(accessDTO)
                 .build();
     }
+
+    /**
+     * 根据id列表查询权限列表
+     *
+     * @param ids
+     * @return
+     */
+    @Override
+    public HttpResult selectAccessListByIds(List<Integer> ids) {
+        List<Access> accesses = mapper.selectAccessListByIds(ids);
+        return DataResult
+                .success()
+                .data(accesses)
+                .build();
+    }
 }

@@ -1,0 +1,30 @@
+package com.mylog.common.licence.mapper;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+
+/**
+ * @Classname RoleAccessMapper
+ * @Description RoleAccessMapper
+ * @Date 5/11/2022 9:40 AM
+ */
+@Mapper
+public interface RoleAccessMapper {
+
+    /**
+     * 根据角色id查询权限列表
+     * @param roleId
+     * @return
+     */
+    List<Integer> getAccessList4Role(@Param("roleId") Integer roleId);
+
+    /**
+     * 根据id逻辑删除
+     * @param id
+     * @return
+     */
+    Integer logicalDeletionById(@Param("id") Integer id);
+
+}

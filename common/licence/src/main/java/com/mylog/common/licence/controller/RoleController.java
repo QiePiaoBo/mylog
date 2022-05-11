@@ -1,10 +1,11 @@
 package com.mylog.common.licence.controller;
 
 import com.mylog.common.licence.model.dto.RoleDTO;
+import com.mylog.common.licence.service.IRoleAccessService;
 import com.mylog.common.licence.service.IRoleService;
 import com.mylog.tools.model.model.page.MyPage;
 import com.mylog.tools.model.model.result.HttpResult;
-import org.apache.ibatis.annotations.Param;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -20,6 +21,8 @@ public class RoleController {
 
     @Resource
     private IRoleService roleService;
+    @Resource
+    private IRoleAccessService roleAccessService;
 
     /**
      * 分页获取角色
@@ -65,6 +68,11 @@ public class RoleController {
     @PatchMapping
     public HttpResult updateById(@RequestBody RoleDTO roleDTO){
         return roleService.updateById(roleDTO);
+    }
+
+    @GetMapping("get-accesses")
+    public HttpResult getAccesses4Role(@Param("id") Integer id){
+        return roleAccessService.getAccesses4Role(id);
     }
 
 }

@@ -5,22 +5,22 @@
 <!--    </resultMap>-->
 
     <sql id="TableField">
-        id, user_id, role_id, created_at, updated_at, del_flag
+        id, access_id, role_id, created_at, updated_at, del_flag
     </sql>
 
     <sql id="TableName">
-        `user_role`
+        `role_access`
     </sql>
 
-    <select id="getRoleList4User" resultType="java.lang.Integer">
+    <select id="getAccessList4Role" resultType="java.lang.Integer">
         select
-            `role_id`
+        `access_id`
         from
-            <include refid="TableName" />
+        <include refid="TableName" />
         where
-            `user_id` = #{userId}
+        `role_id` = #{roleId}
         and
-            `del_flag` = 0;
+        `del_flag` = 0;
     </select>
 
     <update id="logicalDeletionById">

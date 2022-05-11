@@ -13,6 +13,18 @@ import java.util.List;
 @Mapper
 public interface UserRoleMapper {
 
+    /**
+     * 根据id逻辑删除
+     * @param id
+     * @return
+     */
+    Integer logicalDeletionById(@Param("id") Integer id);
+
+    /**
+     * 根据userId获取角色列表
+     * @param userId
+     * @return
+     */
     List<Integer> getRoleList4User(@Param("userId") Integer userId);
 
 }

@@ -4,6 +4,8 @@ import com.mylog.common.licence.model.dto.AccessDTO;
 import com.mylog.tools.model.model.page.MyPage;
 import com.mylog.tools.model.model.result.HttpResult;
 
+import java.util.List;
+
 /**
  * @author Dylan
  * @Description IAccessService
@@ -45,4 +47,11 @@ public interface IAccessService {
      * @return
      */
     HttpResult updateById(AccessDTO accessDTO);
+
+    /**
+     * 根据id列表查询权限列表
+     * @param ids
+     * @return
+     */
+    HttpResult selectAccessListByIds(List<Integer> ids);
 }
