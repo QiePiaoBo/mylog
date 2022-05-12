@@ -110,6 +110,7 @@ public class UserController {
      * @param id
      * @return
      */
+    @AdminPermission
     @GetMapping("get-accesses")
     public HttpResult getAccesses4User(@Param("id") Integer id){
         return userAccessService.getAccesses4User(id);
