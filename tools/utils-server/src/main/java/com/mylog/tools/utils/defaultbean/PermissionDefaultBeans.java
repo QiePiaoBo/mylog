@@ -1,4 +1,4 @@
-package com.mylog.tools.utils.onmissing;
+package com.mylog.tools.utils.defaultbean;
 
 import com.mylog.tools.utils.session.UserContext;
 import com.mylog.tools.utils.utils.PermissionChecker;
@@ -14,7 +14,7 @@ import java.util.Objects;
  * @Date 5/11/2022 7:28 PM
  */
 @Configuration
-public class DefaultComponents{
+public class PermissionDefaultBeans {
 
     /**
      * 如果PermissionChecker并没有实现并注册到spring容器 就在这里初始化并注册到spring
