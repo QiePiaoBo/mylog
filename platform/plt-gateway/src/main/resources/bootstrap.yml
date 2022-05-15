@@ -11,7 +11,7 @@ spring:
         server-addr: logicer.top:8848
         file-extension: yaml
         namespace: ${config.namespace}
-        shared-configs:
+        extension-configs:
           - {dataId: common.yaml, group: 'DEFAULT_GROUP', refresh: true}
           - {dataId: plt_db.yaml, group: 'DEFAULT_GROUP', refresh: true}
           - {dataId: redis.yaml, group: 'DEFAULT_GROUP', refresh: true}
