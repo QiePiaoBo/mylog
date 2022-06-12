@@ -20,8 +20,8 @@ public enum UserIdTypeEnum {
      */
     HOUSEHOLD_ID(2,"户口本");
 
-    private Integer typeId;
-    private String typeName;
+    private final Integer typeId;
+    private final String typeName;
 
     UserIdTypeEnum(Integer typeId, String typeName) {
         this.typeId = typeId;

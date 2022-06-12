@@ -113,6 +113,12 @@
             <groupId>com.mylog.tools</groupId>
             <artifactId>model-server</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.dylan</groupId>
+            <artifactId>logicer-base</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
     <build>
         <!-- 打包名称 -->
