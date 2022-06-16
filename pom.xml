@@ -10,7 +10,7 @@
     <modules>
         <module>platform</module>
         <module>common</module>
-        <module>ds</module>
+        <module>business</module>
         <module>tools</module>
     </modules>
     <packaging>pom</packaging>
