@@ -108,7 +108,12 @@
                 <artifactId>hibernate-validator</artifactId>
                 <version>${hibernate-validator.version}</version>
             </dependency>
-
+            <!--      hbase      -->
+            <dependency>
+                <groupId>org.apache.hbase</groupId>
+                <artifactId>hbase-client</artifactId>
+                <version>2.4.9</version>
+            </dependency>
             <!-- nacos-discovery 默认集成ribbon -->
             <!--    nacos配置 -->
             <dependency>
