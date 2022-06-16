@@ -5,10 +5,9 @@
     <parent>
         <artifactId>mylog-plat</artifactId>
         <groupId>com.mylog</groupId>
-        <version>1.0.0.RELEASE</version>
+        <version>${default-version}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <version>1.0.0.RELEASE</version>
     <artifactId>tools</artifactId>
     <modules>
         <module>sdk-server</module>

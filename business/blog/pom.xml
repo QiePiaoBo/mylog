@@ -5,13 +5,12 @@
     <parent>
         <artifactId>business</artifactId>
         <groupId>com.mylog</groupId>
-        <version>1.0.0.RELEASE</version>
+        <version>${default-version}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.mylog.ds</groupId>
+    <groupId>com.mylog.business</groupId>
     <artifactId>blog</artifactId>
-    <version>${default-version}</version>
     <packaging>jar</packaging>
     <description>博客</description>
 

@@ -5,10 +5,11 @@
     <parent>
         <artifactId>business</artifactId>
         <groupId>com.mylog</groupId>
-        <version>1.0.0.RELEASE</version>
+        <version>${default-version}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>com.mylog.business</groupId>
     <artifactId>chat</artifactId>
 
     <properties>
