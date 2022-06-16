@@ -6,7 +6,7 @@
 
     <groupId>com.mylog</groupId>
     <artifactId>mylog-plat</artifactId>
-    <version>${default-version}</version>
+    <version>1.0.0-SNAPSHOT</version>
     <modules>
         <module>platform</module>
         <module>common</module>
@@ -19,7 +19,7 @@
         <!--    自定义配置当前所有jar的profile   -->
         <default-profile>dev</default-profile>
         <!--    自定义配置当前所有jar的版本   -->
-        <default-version>1.0.0.RELEASE</default-version>
+        <default-version>1.0.0-SNAPSHOT</default-version>
 
         <java.version>1.8</java.version>
         <tomcat.version>7.0.94</tomcat.version>
@@ -293,6 +293,7 @@
                         <execution>
                             <goals>
                                 <goal>repackage</goal>
+                                <goal>build-info</goal>
                             </goals>
                         </execution>
                     </executions>

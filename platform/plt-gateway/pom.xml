@@ -5,12 +5,11 @@
     <parent>
         <artifactId>platform</artifactId>
         <groupId>com.mylog</groupId>
-        <version>1.0.0.RELEASE</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mylog.platform</groupId>
     <artifactId>plt-gateway</artifactId>
-    <version>${default-version}</version>
     <packaging>jar</packaging>
     <description>网关</description>
 
