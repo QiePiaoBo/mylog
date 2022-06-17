@@ -5,7 +5,7 @@
     <parent>
         <artifactId>platform</artifactId>
         <groupId>com.mylog</groupId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>1.2.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mylog.platform</groupId>
@@ -102,7 +102,7 @@
 
     <build>
         <!-- 打包名称 -->
-        <finalName>${project.artifactId}-${default-version}</finalName>
+        <finalName>${project.artifactId}-${version}</finalName>
         <!--    需要引入这两个插件 不然会没有主清单属性    -->
         <plugins>
             <plugin>

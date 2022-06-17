@@ -6,7 +6,7 @@
 
     <groupId>com.mylog</groupId>
     <artifactId>mylog-plat</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.2.0-SNAPSHOT</version>
     <modules>
         <module>platform</module>
         <module>common</module>
@@ -18,9 +18,6 @@
     <properties>
         <!--    自定义配置当前所有jar的profile   -->
         <default-profile>dev</default-profile>
-        <!--    自定义配置当前所有jar的版本   -->
-        <default-version>1.0.0-SNAPSHOT</default-version>
-
         <java.version>1.8</java.version>
         <tomcat.version>7.0.94</tomcat.version>
         <fastjson.version>1.2.62</fastjson.version>
@@ -82,19 +79,19 @@
             <dependency>
                 <groupId>com.mylog.tools</groupId>
                 <artifactId>sdk-server</artifactId>
-                <version>${default-version}</version>
+                <version>${version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.mylog.tools</groupId>
                 <artifactId>utils-server</artifactId>
-                <version>${default-version}</version>
+                <version>${version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.mylog.tools</groupId>
                 <artifactId>model-server</artifactId>
-                <version>${default-version}</version>
+                <version>${version}</version>
             </dependency>
 
             <dependency>
