@@ -1,6 +1,20 @@
 server:
   port: ${business.port.chat}
 spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: logicer.top:8848
+        file-extension: yaml
+        namespace: ${config.namespace}
+        extension-configs:
+          - { dataId: common.yaml, group: 'DEFAULT_GROUP', refresh: true }
+          - { dataId: plt_db.yaml, group: 'DEFAULT_GROUP', refresh: true }
+          - { dataId: redis.yaml, group: 'DEFAULT_GROUP', refresh: true }
+        discovery:
+          namespace: ${config.namespace}
+          server-addr: logicer.top:8848
+          ip: { 127.0.0.1 }
   rabbitmq:
     host: logicer.top
     port: 5672

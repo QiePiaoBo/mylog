@@ -53,6 +53,12 @@
         <dependency>
             <groupId>com.dylan</groupId>
             <artifactId>logicer-base</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
     </dependencies>
