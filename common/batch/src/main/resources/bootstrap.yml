@@ -1,5 +1,5 @@
 server:
-  port: 9001
+  port: ${common.port.batch}
 spring:
   main:
     allow-bean-definition-overriding: true

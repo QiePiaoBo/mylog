@@ -1,0 +1,18 @@
+server:
+  port: ${business.port.chat}
+spring:
+  rabbitmq:
+    host: logicer.top
+    port: 5672
+    username: dylan
+    password: logicer
+    virtual-host: /
+    publisher-confirm-type: simple
+    publisher-returns: true
+    listener:
+      simple:
+        acknowledge-mode: manual
+        concurrency: 1
+        max-concurrency: 10
+        retry:
+          enabled: true

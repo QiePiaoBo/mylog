@@ -1,5 +1,5 @@
 server:
-  port: 9011
+  port: ${business.port.blog}
 spring:
   application:
     name: ds-blog

@@ -1,5 +1,5 @@
 server:
-  port: 9003
+  port: ${common.port.licence}
 spring:
   application:
     name: cm-licence
