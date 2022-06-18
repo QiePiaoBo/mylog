@@ -13,15 +13,14 @@ import org.springframework.stereotype.Component;
  * @Date 6/17/2022 3:21 PM
  */
 @Component
-@RabbitListener(queues = {LogicerTalkMQConstant.LOGICER_QUEUE_TALK})
 public class LogicerTalkListener {
 
     private final Logger logger = LoggerFactory.getLogger(LogicerTalkListener.class);
 
-    @RabbitHandler
+    @RabbitListener(queues = {LogicerTalkMQConstant.LOGICER_QUEUE_TALK})
     public void receiveMsg(String msg){
+        // todo 添加TALK类型消息的处理逻辑（入库）
         logger.info("class:{},message:{}", "LogicerTalkListener", msg);
     }
-
 
 }

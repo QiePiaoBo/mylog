@@ -3,30 +3,16 @@ server:
 spring:
   cloud:
     nacos:
+      server-addr: logicer.top:8848
       config:
-        server-addr: logicer.top:8848
         file-extension: yaml
-        namespace: ${config.namespace}
-        extension-configs:
+        shared-configs:
           - { dataId: common.yaml, group: 'DEFAULT_GROUP', refresh: true }
-          - { dataId: plt_db.yaml, group: 'DEFAULT_GROUP', refresh: true }
+          - { dataId: chat_db.yaml, group: 'DEFAULT_GROUP', refresh: true }
           - { dataId: redis.yaml, group: 'DEFAULT_GROUP', refresh: true }
-        discovery:
-          namespace: ${config.namespace}
-          server-addr: logicer.top:8848
-          ip: { 127.0.0.1 }
-  rabbitmq:
-    host: logicer.top
-    port: 5672
-    username: dylan
-    password: logicer
-    virtual-host: /
-    publisher-confirm-type: simple
-    publisher-returns: true
-    listener:
-      simple:
-        acknowledge-mode: manual
-        concurrency: 1
-        max-concurrency: 10
-        retry:
-          enabled: true
+          - { dataId: rabbit.yaml, group: 'DEFAULT_GROUP', refresh: true }
+        namespace: ${config.namespace}
+        server-addr: logicer.top:8848
+      discovery:
+        register-enabled: true
+        service: ${artifactId}

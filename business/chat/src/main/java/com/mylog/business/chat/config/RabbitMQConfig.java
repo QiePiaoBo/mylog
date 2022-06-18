@@ -1,8 +1,9 @@
 package com.mylog.business.chat.config;
 
+import com.mylog.business.chat.constant.LogicerTalkMQConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class RabbitMQConfig {
 
     @Bean
     public AmqpTemplate amqpTemplate(){
+
         rabbitTemplate.setEncoding("UTF-8");
         rabbitTemplate.setMandatory(true);
         // 开启returncallback    yml 需要配置publisher-returns: true
@@ -43,4 +45,18 @@ public class RabbitMQConfig {
         return rabbitTemplate;
     }
 
+    @Bean
+    public DirectExchange directExchange(){
+        return new DirectExchange(LogicerTalkMQConstant.LOGICER_DIRECT_EXCHANGE, true, false);
+    }
+
+    @Bean
+    public Queue logicerQueueTalk(){
+        return new Queue(LogicerTalkMQConstant.LOGICER_QUEUE_TALK, true);
+    }
+
+    @Bean
+    public Binding logicerBindingKeyTalk(){
+        return BindingBuilder.bind(logicerQueueTalk()).to(directExchange()).with(LogicerTalkMQConstant.LOGICER_ROUTING_KEY_TALK);
+    }
 }
