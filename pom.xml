@@ -39,7 +39,7 @@
 
         <mybatis-plus-generator.version>3.4.0</mybatis-plus-generator.version>
         <mybatis-plus-boot-starter.version>3.4.0</mybatis-plus-boot-starter.version>
-        <mysql-connector-java.version>8.0.16</mysql-connector-java.version>
+        <mysql-connector-java.version>8.0.28</mysql-connector-java.version>
 
         <hibernate-validator.version>7.0.0.Alpha6</hibernate-validator.version>
 
