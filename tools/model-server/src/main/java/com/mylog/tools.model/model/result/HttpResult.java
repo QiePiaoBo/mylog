@@ -59,10 +59,10 @@ public class HttpResult {
 
     @Override
     public String toString() {
-        return "HttpResult{" +
-                "status=" + status +
-                ", message='" + message + '\'' +
-                ", data=" + data +
+        return "{" +
+                "\"status\" : " + status +
+                ", \"message\" : \"" + message + "\"" +
+                ", \"data\" : " + data +
                 '}';
     }
 }

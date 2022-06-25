@@ -31,6 +31,26 @@ public class Access {
 
     private Integer accessStatus;
 
+    private Integer parentMenu;
+
+    private Integer requestType;
+
+    public Integer getParentMenu() {
+        return parentMenu;
+    }
+
+    public void setParentMenu(Integer parentMenu) {
+        this.parentMenu = parentMenu;
+    }
+
+    public Integer getRequestType() {
+        return requestType;
+    }
+
+    public void setRequestType(Integer requestType) {
+        this.requestType = requestType;
+    }
+
     private Integer delFlag;
 
     private Timestamp updatedAt;

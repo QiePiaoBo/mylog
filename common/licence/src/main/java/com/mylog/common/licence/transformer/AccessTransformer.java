@@ -23,6 +23,8 @@ public class AccessTransformer {
             return access;
         }
         access.setId(accessDTO.getId());
+        access.setRequestType(accessDTO.getRequestType());
+        access.setParentMenu(accessDTO.getParentMenu());
         access.setAccessCode(accessDTO.getAccessCode());
         access.setAccessName(accessDTO.getAccessName());
         access.setAccessType(accessDTO.getAccessType());
@@ -43,6 +45,8 @@ public class AccessTransformer {
             return accessVO;
         }
         accessVO.setId(access.getId());
+        accessVO.setParentMenu(access.getParentMenu());
+        accessVO.setRequestType(access.getRequestType());
         accessVO.setAccessCode(access.getAccessCode());
         accessVO.setAccessName(access.getAccessName());
         accessVO.setAccessType(access.getAccessType());

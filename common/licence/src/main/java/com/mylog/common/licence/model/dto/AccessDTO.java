@@ -20,6 +20,26 @@ public class AccessDTO {
 
     private Integer accessStatus;
 
+    private Integer parentMenu;
+
+    private Integer requestType;
+
+    public Integer getParentMenu() {
+        return parentMenu;
+    }
+
+    public void setParentMenu(Integer parentMenu) {
+        this.parentMenu = parentMenu;
+    }
+
+    public Integer getRequestType() {
+        return requestType;
+    }
+
+    public void setRequestType(Integer requestType) {
+        this.requestType = requestType;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -5,7 +5,7 @@
     </resultMap>
 
     <sql id="TableField">
-        id, access_code, access_name, access_type, access_uri, access_description, access_status, created_at, updated_at, del_flag
+        id, access_code, access_name, access_type, access_uri, access_description, access_status, parent_menu, request_type, created_at, updated_at, del_flag
     </sql>
 
     <sql id="TableName">
