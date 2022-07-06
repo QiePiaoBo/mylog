@@ -47,6 +47,10 @@
             <artifactId>hbase-client</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.mylog.tools</groupId>
             <artifactId>utils-server</artifactId>
         </dependency>
@@ -60,6 +64,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
 
     </dependencies>
 
