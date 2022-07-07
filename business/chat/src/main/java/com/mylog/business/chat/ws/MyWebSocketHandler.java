@@ -64,6 +64,12 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
      */
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+        Object websocket_username = session.getAttributes().get("WEBSOCKET_USERNAME");
+        String userName = "";
+        if (Objects.nonNull(websocket_username) && websocket_username instanceof String){
+            userName = (String) websocket_username;
+        }
+        logger.info("UserName is {}", userName);
         WebSocketSession put = sessionPool.put(session.getId(), session);
         if (Objects.isNull(put)){
             addOnlineCount();

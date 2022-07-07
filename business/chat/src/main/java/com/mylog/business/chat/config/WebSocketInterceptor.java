@@ -11,7 +11,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.HandshakeInterceptor;
 
+import javax.servlet.http.HttpSession;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @Classname WebSocketInterceptor
@@ -44,6 +46,14 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
         // todo 根据获取到的authorization的值进行鉴权
         if (StringUtils.isBlank(authorization) || !authorization.equals("hello-world")){
             return false;
+        }
+        HttpSession httpSession = serverHttpRequest.getServletRequest().getSession(true);
+        if (Objects.nonNull(httpSession)){
+            String userName = (String) httpSession.getAttribute("SESSION_USERNAME");
+            if (StringUtils.isBlank(userName)){
+                userName = authorization;
+            }
+            map.put("WEBSOCKET_USERNAME", userName);
         }
         serverHttpResponse.getServletResponse().setHeader("logicer-chat-protocol", authorization);
         logger.info("start shaking hands >>>>>>");
