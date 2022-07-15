@@ -1,5 +1,6 @@
 package com.mylog.tools.utils.session;
 
+import com.mylog.tools.model.constant.CommonConstant;
 import com.mylog.tools.model.model.entity.Person;
 import com.mylog.tools.model.model.vo.PersonVo;
 import org.springframework.beans.BeanUtils;
@@ -8,6 +9,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.Objects;
 
 /**
  * 保存和获取当前用户
@@ -15,8 +17,6 @@ import javax.servlet.http.HttpSession;
  */
 @Service
 public class UserContext {
-
-    private static final String CURRENT_USER_IN_SESSION = "user";
 
     /**
      * 获取session
@@ -34,21 +34,24 @@ public class UserContext {
      */
     public static void putCurrentUser(Person currentUser){
         getSession().setMaxInactiveInterval(30*60);
-        getSession().setAttribute(CURRENT_USER_IN_SESSION, currentUser);
+        getSession().setAttribute(CommonConstant.SESSION_HEADER, currentUser);
     }
 
     /**
      * 删除当前的人的session
      */
     public static void deleteCurrentUser(){
-        getSession().removeAttribute(CURRENT_USER_IN_SESSION);
+        PersonVo currentUser = getCurrentUser();
+        if (Objects.nonNull(currentUser)){
+            getSession().removeAttribute(CommonConstant.SESSION_HEADER);
+        }
     }
     /**
      * 获取当前用户
      * @return
      */
     public static PersonVo getCurrentUser(){
-        Object o = getSession().getAttribute(CURRENT_USER_IN_SESSION);
+        Object o = getSession().getAttribute(CommonConstant.SESSION_HEADER);
         PersonVo personVo = new PersonVo();
         if (null == o){
             return null;
