@@ -1,6 +1,6 @@
 package com.mylog.business.chat.config;
 
-import com.mylog.business.chat.constant.LogicerTalkMQConstant;
+import com.dylan.mq.LogicerTalkMqConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.*;
@@ -47,16 +47,16 @@ public class RabbitMQConfig {
 
     @Bean
     public DirectExchange directExchange(){
-        return new DirectExchange(LogicerTalkMQConstant.LOGICER_DIRECT_EXCHANGE, true, false);
+        return new DirectExchange(LogicerTalkMqConstant.LOGICER_DIRECT_EXCHANGE, true, false);
     }
 
     @Bean
     public Queue logicerQueueTalk(){
-        return new Queue(LogicerTalkMQConstant.LOGICER_QUEUE_TALK, true);
+        return new Queue(LogicerTalkMqConstant.LOGICER_QUEUE_TALK, true);
     }
 
     @Bean
     public Binding logicerBindingKeyTalk(){
-        return BindingBuilder.bind(logicerQueueTalk()).to(directExchange()).with(LogicerTalkMQConstant.LOGICER_ROUTING_KEY_TALK);
+        return BindingBuilder.bind(logicerQueueTalk()).to(directExchange()).with(LogicerTalkMqConstant.LOGICER_ROUTING_KEY_TALK);
     }
 }

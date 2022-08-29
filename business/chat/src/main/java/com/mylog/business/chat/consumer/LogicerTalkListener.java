@@ -1,9 +1,8 @@
 package com.mylog.business.chat.consumer;
 
-import com.mylog.business.chat.constant.LogicerTalkMQConstant;
+import com.dylan.mq.LogicerTalkMqConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +16,7 @@ public class LogicerTalkListener {
 
     private final Logger logger = LoggerFactory.getLogger(LogicerTalkListener.class);
 
-    @RabbitListener(queues = {LogicerTalkMQConstant.LOGICER_QUEUE_TALK})
+    @RabbitListener(queues = {LogicerTalkMqConstant.LOGICER_QUEUE_TALK})
     public void receiveMsg(String msg){
         // todo 添加TALK类型消息的处理逻辑（入库）
         logger.info("class:{},message:{}", "LogicerTalkListener", msg);
