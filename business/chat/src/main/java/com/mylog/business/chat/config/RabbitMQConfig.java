@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Objects;
+
 /**
  * @Classname RabbitMQConfig
  * @Description RabbitMQConfig
@@ -37,7 +39,7 @@ public class RabbitMQConfig {
         //开启消息确认  yml 需要配置   publisher-returns: true
         rabbitTemplate.setConfirmCallback(((correlationData, ack, cause) ->{
             if (ack) {
-                logger.info("消息发送到交换机成功,correlationId:{}",correlationData.getId());
+                logger.info("消息发送到交换机成功,correlationId:{}", Objects.nonNull(correlationData) ? correlationData.getId() : "null");
             } else {
                 logger.info("消息发送到交换机失败,原因:{}",cause);
             }
