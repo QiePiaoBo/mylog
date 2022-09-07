@@ -226,6 +226,13 @@
                 <artifactId>logicer-base</artifactId>
                 <version>1.0.0</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>3.13.6</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
