@@ -68,11 +68,6 @@
             <artifactId>utils-server</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.dylan</groupId>
-            <artifactId>logicer-base</artifactId>
-        </dependency>
-
     </dependencies>
     
 </project>
