@@ -13,5 +13,6 @@
     <modules>
         <module>batch</module>
         <module>licence</module>
+        <module>files</module>
     </modules>
 </project>
