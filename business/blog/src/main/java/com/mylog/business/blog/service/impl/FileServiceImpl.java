@@ -1,5 +1,7 @@
 package com.mylog.business.blog.service.impl;
 
+import com.dylan.logger.MyLogger;
+import com.dylan.logger.MyLoggerFactory;
 import com.mylog.business.blog.service.ArticleService;
 import com.mylog.business.blog.service.IFileService;
 import com.mylog.business.blog.entity.Article;
@@ -31,6 +33,8 @@ import java.util.Date;
  */
 @Service
 public class FileServiceImpl implements IFileService {
+
+    private static final MyLogger log = MyLoggerFactory.getLogger(FileServiceImpl.class);
 
     @Resource
     UserService userService;
@@ -122,7 +126,7 @@ public class FileServiceImpl implements IFileService {
             // 目录不存在就创建
             if(!winFile.exists()){
                 boolean mkWinDirs = winFile.mkdirs();
-                System.out.println(mkWinDirs ? "created a path" : "do not need to create");
+                log.info(mkWinDirs ? "created a path" : "do not need to create");
             }
         } else {
             // 获取文件存放位置
@@ -133,7 +137,7 @@ public class FileServiceImpl implements IFileService {
             // 目录不存在就创建
             if(!linuxFile.exists()){
                 boolean mkLinuxDirs = linuxFile.mkdirs();
-                System.out.println(mkLinuxDirs ? "created a path" : "do not need to create");
+                log.info(mkLinuxDirs ? "created a path" : "do not need to create");
             }
         }
     }
