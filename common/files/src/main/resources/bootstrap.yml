@@ -1,0 +1,26 @@
+server:
+  port: ${common.port.files}
+spring:
+  application:
+    name: common-files
+  profiles:
+    active: ${default-profile}
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      config:
+        server-addr: logicer.top:8848
+        namespace: ${config.namespace}
+        file-extension: yaml
+        refresh-enabled: true
+        shared-configs:
+          - {dataId : common.yaml, group: 'DEFAULT_GROUP', refresh: true}
+          - {dataId : blog_db.yaml, group: 'DEFAULT_GROUP', refresh: true}
+          - {dataId : redis.yaml, group: 'DEFAULT_GROUP', refresh: true}
+      discovery:
+        namespace: ${config.namespace}
+        server-addr: logicer.top:8848
+        ip: {ip: 127.0.0.1}
+  session:
+    store-type: redis

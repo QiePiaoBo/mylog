@@ -33,7 +33,6 @@ public class QiNiuSdk {
         // 上传管理器
         UploadManager uploadManager = new UploadManager(configuration);
         // 上传文件至七牛 第一个参数是文件，第二个是存储时的名字，第三个是存储空间的token
-        Response uploadResponse = uploadManager.put(file, fileName, accessToken);
-        return uploadResponse;
+        return uploadManager.put(file, fileName, accessToken);
     }
 }

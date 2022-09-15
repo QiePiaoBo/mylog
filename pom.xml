@@ -72,6 +72,7 @@
         <!--    各服务的端口号    -->
         <common.port.licence>9000</common.port.licence>
         <common.port.batch>9001</common.port.batch>
+        <common.port.files>9002</common.port.files>
         <business.port.chat>9100</business.port.chat>
         <business.port.blog>9101</business.port.blog>
         <platform.port.gateway>8888</platform.port.gateway>
