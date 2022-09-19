@@ -1,13 +1,16 @@
-package com.dylan.common.files.service.impl;
+package com.mylog.common.files.service.impl;
 
-import com.dylan.common.files.dto.FileUploadDTO;
-import com.dylan.common.files.service.QiNiuService;
+import com.mylog.common.files.dto.FileUploadDTO;
+import com.mylog.common.files.service.QiNiuService;
 import com.mylog.tools.model.constant.FileConstant;
+import com.mylog.tools.model.model.dto.QiNiuFileInfo;
+import com.mylog.tools.model.model.exception.MyException;
 import com.mylog.tools.model.model.info.Message;
 import com.mylog.tools.model.model.info.Status;
 import com.mylog.tools.model.model.result.DataResult;
 import com.mylog.tools.sdks.filesdk.QiNiuSdk;
 import com.mylog.tools.utils.utils.FileUtils;
+import com.mylog.tools.utils.utils.QiNiuTransfer;
 import com.mylog.tools.utils.utils.StringSafeUtil;
 import com.qiniu.http.Response;
 import org.apache.commons.lang3.StringUtils;
@@ -58,6 +61,9 @@ public class QiNiuServiceImpl implements QiNiuService {
         File file = null;
         try {
             MultipartFile multipartFile = dto.getFile();
+            if (Objects.isNull(multipartFile)){
+                throw new MyException(Message.PARAM_NEED.getMsg());
+            }
             fileName = multipartFile.getOriginalFilename();
             file = FileUtils.multi2File(multipartFile);
             if (Objects.nonNull(file)){
@@ -72,6 +78,14 @@ public class QiNiuServiceImpl implements QiNiuService {
             String fileURI = FileConstant.QINIU_FILE_PREFIX + fileName;
             String responseInfo = response.getInfo();
             log.info("fileURI: {}, responseInfo: {}", fileURI, responseInfo);
+            // qiNiuFileInfo:
+            // https://upload-z1.qiniup.com/
+            // {ResponseInfo:com.qiniu.http.Response@1492aa65,status:200, reqId:PdcAAAB2as3HNhYX, xlog:X-Log, xvia:, adress:upload-z1.qiniup.com/110.242.48.29:443, duration:0.316000 s, error:null}
+            // {"key":"999.png","hash":"Ft_3svHaIdP3Ch6SrEP2D6xoVFZ-","bucket":"dylan-pic","fsize":10584}
+            QiNiuFileInfo qiNiuFileInfo = QiNiuTransfer.getInfoFromQiNiuResponse(responseInfo);
+            if (Objects.nonNull(qiNiuFileInfo)){
+
+            }
             if (file.exists()){
                 file.delete();
             }

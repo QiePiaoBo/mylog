@@ -1,10 +1,9 @@
-package com.dylan.common.files.controller;
+package com.mylog.common.files.controller;
 
-import com.dylan.common.files.dto.FileUploadDTO;
-import com.dylan.common.files.service.QiNiuService;
+import com.mylog.common.files.dto.FileUploadDTO;
+import com.mylog.common.files.service.QiNiuService;
 import com.mylog.tools.model.model.result.DataResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

@@ -1,4 +1,4 @@
-package com.dylan.common.files.dto;
+package com.mylog.common.files.dto;
 
 import org.springframework.web.multipart.MultipartFile;
 

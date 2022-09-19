@@ -1,6 +1,6 @@
-package com.dylan.common.files.service;
+package com.mylog.common.files.service;
 
-import com.dylan.common.files.dto.FileUploadDTO;
+import com.mylog.common.files.dto.FileUploadDTO;
 import com.mylog.tools.model.model.result.DataResult;
 
 /**
