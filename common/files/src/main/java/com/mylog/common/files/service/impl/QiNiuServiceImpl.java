@@ -16,6 +16,7 @@ import com.mylog.tools.sdks.filesdk.QiNiuSdk;
 import com.mylog.tools.utils.utils.FileUtils;
 import com.mylog.tools.utils.utils.StringSafeUtil;
 import com.qiniu.http.Response;
+import com.qiniu.storage.model.FileInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -96,5 +98,10 @@ public class QiNiuServiceImpl implements QiNiuService {
             return DataResult.success().build();
         }
         return DataResult.fail().build();
+    }
+
+    @Override
+    public List<FileInfo> queryFileList() {
+        return QiNiuSdk.queryFileList(bucketName, "", accessKey, secretKey, "");
     }
 }
