@@ -69,6 +69,7 @@
         <httpcore.version>4.4.9</httpcore.version>
         <mybatis-plus.version>3.5.1</mybatis-plus.version>
         <javax-el-api.version>2.2.4</javax-el-api.version>
+        <logicer-base.version>1.0.0</logicer-base.version>
         <!--    各服务的端口号    -->
         <common.port.licence>9000</common.port.licence>
         <common.port.batch>9001</common.port.batch>
@@ -225,7 +226,7 @@
             <dependency>
                 <groupId>com.dylan</groupId>
                 <artifactId>logicer-base</artifactId>
-                <version>1.0.0</version>
+                <version>${logicer-base.version}</version>
             </dependency>
 
             <dependency>
