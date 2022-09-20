@@ -1,14 +1,18 @@
 package com.mylog.common.licence.controller;
 
+import com.dylan.logger.MyLogger;
+import com.dylan.logger.MyLoggerFactory;
 import com.mylog.common.licence.model.dto.UserDTO;
 import com.mylog.common.licence.service.IUserService;
 import com.mylog.tools.model.annos.AdminPermission;
 import com.mylog.tools.model.model.result.HttpResult;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author Dylan
@@ -18,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("act")
 public class UserActController {
-    private static final Logger logger = LoggerFactory.getLogger(UserActController.class);
+    private static final MyLogger logger = MyLoggerFactory.getLogger(UserActController.class);
     @Autowired
     IUserService userService;
 

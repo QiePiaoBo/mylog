@@ -1,10 +1,9 @@
 package com.mylog.common.batch.writer;
 
+import com.dylan.logger.MyLogger;
+import com.dylan.logger.MyLoggerFactory;
 import com.mylog.common.batch.model.entity.MailEntity;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
-import org.springframework.batch.item.file.transform.LineAggregator;
 
 /**
  * @author Dylan
@@ -13,7 +12,7 @@ import org.springframework.batch.item.file.transform.LineAggregator;
  * @Function :
  */
 public class MailSendLineAggregator extends DelimitedLineAggregator<MailEntity> {
-    private static final Logger logger = LoggerFactory.getLogger(MailSendLineAggregator.class);
+    private static final MyLogger logger = MyLoggerFactory.getLogger(MailSendLineAggregator.class);
 
     @Override
     public String aggregate(MailEntity mailEntity) {

@@ -1,11 +1,10 @@
 package com.mylog.common.batch.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.dylan.logger.MyLogger;
+import com.dylan.logger.MyLoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.support.StandardServletEnvironment;
 
 import java.util.Map;
 
@@ -18,7 +17,7 @@ import java.util.Map;
 @RequestMapping("yaml")
 public class TestYaml {
 
-    private final Logger logger = LoggerFactory.getLogger(TestYaml.class);
+    private final MyLogger logger = MyLoggerFactory.getLogger(TestYaml.class);
 
     @Value("#{${ruleMap}}")
     private Map<String, String> map;

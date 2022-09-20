@@ -1,7 +1,7 @@
 package com.mylog.common.batch.writer;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.dylan.logger.MyLogger;
+import com.dylan.logger.MyLoggerFactory;
 
 /**
  * @author Dylan
@@ -10,6 +10,6 @@ import org.slf4j.LoggerFactory;
  * @Function :
  */
 public class CommonConstants {
-    private static final Logger logger = LoggerFactory.getLogger(CommonConstants.class);
+    private static final MyLogger logger = MyLoggerFactory.getLogger(CommonConstants.class);
     public static final String ENCODING_READ = "GBK";
 }

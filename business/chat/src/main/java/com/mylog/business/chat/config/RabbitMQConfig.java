@@ -1,5 +1,7 @@
 package com.mylog.business.chat.config;
 
+import com.dylan.logger.MyLogger;
+import com.dylan.logger.MyLoggerFactory;
 import com.dylan.mq.LogicerTalkMqConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +23,7 @@ import java.util.Objects;
 @EnableRabbit
 public class RabbitMQConfig {
 
-    private final Logger logger = LoggerFactory.getLogger(RabbitMQConfig.class);
+    private final MyLogger logger = MyLoggerFactory.getLogger(RabbitMQConfig.class);
 
     @Autowired
     private RabbitTemplate rabbitTemplate;

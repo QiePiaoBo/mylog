@@ -1,19 +1,23 @@
 package com.mylog.business.blog.service.impl;
 
+import com.dylan.logger.MyLogger;
+import com.dylan.logger.MyLoggerFactory;
 import com.mylog.business.blog.entity.Article;
 import com.mylog.business.blog.entity.dto.ArticleDto;
 import com.mylog.business.blog.mapper.ArticleMapper;
-import com.mylog.tools.model.model.result.DataResult;
 import com.mylog.tools.model.model.info.Message;
 import com.mylog.tools.model.model.info.Status;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.mylog.tools.model.model.result.DataResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author Dylan
@@ -23,7 +27,7 @@ import java.util.*;
  */
 @Service
 public class ArticleQueryService {
-    private static final Logger logger = LoggerFactory.getLogger(ArticleQueryService.class);
+    private static final MyLogger logger = MyLoggerFactory.getLogger(ArticleQueryService.class);
 
     @Autowired
     ArticleMapper articleMapper;

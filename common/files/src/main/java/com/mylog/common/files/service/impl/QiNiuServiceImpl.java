@@ -1,24 +1,22 @@
 package com.mylog.common.files.service.impl;
 
+import com.dylan.logger.MyLogger;
+import com.dylan.logger.MyLoggerFactory;
 import com.mylog.common.files.model.FileUploadModel;
 import com.mylog.common.files.model.dto.FileUploadDTO;
 import com.mylog.common.files.model.transfer.FileUploadTransfer;
 import com.mylog.common.files.service.FileUploadService;
 import com.mylog.common.files.service.QiNiuService;
 import com.mylog.tools.model.constant.FileConstant;
-import com.mylog.tools.model.model.dto.QiNiuFileInfo;
 import com.mylog.tools.model.model.exception.MyException;
 import com.mylog.tools.model.model.info.Message;
 import com.mylog.tools.model.model.info.Status;
 import com.mylog.tools.model.model.result.DataResult;
 import com.mylog.tools.sdks.filesdk.QiNiuSdk;
 import com.mylog.tools.utils.utils.FileUtils;
-import com.mylog.tools.utils.utils.QiNiuTransfer;
 import com.mylog.tools.utils.utils.StringSafeUtil;
 import com.qiniu.http.Response;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,7 +34,7 @@ import java.util.Objects;
 @Service
 public class QiNiuServiceImpl implements QiNiuService {
 
-    private static final Logger log = LoggerFactory.getLogger(QiNiuServiceImpl.class);
+    private static final MyLogger log = MyLoggerFactory.getLogger(QiNiuServiceImpl.class);
 
     @Resource
     private FileUploadService fileUploadService;
@@ -91,10 +89,6 @@ public class QiNiuServiceImpl implements QiNiuService {
             String fileURI = FileConstant.QINIU_FILE_PREFIX + fileName;
             String responseInfo = response.getInfo();
             log.info("fileURI: {}, responseInfo: {}", fileURI, responseInfo);
-            // qiNiuFileInfo:
-            // https://upload-z1.qiniup.com/
-            // {ResponseInfo:com.qiniu.http.Response@1492aa65,status:200, reqId:PdcAAAB2as3HNhYX, xlog:X-Log, xvia:, adress:upload-z1.qiniup.com/110.242.48.29:443, duration:0.316000 s, error:null}
-            // {"key":"999.png","hash":"Ft_3svHaIdP3Ch6SrEP2D6xoVFZ-","bucket":"dylan-pic","fsize":10584}
             FileUploadModel model = FileUploadTransfer.getModelFromQiNiuRespInfo(responseInfo);
             if (Objects.nonNull(model)){
                 return fileUploadService.insert(model);

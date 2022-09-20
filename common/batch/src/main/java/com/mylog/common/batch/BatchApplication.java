@@ -1,7 +1,7 @@
 package com.mylog.common.batch;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.dylan.logger.MyLogger;
+import com.dylan.logger.MyLoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
@@ -22,7 +22,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @ImportResource(locations = "classpath:/batchJobs/**.xml")
 public class BatchApplication {
 
-    private static final Logger logger = LoggerFactory.getLogger(BatchApplication.class);
+    private static final MyLogger logger = MyLoggerFactory.getLogger(BatchApplication.class);
 
     public static void main(String[] args) {
         SpringApplication.run(BatchApplication.class, args);

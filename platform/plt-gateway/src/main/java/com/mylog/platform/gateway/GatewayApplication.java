@@ -12,8 +12,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication(scanBasePackages = {"com.mylog.platform.gateway"})
 @EnableDiscoveryClient
 public class GatewayApplication {
-
     private static final Logger logger = LoggerFactory.getLogger(GatewayApplication.class);
+
     public static void main(String[] args) {
         SpringApplication.run(GatewayApplication.class, args);
         logger.info("GatewayApplication started.");

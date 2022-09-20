@@ -1,7 +1,7 @@
 package com.mylog.common.batch.listener;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.dylan.logger.MyLogger;
+import com.dylan.logger.MyLoggerFactory;
 import org.springframework.batch.core.SkipListener;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.listener.StepExecutionListenerSupport;
@@ -13,7 +13,7 @@ import org.springframework.batch.core.listener.StepExecutionListenerSupport;
  * @Function :
  */
 public class BatchSkipListener extends StepExecutionListenerSupport implements SkipListener {
-    private static final Logger logger = LoggerFactory.getLogger(BatchSkipListener.class);
+    private static final MyLogger logger = MyLoggerFactory.getLogger(BatchSkipListener.class);
 
     private StepExecution step;
 

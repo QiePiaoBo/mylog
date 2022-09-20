@@ -1,9 +1,9 @@
 package com.mylog.common.files;
 
+import com.dylan.logger.MyLogger;
+import com.dylan.logger.MyLoggerFactory;
 import com.mylog.tools.utils.utils.QiNiuTransfer;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @Classname ResponseInfoParseTest
@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ResponseInfoParseTest {
 
-    private static final Logger log = LoggerFactory.getLogger(ResponseInfoParseTest.class);
+    private static final MyLogger log = MyLoggerFactory.getLogger(ResponseInfoParseTest.class);
 
     @Test
     public void test1(){
