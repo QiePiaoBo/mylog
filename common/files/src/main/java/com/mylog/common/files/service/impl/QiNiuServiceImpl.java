@@ -1,6 +1,9 @@
 package com.mylog.common.files.service.impl;
 
-import com.mylog.common.files.dto.FileUploadDTO;
+import com.mylog.common.files.model.FileUploadModel;
+import com.mylog.common.files.model.dto.FileUploadDTO;
+import com.mylog.common.files.model.transfer.FileUploadTransfer;
+import com.mylog.common.files.service.FileUploadService;
 import com.mylog.common.files.service.QiNiuService;
 import com.mylog.tools.model.constant.FileConstant;
 import com.mylog.tools.model.model.dto.QiNiuFileInfo;
@@ -20,6 +23,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
@@ -33,6 +37,9 @@ import java.util.Objects;
 public class QiNiuServiceImpl implements QiNiuService {
 
     private static final Logger log = LoggerFactory.getLogger(QiNiuServiceImpl.class);
+
+    @Resource
+    private FileUploadService fileUploadService;
 
     @Value("${qiniu.accesskey:}")
     String accessKey;
@@ -68,13 +75,19 @@ public class QiNiuServiceImpl implements QiNiuService {
             file = FileUtils.multi2File(multipartFile);
             if (Objects.nonNull(file)){
                 response = QiNiuSdk.uploadToQiniu(file, accessKey, secretKey, bucketName);
+                // 上传之后将临时文件删掉
+                if (file.exists()){
+                    boolean deleted = file.delete();
+                    if (deleted){
+                        log.info("Temp File : {} deleted.", file.getName());
+                    }
+                }
             }
         }catch (IOException e){
             log.error("Error parsing file, reason: {}", e.getMessage(), e);
         }
         if (Objects.nonNull(response) && response.isOK()){
             log.info("response: {}", response);
-            // todo 解析Response中的信息并将文件相关信息存入数据库
             String fileURI = FileConstant.QINIU_FILE_PREFIX + fileName;
             String responseInfo = response.getInfo();
             log.info("fileURI: {}, responseInfo: {}", fileURI, responseInfo);
@@ -82,14 +95,11 @@ public class QiNiuServiceImpl implements QiNiuService {
             // https://upload-z1.qiniup.com/
             // {ResponseInfo:com.qiniu.http.Response@1492aa65,status:200, reqId:PdcAAAB2as3HNhYX, xlog:X-Log, xvia:, adress:upload-z1.qiniup.com/110.242.48.29:443, duration:0.316000 s, error:null}
             // {"key":"999.png","hash":"Ft_3svHaIdP3Ch6SrEP2D6xoVFZ-","bucket":"dylan-pic","fsize":10584}
-            QiNiuFileInfo qiNiuFileInfo = QiNiuTransfer.getInfoFromQiNiuResponse(responseInfo);
-            if (Objects.nonNull(qiNiuFileInfo)){
-
+            FileUploadModel model = FileUploadTransfer.getModelFromQiNiuRespInfo(responseInfo);
+            if (Objects.nonNull(model)){
+                return fileUploadService.insert(model);
             }
-            if (file.exists()){
-                file.delete();
-            }
-            return DataResult.getBuilder().data(response).build();
+            return DataResult.success().build();
         }
         return DataResult.fail().build();
     }

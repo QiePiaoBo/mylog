@@ -1,17 +1,13 @@
-package com.mylog.common.files.entity;
+package com.mylog.common.files.model;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-
-import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
- * @Classname FileUpload
- * @Description FileUpload
- * @Date 9/19/2022 6:40 PM
+ * @Classname FileUploadModel
+ * @Description FileUploadModel
+ * @Date 9/20/2022 1:47 PM
  */
-@TableName("file_upload")
-public class FileUpload implements Serializable {
+public class FileUploadModel {
 
 
     private Integer id;
@@ -36,7 +32,7 @@ public class FileUpload implements Serializable {
 
     private Timestamp updatedAt;
 
-    public FileUpload() {
+    public FileUploadModel() {
     }
 
 

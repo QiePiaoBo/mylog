@@ -1,7 +1,7 @@
 package com.mylog.common.files.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.mylog.common.files.entity.FileUpload;
+import com.mylog.common.files.model.entity.FileUpload;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
