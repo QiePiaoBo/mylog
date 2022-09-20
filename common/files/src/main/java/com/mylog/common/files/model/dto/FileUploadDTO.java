@@ -11,7 +11,6 @@ public class FileUploadDTO {
 
     private MultipartFile file;
 
-    private String fileName;
 
     public FileUploadDTO() {
     }
@@ -22,13 +21,5 @@ public class FileUploadDTO {
 
     public void setFile(MultipartFile file) {
         this.file = file;
-    }
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
     }
 }
