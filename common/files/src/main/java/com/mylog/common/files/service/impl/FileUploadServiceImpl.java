@@ -26,8 +26,8 @@ public class FileUploadServiceImpl implements FileUploadService {
     public DataResult insert(FileUploadModel model) {
         int insert = fileUploadMapper.insert(FileUploadTransfer.model2FileUpload(model));
         if (insert > 0){
-            return DataResult.success(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).build();
+            return DataResult.success(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).data(model.getFileUri()).build();
         }
-        return DataResult.fail(Status.INSERT_ERROR.getStatus(), Message.INSERT_ERROR.getMsg()).build();
+        return DataResult.fail(Status.INSERT_ERROR.getStatus(), Message.INSERT_ERROR.getMsg()).data(model.getFileUri()).build();
     }
 }
