@@ -85,6 +85,7 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
+
         <!--    引入自定义库    -->
         <dependency>
             <groupId>com.mylog.tools</groupId>

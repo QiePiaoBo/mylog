@@ -72,6 +72,11 @@
             <!-- 版本可以使用2.9.3、2.9.5 、2.9.8，不能忽略version属性-->
         </dependency>
 
+        <!--    添加服务监控    -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
     </dependencies>
 
     <!--  本地安装jar包：javax.servlet.servlet-api 注意要用cmd安装 shell命令安装貌似会将命令中的javax转义  -->
