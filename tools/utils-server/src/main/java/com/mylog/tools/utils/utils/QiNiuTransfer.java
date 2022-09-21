@@ -28,7 +28,6 @@ public class QiNiuTransfer {
             log.error("Error, can not parse response:{}.", strings);
             return result;
         }
-        log.info("Error, can not parse response:{}.", strings);
         String aimStr = strings.get(strings.size() - 1);
         log.info("aimString: {}", aimStr);
         try {
