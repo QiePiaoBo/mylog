@@ -1,9 +1,13 @@
 package com.mylog.common.files.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.mylog.common.files.model.entity.FileUpload;
+import com.mylog.common.files.model.FileUploadModel;
+import com.mylog.common.files.model.entity.FileUploadEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * @Classname FileUploadMapper
@@ -12,5 +16,10 @@ import org.springframework.stereotype.Component;
  */
 @Mapper
 @Component
-public interface FileUploadMapper extends BaseMapper<FileUpload> {
+public interface FileUploadMapper extends BaseMapper<FileUploadEntity> {
+
+
+    int insertUploads(List<FileUploadModel> fileUploadModels);
+
+
 }

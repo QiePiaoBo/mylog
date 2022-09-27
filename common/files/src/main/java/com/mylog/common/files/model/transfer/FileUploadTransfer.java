@@ -1,11 +1,14 @@
 package com.mylog.common.files.model.transfer;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mylog.common.files.model.FileUploadModel;
-import com.mylog.common.files.model.entity.FileUpload;
+import com.mylog.common.files.model.entity.FileUploadEntity;
 import com.mylog.tools.model.constant.FileConstant;
 import com.mylog.tools.model.model.dto.QiNiuFileInfo;
 import com.mylog.tools.utils.utils.QiNiuTransfer;
 import com.mylog.tools.utils.utils.Safes;
+import com.qiniu.storage.model.FileInfo;
 
 import java.util.Objects;
 
@@ -16,13 +19,15 @@ import java.util.Objects;
  */
 public class FileUploadTransfer {
 
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+
     /**
      * 入参转化为实体 字符串默认值为空
      * @param model
      * @return
      */
-    public static FileUpload model2FileUpload(FileUploadModel model){
-        FileUpload res = new FileUpload();
+    public static FileUploadEntity model2FileUpload(FileUploadModel model){
+        FileUploadEntity res = new FileUploadEntity();
         res.setId(model.getId());
         res.setType(Safes.of(model.getType(), 0));
         res.setUploadInfo(Safes.of(model.getUploadInfo()));
@@ -38,6 +43,11 @@ public class FileUploadTransfer {
         return res;
     }
 
+    /**
+     * 从七牛上传结果中获取文件上传参数以便存入数据库
+     * @param responseInfo
+     * @return
+     */
     public static FileUploadModel getModelFromQiNiuRespInfo(String responseInfo){
         QiNiuFileInfo qiNiuFileInfo = QiNiuTransfer.getInfoFromQiNiuResponse(responseInfo);
         if (Objects.isNull(qiNiuFileInfo)){
@@ -51,6 +61,29 @@ public class FileUploadTransfer {
         result.setBucket(qiNiuFileInfo.getBucket());
         result.setHash(qiNiuFileInfo.getHash());
         result.setUploadInfo(responseInfo);
+        return result;
+    }
+
+    /**
+     * 从七牛云查出的文件信息转化为文件上传实体类以便存入数据库
+     * @param bucketName
+     * @param uriPre
+     * @param fileInfo
+     * @return
+     */
+    public static FileUploadModel getFileUploadModel(String bucketName, String uriPre, FileInfo fileInfo){
+        FileUploadModel result = new FileUploadModel();
+        result.setBucket(bucketName);
+        result.setFileName(fileInfo.key);
+        result.setFileUri(uriPre + fileInfo.key);
+        result.setFileSize(fileInfo.fsize);
+        result.setHash(fileInfo.hash);
+        result.setType(0);
+        try {
+            result.setUploadInfo(objectMapper.writeValueAsString(fileInfo));
+        } catch (JsonProcessingException e) {
+            result.setUploadInfo(bucketName + "@" + fileInfo.key);
+        }
         return result;
     }
 

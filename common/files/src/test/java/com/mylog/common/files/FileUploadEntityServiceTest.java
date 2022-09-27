@@ -16,7 +16,7 @@ import javax.annotation.Resource;
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class FileUploadServiceTest {
+public class FileUploadEntityServiceTest {
 
     @Resource
     private FileUploadService fileUploadService;

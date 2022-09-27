@@ -2,6 +2,8 @@ package com.mylog.common.files;
 
 import com.dylan.logger.MyLogger;
 import com.dylan.logger.MyLoggerFactory;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mylog.common.files.model.FileUploadModel;
 import com.mylog.common.files.service.FileUploadService;
 import com.mylog.common.files.service.QiNiuService;
@@ -32,10 +34,21 @@ public class QiNiuServiceTest {
     public void test01(){
 
         List<FileInfo> fileInfos = qiNiuService.queryFileList();
+        ObjectMapper objectMapper = new ObjectMapper();
+        for (FileInfo fileInfo : fileInfos){
+            try {
+                log.info("res: {}", objectMapper.writeValueAsString(fileInfo));
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 
+    @Test
+    public void test02(){
 
+        qiNiuService.getQiNiuLog();
 
-        log.info("res: {}", fileInfos);
     }
 
 

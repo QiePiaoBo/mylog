@@ -14,6 +14,7 @@ import com.mylog.tools.model.model.info.Status;
 import com.mylog.tools.model.model.result.DataResult;
 import com.mylog.tools.sdks.filesdk.QiNiuSdk;
 import com.mylog.tools.utils.utils.FileUtils;
+import com.mylog.tools.utils.utils.Safes;
 import com.mylog.tools.utils.utils.StringSafeUtil;
 import com.qiniu.http.Response;
 import com.qiniu.storage.model.FileInfo;
@@ -27,6 +28,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @Classname QiNiuServiceImpl
@@ -98,6 +100,20 @@ public class QiNiuServiceImpl implements QiNiuService {
             return DataResult.success().build();
         }
         return DataResult.fail().build();
+    }
+
+
+    /**
+     * 将七牛云的文件同步到数据库中
+     */
+    @Override
+    public void getQiNiuLog(){
+        List<FileInfo> fileInfos = queryFileList();
+        List<FileUploadModel> uploadModels = Safes.of(fileInfos)
+                .stream()
+                .map(m -> FileUploadTransfer.getFileUploadModel(bucketName, FileConstant.QINIU_FILE_PREFIX, m))
+                .collect(Collectors.toList());
+        fileUploadService.batchInsert(uploadModels);
     }
 
     @Override

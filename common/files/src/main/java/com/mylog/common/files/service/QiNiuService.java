@@ -17,4 +17,5 @@ public interface QiNiuService {
 
     List<FileInfo> queryFileList();
 
+    void getQiNiuLog();
 }
