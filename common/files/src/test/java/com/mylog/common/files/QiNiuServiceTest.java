@@ -4,8 +4,6 @@ import com.dylan.logger.MyLogger;
 import com.dylan.logger.MyLoggerFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mylog.common.files.model.FileUploadModel;
-import com.mylog.common.files.service.FileUploadService;
 import com.mylog.common.files.service.QiNiuService;
 import com.qiniu.storage.model.FileInfo;
 import org.junit.Test;

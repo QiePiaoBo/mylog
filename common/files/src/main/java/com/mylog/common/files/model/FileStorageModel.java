@@ -1,56 +1,38 @@
-package com.mylog.common.files.model.entity;
+package com.mylog.common.files.model;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-
-import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
- * @Classname FileUpload
- * @Description FileUpload
- * @Date 9/19/2022 6:40 PM
+ * @Classname FileUploadModel
+ * @Description FileUploadModel
+ * @Date 9/20/2022 1:47 PM
  */
-@TableName("file_upload")
-public class FileUploadEntity implements Serializable {
+public class FileStorageModel {
 
 
-    @TableId(type = IdType.AUTO)
     private Integer id;
 
-    @TableField("type")
     private Integer type;
 
-    @TableField("upload_info")
     private String uploadInfo;
 
-    @TableField("file_name")
     private String fileName;
 
-    @TableField("file_uri")
     private String fileUri;
 
-    @TableField("file_size")
     private Long fileSize;
 
-    @TableField("hash")
     private String hash;
 
-    @TableField("bucket")
     private String bucket;
 
-    @TableField("del_flag")
     private Boolean delFlag;
 
-    @TableField("created_at")
     private Timestamp createdAt;
 
-    @TableField("updated_at")
     private Timestamp updatedAt;
 
-    public FileUploadEntity() {
+    public FileStorageModel() {
     }
 
 

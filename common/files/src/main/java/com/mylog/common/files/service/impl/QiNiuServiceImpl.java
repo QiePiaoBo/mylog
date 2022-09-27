@@ -2,10 +2,10 @@ package com.mylog.common.files.service.impl;
 
 import com.dylan.logger.MyLogger;
 import com.dylan.logger.MyLoggerFactory;
-import com.mylog.common.files.model.FileUploadModel;
-import com.mylog.common.files.model.dto.FileUploadDTO;
-import com.mylog.common.files.model.transfer.FileUploadTransfer;
-import com.mylog.common.files.service.FileUploadService;
+import com.mylog.common.files.model.FileStorageModel;
+import com.mylog.common.files.model.dto.FileStorageDTO;
+import com.mylog.common.files.model.transfer.FileStorageTransfer;
+import com.mylog.common.files.service.FileStorageService;
 import com.mylog.common.files.service.QiNiuService;
 import com.mylog.tools.model.constant.FileConstant;
 import com.mylog.tools.model.model.exception.MyException;
@@ -41,7 +41,7 @@ public class QiNiuServiceImpl implements QiNiuService {
     private static final MyLogger log = MyLoggerFactory.getLogger(QiNiuServiceImpl.class);
 
     @Resource
-    private FileUploadService fileUploadService;
+    private FileStorageService fileStorageService;
 
     @Value("${qiniu.accesskey:}")
     String accessKey;
@@ -57,7 +57,7 @@ public class QiNiuServiceImpl implements QiNiuService {
      * @return
      */
     @Override
-    public DataResult upload2QiNiu(FileUploadDTO dto){
+    public DataResult upload2QiNiu(FileStorageDTO dto){
         Response response = null;
         if (StringUtils.isBlank(accessKey) || StringUtils.isBlank(secretKey) || StringUtils.isBlank(bucketName)){
             log.error("Cannot get qi niu config: accessKey={}, secretKey={}, bucketName={}",
@@ -93,9 +93,9 @@ public class QiNiuServiceImpl implements QiNiuService {
             String fileURI = FileConstant.QINIU_FILE_PREFIX + fileName;
             String responseInfo = response.getInfo();
             log.info("fileURI: {}, responseInfo: {}", fileURI, responseInfo);
-            FileUploadModel model = FileUploadTransfer.getModelFromQiNiuRespInfo(responseInfo);
+            FileStorageModel model = FileStorageTransfer.getModelFromQiNiuRespInfo(responseInfo);
             if (Objects.nonNull(model)){
-                return fileUploadService.insert(model);
+                return fileStorageService.insert(model);
             }
             return DataResult.success().build();
         }
@@ -109,11 +109,11 @@ public class QiNiuServiceImpl implements QiNiuService {
     @Override
     public void getQiNiuLog(){
         List<FileInfo> fileInfos = queryFileList();
-        List<FileUploadModel> uploadModels = Safes.of(fileInfos)
+        List<FileStorageModel> uploadModels = Safes.of(fileInfos)
                 .stream()
-                .map(m -> FileUploadTransfer.getFileUploadModel(bucketName, FileConstant.QINIU_FILE_PREFIX, m))
+                .map(m -> FileStorageTransfer.getFileUploadModel(bucketName, FileConstant.QINIU_FILE_PREFIX, m))
                 .collect(Collectors.toList());
-        fileUploadService.batchInsert(uploadModels);
+        fileStorageService.batchInsert(uploadModels);
     }
 
     @Override

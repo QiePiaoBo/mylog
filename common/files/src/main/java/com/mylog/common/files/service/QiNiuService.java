@@ -1,6 +1,6 @@
 package com.mylog.common.files.service;
 
-import com.mylog.common.files.model.dto.FileUploadDTO;
+import com.mylog.common.files.model.dto.FileStorageDTO;
 import com.mylog.tools.model.model.result.DataResult;
 import com.qiniu.storage.model.FileInfo;
 
@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface QiNiuService {
 
-    DataResult upload2QiNiu(FileUploadDTO dto);
+    DataResult upload2QiNiu(FileStorageDTO dto);
 
     List<FileInfo> queryFileList();
 

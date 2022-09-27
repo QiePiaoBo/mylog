@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mylog.common.files.mapper.FileUploadMapper">
+<mapper namespace="com.mylog.common.files.mapper.FileStorageMapper">
 
-    <resultMap type="com.mylog.common.files.model.entity.FileUploadEntity" id="FileUploadMap">
+    <resultMap type="com.mylog.common.files.model.entity.FileStorage" id="FileUploadMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="type" column="type" jdbcType="INTEGER"/>
         <result property="uploadInfo" column="upload_info" jdbcType="VARCHAR"/>
@@ -17,14 +17,14 @@
     </resultMap>
 
 
-    <insert id="insertUploads" parameterType="java.util.List">
-        INSERT INTO `im_active_chat_detail`
+    <insert id="insertStorages" parameterType="java.util.List">
+        INSERT INTO im_active_chat_detail
         (`type`,`upload_info`,`file_name`,`file_uri`,`hash`,`file_size`,`bucket`)
         VALUES
-        <foreach collection="fileUploadModels" item="model" separator="," open="(" close=")">
-            #{model.type},#{model.uploadInfo},#{model.fileName},#{model.fileUri},#{model.hash},#{model.fileSize},#{model.bucket}
+        <foreach collection="fileStorageModels" item="model" separator=",">
+           ( #{model.type},#{model.uploadInfo},#{model.fileName},#{model.fileUri},#{model.hash},#{model.fileSize},#{model.bucket} )
         </foreach>
     </insert>
 
-    
+
 </mapper>

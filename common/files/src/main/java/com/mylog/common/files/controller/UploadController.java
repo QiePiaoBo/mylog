@@ -1,6 +1,6 @@
 package com.mylog.common.files.controller;
 
-import com.mylog.common.files.model.dto.FileUploadDTO;
+import com.mylog.common.files.model.dto.FileStorageDTO;
 import com.mylog.common.files.service.QiNiuService;
 import com.mylog.tools.model.model.result.DataResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,7 +22,7 @@ public class UploadController {
     private QiNiuService qiNiuService;
 
     @RequestMapping("qiniu")
-    public DataResult upload2Qiniu(@ModelAttribute FileUploadDTO dto){
+    public DataResult upload2Qiniu(@ModelAttribute FileStorageDTO dto){
         return qiNiuService.upload2QiNiu(dto);
     }
 

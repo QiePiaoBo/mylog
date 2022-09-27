@@ -7,12 +7,12 @@ import org.springframework.web.multipart.MultipartFile;
  * @Description FileUploadDTO
  * @Date 9/15/2022 6:06 PM
  */
-public class FileUploadDTO {
+public class FileStorageDTO {
 
     private MultipartFile file;
 
 
-    public FileUploadDTO() {
+    public FileStorageDTO() {
     }
 
     public MultipartFile getFile() {

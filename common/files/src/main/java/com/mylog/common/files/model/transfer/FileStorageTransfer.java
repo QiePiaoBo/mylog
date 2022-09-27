@@ -2,8 +2,8 @@ package com.mylog.common.files.model.transfer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mylog.common.files.model.FileUploadModel;
-import com.mylog.common.files.model.entity.FileUploadEntity;
+import com.mylog.common.files.model.FileStorageModel;
+import com.mylog.common.files.model.entity.FileStorage;
 import com.mylog.tools.model.constant.FileConstant;
 import com.mylog.tools.model.model.dto.QiNiuFileInfo;
 import com.mylog.tools.utils.utils.QiNiuTransfer;
@@ -17,7 +17,7 @@ import java.util.Objects;
  * @Description FileUploadTransfer
  * @Date 9/20/2022 1:50 PM
  */
-public class FileUploadTransfer {
+public class FileStorageTransfer {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -26,8 +26,8 @@ public class FileUploadTransfer {
      * @param model
      * @return
      */
-    public static FileUploadEntity model2FileUpload(FileUploadModel model){
-        FileUploadEntity res = new FileUploadEntity();
+    public static FileStorage model2FileUpload(FileStorageModel model){
+        FileStorage res = new FileStorage();
         res.setId(model.getId());
         res.setType(Safes.of(model.getType(), 0));
         res.setUploadInfo(Safes.of(model.getUploadInfo()));
@@ -48,12 +48,12 @@ public class FileUploadTransfer {
      * @param responseInfo
      * @return
      */
-    public static FileUploadModel getModelFromQiNiuRespInfo(String responseInfo){
+    public static FileStorageModel getModelFromQiNiuRespInfo(String responseInfo){
         QiNiuFileInfo qiNiuFileInfo = QiNiuTransfer.getInfoFromQiNiuResponse(responseInfo);
         if (Objects.isNull(qiNiuFileInfo)){
             return null;
         }
-        FileUploadModel result = new FileUploadModel();
+        FileStorageModel result = new FileStorageModel();
         result.setFileName(qiNiuFileInfo.getKey());
         result.setFileUri(FileConstant.QINIU_FILE_PREFIX + qiNiuFileInfo.getKey());
         result.setType(0);
@@ -71,8 +71,8 @@ public class FileUploadTransfer {
      * @param fileInfo
      * @return
      */
-    public static FileUploadModel getFileUploadModel(String bucketName, String uriPre, FileInfo fileInfo){
-        FileUploadModel result = new FileUploadModel();
+    public static FileStorageModel getFileUploadModel(String bucketName, String uriPre, FileInfo fileInfo){
+        FileStorageModel result = new FileStorageModel();
         result.setBucket(bucketName);
         result.setFileName(fileInfo.key);
         result.setFileUri(uriPre + fileInfo.key);
