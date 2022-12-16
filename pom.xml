@@ -77,6 +77,7 @@
         <business.port.chat>9100</business.port.chat>
         <business.port.blog>9101</business.port.blog>
         <platform.port.gateway>8888</platform.port.gateway>
+        <es.version>3.0.0</es.version>
     </properties>
 
     <dependencyManagement>
@@ -235,6 +236,13 @@
                 <version>3.13.6</version>
             </dependency>
 
+            <!--    es    -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+                <version>${es.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -244,10 +252,10 @@
         <!--    开发    -->
         <profile>
             <id>dev</id>
-            <activation>
-                <!--默认激活配置    -->
-                <activeByDefault>true</activeByDefault>
-            </activation>
+<!--            <activation>-->
+<!--                &lt;!&ndash;默认激活配置    &ndash;&gt;-->
+<!--                <activeByDefault>true</activeByDefault>-->
+<!--            </activation>-->
             <properties>
                 <!--    当前环境    -->
                 <profile.name>dev</profile.name>
@@ -261,7 +269,37 @@
         </profile>
 
         <!--    测试    -->
+        <profile>
+            <id>test</id>
+            <activation>
+                <!--默认激活配置    -->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <!--    当前环境    -->
+                <profile.name>test</profile.name>
+                <!--    nacos配置中心地址    -->
+                <config.server-addr>logicer.top:8848</config.server-addr>
+                <!--    Nacos配置中心命名空间，用于支持多环境，必须用id，默认为空    -->
+                <config.namespace>test_env</config.namespace>
+                <!--    Nacos发现地址    -->
+                <discovery.server-addr>logicer.top:8848</discovery.server-addr>
+            </properties>
+        </profile>
         <!--    生产    -->
+        <profile>
+            <id>prod</id>
+            <properties>
+                <!--    当前环境    -->
+                <profile.name>prod</profile.name>
+                <!--    nacos配置中心地址    -->
+                <config.server-addr>logicer.top:8848</config.server-addr>
+                <!--    Nacos配置中心命名空间，用于支持多环境，必须用id，默认为空    -->
+                <config.namespace>prod_env</config.namespace>
+                <!--    Nacos发现地址    -->
+                <discovery.server-addr>logicer.top:8848</discovery.server-addr>
+            </properties>
+        </profile>
     </profiles>
     <!--   打包相关  -->
     <build>

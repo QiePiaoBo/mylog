@@ -18,7 +18,6 @@ spring:
           - {dataId : common.yaml, group: 'DEFAULT_GROUP', refresh: true}
           - {dataId : blog_db.yaml, group: 'DEFAULT_GROUP', refresh: true}
           - {dataId : redis.yaml, group: 'DEFAULT_GROUP', refresh: true}
-          - {dataId : common.yaml, group: 'DEFAULT_GROUP', refresh: true}
       discovery:
         namespace: ${config.namespace}
         server-addr: logicer.top:8848

@@ -3,7 +3,6 @@ package com.mylog.business.chat.consumer;
 import com.dylan.logger.MyLogger;
 import com.dylan.logger.MyLoggerFactory;
 import com.dylan.mq.LogicerTalkMqConstant;
-import com.dylan.mq.LogicerTalkMqConstant;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
