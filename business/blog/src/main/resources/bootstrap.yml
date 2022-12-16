@@ -24,6 +24,10 @@ spring:
         ip: {ip: 127.0.0.1}
   session:
     store-type: redis
+  output:
+    ansi:
+      enabled: detect
+
 mybatis-plus:
   mapper-locations: classpath:mybatis/mapper/*Mapper.xml
   configuration:
