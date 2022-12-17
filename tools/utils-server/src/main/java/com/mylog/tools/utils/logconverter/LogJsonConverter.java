@@ -5,8 +5,6 @@ import ch.qos.logback.classic.spi.ILoggingEvent;
 import org.slf4j.helpers.MessageFormatter;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.stream.Stream;
-
 /**
  * @author Dylan
  * @Description LogJsonConverter
