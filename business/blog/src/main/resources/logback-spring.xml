@@ -12,6 +12,8 @@
     <!--  彩色日志依赖的渲染类  -->
     <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
     <conversionRule conversionWord="wex" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter" />
+    <!--  将文本中的 " 修改为 \" 打印json格式的时候会用到 在需要输出文本的地方使用这里定义的 %strmsg 而不是 %message -->
+    <conversionRule conversionWord="strmsg" converterClass="com.mylog.tools.utils.logconverter.LogJsonConverter" />
 
     <!--  彩色日志格式  -->
     <property name="CONSOLE_LOG_PATH"
@@ -32,7 +34,18 @@
         <!--for further documentation -->
         <encoder>
             <pattern>
-                { "timestamp": "%date{"yyyy-MM-dd HH:mm:ss:SSS"}", "app": "${applicationName}","level": "%level","pid": "${PID:-}", "thread": "%thread", "class": "%logger","method": "%method","line": "%line","message": "%message","statck_trace":"%xEx"}\n
+                {
+                    "timestamp": "%date{"yyyy-MM-dd HH:mm:ss:SSS"}",
+                    "app": "${applicationName}",
+                    "level": "%level",
+                    "pid": "${PID:-}",
+                    "thread": "%thread",
+                    "class": "%logger",
+                    "method": "%method",
+                    "line": "%line",
+                    "message": "%strmsg",
+                    "statck_trace":"%xEx"
+                }
             </pattern>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
