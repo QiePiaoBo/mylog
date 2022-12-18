@@ -2,7 +2,7 @@ server:
   port: ${common.port.files}
 spring:
   application:
-    name: common-files
+    name: cm-files
   profiles:
     active: ${default-profile}
   main:
