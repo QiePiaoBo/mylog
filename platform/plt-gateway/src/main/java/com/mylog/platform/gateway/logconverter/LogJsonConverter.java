@@ -38,7 +38,7 @@ public class LogJsonConverter extends MessageConverter {
                     // 所有的对象最终都要toString再写入日志 这里提前将其toString 放入参数列表中
                     String temp = m.toString();
                     String strArgument;
-                    strArgument = temp.replaceAll("\"", "\\\\\"");
+                    strArgument = temp.replaceAll("\"", "\\\\\"").replaceAll("\n", " ");
                     return strArgument;
                 }).toArray();
             }
@@ -47,6 +47,9 @@ public class LogJsonConverter extends MessageConverter {
             String replacedVar = message;
             if (message.contains("\"")){
                 replacedVar = message.replaceAll("\"", "\\\\\"");
+            }
+            if (message.contains("\r") || message.contains("\n")){
+                replacedVar = replacedVar.replaceAll("\n", " ").replaceAll("\r", " ");
             }
             String res = MessageFormatter.arrayFormat(replacedVar, Objects.isNull(argumentArray) ? event.getArgumentArray() : argumentArray).getMessage();
             return res;

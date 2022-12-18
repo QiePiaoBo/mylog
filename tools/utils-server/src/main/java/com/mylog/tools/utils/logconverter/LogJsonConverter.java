@@ -32,6 +32,9 @@ public class LogJsonConverter extends MessageConverter {
     @Override
     public String convert(ILoggingEvent event) {
         try {
+            if (event.getLoggerName().contains("org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter")) {
+                String loggerName = event.getLoggerName();
+            }
             // 将日志 的参数toString的结果 中的双引号改为 \"
             Object[] argumentArray = null;
             if (Objects.nonNull(event.getArgumentArray()) && event.getArgumentArray().length > 0) {
@@ -39,7 +42,7 @@ public class LogJsonConverter extends MessageConverter {
                     // 所有的对象最终都要toString再写入日志 这里提前将其toString 放入参数列表中
                     String temp = m.toString();
                     String strArgument;
-                    strArgument = temp.replaceAll("\"", "\\\\\"");
+                    strArgument = temp.replaceAll("\"", "\\\\\"").replaceAll("\n", " ").replaceAll("\r", " ");
                     return strArgument;
                 }).toArray();
             }
@@ -48,6 +51,9 @@ public class LogJsonConverter extends MessageConverter {
             String replacedVar = message;
             if (message.contains("\"")){
                 replacedVar = message.replaceAll("\"", "\\\\\"");
+            }
+            if (message.contains("\r") || message.contains("\n")){
+                replacedVar = replacedVar.replaceAll("\n", " ").replaceAll("\r", " ");
             }
             String res = MessageFormatter.arrayFormat(replacedVar, Objects.isNull(argumentArray) ? event.getArgumentArray() : argumentArray).getMessage();
             return res;
