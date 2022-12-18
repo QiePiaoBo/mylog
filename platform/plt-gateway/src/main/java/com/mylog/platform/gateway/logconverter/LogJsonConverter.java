@@ -1,9 +1,8 @@
-package com.mylog.tools.utils.logconverter;
+package com.mylog.platform.gateway.logconverter;
 
 import ch.qos.logback.classic.pattern.MessageConverter;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import org.slf4j.helpers.MessageFormatter;
-import org.springframework.context.annotation.Configuration;
 
 import java.util.Objects;
 import java.util.stream.Stream;
