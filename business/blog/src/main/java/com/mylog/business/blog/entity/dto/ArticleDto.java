@@ -34,7 +34,7 @@ public class ArticleDto {
     /**
      * 是否进行展示(作者)
      */
-    private String isLock;
+    private Integer isLock;
 
     /**
      * 文件发送到哪去

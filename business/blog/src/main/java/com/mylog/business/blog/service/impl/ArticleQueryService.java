@@ -37,6 +37,7 @@ public class ArticleQueryService {
         Set<String> countSet = new HashSet<>();
         List<Date> queryResult;
         int authorId = articleDto.getAuthorId();
+        // 获取这个作者的所有文章的发布时间并对时间进行格式化 最终去重后返回
         queryResult = articleMapper.queryWithCreateTime(authorId);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         for (Date date : queryResult){

@@ -106,7 +106,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      */
     @Override
     public Article insert(Article article) {
-        int insert = articleMapper.insert(article);
+        int insert = articleMapper.saveSelective(article);
         if (insert > 0) {
             return article;
         }
@@ -163,7 +163,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public DataResult deleteById(Integer id) {
         Article article = articleMapper.queryById(id);
         if (userService.getUser().getId().equals(article.getUserId()) || userService.getUser().getUserGroup() < 1){
-            article.setIsDel("1");
+            article.setIsDel(1);
             int delNum = articleMapper.update(article, new UpdateWrapper<Article>().eq("id", id));
             if (delNum < 1){
                 return DataResult.getBuilder(Status.DELETE_ERROR.getStatus(), Message.DELETE_ERROR.getMsg()).build();

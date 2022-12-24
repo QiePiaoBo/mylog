@@ -8,6 +8,7 @@ import com.mylog.tools.model.annos.AdminPermission;
 import com.mylog.tools.model.model.result.DataResult;
 import com.mylog.tools.model.model.info.Message;
 import com.mylog.tools.model.model.info.Status;
+import com.mylog.tools.model.model.result.HttpResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -40,8 +41,8 @@ public class ArticleController {
      * @return 单条数据
      */
     @RequestMapping("select")
-    public Article selectOne(@RequestParam Integer id) {
-        return this.articleService.queryById(id);
+    public DataResult selectOne(@RequestParam Integer id) {
+        return DataResult.success().data(articleService.queryById(id)).build();
     }
 
     /**
@@ -51,7 +52,7 @@ public class ArticleController {
      */
     @RequestMapping("all")
     public DataResult getArticles(@RequestBody Article article){
-        return this.articleService.queryRight(article);
+        return articleService.queryRight(article);
     }
 
     /**

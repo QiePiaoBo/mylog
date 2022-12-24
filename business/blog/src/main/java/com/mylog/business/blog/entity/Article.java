@@ -54,9 +54,9 @@ public class Article implements Serializable {
     /**
     *  是否禁止访问(管理员)
     */
-    private String isDel;
+    private Integer isDel;
     /**
     * 是否进行展示(作者)
     */
-    private String isLock;
+    private Integer isLock;
 }

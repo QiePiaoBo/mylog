@@ -54,8 +54,7 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @param article 实例对象
      * @return 影响行数
      */
-    @Override
-    int insert(Article article);
+    int saveSelective(Article article);
 
 
     List<Date> queryWithCreateTime(int id);

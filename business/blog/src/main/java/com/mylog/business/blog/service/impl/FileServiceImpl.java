@@ -156,7 +156,7 @@ public class FileServiceImpl implements IFileService {
         if (currentUser != null){
             BeanUtils.copyProperties(articleDto, article);
             // 默认不封
-            article.setIsDel("0");
+            article.setIsDel(0);
             // 设置创建时间
             article.setCreateTime(new Date());
             // 设置作者id为上传者的id
@@ -164,19 +164,19 @@ public class FileServiceImpl implements IFileService {
             // 设置真实文件路径
             article.setFilePath(filePath);
             // 设置文章是否显示
-            article.setIsLock(articleDto.getIsLock()!=null ? articleDto.getIsLock():"0");
-        }
-        else{
+            article.setIsLock(articleDto.getIsLock()!=null ? articleDto.getIsLock():0);
+        } else{
             return DataResult.getBuilder(Status.PERMISSION_ERROR.getStatus(), Message.PERMISSION_ERROR.getMsg()).build();
         }
         // 插入的结果是否为空
-        if (articleService.insert(article) != null){
+        Article res = articleService.insert(article);
+        if (res != null){
             // 判断上传至七牛云是否成功
             if (response != null){
                 if (response.error != null){
                     return DataResult.getBuilder(Status.UPLOAD_ERROR.getStatus(), Message.UPLOAD_ERROR.getMsg()).data(response.error).build();
                 }
-                return DataResult.getBuilder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).build();
+                return DataResult.getBuilder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).data(res).build();
             }else {
                 try {
                     // 检查文件是否存在
@@ -185,8 +185,8 @@ public class FileServiceImpl implements IFileService {
                     e.printStackTrace();
                 }
             }
-            return DataResult.getBuilder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).build();
+            return DataResult.getBuilder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).data(res).build();
         }
-        return DataResult.getBuilder(Status.INSERT_ERROR.getStatus(), Message.INSERT_ERROR.getMsg()).build();
+        return DataResult.getBuilder(Status.INSERT_ERROR.getStatus(), Message.INSERT_ERROR.getMsg()).data(res).build();
     }
 }
