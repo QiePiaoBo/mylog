@@ -2,6 +2,7 @@ package com.mylog.business.blog.service.impl;
 
 import com.dylan.logger.MyLogger;
 import com.dylan.logger.MyLoggerFactory;
+import com.mylog.business.blog.config.BlogConstants;
 import com.mylog.business.blog.service.ArticleService;
 import com.mylog.business.blog.service.IFileService;
 import com.mylog.business.blog.entity.Article;
@@ -85,7 +86,7 @@ public class FileServiceImpl implements IFileService {
             }
         }else {
             // 上传至服务器
-            upload2Server(subffix, sonPath, fileName);
+            filepath = upload2Server(subffix, sonPath, fileName);
         }
         // 入库并返回结果
         return this.insertToDatabase(response, filepath, articleDto);
@@ -112,14 +113,14 @@ public class FileServiceImpl implements IFileService {
      * @param sonPath
      * @param fileName
      */
-    public void upload2Server(String subffix, String sonPath, String fileName){
+    public String  upload2Server(String subffix, String sonPath, String fileName){
         // 判断是否是windows平台
         boolean isWindows = SysInfo.isWindows();
         String filepath = "";
         // 如果上传至服务器，则根据服务器所处平台更改文件存储位置
         if (isWindows){
             // 获取文件存放位置
-            filepath = "F:\\Files\\mylog\\" + subffix.substring(1) + "\\" + sonPath + "\\";
+            filepath = BlogConstants.WINDOWS_FILE_DIR + subffix.substring(1) + "\\" + sonPath + "\\";
             // 文件全路径拼接上文件名
             filepath += fileName;
             File winFile = new File(filepath);
@@ -130,7 +131,7 @@ public class FileServiceImpl implements IFileService {
             }
         } else {
             // 获取文件存放位置
-            filepath = "/var/files/mylog/" + subffix.substring(1) + "/" + sonPath + "/";
+            filepath = BlogConstants.LINUX_FILE_DIR + subffix.substring(1) + "/" + sonPath + "/";
             // 文件全路径拼接上文件名
             filepath += fileName;
             File linuxFile = new File(filepath);
@@ -140,6 +141,7 @@ public class FileServiceImpl implements IFileService {
                 log.info(mkLinuxDirs ? "created a path" : "do not need to create");
             }
         }
+        return filepath;
     }
 
     /**
