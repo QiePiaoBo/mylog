@@ -12,7 +12,7 @@ public enum  Message {
     /**
      * 文件过大
      */
-    OUTOF_SIZE_ERROR("文件过大"),
+    OUTOF_SIZE_ERROR("文件大小异常，文件过大或为空"),
     /**
      * 入库失败
      */

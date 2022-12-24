@@ -9,7 +9,7 @@ import java.io.IOException;
  * 文件类接口
  * @author Dylan
  */
-public interface IFileService {
+public interface ArticleFileService {
 
     /**
      * 文件上传

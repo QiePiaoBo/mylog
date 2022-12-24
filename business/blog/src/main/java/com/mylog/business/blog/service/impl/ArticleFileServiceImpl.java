@@ -4,7 +4,7 @@ import com.dylan.logger.MyLogger;
 import com.dylan.logger.MyLoggerFactory;
 import com.mylog.business.blog.config.BlogConstants;
 import com.mylog.business.blog.service.ArticleService;
-import com.mylog.business.blog.service.IFileService;
+import com.mylog.business.blog.service.ArticleFileService;
 import com.mylog.business.blog.entity.Article;
 import com.mylog.business.blog.entity.dto.ArticleDto;
 import com.mylog.business.blog.service.UserService;
@@ -33,9 +33,9 @@ import java.util.Date;
  * @author Dylan
  */
 @Service
-public class FileServiceImpl implements IFileService {
+public class ArticleFileServiceImpl implements ArticleFileService {
 
-    private static final MyLogger log = MyLoggerFactory.getLogger(FileServiceImpl.class);
+    private static final MyLogger log = MyLoggerFactory.getLogger(ArticleFileServiceImpl.class);
 
     @Resource
     UserService userService;
@@ -64,7 +64,7 @@ public class FileServiceImpl implements IFileService {
         long size= multipartFile.getSize();
         String filepath = "";
         // 文件大小是否超过最大大小。
-        if(size > maxSize){
+        if(size == 0 || size > maxSize){
             return DataResult.getBuilder(Status.OUTOF_SIZE_ERROR.getStatus(), Message.OUTOF_SIZE_ERROR.getMsg()).build();
         }
         // 文件的名字

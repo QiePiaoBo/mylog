@@ -1,14 +1,13 @@
 package com.mylog.business.blog.controller;
 
 import com.mylog.business.blog.service.ArticleService;
-import com.mylog.business.blog.service.IFileService;
+import com.mylog.business.blog.service.ArticleFileService;
 import com.mylog.business.blog.entity.Article;
 import com.mylog.business.blog.entity.dto.ArticleDto;
 import com.mylog.tools.model.annos.AdminPermission;
 import com.mylog.tools.model.model.result.DataResult;
 import com.mylog.tools.model.model.info.Message;
 import com.mylog.tools.model.model.info.Status;
-import com.mylog.tools.model.model.result.HttpResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -32,7 +31,7 @@ public class ArticleController {
      * 文件上传服务
      */
     @Resource
-    IFileService fileService;
+    ArticleFileService articleFileService;
 
     /**
      * 通过主键查询单条数据
@@ -91,9 +90,9 @@ public class ArticleController {
         }
         DataResult dataResult = null;
         if (null == articleDto.getSendPlace() || "qiniu".equals(articleDto.getSendPlace())){
-            dataResult = fileService.uploadFile(articleDto, "qiniu");
+            dataResult = articleFileService.uploadFile(articleDto, "qiniu");
         }else {
-            dataResult = fileService.uploadFile(articleDto, articleDto.getSendPlace());
+            dataResult = articleFileService.uploadFile(articleDto, articleDto.getSendPlace());
         }
         return dataResult;
     }
