@@ -24,15 +24,15 @@ public class LogicerNettyClientExecutor {
     public ThreadPoolExecutor nettyClientExecutor(){
         return new ThreadPoolExecutor(
                 // 核心线程数
-                3,
+                4,
                 // 最大线程数
-                5,
+                10,
                 // 空闲线程最大存活时间
                 60L,
                 // 空闲线程最大存活时间单位
                 TimeUnit.SECONDS,
                 // 等待队列及大小
-                new ArrayBlockingQueue<>(100),
+                new ArrayBlockingQueue<>(10),
                 // 创建新线程时使用的工厂
                 Executors.defaultThreadFactory(),
                 // 当线程池达到最大时的处理策略

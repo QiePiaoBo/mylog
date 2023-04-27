@@ -47,7 +47,7 @@
     <!--  开发环境和测试环境，日志输出到控制台  -->
     <springProfile name="dev|test">
         <!--控制台和日志文件输出级别-->
-        <root level="INFO">
+        <root level="DEBUG">
             <appender-ref ref="console"/>
         </root>
     </springProfile>

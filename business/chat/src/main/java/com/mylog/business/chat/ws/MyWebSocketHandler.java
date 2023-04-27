@@ -53,7 +53,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 
 
     /**
-     * 接受客户端消息
+     * 接受客户端消息并发送到Netty服务器
      * @param session
      * @param message
      * @throws Exception
@@ -62,11 +62,16 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         String messagePayload = message.getPayload();
         String userName = getUserName(session);
+        logger.info("{}: {}", userName, messagePayload);
+        String completeMsg = WebSocketUtil.getCompleteMsg(messagePayload);
+        if (Objects.isNull(completeMsg)){
+            return;
+        }
         // 将接收到的报文发送给netty服务
-        if (LogicerUtil.isLoginStr(messagePayload)){
-            String[] split = messagePayload.split("@");
+        if (LogicerUtil.isLoginStr(completeMsg)){
+            String[] split = completeMsg.split("@");
             // 创建netty客户端并将本条报文透传到netty服务
-            if (messagePayload.contains(userName + "@") && split.length == 2){
+            if (completeMsg.contains(userName + "@") && split.length == 2){
                 logicerNettyClientBuildService.startConnection(userName, split[1]);
             }
         }else {
