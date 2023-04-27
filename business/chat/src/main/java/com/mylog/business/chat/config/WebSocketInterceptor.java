@@ -44,7 +44,7 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
         // header中
         String authorization = serverHttpRequest.getServletRequest().getHeader("logicer-chat-protocol");
         // todo 根据获取到的authorization的值进行鉴权
-        if (StringUtils.isBlank(authorization) || authorization.equals("hello-world")){
+        if (StringUtils.isBlank(authorization) || !authorization.equals("dylan")){
             return false;
         }
         HttpSession httpSession = serverHttpRequest.getServletRequest().getSession(true);
@@ -53,7 +53,7 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
             if (StringUtils.isBlank(userName)){
                 userName = authorization;
             }
-            map.put("WEBSOCKET_USERNAME", userName);
+            map.put("USERNAME", userName);
         }
         serverHttpResponse.getServletResponse().setHeader("logicer-chat-protocol", authorization);
         logger.info("start shaking hands >>>>>>");

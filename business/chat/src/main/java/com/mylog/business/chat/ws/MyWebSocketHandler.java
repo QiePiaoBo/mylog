@@ -2,16 +2,25 @@ package com.mylog.business.chat.ws;
 
 import com.dylan.logger.MyLogger;
 import com.dylan.logger.MyLoggerFactory;
+import com.dylan.protocol.logicer.LogicerUtil;
+import com.mylog.business.chat.client.LogicerNettyClientBuildService;
+import com.mylog.business.chat.client.LogicerNettyClientUtil;
+import com.mylog.business.chat.config.NettyClientConstant;
 import com.mylog.business.chat.config.WebSocketInterceptor;
+import com.mylog.business.chat.config.WebsocketConstant;
 import com.mylog.tools.model.model.exception.MyException;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Stack;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -20,26 +29,26 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @Description MyWebSocketHandler
  * @Date 7/6/2022 3:55 PM
  */
+@Service
 public class MyWebSocketHandler extends TextWebSocketHandler {
 
     private static final MyLogger logger = MyLoggerFactory.getLogger(MyWebSocketHandler.class);
 
-    private static final AtomicInteger onlineNum = new AtomicInteger();
-
-    private static final ConcurrentHashMap<String, WebSocketSession> sessionPool = new ConcurrentHashMap<>();
+    @Resource
+    private LogicerNettyClientBuildService logicerNettyClientBuildService;
 
     /**
      * 在线人数+1
      */
     public static void addOnlineCount(){
-        onlineNum.incrementAndGet();
+        WebsocketConstant.WS_ONLINE_NUM.incrementAndGet();
     }
 
     /**
      * 在线人数减一
      */
     public static void subOnlineCount(){
-        onlineNum.decrementAndGet();
+        WebsocketConstant.WS_ONLINE_NUM.decrementAndGet();
     }
 
 
@@ -51,10 +60,35 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
      */
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        // todo 将接收到的报文转化成logicer报文发送给
-        session.sendMessage(new TextMessage(
-                String.format("Got message %s from %s", message.getPayload(), session.getId()))
-        );
+        String messagePayload = message.getPayload();
+        String userName = getUserName(session);
+        // 将接收到的报文发送给netty服务
+        if (LogicerUtil.isLoginStr(messagePayload)){
+            String[] split = messagePayload.split("@");
+            // 创建netty客户端并将本条报文透传到netty服务
+            if (messagePayload.contains(userName + "@") && split.length == 2){
+                logicerNettyClientBuildService.startConnection(userName, split[1]);
+            }
+        }else {
+            // session.sendMessage(new TextMessage(String.format("Got message %s from %s", messagePayload, userName)));
+            // 发送消息
+            LogicerNettyClientUtil.sendMessage(userName, messagePayload);
+        }
+    }
+
+    /**
+     * 从session中获取userName
+     * @param session
+     * @return
+     */
+    private String getUserName(WebSocketSession session) {
+        Object websocket_username = session.getAttributes().get("USERNAME");
+        String userName = "";
+        if (Objects.nonNull(websocket_username) && websocket_username instanceof String){
+            userName = (String) websocket_username;
+        }
+        logger.info("UserName is {}", userName);
+        return userName;
     }
 
     /**
@@ -64,16 +98,17 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
      */
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        Object websocket_username = session.getAttributes().get("WEBSOCKET_USERNAME");
+        Object websocket_username = session.getAttributes().get("USERNAME");
         String userName = "";
         if (Objects.nonNull(websocket_username) && websocket_username instanceof String){
             userName = (String) websocket_username;
         }
         logger.info("UserName is {}", userName);
-        WebSocketSession put = sessionPool.put(session.getId(), session);
+        WebSocketSession put = WebsocketConstant.WS_SESSION_POOL.put(userName, session);
         if (Objects.isNull(put)){
             addOnlineCount();
         }
+        session.sendMessage(new TextMessage("请输入用户名@密码以登录，示例：lingling@123456"));
     }
 
     /**
@@ -85,47 +120,13 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         String sessionId = session.getId();
-        if (sessionPool.containsKey(sessionId)){
-            sessionPool.remove(sessionId);
+        String userName = getUserName(session);
+        if (WebsocketConstant.WS_SESSION_POOL.containsKey(userName)){
+            WebsocketConstant.WS_SESSION_POOL.remove(userName);
             subOnlineCount();
+            LogicerNettyClientUtil.userLogout(userName);
         }
         logger.info("{} disconnect!", sessionId);
     }
-
-    /**
-     * 群发消息
-     * @param message
-     */
-    public static void sendTopic(String message){
-        if (sessionPool.isEmpty()){
-            return;
-        }
-        for (Map.Entry<String, WebSocketSession> entry : sessionPool.entrySet()){
-            try {
-                entry.getValue().sendMessage(new TextMessage(message));
-            }catch (IOException e){
-                throw new MyException(e);
-            }
-        }
-    }
-
-    /**
-     * 点对点发送
-     * @param uid
-     * @param message
-     */
-    public static void sendToUser(String uid, String message){
-        WebSocketSession socketSession = sessionPool.getOrDefault(uid, null);
-        if (Objects.isNull(socketSession)){
-            return;
-        }
-        try {
-            socketSession.sendMessage(new TextMessage(message));
-        } catch (IOException e) {
-            throw new MyException(e);
-        }
-
-    }
-
 
 }
