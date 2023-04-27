@@ -87,7 +87,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
         if (Objects.nonNull(websocket_username) && websocket_username instanceof String){
             userName = (String) websocket_username;
         }
-        logger.info("UserName is {}", userName);
+        // logger.info("UserName is {}", userName);
         return userName;
     }
 
@@ -103,7 +103,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
         if (Objects.nonNull(websocket_username) && websocket_username instanceof String){
             userName = (String) websocket_username;
         }
-        logger.info("UserName is {}", userName);
+        // logger.info("UserName is {}", userName);
         WebSocketSession put = WebsocketConstant.WS_SESSION_POOL.put(userName, session);
         if (Objects.isNull(put)){
             addOnlineCount();

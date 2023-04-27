@@ -36,16 +36,16 @@ public class WebSocketUtil {
 
     /**
      * 点对点发送
-     * @param userName
+     * @param toUserName
      * @param message
      */
-    public static void sendToUser(String userName, String message){
-        WebSocketSession socketSession = WebsocketConstant.WS_SESSION_POOL.getOrDefault(userName, null);
+    public static void sendToUser(String fromUserName, String toUserName, String message){
+        WebSocketSession socketSession = WebsocketConstant.WS_SESSION_POOL.getOrDefault(toUserName, null);
         if (Objects.isNull(socketSession)){
             return;
         }
         try {
-            socketSession.sendMessage(new TextMessage(message));
+            socketSession.sendMessage(new TextMessage(fromUserName + ": " + message));
         } catch (IOException e) {
             throw new MyException(e);
         }

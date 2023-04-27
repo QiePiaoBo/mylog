@@ -42,9 +42,9 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
         // String userId = serverHttpRequest.getServletRequest().getParameter("userId");
         // String pwd = serverHttpRequest.getServletRequest().getParameter("pwd");
         // header中
-        String authorization = serverHttpRequest.getServletRequest().getHeader("logicer-chat-protocol");
+        String authorization = serverHttpRequest.getServletRequest().getHeader("Sec-WebSocket-Protocol");
         // todo 根据获取到的authorization的值进行鉴权
-        if (StringUtils.isBlank(authorization) || !authorization.equals("dylan")){
+        if (StringUtils.isBlank(authorization)){
             return false;
         }
         HttpSession httpSession = serverHttpRequest.getServletRequest().getSession(true);
@@ -55,7 +55,7 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
             }
             map.put("USERNAME", userName);
         }
-        serverHttpResponse.getServletResponse().setHeader("logicer-chat-protocol", authorization);
+        serverHttpResponse.getServletResponse().setHeader("Sec-WebSocket-Protocol", authorization);
         logger.info("start shaking hands >>>>>>");
 
         return true;

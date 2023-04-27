@@ -65,9 +65,10 @@ public class LogicerNettyClientHandler extends SimpleChannelInboundHandler<Logic
                 ObjectMapper objectMapper = new ObjectMapper();
                 JsonNode jsonNode = objectMapper.readTree(actionWord);
                 logger.info("#{}: {}", jsonNode.get("from").textValue(), jsonNode.get("msg").textValue());
+                String from = jsonNode.get("from").textValue();
                 String to = jsonNode.get("to").textValue();
-                if (!StringUtils.isEmpty(to)){
-                    WebSocketUtil.sendToUser(to, jsonNode.get("msg").textValue());
+                if (!StringUtils.isEmpty(from) && !StringUtils.isEmpty(to)){
+                    WebSocketUtil.sendToUser(from, to, jsonNode.get("msg").textValue());
                 }
             }catch (JsonProcessingException e){
                 logger.error("{}", e.getMessage(), e);
