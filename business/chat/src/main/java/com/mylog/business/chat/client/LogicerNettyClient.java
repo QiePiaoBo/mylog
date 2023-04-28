@@ -20,6 +20,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.util.Objects;
 import java.util.Stack;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Classname LogicerNettyClient
@@ -38,6 +39,8 @@ public class LogicerNettyClient {
 
     private EventLoopGroup group;
 
+    private Channel ch;
+
     public LogicerNettyClient(String userName, String password) {
         this.userName = userName;
         this.password = password;
@@ -55,12 +58,15 @@ public class LogicerNettyClient {
 
     public void connect(String serverAddr, Integer port) throws InterruptedException {
         try {
+            if (Objects.nonNull(ch) && ch.isOpen()){
+                return;
+            }
             // Start the connection attempt.
-            Channel ch = bootstrap.connect(serverAddr, port).sync().channel();
+            ch = bootstrap.connect(serverAddr, port).sync().channel();
             ch.writeAndFlush(LogicerMessageBuilder.buildLoginMessage(getUserName() + "@" + password));
-            while (true){
+            while (Objects.nonNull(NettyClientConstant.USER_NETTY_CLIENT_CENTER.getOrDefault(getUserName(), null))){
                 Stack<String> messageCenter = NettyClientConstant.USER_MESSAGE_CENTER.getOrDefault(getUserName(), null);
-                if (Objects.nonNull(messageCenter) && !messageCenter.isEmpty()){
+                if (Objects.nonNull(messageCenter) && messageCenter.size() > 0){
                     String nextLine = messageCenter.pop();
                     logger.info("即将发送：" + nextLine);
                     String realMsg = WebSocketUtil.getCompleteMsg(nextLine);
@@ -70,11 +76,7 @@ public class LogicerNettyClient {
                     if ("exit".equals(realMsg)){
                         logger.info("即将断开连接");
                         ch.writeAndFlush(LogicerMessageBuilder.buildExitMessage());
-                        try {
-                            Thread.sleep(1000);
-                        }catch (Exception e){
-                            logger.error("failed to sleep, but its ok.");
-                        }
+                        TimeUnit.SECONDS.sleep(1);
                         ch.close();
                         break;
                     } else if ("connect".equals(realMsg)) {
@@ -97,10 +99,13 @@ public class LogicerNettyClient {
                         }
                     }
                 }
+                TimeUnit.MILLISECONDS.sleep(100);
             }
         } catch (JsonProcessingException e) {
+            logger.error("Connection failed: {}", e.getMessage(), e);
             throw new RuntimeException(e);
         } finally {
+            logger.error("Connection closing. {}:{}, current user is : {}", serverAddr, port, getUserName());
             group.shutdownGracefully();
         }
     }

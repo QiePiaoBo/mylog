@@ -1,8 +1,9 @@
 package com.mylog.business.chat.client;
 
 import com.mylog.business.chat.config.NettyClientConstant;
-import io.netty.channel.EventLoopGroup;
+import com.mylog.business.chat.config.WebsocketConstant;
 
+import java.util.Map;
 import java.util.Objects;
 import java.util.Stack;
 
@@ -30,9 +31,12 @@ public class LogicerNettyClientUtil {
      * @param userName
      */
     public static void userLogout(String userName){
-        EventLoopGroup eventLoopGroup = NettyClientConstant.USER_GROUP_CENTER.getOrDefault(userName, null);
-        if (Objects.nonNull(eventLoopGroup)){
-            eventLoopGroup.shutdownGracefully();
+        LogicerNettyClient savedClient = NettyClientConstant.USER_NETTY_CLIENT_CENTER.getOrDefault(userName, null);
+        if (Objects.nonNull(savedClient)){
+            savedClient.getGroup().shutdownGracefully();
+            NettyClientConstant.USER_NETTY_CLIENT_CENTER.remove(userName);
+            NettyClientConstant.USER_MESSAGE_CENTER.remove(userName);
+            Map<String, LogicerNettyClient> userGroupCenter = NettyClientConstant.USER_NETTY_CLIENT_CENTER;
         }
     }
 

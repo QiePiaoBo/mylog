@@ -62,8 +62,8 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         String messagePayload = message.getPayload();
         String userName = getUserName(session);
-        logger.info("{}: {}", userName, messagePayload);
         String completeMsg = WebSocketUtil.getCompleteMsg(messagePayload);
+        logger.info("handling textMessage ---> {}: {}【{}】", userName, messagePayload, completeMsg);
         if (Objects.isNull(completeMsg)){
             return;
         }

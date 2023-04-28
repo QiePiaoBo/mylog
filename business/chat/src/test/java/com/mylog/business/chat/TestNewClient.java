@@ -2,11 +2,9 @@ package com.mylog.business.chat;
 
 import com.mylog.business.chat.client.LogicerNettyClient;
 import com.mylog.business.chat.config.NettyClientConstant;
-import io.netty.channel.EventLoopGroup;
 import org.junit.Test;
 
 import java.util.Objects;
-import java.util.Scanner;
 import java.util.Stack;
 
 /**
@@ -28,10 +26,10 @@ public class TestNewClient {
             NettyClientConstant.USER_MESSAGE_CENTER.put(userName, messageCenter);
         }
         // 为userName注册EventLoopGroup
-        EventLoopGroup eventLoopGroup = NettyClientConstant.USER_GROUP_CENTER.getOrDefault(userName, null);
-        if (Objects.isNull(eventLoopGroup)){
-            eventLoopGroup = logicerNettyClient.getGroup();
-            NettyClientConstant.USER_GROUP_CENTER.put(userName, eventLoopGroup);
+        LogicerNettyClient savedClient = NettyClientConstant.USER_NETTY_CLIENT_CENTER.getOrDefault(userName, null);
+        if (Objects.isNull(savedClient)){
+            savedClient = logicerNettyClient;
+            NettyClientConstant.USER_NETTY_CLIENT_CENTER.put(userName, savedClient);
         }
         Runnable runnable = new Runnable() {
             /**

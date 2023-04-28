@@ -10,7 +10,6 @@ import com.dylan.protocol.logicer.LogicerSubProtocol;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mylog.business.chat.ws.MyWebSocketHandler;
 import com.mylog.business.chat.ws.WebSocketUtil;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -18,7 +17,6 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.Resource;
 import java.util.Objects;
 
 /**
@@ -29,9 +27,6 @@ import java.util.Objects;
 public class LogicerNettyClientHandler extends SimpleChannelInboundHandler<LogicerMessage> {
 
     private static final MyLogger logger = MyLoggerFactory.getLogger(LogicerNettyClientHandler.class);
-
-    @Resource
-    private MyWebSocketHandler myWebSocketHandler;
 
 
     @Override

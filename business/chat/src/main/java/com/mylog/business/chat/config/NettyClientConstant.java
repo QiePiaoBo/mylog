@@ -1,6 +1,6 @@
 package com.mylog.business.chat.config;
 
-import io.netty.channel.EventLoopGroup;
+import com.mylog.business.chat.client.LogicerNettyClient;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +15,6 @@ public class NettyClientConstant {
 
     public static final Map<String, Stack<String>> USER_MESSAGE_CENTER = new HashMap<>();
 
-    public static final Map<String, EventLoopGroup> USER_GROUP_CENTER = new HashMap<>();
+    public static final Map<String, LogicerNettyClient> USER_NETTY_CLIENT_CENTER = new HashMap<>();
 
 }
