@@ -41,7 +41,7 @@ public class LogicerNettyClientBuildService {
         // 启动netty客户端
         nettyClientExecutor.execute(() -> {
             try {
-                logicerNettyClient.connect("192.168.2.107", 8001);
+                logicerNettyClient.connect("logicer.top", 8001);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
