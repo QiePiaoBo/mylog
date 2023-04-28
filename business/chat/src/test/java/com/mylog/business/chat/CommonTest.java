@@ -19,9 +19,11 @@ public class CommonTest {
 
         String messageAimingUser = WebSocketUtil.getMessageAimingUser("asdasdasd<@dylan>");
         String messageAimingUser1 = WebSocketUtil.getMessageAimingUser("asdasdasd<@dylan");
+        String messageAimingUser2 = WebSocketUtil.getMessageAimingUser("Server: Member - duke left.<@@all>");
 
         logger.info("res: {}", messageAimingUser);
         logger.info("res1: {}", messageAimingUser1);
+        logger.info("res2: {}", messageAimingUser2);
     }
 
 }
