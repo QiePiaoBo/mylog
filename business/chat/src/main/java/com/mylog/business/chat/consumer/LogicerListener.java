@@ -18,7 +18,7 @@ public class LogicerListener {
 
     @RabbitListener(queues = {LogicerTalkMqConstant.LOGICER_QUEUE_LOGICER})
     public void receiveMsg(String msg){
-        // todo 添加TALK类型消息的处理逻辑（入库）
+        // todo 添加LOGICER类型消息的处理逻辑（入库）
         logger.info("message:{}", msg);
     }
 
