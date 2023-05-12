@@ -10,6 +10,7 @@ import com.dylan.protocol.logicer.LogicerSubProtocol;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mylog.business.chat.config.WebsocketConstant;
 import com.mylog.business.chat.ws.WebSocketUtil;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -17,7 +18,9 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import java.util.Enumeration;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Dylan
@@ -47,9 +50,29 @@ public class LogicerNettyClientHandler extends SimpleChannelInboundHandler<Logic
         }
         // 如果是Logicer报文
         if (LogicerSubProtocol.LOGICER.equals(logicerProtocol)){
-            logger.info("Server: {}", logicerMessage.getLogicerContent().getActionWord());
+            String actionWord = logicerMessage.getLogicerContent().getActionWord();
+            logger.info("Server: {}", actionWord);
             if (LogicerConstant.ASK_FOR_LOGIN_INFO.equals(logicerMessage.getLogicerContent().toString())){
                 logger.info("Please write your name and password like [name@password]!");
+            }
+            String messageAimingUser = WebSocketUtil.getMessageAimingUser(actionWord);
+            String completeMsg = WebSocketUtil.getCompleteMsg(actionWord);
+            if (!StringUtils.isEmpty(messageAimingUser) && !StringUtils.isEmpty(completeMsg)){
+                // 如果系统@全体成员 就对所有人发送消息 否则就对指定的人发送消息
+                if (messageAimingUser.equals("@all")){
+                    try {
+                        TimeUnit.SECONDS.sleep(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Enumeration<String> keys = WebsocketConstant.WS_SESSION_POOL.keys();
+                    while (keys.hasMoreElements()){
+                        String s = keys.nextElement();
+                        WebSocketUtil.sendToUser("Server", s, completeMsg);
+                    }
+                }else {
+                    WebSocketUtil.sendToUser("Server", messageAimingUser, completeMsg);
+                }
             }
         }
         // 如果是talk类型的消息
@@ -72,7 +95,7 @@ public class LogicerNettyClientHandler extends SimpleChannelInboundHandler<Logic
         if (LogicerSubProtocol.COMMAND.equals(logicerProtocol)){
             logger.info("Got command msg: {}", logicerMessage.getLogicerContent());
             String actionWord = logicerMessage.getLogicerContent().getActionWord();
-            if (actionWord.equals("BYE")){
+            if (!StringUtils.isEmpty(actionWord) && actionWord.equals("BYE")){
                 channelHandlerContext.channel().closeFuture();
             }
         }
