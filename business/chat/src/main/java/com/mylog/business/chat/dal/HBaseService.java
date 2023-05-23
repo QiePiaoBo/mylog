@@ -4,6 +4,7 @@ import com.dylan.logger.MyLogger;
 import com.dylan.logger.MyLoggerFactory;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
+import org.apache.hadoop.hbase.HConstants;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.Admin;
 import org.apache.hadoop.hbase.client.ColumnFamilyDescriptor;
@@ -37,7 +38,7 @@ public class HBaseService implements InitializingBean {
     private String logicerName;
     @Value("${lgc.hbase.server:logicer.top}")
     private String server;
-    @Value("${lgc.hbase.port:16010}")
+    @Value("${lgc.hbase.port:2181}")
     private Integer port;
 
     private Connection connection;
@@ -47,7 +48,7 @@ public class HBaseService implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         Configuration configuration = HBaseConfiguration.create();
-        configuration.set(logicerName, server + port);
+        configuration.set(HConstants.ZOOKEEPER_QUORUM, server + port);
         try {
             connection = ConnectionFactory.createConnection(configuration);
             admin = connection.getAdmin();
