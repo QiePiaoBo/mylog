@@ -11,9 +11,12 @@ import org.apache.hadoop.hbase.client.ColumnFamilyDescriptor;
 import org.apache.hadoop.hbase.client.ColumnFamilyDescriptorBuilder;
 import org.apache.hadoop.hbase.client.Connection;
 import org.apache.hadoop.hbase.client.ConnectionFactory;
+import org.apache.hadoop.hbase.client.Delete;
 import org.apache.hadoop.hbase.client.Get;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Result;
+import org.apache.hadoop.hbase.client.ResultScanner;
+import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.hbase.client.TableDescriptor;
 import org.apache.hadoop.hbase.client.TableDescriptorBuilder;
@@ -34,7 +37,7 @@ public class HBaseService implements InitializingBean {
 
     private final MyLogger logger = MyLoggerFactory.getLogger(HBaseService.class);
 
-    @Value("${lgc.hbase.logicer.name:hbase-lgc}")
+    @Value("${lgc.hbase.logicer.name:hbase}")
     private String logicerName;
     @Value("${lgc.hbase.server:logicer.top}")
     private String server;
@@ -48,7 +51,8 @@ public class HBaseService implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         Configuration configuration = HBaseConfiguration.create();
-        configuration.set(HConstants.ZOOKEEPER_QUORUM, server + port);
+        configuration.set(HConstants.ZOOKEEPER_QUORUM, server);
+        configuration.set(HConstants.ZOOKEEPER_CLIENT_PORT, port + "");
         try {
             connection = ConnectionFactory.createConnection(configuration);
             admin = connection.getAdmin();
@@ -113,6 +117,45 @@ public class HBaseService implements InitializingBean {
         Result result = table.get(get);
         byte[] value = result.getValue(Bytes.toBytes(family), Bytes.toBytes(qualifier));
         return Bytes.toString(value);
+    }
+
+    /**
+     * 获取整表数据
+     *
+     * @param tablename
+     * @return
+     */
+    public ResultScanner queryAll(String tablename) throws IOException {
+        Table table = null;
+        ResultScanner results = null;
+        table = connection.getTable(TableName.valueOf(tablename));
+        Scan scan = new Scan();
+        scan.setCaching(1000);
+        results = table.getScanner(scan);
+        table.close();
+        return results;
+    }
+    /**
+     * 删除数据
+     *
+     * @param tableName
+     * @param family
+     * @param column
+     * @param row
+     * @throws IOException
+     */
+    public void deleteRecord(String tableName, String family, String column, String row) throws IOException {
+        Table table = null;
+
+        try {
+            table = connection.getTable(TableName.valueOf(tableName));
+            Delete del = new Delete(row.getBytes());
+            del.addColumns(family.getBytes(), column.getBytes());
+            table.delete(del);
+        } finally {
+            table.close();
+        }
+
     }
 
     /**

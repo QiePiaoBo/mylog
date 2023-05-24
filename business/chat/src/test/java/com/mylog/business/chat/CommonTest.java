@@ -26,4 +26,13 @@ public class CommonTest {
         logger.info("res2: {}", messageAimingUser2);
     }
 
+    @Test
+    public void commonTest() {
+        int i = Integer.parseInt("123");
+
+        Integer integer = Integer.getInteger("345");
+
+        logger.info("res: {}, {}", i, integer);
+    }
+
 }

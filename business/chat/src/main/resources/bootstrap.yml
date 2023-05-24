@@ -14,7 +14,6 @@ spring:
         file-extension: yaml
         shared-configs:
           - { dataId: common.yaml, group: 'DEFAULT_GROUP', refresh: true }
-          - { dataId: chat_db.yaml, group: 'DEFAULT_GROUP', refresh: true }
           - { dataId: redis.yaml, group: 'DEFAULT_GROUP', refresh: true }
           - { dataId: rabbit.yaml, group: 'DEFAULT_GROUP', refresh: true }
         namespace: ${config.namespace}
