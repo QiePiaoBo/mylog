@@ -59,7 +59,7 @@ public class HBaseTest {
                 for (byte[] column : navigableMap.get(family).keySet()) {
                     logger.info("列:" + new String(column));
                     for (Long t : navigableMap.get(family).get(column).keySet()) {
-                        logger.info("值:" + new String(navigableMap.get(family).get(column).get(t)));
+                        logger.info("键: {}, 值: {}", t, new String(navigableMap.get(family).get(column).get(t)));
                     }
                 }
             }
