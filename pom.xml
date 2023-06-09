@@ -342,7 +342,7 @@
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>2.1.6.RELEASE</version>
                     <configuration>
-                        <outputDirectory>F:\Java\Product\mylog\lib\</outputDirectory>
+                        <outputDirectory>D:\Product\JAVA\mylog\lib\</outputDirectory>
                     </configuration>
                     <executions>
                         <execution>
