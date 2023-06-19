@@ -1,8 +1,8 @@
 package com.mylog.common.batch.model.rowmapper;
 
+import com.dylan.logger.MyLogger;
+import com.dylan.logger.MyLoggerFactory;
 import com.mylog.common.batch.model.entity.MailEntity;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -15,7 +15,7 @@ import java.sql.SQLException;
  * @Function :
  */
 public class MailSendRowMapper implements RowMapper<MailEntity> {
-    private static final Logger logger = LoggerFactory.getLogger(MailSendRowMapper.class);
+    private static final MyLogger logger = MyLoggerFactory.getLogger(MailSendRowMapper.class);
 
 
     @Override

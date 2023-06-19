@@ -1,0 +1,30 @@
+server:
+  port: ${business.port.chat}
+spring:
+  application:
+    name: ds-chat
+  profiles:
+    active: ${default-profile}
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      server-addr: logicer.top:8848
+      config:
+        file-extension: yaml
+        shared-configs:
+          - { dataId: common.yaml, group: 'DEFAULT_GROUP', refresh: true }
+          - { dataId: redis.yaml, group: 'DEFAULT_GROUP', refresh: true }
+          - { dataId: rabbit.yaml, group: 'DEFAULT_GROUP', refresh: true }
+        namespace: ${config.namespace}
+        server-addr: logicer.top:8848
+      discovery:
+        register-enabled: true
+        service: ${artifactId}
+  session:
+    store-type: redis
+  output:
+    ansi:
+      enabled: detect
+  rabbitmq:
+    publisher-returns: true

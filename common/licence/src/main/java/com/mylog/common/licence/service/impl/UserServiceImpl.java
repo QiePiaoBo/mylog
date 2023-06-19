@@ -1,32 +1,35 @@
 package com.mylog.common.licence.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.mylog.common.licence.enumcenter.GroupEnum;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mylog.common.licence.entity.User;
+import com.mylog.common.licence.enumcenter.GroupEnum;
 import com.mylog.common.licence.mapper.UserMapper;
 import com.mylog.common.licence.model.dto.UserDTO;
 import com.mylog.common.licence.model.vo.UserVO;
 import com.mylog.common.licence.service.IUserService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.mylog.common.licence.service.PasswordService;
-import com.mylog.entitys.entitys.entity.Message;
-import com.mylog.entitys.entitys.entity.Person;
-import com.mylog.entitys.entitys.entity.Result;
-import com.mylog.entitys.entitys.entity.Status;
-import com.mylog.entitys.entitys.vo.PersonVo;
+import com.mylog.common.licence.transformer.UserTransformer;
+import com.mylog.tools.model.model.entity.Person;
+import com.mylog.tools.model.model.info.Message;
+import com.mylog.tools.model.model.info.Status;
+import com.mylog.tools.model.model.page.MyPage;
+import com.mylog.tools.model.model.result.DataResult;
+import com.mylog.tools.model.model.result.HttpResult;
+import com.mylog.tools.model.model.result.PageDataResult;
+import com.mylog.tools.model.model.vo.PersonVo;
 import com.mylog.tools.utils.session.UserContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.mylog.tools.utils.utils.PasswordService;
+import com.mylog.tools.utils.utils.Safes;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <p>
@@ -35,17 +38,15 @@ import java.util.List;
  * @author Dylan
  * @since 2020-05-24
  */
+@Slf4j
 @Service
 @RefreshScope
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
-
-    @Autowired
+    @Resource
     private UserMapper userMapper;
-    @Autowired
+    @Resource
     private PasswordService passwordService;
-
 
     /**
      * 获取用户列表
@@ -53,18 +54,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @return
      */
     @Override
-    public Result selectUserList(Page<User> page) {
-        Result result = null;
-        IPage<User> userPage = userMapper.selectUserList(page);
-        List<User> userList = userPage.getRecords();
+    public HttpResult selectUserList(MyPage page) {
+        List<User> userList = userMapper.selectUserList(page);
         List<UserVO> userVOList = new ArrayList<>();
-        for (User user:userList){
-            UserVO userVO = new UserVO();
-            BeanUtils.copyProperties(user, userVO);
-            userVOList.add(userVO);
-        }
-        result = new Result.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).data(userVOList).page(page.getCurrent()).size(page.getSize()).total(page.getTotal()).build();
-        return result;
+        Safes.of(userList).forEach(u -> {
+            userVOList.add(UserTransformer.user2UserVo(u));
+        });
+        log.info("MyPage : {}", page);
+        return PageDataResult
+                .success()
+                .data(userVOList)
+                .page(page.getPageNo())
+                .size(page.getPageSize())
+                .total(userMapper.selectUserTotal())
+                .build();
     }
 
     /**
@@ -73,32 +76,28 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @return
      */
     @Override
-    public Result selectOne(UserDTO userDTO) {
-        Result result;
+    public HttpResult selectOne(UserDTO userDTO) {
+        DataResult dataResult;
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         if (userDTO.getId()!=null && userDTO.getId()!=0){
             queryWrapper.eq("id", userDTO.getId());
         }
-        if (userDTO.getUsername()!=null&&userDTO.getUsername().length()>0){
-            queryWrapper.eq("username", userDTO.getUsername());
+        if (userDTO.getUserName()!=null&&userDTO.getUserName().length()>0){
+            queryWrapper.eq("user_name", userDTO.getUserName());
         }
-        if (userDTO.getPhone()!=null&&userDTO.getPhone().length()>0){
-            queryWrapper.eq("phone", userDTO.getPhone());
-        }
-        if (userDTO.getMail()!=null&&userDTO.getMail().length()>0){
-            queryWrapper.eq("mail", userDTO.getMail());
+        if (userDTO.getUserPhone()!=null&&userDTO.getUserPhone().length()>0){
+            queryWrapper.eq("user_phone", userDTO.getUserPhone());
         }
         User user = userMapper.selectOne(queryWrapper);
         UserVO userVO = new UserVO();
         BeanUtils.copyProperties(user,userVO);
         if (userVO.getId()!=null && userVO.getId() > 0){
-            result = new Result.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).data(userVO).build();
+            dataResult = DataResult.getBuilder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).data(userVO).build();
         }else {
             return null;
         }
-        return result;
+        return dataResult;
     }
-
 
     /**
      * 添加用户
@@ -106,35 +105,38 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @return
      */
     @Override
-    public Result addUser(UserDTO userDTO){
-        Result result;
+    public HttpResult addUser(UserDTO userDTO){
+        DataResult dataResult;
         // 设置默认用户组
-        userDTO.setUsergroup(GroupEnum.USER_GROUP.getGroupId());
+        userDTO.setUserGroup(GroupEnum.USER_GROUP.getGroupId());
         // 若未传入密码，则设置默认密码为123456
-        if (userDTO.getPassword()==null || userDTO.getPassword().length()==0){
-            userDTO.setPassword(passwordService.createPassword("123456"));
+        if (userDTO.getUserPassword()==null || userDTO.getUserPassword().length()==0){
+            userDTO.setUserPassword(passwordService.createPassword("123456"));
         }
-        if (userDTO.getUsername()==null || userDTO.getUsername().length()==0){
-            result = new Result.Builder(Status.INSERT_ERROR.getStatus(), Message.INSERT_ERROR.getMsg()).build();
-            return result;
+        if (userDTO.getUserName()==null || userDTO.getUserName().length()==0){
+            dataResult = DataResult.getBuilder(Status.INSERT_ERROR.getStatus(), Message.INSERT_ERROR.getMsg()).build();
+            return dataResult;
         }
-        if (userDTO.getPhone()==null || userDTO.getPhone().length()==0){
-            result = new Result.Builder(Status.INSERT_ERROR.getStatus(), Message.INSERT_ERROR.getMsg()).build();
-            return result;
+        if (userDTO.getUserPhone()==null || userDTO.getUserPhone().length()==0){
+            dataResult = DataResult.getBuilder(Status.INSERT_ERROR.getStatus(), Message.INSERT_ERROR.getMsg()).build();
+            return dataResult;
+        }
+        // 判断用户是否已经存在
+        if (userMapper.selectCount(
+                Wrappers.query(new User())
+                        .eq("user_name", userDTO.getUserName())
+                        .eq("user_phone", userDTO.getUserPhone())) > 0){
+            return DataResult.getBuilder(Status.USER_EXISTS.getStatus(), Message.USER_EXISTS.getMsg()).data(userDTO).build();
         }
         User user = new User();
-        UserVO userVO = new UserVO();
         BeanUtils.copyProperties(userDTO, user);
-        BeanUtils.copyProperties(userDTO, userVO);
         int addResult = userMapper.insert(user);
-        if (addResult>0){
-            return new Result.Builder(Status.SUCCESS.getStatus(), Message.SUCCESS.getMsg()).data(user).build();
-        }
-        else {
-            return new Result.Builder(Status.INSERT_ERROR.getStatus(), Message.INSERT_ERROR.getMsg()).build();
+        if (addResult > 0){
+            return selectOne(userDTO);
+        }else {
+            return DataResult.getBuilder(Status.INSERT_ERROR.getStatus(), Message.INSERT_ERROR.getMsg()).build();
         }
     }
-
 
     /**
      * 删除一个用户
@@ -142,28 +144,28 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @return
      */
     @Override
-    public Result deleteOne(UserDTO userDTO){
-        Result result;
+    public HttpResult deleteOne(UserDTO userDTO){
+        DataResult dataResult;
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         if (userDTO.getId()!=null && userDTO.getId()>0){
             queryWrapper.eq("id", userDTO.getId());
         }
-        if (userDTO.getUsername()!=null && userDTO.getUsername().length()>0){
-            queryWrapper.eq("username",userDTO.getUsername());
+        if (userDTO.getUserName()!=null && userDTO.getUserName().length()>0){
+            queryWrapper.eq("user_name",userDTO.getUserName());
         }
         List<User> list = userMapper.selectList(queryWrapper);
         if (list == null || list.size() != 1){
-            result = new Result.Builder(Status.QUERY_ERROR.getStatus(), Message.QUERY_ERROR.getMsg()).build();
+            dataResult = DataResult.getBuilder(Status.QUERY_ERROR.getStatus(), Message.QUERY_ERROR.getMsg()).build();
         }else {
             User user = list.get(0);
-            user.setDel(true);
+            user.setDelFlag(1);
             int update = userMapper.update(user, queryWrapper);
             if (update == 0){
-                result = new Result.Builder(Status.UPDATE_ERROR.getStatus(),Message.UPDATE_ERROR.getMsg()).build();
+                dataResult = DataResult.getBuilder(Status.UPDATE_ERROR.getStatus(),Message.UPDATE_ERROR.getMsg()).build();
             }
-            result = new Result.Builder().build();
+            dataResult = DataResult.getBuilder().data(UserTransformer.user2UserVo(user)).build();
         }
-        return result;
+        return dataResult;
     }
 
     /**
@@ -172,27 +174,23 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @return
      */
     @Override
-    public Result exchange(UserDTO userDTO){
-        Result result;
-        User user = new User();
+    public HttpResult exchange(UserDTO userDTO){
+        DataResult dataResult;
+        if (Objects.isNull(userDTO.getId())){
+            return DataResult.getBuilder(Status.PARAM_NEED.getStatus(), Message.PARAM_NEED.getMsg()).build();
+        }
         // 密码加密
-        if (userDTO.getPassword()!=null && userDTO.getPassword().length()>0){
-            userDTO.setPassword(passwordService.createPassword(userDTO.getPassword()));
+        if (userDTO.getUserPassword()!=null && userDTO.getUserPassword().length()>0){
+            userDTO.setUserPassword(passwordService.createPassword(userDTO.getUserPassword()));
         }
-        BeanUtils.copyProperties(userDTO, user);
-        UpdateWrapper<User> userUpdateWrapper = new UpdateWrapper<>();
-        userUpdateWrapper.eq("id", userDTO.getId());
-
-        int update = userMapper.update(user, userUpdateWrapper);
-        UserVO userVO = new UserVO();
+        int update = userMapper.updateById(UserTransformer.userDTO2User(userDTO));
         if (update>0){
-            BeanUtils.copyProperties(userDTO, userVO);
-            result = new Result.Builder().data(userVO).build();
+            User completeUser = userMapper.selectById(userDTO.getId());
+            dataResult = DataResult.getBuilder().data(UserTransformer.user2UserVo(completeUser)).build();
+        }else {
+            dataResult = DataResult.getBuilder(Status.UPDATE_ERROR.getStatus(), Message.UPDATE_ERROR.getMsg()).data(userDTO).build();
         }
-        else {
-            result = new Result.Builder(Status.UPDATE_ERROR.getStatus(), Message.UPDATE_ERROR.getMsg()).data(userDTO).build();
-        }
-        return result;
+        return dataResult;
     }
 
     /**
@@ -201,24 +199,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @return
      */
     @Override
-    public Result login(UserDTO userDTO) {
-        String queryConditionName = "username";
+    public HttpResult login(UserDTO userDTO) {
+        String queryConditionName = "user_name";
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        if (null == userMapper.selectOne(queryWrapper.eq(queryConditionName, userDTO.getUsername()))){
-            return new Result.Builder(Status.USER_NOT_FOUND.getStatus(), Message.USER_NOT_FOUND.getMsg()).build();
+        if (null == userMapper.selectOne(queryWrapper.eq(queryConditionName, userDTO.getUserName()))){
+            return DataResult.getBuilder(Status.USER_NOT_FOUND.getStatus(), Message.USER_NOT_FOUND.getMsg()).build();
         }
-        User user = userMapper.selectOne(queryWrapper.eq(queryConditionName, userDTO.getUsername()));
-        if (!passwordService.authenticatePassword(user.getPassword(), userDTO.getPassword())){
-            return new Result.Builder(Status.ERROR_PASSWORD.getStatus(), Message.ERROR_PASSWORD.getMsg()).build();
+        User user = userMapper.selectOne(queryWrapper.eq(queryConditionName, userDTO.getUserName()));
+        if (!passwordService.authenticatePassword(user.getUserPassword(), userDTO.getUserPassword())){
+            return DataResult.getBuilder(Status.ERROR_PASSWORD.getStatus(), Message.ERROR_PASSWORD.getMsg()).build();
         }
         // 验证通过，将当前用户存入session中
-        Person p = new Person();
-        PersonVo pv = new PersonVo();
-        BeanUtils.copyProperties(user, pv);
-        BeanUtils.copyProperties(pv, p);
+        Person p = UserTransformer.user2Person(user);
         UserContext.putCurrentUser(p);
-
-        return new Result.Builder(Status.SUCCESS.getStatus(), Message.WELCOME_TO_LOGIN.getMsg()).data(p).build();
+        return DataResult.getBuilder(Status.SUCCESS.getStatus(), Message.WELCOME_TO_LOGIN.getMsg())
+                .data(UserTransformer.user2UserVo(user))
+                .build();
     }
 
     /**
@@ -227,10 +223,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @return
      */
     @Override
-    public Result logout() {
+    public HttpResult logout() {
+        PersonVo currentUser = UserContext.getCurrentUser();
+        if (Objects.isNull(currentUser)){
+            return DataResult.fail().build();
+        }
+        UserVO userVO = UserTransformer.personVO2UserVO(currentUser);
         // 验证通过，将当前用户从session中删除
         UserContext.deleteCurrentUser();
-        return new Result.Builder(Status.SUCCESS.getStatus(), Message.BYE_BYE.getMsg()).build();
+        return new DataResult
+                .Builder(Status.SUCCESS.getStatus(), Message.BYE_BYE.getMsg())
+                .data(userVO)
+                .build();
     }
 
     /**
@@ -238,13 +242,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @return
      */
     @Override
-    public Result getCurrentUser(){
+    public HttpResult getCurrentUser(){
         PersonVo person = new PersonVo();
         try {
             person = UserContext.getCurrentUser();
         }catch (IllegalArgumentException e){
             e.fillInStackTrace();
         }
-        return new Result.Builder().data(person).build();
+        return DataResult.getBuilder().data(person).build();
     }
 }

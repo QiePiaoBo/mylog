@@ -74,18 +74,18 @@ public class RouteController {
 
     /**
      * 把传递进来的参数转化成路由对象
-     * @param gwdefinition
+     * @param gatewayRouteDefinition
      * @return
      */
-    private RouteDefinition assembleRouteDefinition(GatewayRouteDefinition gwdefinition){
+    private RouteDefinition assembleRouteDefinition(GatewayRouteDefinition gatewayRouteDefinition){
 
         RouteDefinition definition = new RouteDefinition();
-        definition.setId(gwdefinition.getId());
-        definition.setOrder(gwdefinition.getOrder());
+        definition.setId(gatewayRouteDefinition.getId());
+        definition.setOrder(gatewayRouteDefinition.getOrder());
 
         // 设置断言
         List<PredicateDefinition> pdList = new ArrayList<>();
-        List<GatewayPredicateDefinition> gatewayPredicateDefinitionList = gwdefinition.getPredicates();
+        List<GatewayPredicateDefinition> gatewayPredicateDefinitionList = gatewayRouteDefinition.getPredicates();
         for (GatewayPredicateDefinition gpDefinition: gatewayPredicateDefinitionList){
             PredicateDefinition predicate = new PredicateDefinition();
             predicate.setArgs(gpDefinition.getArgs());
@@ -96,8 +96,8 @@ public class RouteController {
 
         // 设置过滤器
         List<FilterDefinition> filters = new ArrayList<>();
-        List<GatewayFilterDefinition> gatewayFilters = gwdefinition.getFilters();
-        for (GatewayFilterDefinition gfDefinition: gatewayFilters){
+        List<GatewayFilterDefinition> gatewayFilters = gatewayRouteDefinition.getFilters();
+        for (GatewayFilterDefinition gfDefinition : gatewayFilters){
             FilterDefinition filter = new FilterDefinition();
             filter.setArgs(gfDefinition.getArgs());
             filter.setName(gfDefinition.getName());
@@ -106,20 +106,14 @@ public class RouteController {
         definition.setFilters(filters);
 
         URI uri = null;
-        if (gwdefinition.getUri().startsWith(connectType)){
-            uri = UriComponentsBuilder.fromHttpUrl(gwdefinition.getUri()).build().toUri();
+        if (gatewayRouteDefinition.getUri().startsWith(connectType)){
+            uri = UriComponentsBuilder.fromHttpUrl(gatewayRouteDefinition.getUri()).build().toUri();
         }
         else {
             // uri为lb://consumer-service时使用下面的方法
-            uri = URI.create(gwdefinition.getUri());
+            uri = URI.create(gatewayRouteDefinition.getUri());
         }
         definition.setUri(uri);
         return definition;
     }
-
-
-
-
-
-
 }

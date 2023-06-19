@@ -5,7 +5,7 @@
     <parent>
         <artifactId>mylog-plat</artifactId>
         <groupId>com.mylog</groupId>
-        <version>0.0.1.RELEASE</version>
+        <version>1.2.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>common</artifactId>
@@ -13,5 +13,6 @@
     <modules>
         <module>batch</module>
         <module>licence</module>
+        <module>files</module>
     </modules>
 </project>

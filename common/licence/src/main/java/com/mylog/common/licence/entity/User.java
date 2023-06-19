@@ -2,7 +2,10 @@ package com.mylog.common.licence.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 /**
  * <p>
@@ -12,82 +15,31 @@ import java.io.Serializable;
  * @author Dylan
  * @since 2020-05-24
  */
+@TableName("lgc_user")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 用户id
-     */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    /**
-     * 用户权限组
-     */
-    private Integer usergroup;
+    private String userName;
 
-    /**
-     * 用户名
-     */
-    private String username;
+    private String userPhone;
 
-    /**
-     * 密码
-     */
-    private String password;
+    private String userPassword;
 
-    /**
-     * 用户手机
-     */
-    private String phone;
+    private Integer userGroup;
 
-    /**
-     * 用户邮箱
-     */
-    private String mail;
+    private Integer userType;
 
-    /**
-     * 用户性别
-     */
-    private String gender;
+    private Timestamp createdAt;
 
-    /**
-     * 用户真实姓名
-     */
-    private String realname;
+    private Timestamp updatedAt;
 
-    /**
-     * 用户身份证号
-     */
-    private String cnId;
-
-
-    /**
-     * 用户身份证号
-     */
-    private boolean isDel;
-
-    /**
-     * 备用字段1
-     */
-    private String description;
+    private Integer delFlag;
 
     public User() {
-    }
-
-    public User(Integer id, Integer usergroup, String username, String password, String phone, String mail, String gender, String realname, String cnId, boolean isDel, String description) {
-        this.id = id;
-        this.usergroup = usergroup;
-        this.username = username;
-        this.password = password;
-        this.phone = phone;
-        this.mail = mail;
-        this.gender = gender;
-        this.realname = realname;
-        this.cnId = cnId;
-        this.isDel = isDel;
-        this.description = description;
     }
 
     public Integer getId() {
@@ -98,83 +50,82 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public Integer getUsergroup() {
-        return usergroup;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsergroup(Integer usergroup) {
-        this.usergroup = usergroup;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserPhone() {
+        return userPhone;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
     }
 
-    public String getPassword() {
-        return password;
+    public String getUserPassword() {
+        return userPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
     }
 
-    public String getPhone() {
-        return phone;
+    public Integer getUserGroup() {
+        return userGroup;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setUserGroup(Integer userGroup) {
+        this.userGroup = userGroup;
     }
 
-    public String getMail() {
-        return mail;
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public String getGender() {
-        return gender;
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setUpdatedAt(Timestamp updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
-    public String getRealname() {
-        return realname;
+    public Integer getDelFlag() {
+        return delFlag;
     }
 
-    public void setRealname(String realname) {
-        this.realname = realname;
+    public void setDelFlag(Integer delFlag) {
+        this.delFlag = delFlag;
     }
 
-    public String getCnId() {
-        return cnId;
+    public Integer getUserType() {
+        return userType;
     }
 
-    public void setCnId(String cnId) {
-        this.cnId = cnId;
+    public void setUserType(Integer userType) {
+        this.userType = userType;
     }
 
-    public boolean isDel() {
-        return isDel;
-    }
-
-    public void setDel(boolean del) {
-        isDel = del;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", userPhone='" + userPhone + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", userGroup=" + userGroup +
+                ", userType=" + userType +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", delFlag=" + delFlag +
+                '}';
     }
 }

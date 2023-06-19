@@ -6,16 +6,18 @@
 
     <groupId>com.mylog</groupId>
     <artifactId>mylog-plat</artifactId>
-    <version>0.0.1.RELEASE</version>
+    <version>1.2.0-SNAPSHOT</version>
     <modules>
         <module>platform</module>
         <module>common</module>
-        <module>ds</module>
+        <module>business</module>
         <module>tools</module>
     </modules>
     <packaging>pom</packaging>
 
     <properties>
+        <!--    自定义配置当前所有jar的profile   -->
+        <default-profile>dev</default-profile>
         <java.version>1.8</java.version>
         <tomcat.version>7.0.94</tomcat.version>
         <fastjson.version>1.2.62</fastjson.version>
@@ -25,20 +27,9 @@
         <spring-session-data-redis.version>2.3.1.RELEASE</spring-session-data-redis.version>
 
         <!--        spring-boot系列   -->
-        <spring-boot.version>2.3.4.RELEASE</spring-boot.version>
-        <spring-boot-starter-test.version>2.3.4.RELEASE</spring-boot-starter-test.version>
-        <spring-boot-starter-web.version>2.3.4.RELEASE</spring-boot-starter-web.version>
-        <spring-boot-starter-mail.version>2.3.4.RELEASE</spring-boot-starter-mail.version>
-        <spring-boot-starter-data-redis.version>2.3.4.RELEASE</spring-boot-starter-data-redis.version>
-        <spring-boot-starter-data-redis-reactive.version>2.3.4.RELEASE</spring-boot-starter-data-redis-reactive.version>
-        <spring-boot-starter-webflux.version>2.3.4.RELEASE</spring-boot-starter-webflux.version>
-        <spring-boot-starter-actuator.version>2.3.4.RELEASE</spring-boot-starter-actuator.version>
-        <spring-boot-starter-batch.version>2.3.4.RELEASE</spring-boot-starter-batch.version>
-        <spring-boot-starter-data-jpa.version>2.3.4.RELEASE</spring-boot-starter-data-jpa.version>
-        <nacos-config-spring-boot-starter.version>2.3.4.RELEASE</nacos-config-spring-boot-starter.version>
 
-        <mybatis-plus-generator.version>3.4.0</mybatis-plus-generator.version>
-        <mybatis-plus-boot-starter.version>3.4.0</mybatis-plus-boot-starter.version>
+        <mybatis-plus-generator.version>3.5.1</mybatis-plus-generator.version>
+        <mybatis-plus-boot-starter.version>3.5.1</mybatis-plus-boot-starter.version>
         <mysql-connector-java.version>8.0.16</mysql-connector-java.version>
 
         <hibernate-validator.version>7.0.0.Alpha6</hibernate-validator.version>
@@ -46,6 +37,7 @@
         <spring-web.version>5.2.8.RELEASE</spring-web.version>
         <spring-webmvc.version>5.2.8.RELEASE</spring-webmvc.version>
         <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
+        <spring-cloud-dependencies.version>2.4.4.3</spring-cloud-dependencies.version>
         <spring-cloud-starter-netflix-eureka-server.version>2.1.2.RELEASE</spring-cloud-starter-netflix-eureka-server.version>
         <spring-cloud-starter-openfeign.version>2.1.0.RELEASE</spring-cloud-starter-openfeign.version>
         <spring-cloud-alibaba.version>2.2.0.RELEASE</spring-cloud-alibaba.version>
@@ -69,102 +61,63 @@
         <jackson-databind.version>2.11.2</jackson-databind.version>
 
         <snakeyaml.version>1.26</snakeyaml.version>
-        <slf4j.version>2.0.0-alpha1</slf4j.version>
+        <slf4j.version>1.7.32</slf4j.version>
         <slf4j-log4j12.version>2.0.0-alpha1</slf4j-log4j12.version>
-        <servlet-api.version>4.0.1</servlet-api.version>
+        <servlet-api.version>3.0-alpha-1</servlet-api.version>
 
         <httpclient.version>4.5.13</httpclient.version>
         <httpcore.version>4.4.9</httpcore.version>
-        <mybatis-plus.version>3.4.0</mybatis-plus.version>
+        <mybatis-plus.version>3.5.1</mybatis-plus.version>
         <javax-el-api.version>2.2.4</javax-el-api.version>
-
-        <!--    自定义配置当前所有jar的profile   -->
-        <default-profile>dev</default-profile>
-        <!--    自定义配置当前所有jar的版本   -->
-        <default-version>0.0.1.RELEASE</default-version>
-
+        <logicer-base.version>1.0.0</logicer-base.version>
+        <!--    各服务的端口号    -->
+        <common.port.licence>9000</common.port.licence>
+        <common.port.batch>9001</common.port.batch>
+        <common.port.files>9002</common.port.files>
+        <business.port.chat>9100</business.port.chat>
+        <business.port.blog>9101</business.port.blog>
+        <platform.port.gateway>8888</platform.port.gateway>
+        <es.version>3.0.0</es.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-
+            <!--  自定义包  -->
             <dependency>
                 <groupId>com.mylog.tools</groupId>
                 <artifactId>sdk-server</artifactId>
-                <version>0.0.1.RELEASE</version>
+                <version>${version}</version>
             </dependency>
+
             <dependency>
                 <groupId>com.mylog.tools</groupId>
                 <artifactId>utils-server</artifactId>
-                <version>0.0.1.RELEASE</version>
+                <version>${version}</version>
             </dependency>
+
             <dependency>
                 <groupId>com.mylog.tools</groupId>
-                <artifactId>entity-server</artifactId>
-                <version>0.0.1.RELEASE</version>
-            </dependency>
-            <!--        添加spring-boot全家桶     -->
-            <!--    动态路由相关    -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-actuator</artifactId>
-                <version>${spring-boot-starter-actuator.version}</version>
+                <artifactId>model-server</artifactId>
+                <version>${version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
-                <version>${spring-boot-starter-web.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-mail</artifactId>
-                <version>${spring-boot-starter-mail.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-batch</artifactId>
-                <version>${spring-boot-starter-batch.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-data-jpa</artifactId>
-                <version>${spring-boot-starter-data-jpa.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-webflux</artifactId>
-                <version>${spring-boot-starter-webflux.version}</version>
-            </dependency>
-            <!--    feign     -->
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-openfeign</artifactId>
-                <version>${spring-cloud-starter-openfeign.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-web</artifactId>
-                <version>${spring-web.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-webmvc</artifactId>
-                <version>${spring-webmvc.version}</version>
-            </dependency>
-            <!--  mybatis-plus  -->
             <dependency>
                 <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus</artifactId>
-                <version>${mybatis-plus.version}</version>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatis-plus-generator.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>
                 <version>${hibernate-validator.version}</version>
             </dependency>
-
+            <!--      hbase      -->
+            <dependency>
+                <groupId>org.apache.hbase</groupId>
+                <artifactId>hbase-client</artifactId>
+                <version>2.4.14</version>
+            </dependency>
             <!-- nacos-discovery 默认集成ribbon -->
             <!--    nacos配置 -->
             <dependency>
@@ -172,69 +125,20 @@
                 <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
                 <version>${spring-cloud-starter-alibaba-nacos-config.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
                 <version>${spring-cloud-starter-alibaba-nacos-discovery.version}</version>
             </dependency>
-            <!--    Slf4j    -->
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-log4j12</artifactId>
-                <version>${slf4j-log4j12.version}</version>
-            </dependency>
-            <!--    httpClient依赖    -->
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>${httpclient.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpcore</artifactId>
-                <version>${httpcore.version}</version>
-            </dependency>
-            <!--        添加redis相关依赖   -->
-            <!--        //引入redis-->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-data-redis</artifactId>
-                <version>${spring-boot-starter-data-redis.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
-                <version>${spring-boot-starter-data-redis-reactive.version}</version>
-            </dependency>
-            <!--        //引入spring session-->
-            <dependency>
-                <groupId>org.springframework.session</groupId>
-                <artifactId>spring-session-data-redis</artifactId>
-                <version>${spring-session-data-redis.version}</version>
-            </dependency>
+
             <!--    fastJson    -->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>1.2.62</version>
             </dependency>
-            <!--    POI     -->
-            <dependency>
-                <groupId>org.apache.poi</groupId>
-                <artifactId>poi</artifactId>
-                <version>4.1.0</version>
-            </dependency>
-            <!--    lombok  -->
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>1.18.8</version>
-            </dependency>
+
             <!--    servlet     -->
             <dependency>
                 <groupId>javax.servlet</groupId>
@@ -242,50 +146,35 @@
                 <version>${servlet-api.version}</version>
                 <scope>provided</scope>
             </dependency>
+
             <!--    javax    -->
             <dependency>
                 <groupId>javax.el</groupId>
                 <artifactId>javax.el-api</artifactId>
                 <version>${javax-el-api.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>org.glassfish.web</groupId>
                 <artifactId>javax.el</artifactId>
                 <version>${javax-el-api.version}</version>
             </dependency>
+
             <!-- mybatisPlus 核心库 -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus-boot-starter.version}</version>
             </dependency>
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql-connector-java.version}</version>
-            </dependency>
+
             <!-- 引入阿里数据库连接池 -->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid</artifactId>
                 <version>${druid.version}</version>
             </dependency>
-            <!--      原本的      -->
-            <dependency>
-                <groupId>org.apache.tomcat</groupId>
-                <artifactId>tomcat-juli</artifactId>
-                <version>${tomcat.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.code.gson</groupId>
-                <artifactId>gson</artifactId>
-                <version>2.6.2</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-            </dependency>
+
+            <!--  spring cloud  -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -293,6 +182,15 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <!--    feign     -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-openfeign</artifactId>
+                <version>${spring-cloud-starter-openfeign.version}</version>
+            </dependency>
+
+            <!--  spring cloud alibaba  -->
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
@@ -301,6 +199,49 @@
                 <scope>import</scope>
             </dependency>
 
+            <!--    POI     -->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>4.1.0</version>
+            </dependency>
+
+            <!--  gson  -->
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>2.6.2</version>
+            </dependency>
+
+            <!--  外挂依赖模块：模块内容为springboot-starter-parent中的dependencyManagement部分
+                  以pom方式引入，可以不必修改groupId同时还能使用springboot做的依赖管理
+                  缺点是需要修改springboot版本时需要替换外挂模块中的内容为目的版本的dependencyManagement  -->
+            <dependency>
+                <groupId>com.mydep</groupId>
+                <artifactId>mydep</artifactId>
+                <version>2.3.5.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--      logicer-base      -->
+            <dependency>
+                <groupId>com.dylan</groupId>
+                <artifactId>logicer-base</artifactId>
+                <version>${logicer-base.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>3.13.6</version>
+            </dependency>
+
+            <!--    es    -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+                <version>${es.version}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
@@ -311,10 +252,10 @@
         <!--    开发    -->
         <profile>
             <id>dev</id>
-            <activation>
-                <!--默认激活配置    -->
-                <activeByDefault>true</activeByDefault>
-            </activation>
+<!--            <activation>-->
+<!--                &lt;!&ndash;默认激活配置    &ndash;&gt;-->
+<!--                <activeByDefault>true</activeByDefault>-->
+<!--            </activation>-->
             <properties>
                 <!--    当前环境    -->
                 <profile.name>dev</profile.name>
@@ -328,7 +269,37 @@
         </profile>
 
         <!--    测试    -->
+        <profile>
+            <id>test</id>
+            <activation>
+                <!--默认激活配置    -->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <!--    当前环境    -->
+                <profile.name>test</profile.name>
+                <!--    nacos配置中心地址    -->
+                <config.server-addr>logicer.top:8848</config.server-addr>
+                <!--    Nacos配置中心命名空间，用于支持多环境，必须用id，默认为空    -->
+                <config.namespace>test_env</config.namespace>
+                <!--    Nacos发现地址    -->
+                <discovery.server-addr>logicer.top:8848</discovery.server-addr>
+            </properties>
+        </profile>
         <!--    生产    -->
+        <profile>
+            <id>prod</id>
+            <properties>
+                <!--    当前环境    -->
+                <profile.name>prod</profile.name>
+                <!--    nacos配置中心地址    -->
+                <config.server-addr>logicer.top:8848</config.server-addr>
+                <!--    Nacos配置中心命名空间，用于支持多环境，必须用id，默认为空    -->
+                <config.namespace>prod_env</config.namespace>
+                <!--    Nacos发现地址    -->
+                <discovery.server-addr>logicer.top:8848</discovery.server-addr>
+            </properties>
+        </profile>
     </profiles>
     <!--   打包相关  -->
     <build>
@@ -370,11 +341,14 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>2.1.6.RELEASE</version>
-
+                    <configuration>
+                        <outputDirectory>D:\Product\JAVA\mylog\lib\</outputDirectory>
+                    </configuration>
                     <executions>
                         <execution>
                             <goals>
                                 <goal>repackage</goal>
+<!--                                <goal>build-info</goal>-->
                             </goals>
                         </execution>
                     </executions>

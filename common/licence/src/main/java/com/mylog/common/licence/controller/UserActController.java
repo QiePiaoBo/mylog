@@ -1,22 +1,28 @@
 package com.mylog.common.licence.controller;
 
+import com.dylan.logger.MyLogger;
+import com.dylan.logger.MyLoggerFactory;
 import com.mylog.common.licence.model.dto.UserDTO;
 import com.mylog.common.licence.service.IUserService;
-import com.mylog.entitys.annos.AdminPermission;
-import com.mylog.entitys.entitys.entity.Result;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.mylog.tools.model.annos.AdminPermission;
+import com.mylog.tools.model.model.result.HttpResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author Dylan
  * 用户行为中心
  */
+@Slf4j
 @RestController
 @RequestMapping("act")
 public class UserActController {
-    private static final Logger logger = LoggerFactory.getLogger(UserActController.class);
+    private static final MyLogger logger = MyLoggerFactory.getLogger(UserActController.class);
     @Autowired
     IUserService userService;
 
@@ -26,7 +32,7 @@ public class UserActController {
      * @return
      */
     @PostMapping("login")
-    public Result login(@RequestBody UserDTO userDTO){
+    public HttpResult login(@RequestBody UserDTO userDTO){
         return userService.login(userDTO);
     }
 
@@ -35,8 +41,8 @@ public class UserActController {
      * @return
      */
     @AdminPermission
-    @RequestMapping("logout")
-    public Result logout(){
+    @GetMapping("logout")
+    public HttpResult logout(){
         return userService.logout();
     }
 
@@ -45,8 +51,8 @@ public class UserActController {
      * @return
      */
     @AdminPermission
-    @RequestMapping("who")
-    public Result who(){
+    @GetMapping("who")
+    public HttpResult who(){
         logger.info("who is logging");
         return userService.getCurrentUser();
     }

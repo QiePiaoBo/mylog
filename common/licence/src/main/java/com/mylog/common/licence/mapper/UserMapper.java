@@ -1,11 +1,12 @@
 package com.mylog.common.licence.mapper;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.mylog.common.licence.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.mylog.common.licence.entity.User;
+import com.mylog.tools.model.model.page.MyPage;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Component;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -15,14 +16,40 @@ import org.springframework.stereotype.Component;
  * @author Dylan
  * @since 2020-05-24
  */
-@Component
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
 
     /**
      * 获取用户列表 mapper
-     * @param page
+     * @param myPage
      * @return
      */
-    IPage<User> selectUserList(Page<User> page);
+    List<User> selectUserList(@Param("myPage") MyPage myPage);
+
+    /**
+     * 获取user总数量
+     * @return
+     */
+    Long selectUserTotal();
+
+    /**
+     * 根据id逻辑删除
+     * @param id
+     * @return
+     */
+    Integer logicalDeletionById(@Param("id") Integer id);
+
+    /**
+     * 根据userId从group里获取角色id
+     * @param id
+     * @return
+     */
+    Integer getRoleIdFromGroup(@Param("id") Integer id);
+
+    /**
+     * 获取用户的所有的角色
+     * @param id
+     * @return
+     */
+    List<Integer> getAllRole4User(@Param("id") Integer id);
 }

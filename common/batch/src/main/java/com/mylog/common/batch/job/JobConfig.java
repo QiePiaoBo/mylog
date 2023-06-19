@@ -1,8 +1,8 @@
 package com.mylog.common.batch.job;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.dylan.logger.MyLogger;
+import com.dylan.logger.MyLoggerFactory;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.repository.JobRepository;
@@ -20,7 +20,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
  */
 @Configuration
 public class JobConfig {
-    private static final Logger logger = LoggerFactory.getLogger(JobConfig.class);
+    private static final MyLogger logger = MyLoggerFactory.getLogger(JobConfig.class);
 
     @Autowired
     JobRepository batchJobRepository;

@@ -5,17 +5,15 @@
     <parent>
         <artifactId>tools</artifactId>
         <groupId>com.mylog</groupId>
-        <version>0.0.1.RELEASE</version>
+        <version>1.2.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <packaging>jar</packaging>
     <groupId>com.mylog.tools</groupId>
     <artifactId>utils-server</artifactId>
-    <version>${default-version}</version>
-
     <dependencies>
-        <!-- 作为工具类 提供核心功能所要以来的包 -->
+        <!-- 作为工具类 提供核心功能所要依赖的包 -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
@@ -29,22 +27,64 @@
             <artifactId>spring-webmvc</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>1.9.4</version>
         </dependency>
         <dependency>
             <groupId>com.mylog.tools</groupId>
-            <artifactId>entity-server</artifactId>
+            <artifactId>model-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mylog.tools</groupId>
+            <artifactId>sdk-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.dylan</groupId>
+            <artifactId>logicer-base</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <!-- 解决构建失败问题 -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-annotations</artifactId>
+                </exclusion>
+            </exclusions>
+            <version>2.11.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.11.3</version>
+            <!-- 版本可以使用2.9.3、2.9.5 、2.9.8，不能忽略version属性-->
+        </dependency>
+
+        <!--    添加服务监控    -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
     </dependencies>
 
     <!--  本地安装jar包：javax.servlet.servlet-api 注意要用cmd安装 shell命令安装貌似会将命令中的javax转义  -->
-    <!--  mvn install:install-file -Dfile=E:\Download\ChromeDownload\javax.servlet-api-4.0.1.jar -DgroupId=javax.servlet -DartifactId=servlet-api -Dversion=4.0.1 -Dpackaging=jar -DgeneratePom=true  -->
+    <!--  mvn install:install-file -Dfile=E:\Download\javax.servlet-api-4.0.1.jar -DgroupId=javax.servlet -DartifactId=servlet-api -Dversion=4.0.1 -Dpackaging=jar -DgeneratePom=true  -->
 
     <build>
         <!-- 打包名称 -->
-        <finalName>${project.artifactId}-${default-version}</finalName>
+        <finalName>${project.artifactId}-${version}</finalName>
         <!--    需要引入这两个插件 不然会没有主清单属性    -->
         <plugins>
             <plugin>

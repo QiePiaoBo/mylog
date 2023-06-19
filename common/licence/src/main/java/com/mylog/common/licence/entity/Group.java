@@ -2,39 +2,110 @@ package com.mylog.common.licence.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
+import com.baomidou.mybatisplus.annotation.TableName;
 
-import java.io.Serializable;
-
+import java.sql.Timestamp;
 
 /**
- * @author Dylan
- * @since 2020-05-24
+ * @Classname Group
+ * @Description Group
+ * @Date 5/10/2022 3:50 PM
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-public class Group implements Serializable {
+@TableName("lgc_group")
+public class Group {
 
-    private static final long serialVersionUID = 1L;
-
-    /**
-     * 管理员id
-     */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    /**
-     * 权限组名
-     */
+    private String groupCode;
+
     private String groupName;
 
-    /**
-     * 权限组说明
-     */
-    private String groupDescription;
+    private Integer groupRole;
 
+    private Integer groupStatus;
 
+    private Integer delFlag;
+
+    private Timestamp createdAt;
+
+    private Timestamp updatedAt;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getGroupCode() {
+        return groupCode;
+    }
+
+    public void setGroupCode(String groupCode) {
+        this.groupCode = groupCode;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public Integer getGroupRole() {
+        return groupRole;
+    }
+
+    public void setGroupRole(Integer groupRole) {
+        this.groupRole = groupRole;
+    }
+
+    public Integer getGroupStatus() {
+        return groupStatus;
+    }
+
+    public void setGroupStatus(Integer groupStatus) {
+        this.groupStatus = groupStatus;
+    }
+
+    public Integer getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(Integer delFlag) {
+        this.delFlag = delFlag;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Timestamp updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    @Override
+    public String toString() {
+        return "Group{" +
+                "id=" + id +
+                ", groupCode='" + groupCode + '\'' +
+                ", groupName='" + groupName + '\'' +
+                ", groupRole=" + groupRole +
+                ", groupStatus=" + groupStatus +
+                ", delFlag=" + delFlag +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }

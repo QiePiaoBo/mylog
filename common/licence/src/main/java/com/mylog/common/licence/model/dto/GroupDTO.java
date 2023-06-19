@@ -1,43 +1,70 @@
 package com.mylog.common.licence.model.dto;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
-
-import java.io.Serializable;
-
 /**
- * <p>
- * 
- * </p>
- *
- * @author Dylan
- * @since 2020-05-24
+ * @Classname GroupDTO
+ * @Description GroupDTO
+ * @Date 5/10/2022 3:52 PM
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-public class GroupDTO implements Serializable {
+public class GroupDTO {
 
-    private static final long serialVersionUID = 1L;
-
-    /**
-     * 管理员id
-     */
-    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    /**
-     * 权限组名
-     */
+    private String groupCode;
+
     private String groupName;
 
-    /**
-     * 权限组说明
-     */
-    private String groupDescription;
+    private Integer groupRole;
 
+    private Integer groupStatus;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getGroupCode() {
+        return groupCode;
+    }
+
+    public void setGroupCode(String groupCode) {
+        this.groupCode = groupCode;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public Integer getGroupRole() {
+        return groupRole;
+    }
+
+    public void setGroupRole(Integer groupRole) {
+        this.groupRole = groupRole;
+    }
+
+    public Integer getGroupStatus() {
+        return groupStatus;
+    }
+
+    public void setGroupStatus(Integer groupStatus) {
+        this.groupStatus = groupStatus;
+    }
+
+    @Override
+    public String toString() {
+        return "GroupDTO{" +
+                "id=" + id +
+                ", groupCode='" + groupCode + '\'' +
+                ", groupName='" + groupName + '\'' +
+                ", groupRole=" + groupRole +
+                ", groupStatus=" + groupStatus +
+                '}';
+    }
 }

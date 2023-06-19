@@ -1,25 +1,20 @@
 package com.mylog.common.batch.processors;
 
-import com.mylog.common.batch.common.CommonSkipException;
+import com.dylan.logger.MyLogger;
+import com.dylan.logger.MyLoggerFactory;
 import com.mylog.common.batch.model.entity.MailEntity;
 import com.mylog.common.batch.service.IMailService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.listener.JobExecutionListenerSupport;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import javax.mail.SendFailedException;
 
 /**
  * 批量邮件发送processor
  * @author Dylan
  */
 public class MailSendProcessor extends JobExecutionListenerSupport implements ItemProcessor<MailEntity, MailEntity> {
-    private static final Logger logger = LoggerFactory.getLogger(MailSendProcessor.class);
+    private static final MyLogger logger = MyLoggerFactory.getLogger(MailSendProcessor.class);
     @Autowired
     IMailService mailService;
 

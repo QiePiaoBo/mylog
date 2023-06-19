@@ -1,5 +1,5 @@
 server:
-  port: 9001
+  port: ${common.port.batch}
 spring:
   main:
     allow-bean-definition-overriding: true
@@ -13,12 +13,9 @@ spring:
         namespace: ${config.namespace}
         server-addr: logicer.top:8848
         file-extension: yaml
-        shared-configs[0]:
-          data-id: common.yaml
-          refresh: true
-        shared-configs[1]:
-          data-id: batch_db.yaml
-          refresh: true
+        shared-configs:
+          - {dataId: common.yaml, group: 'DEFAULT_GROUP', refresh: true}
+          - {dataId: batch_db.yaml, group: 'DEFAULT_GROUP', refresh: true}
         refresh-enabled: true
       discovery:
         namespace: ${config.namespace}

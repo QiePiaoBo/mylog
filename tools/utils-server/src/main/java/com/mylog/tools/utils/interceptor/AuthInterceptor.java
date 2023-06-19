@@ -1,59 +1,66 @@
 package com.mylog.tools.utils.interceptor;
 
-import com.mylog.entitys.annos.AdminPermission;
+import com.mylog.tools.model.annos.AdminPermission;
+import com.mylog.tools.model.model.info.Message;
+import com.mylog.tools.model.model.info.Status;
+import com.mylog.tools.model.model.result.DataResult;
 import com.mylog.tools.utils.session.UserContext;
+import com.mylog.tools.utils.utils.PermissionChecker;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 
 /**
  * 创建拦截器，拦截所有请求
+ *
  * @author Dylan
  */
 @Component
-public class AuthInterceptor implements HandlerInterceptor {
+public class AuthInterceptor implements HandlerInterceptor{
 
-
+    @Resource
+    private PermissionChecker permissionChecker;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        boolean result = false;
-        if (!(handler instanceof HandlerMethod)){
-            result =  true;
-        }
-        // 获取方法中的注解
-        HandlerMethod handlerMethod = (HandlerMethod) handler;
-        Method method = handlerMethod.getMethod();
-        AdminPermission authToken = method.getAnnotation(AdminPermission.class);
-
-        if (authToken == null){
+        if (!(handler instanceof HandlerMethod)) {
             return true;
-        }
-        // 需要验证的Method
-        if (null == UserContext.getCurrentUser()){
-            response.setContentType("application/json; charset=UTF-8");
-            response.getWriter().write("未登录");
-            return false;
-        }
-        int userType = authToken.userType();
-        // 数字越小权限越大
-        result =  userType >= UserContext.getCurrentUser().getUsergroup();
-        if (!result){
-            response.setContentType("application/json; charset=UTF-8");
-            if (UserContext.getCurrentUser() == null){
-                response.getWriter().write("未登录");
+        } else {
+            // 获取方法中的注解
+            HandlerMethod handlerMethod = (HandlerMethod) handler;
+            Method method = handlerMethod.getMethod();
+            AdminPermission authToken = method.getAnnotation(AdminPermission.class);
+            // authToken为空说明无需校验 也就是方法上并没有添加AdminPermission注解
+            if (authToken == null) {
+                return true;
             }
-            else {
-                response.getWriter().write("权限不足");
+            // 走到这里说明需要校验 若当前用户为空 则直接校验不通过 因为添加AdminPermission注解的接口都是必须登录的接口
+            if (null == UserContext.getCurrentUser()) {
+                response.setContentType("application/json; charset=UTF-8");
+                response.getWriter().write(DataResult
+                        .fail(Status.NOT_LOGIN.getStatus(), Message.NOT_LOGIN.getMsg())
+                        .build().toString());
+                return false;
+            }
+            // 使用spring容器中的permissionChecker实例对用户权限进行校验
+            if (permissionChecker.hasPermission(authToken.userType(), request.getRequestURI())){
+                return true;
+            }else {
+                response.setContentType("application/json; charset=UTF-8");
+                response.getWriter().write(DataResult
+                        .fail(Status.PERMISSION_ERROR.getStatus(), Message.PERMISSION_ERROR.getMsg())
+                        .build().toString());
+                return false;
             }
         }
-        return result;
     }
+
     /**
      * 在整个请求结束之后被调用，也就是在DispatcherServlet 渲染了对应的视图之后执行（主要是用于进行资源清理工作）
      *
@@ -69,6 +76,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     /**
      * 请求处理之后进行调用，但是在视图被渲染之前（Controller方法调用之后）
+     *
      * @param request
      * @param response
      * @param handler
