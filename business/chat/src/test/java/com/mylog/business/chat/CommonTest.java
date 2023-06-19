@@ -34,5 +34,4 @@ public class CommonTest {
 
         logger.info("res: {}, {}", i, integer);
     }
-
 }

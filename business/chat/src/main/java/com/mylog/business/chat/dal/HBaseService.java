@@ -37,8 +37,6 @@ public class HBaseService implements InitializingBean {
 
     private final MyLogger logger = MyLoggerFactory.getLogger(HBaseService.class);
 
-    @Value("${lgc.hbase.logicer.name:hbase}")
-    private String logicerName;
     @Value("${lgc.hbase.server:logicer.top}")
     private String server;
     @Value("${lgc.hbase.port:2181}")
