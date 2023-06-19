@@ -33,8 +33,6 @@ public class CommonTest {
         Integer integer = Integer.getInteger("345");
 
         logger.info("res: {}, {}", i, integer);
-
-        logger.info("maxInteger: {}", Integer.MAX_VALUE);
     }
 
 
