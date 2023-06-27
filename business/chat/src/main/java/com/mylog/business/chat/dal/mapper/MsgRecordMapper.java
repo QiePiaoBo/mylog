@@ -1,6 +1,7 @@
 package com.mylog.business.chat.dal.mapper;
 
 import com.mylog.business.chat.dal.entity.MsgRecordEntity;
+import com.mylog.business.chat.dal.model.MsgInsertModel;
 import com.mylog.business.chat.dal.model.MsgQueryModel;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -20,5 +21,14 @@ public interface MsgRecordMapper {
      * @return
      */
     List<MsgRecordEntity> queryMsgRecords(MsgQueryModel queryModel);
+
+    /**
+     * 批量插入或更新消息
+     * @param insertModels
+     * @return
+     */
+    Integer batchInsert(List<MsgInsertModel> insertModels);
+
+
 
 }

@@ -38,5 +38,24 @@
         </if>
     </select>
 
+    <insert id="batchInsert" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            INSERT INTO
+            <include refid="Table_Name"/>(
+            del_flag
+            <if test="item.fromId != null">, from_id</if>
+            <if test="item.toId != null">, to_id</if>
+            <if test="item.msgContent != null">, msg_content</if>
+            <if test="item.msgHash != null">, msg_hash</if>
+            )
+            VALUES (
+            0
+            <if test="item.fromId != null">, #{item.fromId}</if>
+            <if test="item.toId != null">, #{item.toId}</if>
+            <if test="item.msgContent != null">, #{item.msgContent}</if>
+            <if test="item.msgHash != null">, #{item.msgHash}</if>
+            )
+        </foreach>
+    </insert>
 
 </mapper>
