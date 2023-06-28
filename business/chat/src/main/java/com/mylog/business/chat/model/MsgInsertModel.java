@@ -12,7 +12,7 @@ public class MsgInsertModel {
     /**
      * 会话Id
      */
-    private String sessionId;
+    private Integer sessionId;
 
     /**
      * 消息类型 logicer talk command
@@ -66,11 +66,11 @@ public class MsgInsertModel {
         this.msgTimestamp = msgTimestamp;
     }
 
-    public String getSessionId() {
+    public Integer getSessionId() {
         return sessionId;
     }
 
-    public void setSessionId(String sessionId) {
+    public void setSessionId(Integer sessionId) {
         this.sessionId = sessionId;
     }
 

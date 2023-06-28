@@ -19,7 +19,7 @@ public class MsgRecordEntity {
     /**
      * 会话Id
      */
-    private String sessionId;
+    private Integer sessionId;
 
     /**
      * 消息类型 logicer talk command

@@ -4,7 +4,7 @@
 
     <resultMap type="com.mylog.business.chat.dal.entity.MsgRecordEntity" id="MsgRecordMap">
         <result property="msgId" column="msg_id" jdbcType="BIGINT"/>
-        <result property="sessionId" column="session_id" jdbcType="VARCHAR"/>
+        <result property="sessionId" column="session_id" jdbcType="INTEGER"/>
         <result property="msgType" column="msg_type" jdbcType="INTEGER"/>
         <result property="fromId" column="from_id" jdbcType="INTEGER"/>
         <result property="toId" column="to_id" jdbcType="INTEGER"/>
@@ -43,7 +43,7 @@
         </if>
     </select>
 
-    <insert id="batchInsert" parameterType="java.util.List">
+    <insert id="batchInsertMsgRecord" parameterType="java.util.List">
         <foreach collection="list" item="item" index="index" separator=";">
             INSERT INTO
             <include refid="Table_Name"/>(

@@ -27,7 +27,7 @@ public interface MsgRecordMapper {
      * @param insertModels
      * @return
      */
-    Integer batchInsert(List<MsgInsertModel> insertModels);
+    Integer batchInsertMsgRecord(List<MsgInsertModel> insertModels);
 
 
 

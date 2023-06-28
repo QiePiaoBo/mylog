@@ -46,7 +46,7 @@ public class MsgRecordService {
     public boolean msgRecordBatchInsert(List<MsgInsertModel> insertModels) {
         // 消息处理
         checkAndDealingMsg(insertModels);
-        Integer integer = msgRecordMapper.batchInsert(insertModels);
+        Integer integer = msgRecordMapper.batchInsertMsgRecord(insertModels);
         return integer > 0;
     }
 

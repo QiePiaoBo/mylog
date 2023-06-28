@@ -8,13 +8,13 @@ import lombok.Data;
  * @Date 6/20/2023 5:25 PM
  */
 @Data
-public class MsgQueryModel {
-
-    private Integer fromId;
-
-    private Integer toId;
-
-    private String partition;
+public class SessionQueryModel {
 
     private Integer sessionId;
+
+    private Integer senderId;
+
+    private Integer recipientId;
+
+    private Integer talkTeamId;
 }
