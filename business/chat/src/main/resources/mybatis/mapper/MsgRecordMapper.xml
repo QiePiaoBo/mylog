@@ -20,7 +20,7 @@
     </sql>
 
     <sql id="Table_Name">
-        msg_record
+        lgc_talk_msg_record
     </sql>
 
     <select id="queryMsgRecords" resultType="com.mylog.business.chat.dal.entity.MsgRecordEntity">
