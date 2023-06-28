@@ -2,6 +2,8 @@ package com.mylog.business.chat.model;
 
 import lombok.Data;
 
+import java.util.Objects;
+
 /**
  * @Classname MsgRecordEntity
  * @Description MsgRecordEntity
@@ -15,5 +17,15 @@ public class SessionInsertModel {
     private Integer recipientId;
 
     private Integer talkTeamId;
+
+    public boolean isOk() {
+        if (Objects.nonNull(getSenderId()) && Objects.nonNull(getRecipientId())){
+            return true;
+        }
+        if (Objects.isNull(getSenderId()) && Objects.isNull(getRecipientId()) && Objects.nonNull(getTalkTeamId())){
+            return true;
+        }
+        return false;
+    }
 
 }
