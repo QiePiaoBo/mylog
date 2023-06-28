@@ -5,8 +5,9 @@ import com.dylan.logger.MyLoggerFactory;
 import com.mylog.business.chat.dal.entity.MsgRecordEntity;
 import com.mylog.business.chat.dal.entity.MsgRecordPartitionEnum;
 import com.mylog.business.chat.dal.mapper.MsgRecordMapper;
-import com.mylog.business.chat.dal.model.MsgInsertModel;
-import com.mylog.business.chat.dal.model.MsgQueryModel;
+import com.mylog.business.chat.model.MsgInsertModel;
+import com.mylog.business.chat.model.MsgQueryModel;
+import com.mylog.business.chat.service.MsgRecordService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,13 +32,14 @@ public class MybatisPlusTest {
     @Resource
     private MsgRecordMapper msgRecordMapper;
 
+    @Resource
+    private MsgRecordService msgRecordService;
+
     @Test
     public void testQueryMsgRecords() {
         LocalDateTime now = LocalDateTime.now();
         MsgQueryModel msgQueryModel = new MsgQueryModel();
         msgQueryModel.setPartition(MsgRecordPartitionEnum.getPartition(now).getPartitionName());
-//        msgQueryModel.setToId(3);
-//        msgQueryModel.setFromId(1);
         List<MsgRecordEntity> msgRecordEntities = msgRecordMapper.queryMsgRecords(msgQueryModel);
         logger.info("res: {}", msgRecordEntities);
     }
@@ -47,11 +49,15 @@ public class MybatisPlusTest {
         MsgInsertModel insertModel1 = new MsgInsertModel();
         insertModel1.setFromId(1);
         insertModel1.setToId(2);
-        insertModel1.setMsgContent("你好");
+        insertModel1.setSessionId("h1214apdgnm");
+        insertModel1.setMsgType(1);
+        insertModel1.setMsgContent("坤坤");
         MsgInsertModel insertModel2 = new MsgInsertModel();
         insertModel2.setFromId(2);
         insertModel2.setToId(1);
-        insertModel2.setMsgContent("你也好");
+        insertModel2.setMsgContent("小黑子");
+        insertModel2.setMsgType(1);
+        insertModel2.setSessionId("h1214apdgnm");
         Integer integer = msgRecordMapper.batchInsert(Arrays.asList(insertModel1, insertModel2));
         logger.info("res: {}", integer);
     }

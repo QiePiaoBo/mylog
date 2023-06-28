@@ -1,8 +1,8 @@
 package com.mylog.business.chat.dal.mapper;
 
 import com.mylog.business.chat.dal.entity.MsgRecordEntity;
-import com.mylog.business.chat.dal.model.MsgInsertModel;
-import com.mylog.business.chat.dal.model.MsgQueryModel;
+import com.mylog.business.chat.model.MsgInsertModel;
+import com.mylog.business.chat.model.MsgQueryModel;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

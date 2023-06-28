@@ -3,8 +3,11 @@ package com.mylog.business.chat.consumer;
 import com.dylan.logger.MyLogger;
 import com.dylan.logger.MyLoggerFactory;
 import com.dylan.mq.LogicerTalkMqConstant;
+import com.mylog.business.chat.dal.mapper.MsgRecordMapper;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 /**
  * @Classname LogicerTalkListener
@@ -15,6 +18,11 @@ import org.springframework.stereotype.Component;
 public class LogicerTalkListener {
 
     private final MyLogger logger = MyLoggerFactory.getLogger(LogicerTalkListener.class);
+
+
+    @Resource
+    private MsgRecordMapper msgRecordMapper;
+
 
     @RabbitListener(queues = {LogicerTalkMqConstant.LOGICER_QUEUE_TALK})
     public void receiveMsg(String msg){

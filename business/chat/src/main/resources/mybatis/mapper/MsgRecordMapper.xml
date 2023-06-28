@@ -4,6 +4,8 @@
 
     <resultMap type="com.mylog.business.chat.dal.entity.MsgRecordEntity" id="MsgRecordMap">
         <result property="msgId" column="msg_id" jdbcType="BIGINT"/>
+        <result property="sessionId" column="session_id" jdbcType="VARCHAR"/>
+        <result property="msgType" column="msg_type" jdbcType="INTEGER"/>
         <result property="fromId" column="from_id" jdbcType="INTEGER"/>
         <result property="toId" column="to_id" jdbcType="INTEGER"/>
         <result property="msgContent" column="msg_content" jdbcType="VARCHAR"/>
@@ -14,7 +16,7 @@
 
     <sql id="Base_Columns">
         msg_id
-        ,from_id,to_id,msg_content,msg_hash,msg_timestamp,del_flag
+        ,session_id,msg_type,from_id,to_id,msg_content,msg_hash,msg_timestamp,del_flag
     </sql>
 
     <sql id="Table_Name">
@@ -43,13 +45,17 @@
             INSERT INTO
             <include refid="Table_Name"/>(
             del_flag
+            <if test="item.sessionId != null">, session_id</if>
             <if test="item.fromId != null">, from_id</if>
             <if test="item.toId != null">, to_id</if>
+            <if test="item.msgType != null">, msg_type</if>
             <if test="item.msgContent != null">, msg_content</if>
             <if test="item.msgHash != null">, msg_hash</if>
             )
             VALUES (
             0
+            <if test="item.sessionId != null">, #{item.sessionId}</if>
+            <if test="item.msgType != null">, #{item.msgType}</if>
             <if test="item.fromId != null">, #{item.fromId}</if>
             <if test="item.toId != null">, #{item.toId}</if>
             <if test="item.msgContent != null">, #{item.msgContent}</if>

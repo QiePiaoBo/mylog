@@ -1,6 +1,4 @@
-package com.mylog.business.chat.dal.model;
-
-import com.mylog.tools.sdks.wordsdk.MD5;
+package com.mylog.business.chat.model;
 
 import java.time.LocalDateTime;
 
@@ -11,7 +9,15 @@ import java.time.LocalDateTime;
  */
 public class MsgInsertModel {
 
-    private Long msgId;
+    /**
+     * 会话Id
+     */
+    private String sessionId;
+
+    /**
+     * 消息类型 logicer talk command
+     */
+    private Integer msgType;
 
     private Integer fromId;
 
@@ -22,16 +28,6 @@ public class MsgInsertModel {
     private String msgHash;
 
     private LocalDateTime msgTimestamp;
-
-    private Integer delFlag;
-
-    public Long getMsgId() {
-        return msgId;
-    }
-
-    public void setMsgId(Long msgId) {
-        this.msgId = msgId;
-    }
 
     public Integer getFromId() {
         return fromId;
@@ -55,7 +51,7 @@ public class MsgInsertModel {
 
     public void setMsgContent(String msgContent) {
         this.msgContent = msgContent;
-        this.msgHash = MD5.md5(msgContent);
+        this.msgHash = "MD5.md5(msgContent)";
     }
 
     public String getMsgHash() {
@@ -70,20 +66,26 @@ public class MsgInsertModel {
         this.msgTimestamp = msgTimestamp;
     }
 
-    public Integer getDelFlag() {
-        return delFlag;
+    public String getSessionId() {
+        return sessionId;
     }
 
-    public void setDelFlag(Integer delFlag) {
-        this.delFlag = delFlag;
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public Integer getMsgType() {
+        return msgType;
+    }
+
+    public void setMsgType(Integer msgType) {
+        this.msgType = msgType;
     }
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("{");
-        sb.append("\"msgId\":")
-                .append(msgId);
-        sb.append(",\"fromId\":")
+        sb.append("\"fromId\":")
                 .append(fromId);
         sb.append(",\"toId\":")
                 .append(toId);
@@ -93,8 +95,6 @@ public class MsgInsertModel {
                 .append(msgHash).append(msgHash == null ? "" : "\"");
         sb.append(",\"msgTimestamp\":")
                 .append(msgTimestamp);
-        sb.append(",\"delFlag\":")
-                .append(delFlag);
         sb.append('}');
         return sb.toString();
     }

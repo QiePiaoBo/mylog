@@ -1,19 +1,19 @@
-package com.mylog.business.chat.dal.entity;
+package com.mylog.business.chat.model.vo;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 /**
- * @Classname MsgRecordEntity
- * @Description MsgRecordEntity
- * @Date 6/20/2023 5:14 PM
+ * @Classname MsgRecordVO
+ * @Description MsgRecordVO
+ * @Date 6/28/2023 3:29 PM
  */
 @Data
-public class MsgRecordEntity {
-
-    @TableId
+public class MsgRecordVO {
+    /**
+     * 消息Id
+     */
     private Long msgId;
 
     /**
@@ -26,28 +26,15 @@ public class MsgRecordEntity {
      */
     private Integer msgType;
 
-    /**
-     * 发送者
-     */
     private Integer fromId;
 
-    /**
-     * 接收者
-     */
     private Integer toId;
 
-    /**
-     * 消息体
-     */
     private String msgContent;
 
-    /**
-     * 消息体hash值
-     */
     private String msgHash;
 
     private LocalDateTime msgTimestamp;
 
     private Integer delFlag;
-
 }
