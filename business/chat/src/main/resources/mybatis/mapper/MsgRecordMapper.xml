@@ -31,9 +31,12 @@
         <if test="partition != null and partition != ''">
             PARTITION (${partition})
         </if>
-        where del_flag = 0
+        where del_flag = 0 and msg_type = 1
         <if test="fromId != null">
             and `from_id` = #{fromId}
+        </if>
+        <if test="sessionId != null">
+            and `session_id` = #{sessionId}
         </if>
         <if test="toId != null">
             and `to_id` = #{toId}
