@@ -21,21 +21,28 @@
     </sql>
 
     <insert id="batchInsertSession" parameterType="java.util.List">
-        <foreach collection="list" item="item" index="index" separator=";">
-            INSERT INTO
-            <include refid="Table_Name"/>(
-            del_flag
-            <if test="item.senderId != null">, sender_id</if>
-            <if test="item.recipientId != null">, recipient_id</if>
-            <if test="item.talkTeamId != null">, talk_team_id</if>
-            )
-            VALUES (
-            0
-            <if test="item.senderId != null">, #{item.senderId}</if>
-            <if test="item.recipientId != null">, #{item.recipientId}</if>
-            <if test="item.talkTeamId != null">, #{item.talkTeamId}</if>
-            )
-        </foreach>
+        <choose>
+            <when test="list != null and list.size > 0">
+                <foreach collection="list" item="item" index="index" separator=";">
+                    INSERT INTO
+                    <include refid="Table_Name"/>(
+                    del_flag
+                    <if test="item.senderId != null">, sender_id</if>
+                    <if test="item.recipientId != null">, recipient_id</if>
+                    <if test="item.talkTeamId != null">, talk_team_id</if>
+                    )
+                    VALUES (
+                    0
+                    <if test="item.senderId != null">, #{item.senderId}</if>
+                    <if test="item.recipientId != null">, #{item.recipientId}</if>
+                    <if test="item.talkTeamId != null">, #{item.talkTeamId}</if>
+                    )
+                </foreach>
+            </when>
+            <otherwise>
+                select 1 = 1;
+            </otherwise>
+        </choose>
     </insert>
     <insert id="insertSession" parameterType="com.mylog.business.chat.model.SessionInsertModel">
             INSERT INTO

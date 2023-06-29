@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -45,7 +46,7 @@ public class MsgRecordService {
      */
     public boolean msgRecordBatchInsert(List<MsgInsertModel> insertModels) {
         // 消息处理
-        checkAndDealingMsg(insertModels);
+        insertModels = checkAndDealingMsg(insertModels);
         Integer integer = msgRecordMapper.batchInsertMsgRecord(insertModels);
         return integer > 0;
     }
@@ -54,8 +55,13 @@ public class MsgRecordService {
      * 处理待插入消息
      * @param insertModels
      */
-    private void checkAndDealingMsg(List<MsgInsertModel> insertModels) {
-        logger.info("msg size: {}", insertModels.size());
+    private List<MsgInsertModel> checkAndDealingMsg(List<MsgInsertModel> insertModels) {
+        // sessionId为空的消息 不允许插入并打印消息
+        return Safes.of(insertModels).stream().peek(m -> {
+            if (Objects.isNull(m.getSessionId())) {
+                logger.error("msg invalid: {}", m);
+            }
+        }).filter(m -> Objects.nonNull(m.getSessionId())).collect(Collectors.toList());
     }
 
 

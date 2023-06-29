@@ -29,51 +29,12 @@ import java.util.List;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class MybatisPlusTest {
+public class LgcTalkSessionTest {
 
-    private static final MyLogger logger = MyLoggerFactory.getLogger(MybatisPlusTest.class);
-
-    @Resource
-    private MsgRecordMapper msgRecordMapper;
+    private static final MyLogger logger = MyLoggerFactory.getLogger(LgcTalkSessionTest.class);
 
     @Resource
     private LgcTalkSessionMapper lgcTalkSessionMapper;
-
-    @Resource
-    private MsgRecordService msgRecordService;
-
-    @Test
-    public void testMsgRecord() {
-        testBatchInsertMsg();
-        testQueryMsgRecords();
-    }
-
-    @Test
-    public void testQueryMsgRecords() {
-        LocalDateTime now = LocalDateTime.now();
-        MsgQueryModel msgQueryModel = new MsgQueryModel();
-        msgQueryModel.setPartition(MsgRecordPartitionEnum.getPartition(now).getPartitionName());
-        List<MsgRecordEntity> msgRecordEntities = msgRecordMapper.queryMsgRecords(msgQueryModel);
-        logger.info("res: {}", msgRecordEntities);
-    }
-
-    @Test
-    public void testBatchInsertMsg() {
-        MsgInsertModel insertModel1 = new MsgInsertModel();
-        insertModel1.setFromId(1);
-        insertModel1.setToId(2);
-        insertModel1.setSessionId(1111);
-        insertModel1.setMsgType(1);
-        insertModel1.setMsgContent("坤坤");
-        MsgInsertModel insertModel2 = new MsgInsertModel();
-        insertModel2.setFromId(2);
-        insertModel2.setToId(1);
-        insertModel2.setMsgContent("小黑子");
-        insertModel2.setMsgType(1);
-        insertModel2.setSessionId(2222);
-        Integer integer = msgRecordMapper.batchInsertMsgRecord(Arrays.asList(insertModel1, insertModel2));
-        logger.info("res: {}", integer);
-    }
 
 
     @Test
