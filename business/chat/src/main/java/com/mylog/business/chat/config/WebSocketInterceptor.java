@@ -2,6 +2,7 @@ package com.mylog.business.chat.config;
 
 import com.dylan.logger.MyLogger;
 import com.dylan.logger.MyLoggerFactory;
+import com.mylog.business.chat.service.SessionService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
@@ -11,7 +12,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.HandshakeInterceptor;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -24,6 +27,9 @@ import java.util.Objects;
 public class WebSocketInterceptor implements HandshakeInterceptor {
 
     private static final MyLogger logger = MyLoggerFactory.getLogger(WebSocketInterceptor.class);
+
+    @Resource
+    private SessionService sessionService;
 
     /**
      * 握手前
@@ -53,9 +59,16 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
             if (StringUtils.isBlank(userName)){
                 userName = authorization;
             }
-            map.put("USERNAME", userName);
         }
-        serverHttpResponse.getServletResponse().setHeader("Sec-WebSocket-Protocol", authorization);
+        if (authorization.contains(",")){
+            String[] split = authorization.split(",");
+            Integer sessionId = sessionService.getOrCreateSession(split[0], split[1]);
+            map.put("USERNAME", split[0].trim());
+            map.put("TALKWITH", split[1].trim());
+            serverHttpResponse.getServletResponse().setHeader("Sec-WebSocket-Protocol", split[0]);
+        }else {
+            serverHttpResponse.getServletResponse().setHeader("Sec-WebSocket-Protocol", authorization);
+        }
         logger.info("start shaking hands >>>>>>");
 
         return true;

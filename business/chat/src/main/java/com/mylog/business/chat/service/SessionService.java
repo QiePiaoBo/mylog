@@ -63,4 +63,19 @@ public class SessionService {
     }
 
 
+    /**
+     * 根据用户名查询或新建session
+     * @param userName
+     * @param talkWith
+     * @return
+     */
+    public Integer getOrCreateSession(String userName, String talkWith) {
+        //LgcTalkSessionEntity entity = lgcTalkSessionMapper.getSessionByUserName(userName, talkWith);
+        // SELECT session_id
+        //FROM session
+        //JOIN user AS sender ON session.sender_id = sender.user_id
+        //JOIN user AS receiver ON session.receiver_id = receiver.user_id
+        //WHERE sender.user_name = 'Alice' AND receiver.user_name = 'Bob';
+        return null;
+    }
 }

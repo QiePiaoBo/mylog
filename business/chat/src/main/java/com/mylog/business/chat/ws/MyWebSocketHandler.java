@@ -61,7 +61,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         String messagePayload = message.getPayload();
-        String userName = getUserName(session);
+        String userName = getUserName(session, "USERNAME");
         String completeMsg = WebSocketUtil.getCompleteMsg(messagePayload);
         logger.info("handling textMessage ---> {}: {}【{}】", userName, messagePayload, completeMsg);
         if (Objects.isNull(completeMsg)){
@@ -86,8 +86,8 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
      * @param session
      * @return
      */
-    private String getUserName(WebSocketSession session) {
-        Object websocket_username = session.getAttributes().get("USERNAME");
+    private String getUserName(WebSocketSession session, String aimKey) {
+        Object websocket_username = session.getAttributes().get(aimKey);
         String userName = "";
         if (Objects.nonNull(websocket_username) && websocket_username instanceof String){
             userName = (String) websocket_username;
@@ -125,7 +125,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         String sessionId = session.getId();
-        String userName = getUserName(session);
+        String userName = getUserName(session, "USERNAME");
         if (WebsocketConstant.WS_SESSION_POOL.containsKey(userName)){
             WebsocketConstant.WS_SESSION_POOL.remove(userName);
             subOnlineCount();
