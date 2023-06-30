@@ -44,12 +44,8 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler webSocketHandler, Map<String, Object> map) throws Exception {
         ServletServerHttpRequest serverHttpRequest = (ServletServerHttpRequest) request;
         ServletServerHttpResponse serverHttpResponse = (ServletServerHttpResponse) response;
-        // 参数传入userId和pwd方式
-        // String userId = serverHttpRequest.getServletRequest().getParameter("userId");
-        // String pwd = serverHttpRequest.getServletRequest().getParameter("pwd");
-        // header中
+        // 使用WS的子协议传入连接参数 结构示意: userName,talkWith
         String authorization = serverHttpRequest.getServletRequest().getHeader("Sec-WebSocket-Protocol");
-        // todo 根据获取到的authorization的值进行鉴权
         if (StringUtils.isBlank(authorization)){
             return false;
         }
@@ -63,14 +59,15 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
         if (authorization.contains(",")){
             String[] split = authorization.split(",");
             Integer sessionId = sessionService.getOrCreateSession(split[0], split[1]);
-            map.put("USERNAME", split[0].trim());
-            map.put("TALKWITH", split[1].trim());
+            map.put(WebsocketConstant.WS_PROPERTIES_USERNAME, split[0].trim());
+            map.put(WebsocketConstant.WS_PROPERTIES_TALKWITH, split[1].trim());
+            map.put(WebsocketConstant.WS_PROPERTIES_SESSIONID, sessionId);
+            // 如果传入了两个子协议 必须返回其中一个给客户端表示服务端选择了其中一个 如果将两个子协议原样返回 会导致连接失败
             serverHttpResponse.getServletResponse().setHeader("Sec-WebSocket-Protocol", split[0]);
         }else {
             serverHttpResponse.getServletResponse().setHeader("Sec-WebSocket-Protocol", authorization);
         }
         logger.info("start shaking hands >>>>>>");
-
         return true;
     }
 

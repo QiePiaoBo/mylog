@@ -12,6 +12,8 @@ import java.util.Objects;
 @Data
 public class SessionInsertModel {
 
+    private Integer sessionId;
+
     private Integer senderId;
 
     private Integer recipientId;

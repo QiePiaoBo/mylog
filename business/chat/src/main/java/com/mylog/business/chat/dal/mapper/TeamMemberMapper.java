@@ -1,7 +1,8 @@
-package com.mylog.common.licence.mapper;
+package com.mylog.business.chat.dal.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.mylog.common.licence.entity.TeamMember;
+import com.mylog.business.chat.dal.entity.TeamMember;
+
 
 /**
  * @author Dylan

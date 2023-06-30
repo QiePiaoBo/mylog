@@ -10,6 +10,7 @@ import com.mylog.business.chat.model.MsgInsertModel;
 import com.mylog.business.chat.model.MsgQueryModel;
 import com.mylog.business.chat.model.SessionInsertModel;
 import com.mylog.business.chat.model.SessionQueryModel;
+import com.mylog.business.chat.model.UserNameIdModel;
 import com.mylog.business.chat.model.converter.LgcTalkSessionConverter;
 import com.mylog.business.chat.model.converter.MsgRecordConverter;
 import com.mylog.business.chat.model.vo.LgcTalkSessionVO;
@@ -19,7 +20,10 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -70,12 +74,34 @@ public class SessionService {
      * @return
      */
     public Integer getOrCreateSession(String userName, String talkWith) {
-        //LgcTalkSessionEntity entity = lgcTalkSessionMapper.getSessionByUserName(userName, talkWith);
-        // SELECT session_id
-        //FROM session
-        //JOIN user AS sender ON session.sender_id = sender.user_id
-        //JOIN user AS receiver ON session.receiver_id = receiver.user_id
-        //WHERE sender.user_name = 'Alice' AND receiver.user_name = 'Bob';
-        return null;
+        LgcTalkSessionEntity entity = lgcTalkSessionMapper.getSessionByUserName(userName, talkWith);
+        if (Objects.nonNull(entity)){
+            logger.info("<getOrCreateSession> Got entity: {}", entity);
+            return entity.getSessionId();
+        }else {
+            List<UserNameIdModel> userNameIds = lgcTalkSessionMapper.getUserNameId(Arrays.asList(userName, talkWith));
+            Map<String, Integer> userNameIdMap = Safes.of(userNameIds).stream().filter(m -> m.getId() > 0).collect(Collectors.toMap(UserNameIdModel::getUserName, UserNameIdModel::getId, (v1, v2) -> v2));
+            if (userNameIdMap.size() < 2){
+                logger.error("<getOrCreateSession> Error getting username id map : {}", userNameIds);
+            }
+            SessionInsertModel sessionInsertModel = new SessionInsertModel();
+            sessionInsertModel.setSenderId(userNameIdMap.get(userName));
+            sessionInsertModel.setRecipientId(userNameIdMap.get(talkWith));
+            // Id会回补到SessionInsertModel
+            Integer integer = lgcTalkSessionMapper.insertSession(sessionInsertModel);
+            if (integer > 0){
+                logger.info("<getOrCreateSession> Session inserted, {}", sessionInsertModel);
+            }
+            // 如果回补失败，就查询并取第一个值的id进行返回
+            if (Objects.nonNull(sessionInsertModel.getSessionId())){
+                return sessionInsertModel.getSessionId();
+            }else {
+                SessionQueryModel sessionQueryModel = new SessionQueryModel();
+                sessionQueryModel.setSenderId(userNameIdMap.get(userName));
+                sessionQueryModel.setRecipientId(userNameIdMap.get(talkWith));
+                List<LgcTalkSessionEntity> entities = lgcTalkSessionMapper.querySessions(sessionQueryModel);
+                return entities.get(0).getSessionId();
+            }
+        }
     }
 }

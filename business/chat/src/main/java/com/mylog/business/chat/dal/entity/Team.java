@@ -1,21 +1,22 @@
-package com.mylog.common.licence.entity;
+package com.mylog.business.chat.dal.entity;
+
+import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.sql.Timestamp;
 
 /**
  * @author Dylan
- * @Description TeamMember
+ * @Description Team
  * @Date : 2022/6/12 - 15:24
  */
-public class TeamMember {
+@TableName("lgc_talk_team")
+public class Team {
 
     private Integer id;
 
-    private Integer userId;
+    private String teamName;
 
-    private Integer userType;
-
-    private Integer teamId;
+    private Integer teamOwnerId;
 
     private Integer delFlag;
 
@@ -31,28 +32,20 @@ public class TeamMember {
         this.id = id;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public String getTeamName() {
+        return teamName;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
     }
 
-    public Integer getUserType() {
-        return userType;
+    public Integer getTeamOwnerId() {
+        return teamOwnerId;
     }
 
-    public void setUserType(Integer userType) {
-        this.userType = userType;
-    }
-
-    public Integer getTeamId() {
-        return teamId;
-    }
-
-    public void setTeamId(Integer teamId) {
-        this.teamId = teamId;
+    public void setTeamOwnerId(Integer teamOwnerId) {
+        this.teamOwnerId = teamOwnerId;
     }
 
     public Integer getDelFlag() {
@@ -83,9 +76,8 @@ public class TeamMember {
     public String toString() {
         return "Team{" +
                 "id=" + id +
-                ", userId=" + userId +
-                ", userType=" + userType +
-                ", teamId=" + teamId +
+                ", teamName='" + teamName + '\'' +
+                ", teamOwnerId=" + teamOwnerId +
                 ", delFlag=" + delFlag +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +

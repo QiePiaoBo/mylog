@@ -61,7 +61,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         String messagePayload = message.getPayload();
-        String userName = getUserName(session, "USERNAME");
+        String userName = getUserName(session, WebsocketConstant.WS_PROPERTIES_USERNAME);
         String completeMsg = WebSocketUtil.getCompleteMsg(messagePayload);
         logger.info("handling textMessage ---> {}: {}【{}】", userName, messagePayload, completeMsg);
         if (Objects.isNull(completeMsg)){
@@ -77,6 +77,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
         }else {
             // session.sendMessage(new TextMessage(String.format("Got message %s from %s", messagePayload, userName)));
             // 发送消息
+            // todo 在messagePayLoad中 添加session值
             LogicerNettyClientUtil.sendMessage(userName, messagePayload);
         }
     }
@@ -103,7 +104,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
      */
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        Object websocket_username = session.getAttributes().get("USERNAME");
+        Object websocket_username = session.getAttributes().get(WebsocketConstant.WS_PROPERTIES_USERNAME);
         String userName = "";
         if (Objects.nonNull(websocket_username) && websocket_username instanceof String){
             userName = (String) websocket_username;
@@ -125,7 +126,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         String sessionId = session.getId();
-        String userName = getUserName(session, "USERNAME");
+        String userName = getUserName(session, WebsocketConstant.WS_PROPERTIES_USERNAME);
         if (WebsocketConstant.WS_SESSION_POOL.containsKey(userName)){
             WebsocketConstant.WS_SESSION_POOL.remove(userName);
             subOnlineCount();

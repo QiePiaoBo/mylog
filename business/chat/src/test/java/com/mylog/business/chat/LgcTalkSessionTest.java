@@ -11,7 +11,9 @@ import com.mylog.business.chat.model.MsgInsertModel;
 import com.mylog.business.chat.model.MsgQueryModel;
 import com.mylog.business.chat.model.SessionInsertModel;
 import com.mylog.business.chat.model.SessionQueryModel;
+import com.mylog.business.chat.model.UserNameIdModel;
 import com.mylog.business.chat.service.MsgRecordService;
+import com.mylog.business.chat.service.SessionService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -35,6 +37,9 @@ public class LgcTalkSessionTest {
 
     @Resource
     private LgcTalkSessionMapper lgcTalkSessionMapper;
+
+    @Resource
+    private SessionService sessionService;
 
 
     @Test
@@ -72,6 +77,18 @@ public class LgcTalkSessionTest {
 //        query.setSessionId(2);
         List<LgcTalkSessionEntity> entities = lgcTalkSessionMapper.querySessions(query);
         logger.info("res: {}", entities);
+    }
+
+    @Test
+    public void testGetOrCreateSession() {
+        Integer sessionId = sessionService.getOrCreateSession("Dylan", "Lucifer");
+        logger.info("sessionId: {}", sessionId);
+    }
+
+    @Test
+    public void testGetUserNameId() {
+        List<UserNameIdModel> userNameIds = lgcTalkSessionMapper.getUserNameId(Arrays.asList("Dylan", "Duke"));
+        logger.info("res: {}", userNameIds);
     }
 
 

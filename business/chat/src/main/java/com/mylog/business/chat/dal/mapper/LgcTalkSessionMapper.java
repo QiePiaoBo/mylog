@@ -6,7 +6,9 @@ import com.mylog.business.chat.model.MsgInsertModel;
 import com.mylog.business.chat.model.MsgQueryModel;
 import com.mylog.business.chat.model.SessionInsertModel;
 import com.mylog.business.chat.model.SessionQueryModel;
+import com.mylog.business.chat.model.UserNameIdModel;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -40,4 +42,18 @@ public interface LgcTalkSessionMapper {
      */
     Integer insertSession(SessionInsertModel insertModel);
 
+    /**
+     * 根据名字查询会话
+     * @param userName
+     * @param talkWith
+     * @return
+     */
+    LgcTalkSessionEntity getSessionByUserName(@Param("userName") String userName, @Param("talkWith") String talkWith);
+
+    /**
+     * 获取用户名-id列表
+     * @param userNames
+     * @return
+     */
+    List<UserNameIdModel> getUserNameId(List<String> userNames);
 }
