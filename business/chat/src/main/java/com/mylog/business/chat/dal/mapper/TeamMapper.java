@@ -1,7 +1,7 @@
 package com.mylog.business.chat.dal.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.mylog.business.chat.dal.entity.Team;
+import com.mylog.business.chat.dal.entity.TeamEntity;
 
 
 /**
@@ -9,7 +9,7 @@ import com.mylog.business.chat.dal.entity.Team;
  * @Description TeamMapper
  * @Date : 2022/6/12 - 15:29
  */
-public interface TeamMapper extends BaseMapper<Team> {
+public interface TeamMapper extends BaseMapper<TeamEntity> {
 
 
 }

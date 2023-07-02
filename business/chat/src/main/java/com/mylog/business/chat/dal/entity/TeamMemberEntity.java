@@ -7,11 +7,13 @@ import java.sql.Timestamp;
  * @Description TeamMember
  * @Date : 2022/6/12 - 15:24
  */
-public class TeamMember {
+public class TeamMemberEntity {
 
     private Integer id;
 
     private Integer userId;
+
+    private String nickName;
 
     private Integer userType;
 
@@ -79,11 +81,20 @@ public class TeamMember {
         this.updatedAt = updatedAt;
     }
 
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
     @Override
     public String toString() {
-        return "Team{" +
+        return "TeamMemberEntity{" +
                 "id=" + id +
                 ", userId=" + userId +
+                ", nickName='" + nickName + '\'' +
                 ", userType=" + userType +
                 ", teamId=" + teamId +
                 ", delFlag=" + delFlag +

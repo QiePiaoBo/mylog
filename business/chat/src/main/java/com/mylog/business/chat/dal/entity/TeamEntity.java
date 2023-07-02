@@ -10,11 +10,13 @@ import java.sql.Timestamp;
  * @Date : 2022/6/12 - 15:24
  */
 @TableName("lgc_talk_team")
-public class Team {
+public class TeamEntity {
 
     private Integer id;
 
     private String teamName;
+
+    private String teamDesc;
 
     private Integer teamOwnerId;
 
@@ -72,11 +74,20 @@ public class Team {
         this.updatedAt = updatedAt;
     }
 
+    public String getTeamDesc() {
+        return teamDesc;
+    }
+
+    public void setTeamDesc(String teamDesc) {
+        this.teamDesc = teamDesc;
+    }
+
     @Override
     public String toString() {
-        return "Team{" +
+        return "TeamEntity{" +
                 "id=" + id +
                 ", teamName='" + teamName + '\'' +
+                ", teamDesc='" + teamDesc + '\'' +
                 ", teamOwnerId=" + teamOwnerId +
                 ", delFlag=" + delFlag +
                 ", createdAt=" + createdAt +
