@@ -14,7 +14,7 @@
         <result property="delFlag" column="del_flag" jdbcType="TINYINT"/>
     </resultMap>
 
-    <sql id="Base_Columns">
+    <sql id="Table_Fields">
         msg_id
         ,session_id,msg_type,from_id,to_id,msg_content,msg_hash,msg_timestamp,del_flag
     </sql>
@@ -25,7 +25,7 @@
 
     <select id="queryMsgRecords" resultType="com.mylog.business.chat.dal.entity.MsgRecordEntity">
         select
-        <include refid="Base_Columns"/>
+        <include refid="Table_Fields"/>
         from
         <include refid="Table_Name"/>
         <if test="partition != null and partition != ''">

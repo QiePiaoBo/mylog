@@ -12,7 +12,7 @@
         <result property="delFlag" column="del_flag" jdbcType="TINYINT"/>
     </resultMap>
 
-    <sql id="Base_Columns">
+    <sql id="Table_Fields">
         session_id,sender_id,recipient_id,talk_team_id,created_at,expiration_at,del_flag
     </sql>
 
@@ -61,7 +61,7 @@
     </insert>
     <select id="querySessions" resultType="com.mylog.business.chat.dal.entity.LgcTalkSessionEntity">
         select
-        <include refid="Base_Columns"/>
+        <include refid="Table_Fields"/>
         from
         <include refid="Table_Name"/>
         where del_flag = 0

@@ -4,11 +4,11 @@
     <resultMap id="systemAccessMap" type="com.mylog.business.chat.dal.entity.TeamMember">
     </resultMap>
 
-    <sql id="TableField">
+    <sql id="Table_Fields">
         id, user_id, user_type, team_id, created_at, updated_at, del_flag
     </sql>
 
-    <sql id="TableName">
+    <sql id="Table_Name">
         `lgc_talk_team_member`
     </sql>
 
