@@ -31,9 +31,11 @@ public class LogicerNettyClient {
 
     private static final MyLogger logger = MyLoggerFactory.getLogger(LogicerNettyClient.class);
 
-    private String userName;
+    private final String userName;
 
-    private String password;
+    private final String password;
+
+    private final String sessionId;
 
     private Bootstrap bootstrap;
 
@@ -41,9 +43,10 @@ public class LogicerNettyClient {
 
     private Channel ch;
 
-    public LogicerNettyClient(String userName, String password) {
+    public LogicerNettyClient(String userName, String password, String sessionId) {
         this.userName = userName;
         this.password = password;
+        this.sessionId = sessionId;
         this.init();
     }
 
@@ -79,10 +82,10 @@ public class LogicerNettyClient {
                         continue;
                     }
                     if (LogicerUtil.isLoginStr(realMsg)){
-                        ch.writeAndFlush(LogicerMessageBuilder.buildLoginMessage(realMsg));
+                        ch.writeAndFlush(LogicerMessageBuilder.buildLoginMessage(realMsg, getSessionId()));
                     }else if (realMsg.startsWith(LogicerConstant.COMMAND_MSG_START_STR)){
                         // 如果是指令类型的消息 就组装指令消息
-                        LogicerMessage commandMessage = LogicerMessageBuilder.buildMessage(2, realMsg);
+                        LogicerMessage commandMessage = LogicerMessageBuilder.buildMessage(2, realMsg, getSessionId());
                         ch.writeAndFlush(commandMessage);
                     } else {
                         // 不是登录类型的消息 就默认使用talk子协议进行发送
@@ -94,7 +97,7 @@ public class LogicerNettyClient {
                             logger.info("msg: {}, to: {}", realMsg, messageAimingUser);
                             msg.setTo(messageAimingUser);
                             msg.setMsg(realMsg);
-                            ch.writeAndFlush(LogicerMessageBuilder.buildMessage(new ObjectMapper().writeValueAsString(msg)));
+                            ch.writeAndFlush(LogicerMessageBuilder.buildMessage(new ObjectMapper().writeValueAsString(msg), getSessionId()));
                         }
                     }
                 }
@@ -112,6 +115,10 @@ public class LogicerNettyClient {
 
     public String getUserName() {
         return userName;
+    }
+
+    public String getSessionId() {
+        return sessionId;
     }
 
     public EventLoopGroup getGroup() {
