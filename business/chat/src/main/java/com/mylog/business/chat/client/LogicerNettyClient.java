@@ -66,7 +66,7 @@ public class LogicerNettyClient {
             }
             // Start the connection attempt.
             ch = bootstrap.connect(serverAddr, port).sync().channel();
-            ch.writeAndFlush(LogicerMessageBuilder.buildLoginMessage(getUserName() + "@" + password));
+            ch.writeAndFlush(LogicerMessageBuilder.buildLoginMessage(getUserName() + "@" + password, getSessionId()));
             while (Objects.nonNull(NettyClientConstant.USER_NETTY_CLIENT_CENTER.getOrDefault(getUserName(), null))){
                 if (!ch.isOpen()){
                     logger.error("Channel closed. UserName: {}", getUserName());
@@ -89,7 +89,7 @@ public class LogicerNettyClient {
                         ch.writeAndFlush(commandMessage);
                     } else {
                         // 不是登录类型的消息 就默认使用talk子协议进行发送
-                        // ch.writeAndFlush(LogicerMessageBuilder.buildMessage(nextLine));
+                        // ch.writeAndFlush(LogicerMessageBuilder.buildMessage(nextLine, getSessionId()));
                         LogicerTalkWord msg = new LogicerTalkWord();
                         msg.setType("0");
                         String messageAimingUser = WebSocketUtil.getMessageAimingUser(nextLine);

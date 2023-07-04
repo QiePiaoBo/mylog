@@ -55,7 +55,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
         String userName = getSessionProperty(session, WebsocketConstant.WS_PROPERTIES_USERNAME);
         String sessionId = getSessionProperty(session, WebsocketConstant.WS_PROPERTIES_SESSIONID);
         String completeMsg = WebSocketUtil.getCompleteMsg(messagePayload);
-        logger.info("handling textMessage ---> {}: {}【{}】", userName, messagePayload, completeMsg);
+        logger.info("handling textMessage ---> {}&{}: {}【{}】", userName, sessionId, messagePayload, completeMsg);
         if (Objects.isNull(completeMsg)){
             return;
         }

@@ -58,10 +58,14 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
         }
         if (authorization.contains(",")){
             String[] split = authorization.split(",");
-            Integer sessionId = sessionService.getOrCreateSession(split[0], split[1]);
+            Integer sessionId = sessionService.getOrCreateSession(split[0].trim(), split[1].trim());
+            if (Objects.isNull(sessionId)){
+                logger.error("<beforeHandshake> error, error getting session of {} and {}", split[0], split[1]);
+                return false;
+            }
             map.put(WebsocketConstant.WS_PROPERTIES_USERNAME, split[0].trim());
             map.put(WebsocketConstant.WS_PROPERTIES_TALKWITH, split[1].trim());
-            map.put(WebsocketConstant.WS_PROPERTIES_SESSIONID, sessionId);
+            map.put(WebsocketConstant.WS_PROPERTIES_SESSIONID, sessionId + "");
             // 如果传入了两个子协议 必须返回其中一个给客户端表示服务端选择了其中一个 如果将两个子协议原样返回 会导致连接失败
             serverHttpResponse.getServletResponse().setHeader("Sec-WebSocket-Protocol", split[0]);
         }else {

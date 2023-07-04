@@ -83,6 +83,7 @@ public class SessionService {
             Map<String, Integer> userNameIdMap = Safes.of(userNameIds).stream().filter(m -> m.getId() > 0).collect(Collectors.toMap(UserNameIdModel::getUserName, UserNameIdModel::getId, (v1, v2) -> v2));
             if (userNameIdMap.size() < 2){
                 logger.error("<getOrCreateSession> Error getting username id map : {}", userNameIds);
+                return null;
             }
             SessionInsertModel sessionInsertModel = new SessionInsertModel();
             sessionInsertModel.setSenderId(userNameIdMap.get(userName));
