@@ -69,7 +69,6 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
         }else {
             // session.sendMessage(new TextMessage(String.format("Got message %s from %s", messagePayload, userName)));
             // 发送消息
-            // todo 在messagePayLoad中 添加session值
             LogicerNettyClientUtil.sendMessage(userName, messagePayload);
         }
     }

@@ -56,7 +56,7 @@ public class LogicerNettyClient {
         bootstrap.group(group)
                 .channel(NioSocketChannel.class)
                 .option(ChannelOption.RCVBUF_ALLOCATOR, new FixedRecvByteBufAllocator(65535))
-                .handler(new LogicerNettyClientInitializer());
+                .handler(new LogicerNettyClientInitializer(getSessionId()));
     }
 
     public void connect(String serverAddr, Integer port) throws InterruptedException {
@@ -92,6 +92,7 @@ public class LogicerNettyClient {
                         // ch.writeAndFlush(LogicerMessageBuilder.buildMessage(nextLine, getSessionId()));
                         LogicerTalkWord msg = new LogicerTalkWord();
                         msg.setType("0");
+                        msg.setFrom(getUserName());
                         String messageAimingUser = WebSocketUtil.getMessageAimingUser(nextLine);
                         if (StringUtils.isNotBlank(messageAimingUser) && StringUtils.isNotBlank(realMsg)){
                             logger.info("msg: {}, to: {}", realMsg, messageAimingUser);

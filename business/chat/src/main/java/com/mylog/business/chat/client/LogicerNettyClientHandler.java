@@ -31,6 +31,26 @@ public class LogicerNettyClientHandler extends SimpleChannelInboundHandler<Logic
 
     private static final MyLogger logger = MyLoggerFactory.getLogger(LogicerNettyClientHandler.class);
 
+    private String sessionId;
+
+    public LogicerNettyClientHandler() {
+    }
+
+    public LogicerNettyClientHandler(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public LogicerNettyClientHandler(boolean autoRelease) {
+        super(autoRelease);
+    }
+
+    public LogicerNettyClientHandler(Class<? extends LogicerMessage> inboundMessageType) {
+        super(inboundMessageType);
+    }
+
+    public LogicerNettyClientHandler(Class<? extends LogicerMessage> inboundMessageType, boolean autoRelease) {
+        super(inboundMessageType, autoRelease);
+    }
 
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, LogicerMessage logicerMessage){
@@ -45,7 +65,7 @@ public class LogicerNettyClientHandler extends SimpleChannelInboundHandler<Logic
             // logger.debug("Server: {}", logicerMessage.getLogicerContent().getActionWord());
             // 如果content是心跳检测字符串 就发送对应的回应报文
             if (LogicerConstant.LOGICER_STATE_ASK.equals(logicerMessage.getLogicerContent().getActionWord())){
-                channel.writeAndFlush(LogicerMessageBuilder.buildMessage(3, LogicerConstant.LOGICER_STATE_ANSWER));
+                channel.writeAndFlush(LogicerMessageBuilder.buildMessage(3, LogicerConstant.LOGICER_STATE_ANSWER, getSessionId()));
             }
         }
         // 如果是Logicer报文
@@ -99,5 +119,9 @@ public class LogicerNettyClientHandler extends SimpleChannelInboundHandler<Logic
                 channelHandlerContext.channel().closeFuture();
             }
         }
+    }
+
+    public String getSessionId() {
+        return sessionId;
     }
 }

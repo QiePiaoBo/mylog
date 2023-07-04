@@ -13,6 +13,12 @@ import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
  */
 public class LogicerNettyClientInitializer extends ChannelInitializer<SocketChannel> {
 
+    private final String sessionId;
+
+    public LogicerNettyClientInitializer(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
     @Override
     protected void initChannel(SocketChannel channel) throws Exception {
         ChannelPipeline pipeline = channel.pipeline();
@@ -23,6 +29,10 @@ public class LogicerNettyClientInitializer extends ChannelInitializer<SocketChan
         pipeline.addLast(new LogicerDecoder(true));
 
         // and then business logic.
-        pipeline.addLast(new LogicerNettyClientHandler());
+        pipeline.addLast(new LogicerNettyClientHandler(getSessionId()));
+    }
+
+    public String getSessionId() {
+        return sessionId;
     }
 }
