@@ -74,10 +74,15 @@ public class SessionService {
      * @return
      */
     public Integer getOrCreateSession(String userName, String talkWith) {
-        LgcTalkSessionEntity entity = lgcTalkSessionMapper.getSessionByUserName(userName, talkWith);
-        if (Objects.nonNull(entity)){
-            logger.info("<getOrCreateSession> Got entity: {}", entity);
-            return entity.getSessionId();
+        LgcTalkSessionEntity entityFromTo = lgcTalkSessionMapper.getSessionByUserName(userName, talkWith);
+        LgcTalkSessionEntity entityToFrom = lgcTalkSessionMapper.getSessionByUserName(talkWith, userName);
+        if (Objects.nonNull(entityFromTo) || Objects.nonNull(entityToFrom)){
+            logger.info("<getOrCreateSession> Got entityFromTo: {}, entityToFrom: {}", entityFromTo, entityToFrom);
+            if (Objects.nonNull(entityFromTo)){
+                return entityFromTo.getSessionId();
+            }else {
+                return entityToFrom.getSessionId();
+            }
         }else {
             List<UserNameIdModel> userNameIds = lgcTalkSessionMapper.getUserNameId(Arrays.asList(userName, talkWith));
             Map<String, Integer> userNameIdMap = Safes.of(userNameIds).stream().filter(m -> m.getId() > 0).collect(Collectors.toMap(UserNameIdModel::getUserName, UserNameIdModel::getId, (v1, v2) -> v2));
