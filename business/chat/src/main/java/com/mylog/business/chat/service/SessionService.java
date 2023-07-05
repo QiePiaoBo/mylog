@@ -62,6 +62,7 @@ public class SessionService {
         if (!insertModel.isOk()){
             return false;
         }
+        insertModel.confirmId();
         Integer integer = lgcTalkSessionMapper.insertSession(insertModel);
         return integer > 0;
     }
@@ -74,25 +75,34 @@ public class SessionService {
      * @return
      */
     public Integer getOrCreateSession(String userName, String talkWith) {
-        LgcTalkSessionEntity entityFromTo = lgcTalkSessionMapper.getSessionByUserName(userName, talkWith);
-        LgcTalkSessionEntity entityToFrom = lgcTalkSessionMapper.getSessionByUserName(talkWith, userName);
-        if (Objects.nonNull(entityFromTo) || Objects.nonNull(entityToFrom)){
-            logger.info("<getOrCreateSession> Got entityFromTo: {}, entityToFrom: {}", entityFromTo, entityToFrom);
-            if (Objects.nonNull(entityFromTo)){
-                return entityFromTo.getSessionId();
-            }else {
+        // todo 两个名字 前后顺序都进行查询 需要优化 在插入session时就将Id根据大小顺序进行排列 保证两个人只会产生一条会话记录
+        // 根据userName查询两个用户的
+        List<UserNameIdModel> userNameIds = lgcTalkSessionMapper.getUserNameId(Arrays.asList(userName, talkWith));
+        Map<String, Integer> userNameIdMap = Safes.of(userNameIds).stream().filter(m -> m.getId() > 0).collect(Collectors.toMap(UserNameIdModel::getUserName, UserNameIdModel::getId, (v1, v2) -> v2));
+        if (userNameIdMap.size() < 2){
+            logger.error("<getOrCreateSession> Error getting username id map : {}", userNameIds);
+            return null;
+        }
+        SessionQueryModel queryModel = new SessionQueryModel();
+        queryModel.setSenderId(userNameIdMap.getOrDefault(talkWith, 0));
+        queryModel.setRecipientId(userNameIdMap.getOrDefault(userName, 0));
+        queryModel.confirmId();
+        List<LgcTalkSessionEntity> entities = lgcTalkSessionMapper.querySessions(queryModel);
+        if (entities.size() > 0){
+            LgcTalkSessionEntity entityToFrom = entities.get(0);
+            logger.info("<getOrCreateSession> Got entityFromTo: {}", entityToFrom);
+            if (Objects.nonNull(entityToFrom)){
                 return entityToFrom.getSessionId();
             }
         }else {
-            List<UserNameIdModel> userNameIds = lgcTalkSessionMapper.getUserNameId(Arrays.asList(userName, talkWith));
-            Map<String, Integer> userNameIdMap = Safes.of(userNameIds).stream().filter(m -> m.getId() > 0).collect(Collectors.toMap(UserNameIdModel::getUserName, UserNameIdModel::getId, (v1, v2) -> v2));
-            if (userNameIdMap.size() < 2){
-                logger.error("<getOrCreateSession> Error getting username id map : {}", userNameIds);
-                return null;
-            }
             SessionInsertModel sessionInsertModel = new SessionInsertModel();
             sessionInsertModel.setSenderId(userNameIdMap.get(userName));
             sessionInsertModel.setRecipientId(userNameIdMap.get(talkWith));
+            if (!sessionInsertModel.isOk()){
+                logger.error("<getOrCreateSession> Error param of sessionInsertModel: {}", sessionInsertModel);
+                return null;
+            }
+            sessionInsertModel.confirmId();
             // Id会回补到SessionInsertModel
             Integer integer = lgcTalkSessionMapper.insertSession(sessionInsertModel);
             if (integer > 0){
@@ -105,9 +115,12 @@ public class SessionService {
                 SessionQueryModel sessionQueryModel = new SessionQueryModel();
                 sessionQueryModel.setSenderId(userNameIdMap.get(userName));
                 sessionQueryModel.setRecipientId(userNameIdMap.get(talkWith));
-                List<LgcTalkSessionEntity> entities = lgcTalkSessionMapper.querySessions(sessionQueryModel);
-                return entities.get(0).getSessionId();
+                sessionQueryModel.confirmId();
+                List<LgcTalkSessionEntity> entityList = lgcTalkSessionMapper.querySessions(sessionQueryModel);
+                return entityList.get(0).getSessionId();
             }
         }
+        logger.error("<getOrCreateSession> Error getting sessionId for {} and {}", userName, talkWith);
+        return null;
     }
 }

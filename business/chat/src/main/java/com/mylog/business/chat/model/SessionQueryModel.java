@@ -20,6 +20,16 @@ public class SessionQueryModel {
 
     private Integer talkTeamId;
 
+    /**
+     * 保证小的Id在前面 大的Id在后面
+     */
+    public void confirmId() {
+        Integer recipientId = getRecipientId();
+        Integer senderId = getSenderId();
+        setSenderId(Math.min(recipientId, senderId));
+        setRecipientId(Math.max(recipientId, senderId));
+    }
+
     public boolean isValid() {
         // 所有属性都为空 false
         if (Objects.isNull(getSessionId()) && Objects.isNull(getSenderId()) && Objects.isNull(getRecipientId()) && Objects.isNull(getTalkTeamId())) {

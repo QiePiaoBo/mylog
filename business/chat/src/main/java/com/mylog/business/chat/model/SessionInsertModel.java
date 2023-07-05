@@ -20,6 +20,20 @@ public class SessionInsertModel {
 
     private Integer talkTeamId;
 
+    /**
+     * 保证小的Id在前面 大的Id在后面
+     */
+    public void confirmId() {
+        Integer recipientId = getRecipientId();
+        Integer senderId = getSenderId();
+        setSenderId(Math.min(recipientId, senderId));
+        setRecipientId(Math.max(recipientId, senderId));
+    }
+
+    /**
+     * 两个Id同时不为空 或者teamId不为空
+     * @return
+     */
     public boolean isOk() {
         if (Objects.nonNull(getSenderId()) && Objects.nonNull(getRecipientId())){
             return true;
