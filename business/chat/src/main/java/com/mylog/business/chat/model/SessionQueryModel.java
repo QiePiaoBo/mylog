@@ -1,6 +1,8 @@
 package com.mylog.business.chat.model;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
@@ -10,6 +12,8 @@ import java.util.Objects;
  * @Date 6/20/2023 5:25 PM
  */
 @Data
+@Builder
+@NoArgsConstructor
 public class SessionQueryModel {
 
     private Integer sessionId;

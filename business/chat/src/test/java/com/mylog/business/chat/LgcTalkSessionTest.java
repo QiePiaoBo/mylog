@@ -7,6 +7,7 @@ import com.mylog.business.chat.dal.entity.MsgRecordEntity;
 import com.mylog.business.chat.dal.entity.MsgRecordPartitionEnum;
 import com.mylog.business.chat.dal.mapper.LgcTalkSessionMapper;
 import com.mylog.business.chat.dal.mapper.MsgRecordMapper;
+import com.mylog.business.chat.dal.mapper.UserMapper;
 import com.mylog.business.chat.model.MsgInsertModel;
 import com.mylog.business.chat.model.MsgQueryModel;
 import com.mylog.business.chat.model.SessionInsertModel;
@@ -37,6 +38,9 @@ public class LgcTalkSessionTest {
 
     @Resource
     private LgcTalkSessionMapper lgcTalkSessionMapper;
+
+    @Resource
+    private UserMapper userMapper;
 
     @Resource
     private SessionService sessionService;
@@ -87,7 +91,7 @@ public class LgcTalkSessionTest {
 
     @Test
     public void testGetUserNameId() {
-        List<UserNameIdModel> userNameIds = lgcTalkSessionMapper.getUserNameId(Arrays.asList("Dylan", "Duke"));
+        List<UserNameIdModel> userNameIds = userMapper.getUserNameId(Arrays.asList("Dylan", "Duke"));
         logger.info("res: {}", userNameIds);
     }
 

@@ -50,10 +50,5 @@ public interface LgcTalkSessionMapper {
      */
     LgcTalkSessionEntity getSessionByUserName(@Param("userName") String userName, @Param("talkWith") String talkWith);
 
-    /**
-     * 获取用户名-id列表
-     * @param userNames
-     * @return
-     */
-    List<UserNameIdModel> getUserNameId(List<String> userNames);
+
 }
