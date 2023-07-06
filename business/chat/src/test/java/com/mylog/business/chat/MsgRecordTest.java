@@ -21,6 +21,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -47,12 +48,14 @@ public class MsgRecordTest {
         testQueryMsgRecords();
     }
 
+
     @Test
     public void testQueryMsgRecords() {
         LocalDateTime now = LocalDateTime.now();
         MsgQueryModel msgQueryModel = new MsgQueryModel();
         msgQueryModel.setPartition(MsgRecordPartitionEnum.getPartition(now).getPartitionName());
         List<MsgRecordVO> msgRecordEntities = msgRecordService.getMsgRecordForClient(msgQueryModel);
+        msgRecordEntities.sort(Comparator.comparing(MsgRecordVO::getMsgId).reversed());
         logger.info("res: {}", msgRecordEntities);
     }
 

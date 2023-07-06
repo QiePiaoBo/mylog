@@ -11,6 +11,8 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author Dylan
@@ -67,5 +69,29 @@ public class CommonTest {
         LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(System.currentTimeMillis()), ZoneId.systemDefault());
         logger.info("Current is {}", localDateTime);
     }
+
+
+    @Test
+    public void makeMyOwnEntity(){
+        Pattern linePattern = Pattern.compile("_(\\w)");
+
+        String originalProperties = "id, user_type, user_name, user_phone, user_password, user_group, created_at, updated_at, del_flag";
+
+        String[] split = originalProperties.split(",");
+        for (String str : split){
+            str = str.trim();
+            Matcher matcher = linePattern.matcher(str);
+            StringBuffer sb = new StringBuffer();
+            while (matcher.find()) {
+                matcher.appendReplacement(sb, matcher.group(1).toUpperCase());
+            }
+            matcher.appendTail(sb);
+            logger.info("private Object {};", sb);
+        }
+
+
+
+    }
+
 
 }
