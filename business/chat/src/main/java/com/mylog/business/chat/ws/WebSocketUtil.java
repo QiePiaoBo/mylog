@@ -96,7 +96,7 @@ public class WebSocketUtil {
             return;
         }
         try {
-            logger.info("sending msg。 {} : {}", fromUserName, message);
+            logger.info("<sendToUser> Sending msg... {} : {}", fromUserName, message);
             socketSession.sendMessage(new TextMessage(fromUserName + ": " + message));
         } catch (IOException e) {
             throw new MyException(e);

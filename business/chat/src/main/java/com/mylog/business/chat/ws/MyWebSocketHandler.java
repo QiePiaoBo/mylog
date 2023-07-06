@@ -67,7 +67,6 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
                 logicerNettyClientBuildService.startConnection(userName, split[1], sessionId);
             }
         }else {
-            // session.sendMessage(new TextMessage(String.format("Got message %s from %s", messagePayload, userName)));
             // 发送消息
             LogicerNettyClientUtil.sendMessage(userName, messagePayload);
         }

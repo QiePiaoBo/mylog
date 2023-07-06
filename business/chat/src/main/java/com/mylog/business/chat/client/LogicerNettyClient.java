@@ -69,7 +69,7 @@ public class LogicerNettyClient {
             ch.writeAndFlush(LogicerMessageBuilder.buildLoginMessage(getUserName() + "@" + password, getSessionId()));
             while (Objects.nonNull(NettyClientConstant.USER_NETTY_CLIENT_CENTER.getOrDefault(getUserName(), null))){
                 if (!ch.isOpen()){
-                    logger.error("Channel closed. UserName: {}", getUserName());
+                    logger.error("<LogicerNettyClient> Channel closed. UserName: {}", getUserName());
                     NettyClientConstant.USER_NETTY_CLIENT_CENTER.remove(getUserName());
                     WebSocketUtil.disconnectForUser(getUserName());
                 }
@@ -95,7 +95,7 @@ public class LogicerNettyClient {
                         msg.setFrom(getUserName());
                         String messageAimingUser = WebSocketUtil.getMessageAimingUser(nextLine);
                         if (StringUtils.isNotBlank(messageAimingUser) && StringUtils.isNotBlank(realMsg)){
-                            logger.info("msg: {}, to: {}", realMsg, messageAimingUser);
+                            logger.info("<LogicerNettyClient> msg: {}, to: {}", realMsg, messageAimingUser);
                             msg.setTo(messageAimingUser);
                             msg.setMsg(realMsg);
                             ch.writeAndFlush(LogicerMessageBuilder.buildMessage(new ObjectMapper().writeValueAsString(msg), getSessionId()));
