@@ -5,6 +5,9 @@ import com.dylan.logger.MyLoggerFactory;
 import com.mylog.business.chat.ws.WebSocketUtil;
 import org.junit.Test;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -58,5 +61,11 @@ public class CommonTest {
 
     }
 
+    @Test
+    public void testConvertLocalDateTime() {
+        // 转换为 LocalDateTime 对象
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(System.currentTimeMillis()), ZoneId.systemDefault());
+        logger.info("Current is {}", localDateTime);
+    }
 
 }
