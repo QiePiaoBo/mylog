@@ -31,6 +31,11 @@ public class WebsocketConstant {
     public static final String WS_PROPERTIES_SESSIONID = "WS_PROPERTIES_SESSIONID";
 
     /**
+     * WS属性 聊天类型 群聊 or 单聊
+     */
+    public static final String WS_PROPERTIES_MSG_AREA_TYPE = "WS_PROPERTIES_MSG_AREA_TYPE";
+
+    /**
      * userName - session
      */
     public static final ConcurrentHashMap<String, WebSocketSession> WS_SESSION_POOL = new ConcurrentHashMap<>();

@@ -5,6 +5,7 @@ import com.dylan.logger.MyLoggerFactory;
 import com.dylan.protocol.logicer.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mylog.business.chat.config.BusinessClientDTO;
 import com.mylog.business.chat.config.NettyClientConstant;
 import com.mylog.business.chat.config.WebsocketConstant;
 import com.mylog.business.chat.ws.WebSocketUtil;
@@ -37,26 +38,36 @@ public class LogicerNettyClient {
 
     private final String sessionId;
 
+    private final String msgAreaType;
+
     private Bootstrap bootstrap;
 
     private EventLoopGroup group;
 
     private Channel ch;
 
-    public LogicerNettyClient(String userName, String password, String sessionId) {
+    public LogicerNettyClient(String userName, String password, String sessionId, String msgAreaType) {
         this.userName = userName;
         this.password = password;
         this.sessionId = sessionId;
+        this.msgAreaType = msgAreaType;
         this.init();
     }
 
     private void init() {
         bootstrap = new Bootstrap();
         group = new NioEventLoopGroup();
+        BusinessClientDTO dto = BusinessClientDTO
+                .builder()
+                .sessionId(getSessionId())
+                .userName(getUserName())
+                .password(getPassword())
+                .msgAreaType(getMsgAreaType())
+                .build();
         bootstrap.group(group)
                 .channel(NioSocketChannel.class)
                 .option(ChannelOption.RCVBUF_ALLOCATOR, new FixedRecvByteBufAllocator(65535))
-                .handler(new LogicerNettyClientInitializer(getSessionId()));
+                .handler(new LogicerNettyClientInitializer(dto));
     }
 
     public void connect(String serverAddr, Integer port) throws InterruptedException {
@@ -91,7 +102,7 @@ public class LogicerNettyClient {
                         // 不是登录类型的消息 就默认使用talk子协议进行发送
                         // ch.writeAndFlush(LogicerMessageBuilder.buildMessage(nextLine, getSessionId()));
                         LogicerTalkWord msg = new LogicerTalkWord();
-                        msg.setType("0");
+                        msg.setType(getMsgAreaType());
                         msg.setFrom(getUserName());
                         String messageAimingUser = WebSocketUtil.getMessageAimingUser(nextLine);
                         if (StringUtils.isNotBlank(messageAimingUser) && StringUtils.isNotBlank(realMsg)){
@@ -124,5 +135,13 @@ public class LogicerNettyClient {
 
     public EventLoopGroup getGroup() {
         return group;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getMsgAreaType() {
+        return msgAreaType;
     }
 }

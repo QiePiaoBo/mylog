@@ -27,6 +27,11 @@ public class MsgRecordEntity {
     private Integer msgType;
 
     /**
+     * 消息范围类型 0 单聊 1 群聊
+     */
+    private Integer msgAreaType;
+
+    /**
      * 发送者
      */
     private Integer fromId;

@@ -17,4 +17,7 @@ public class MsgQueryModel {
     private String partition;
 
     private Integer sessionId;
+
+    private Integer msgAreaType;
+
 }

@@ -31,9 +31,9 @@ public class LogicerNettyClientBuildService {
      * @param password
      * @param sessionId
      */
-    public void startConnection(String userName, String password, String sessionId){
+    public void startConnection(String userName, String password, String sessionId, String msgAreaType){
         // 创建netty客户端
-        LogicerNettyClient logicerNettyClient = getLogicerNettyClient(userName, password, sessionId);
+        LogicerNettyClient logicerNettyClient = getLogicerNettyClient(userName, password, sessionId, msgAreaType);
         logger.info("thread condition: corePoolSize={}, poolSize={}, activeCount={}, completedTaskCount={}",
                 nettyClientExecutor.getCorePoolSize(),
                 nettyClientExecutor.getPoolSize(),
@@ -55,13 +55,13 @@ public class LogicerNettyClientBuildService {
      * @param password
      * @return
      */
-    private LogicerNettyClient getLogicerNettyClient(String userName, String password, String sessionId) {
+    private LogicerNettyClient getLogicerNettyClient(String userName, String password, String sessionId, String msgAreaType) {
         LogicerNettyClient logicerNettyClient = NettyClientConstant.USER_NETTY_CLIENT_CENTER.getOrDefault(userName, null);
         if (Objects.nonNull(logicerNettyClient)){
             return logicerNettyClient;
         }
         // 如果user-client中没有 就说明没存过或者没有正在在线的 就创建并为用户注册
-        logicerNettyClient = new LogicerNettyClient(userName, password, sessionId);
+        logicerNettyClient = new LogicerNettyClient(userName, password, sessionId, msgAreaType);
         //  为userName注册消息中心
         Stack<String> messageCenter = NettyClientConstant.USER_MESSAGE_CENTER.getOrDefault(userName, null);
         if (Objects.isNull(messageCenter)){

@@ -54,6 +54,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
         String messagePayload = message.getPayload();
         String userName = getSessionProperty(session, WebsocketConstant.WS_PROPERTIES_USERNAME);
         String sessionId = getSessionProperty(session, WebsocketConstant.WS_PROPERTIES_SESSIONID);
+        String msgAreaType = getSessionProperty(session, WebsocketConstant.WS_PROPERTIES_MSG_AREA_TYPE);
         String completeMsg = WebSocketUtil.getCompleteMsg(messagePayload);
         logger.info("handling textMessage ---> {}&{}: {}【{}】", userName, sessionId, messagePayload, completeMsg);
         if (Objects.isNull(completeMsg)){
@@ -64,7 +65,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
             String[] split = completeMsg.split("@");
             // 创建netty客户端并将本条报文透传到netty服务
             if (completeMsg.contains(userName + "@") && split.length == 2){
-                logicerNettyClientBuildService.startConnection(userName, split[1], sessionId);
+                logicerNettyClientBuildService.startConnection(userName, split[1], sessionId, msgAreaType);
             }
         }else {
             // 发送消息

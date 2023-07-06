@@ -10,6 +10,7 @@ import com.dylan.protocol.logicer.LogicerSubProtocol;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mylog.business.chat.config.BusinessClientDTO;
 import com.mylog.business.chat.config.WebsocketConstant;
 import com.mylog.business.chat.ws.WebSocketUtil;
 import io.netty.channel.Channel;
@@ -31,13 +32,13 @@ public class LogicerNettyClientHandler extends SimpleChannelInboundHandler<Logic
 
     private static final MyLogger logger = MyLoggerFactory.getLogger(LogicerNettyClientHandler.class);
 
-    private String sessionId;
+    private BusinessClientDTO businessClientDTO;
 
     public LogicerNettyClientHandler() {
     }
 
-    public LogicerNettyClientHandler(String sessionId) {
-        this.sessionId = sessionId;
+    public LogicerNettyClientHandler(BusinessClientDTO businessClientDTO) {
+        this.businessClientDTO = businessClientDTO;
     }
 
     public LogicerNettyClientHandler(boolean autoRelease) {
@@ -65,7 +66,7 @@ public class LogicerNettyClientHandler extends SimpleChannelInboundHandler<Logic
             // logger.debug("Server: {}", logicerMessage.getLogicerContent().getActionWord());
             // 如果content是心跳检测字符串 就发送对应的回应报文
             if (LogicerConstant.LOGICER_STATE_ASK.equals(logicerMessage.getLogicerContent().getActionWord())){
-                channel.writeAndFlush(LogicerMessageBuilder.buildMessage(3, LogicerConstant.LOGICER_STATE_ANSWER, getSessionId()));
+                channel.writeAndFlush(LogicerMessageBuilder.buildMessage(3, LogicerConstant.LOGICER_STATE_ANSWER, getBusinessClientDTO().getSessionId()));
             }
         }
         // 如果是Logicer报文
@@ -121,7 +122,7 @@ public class LogicerNettyClientHandler extends SimpleChannelInboundHandler<Logic
         }
     }
 
-    public String getSessionId() {
-        return sessionId;
+    public BusinessClientDTO getBusinessClientDTO() {
+        return businessClientDTO;
     }
 }

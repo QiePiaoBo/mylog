@@ -2,6 +2,7 @@ package com.mylog.business.chat.client;
 
 import com.dylan.protocol.logicer.LogicerDecoder;
 import com.dylan.protocol.logicer.LogicerEncoder;
+import com.mylog.business.chat.config.BusinessClientDTO;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -13,10 +14,10 @@ import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
  */
 public class LogicerNettyClientInitializer extends ChannelInitializer<SocketChannel> {
 
-    private final String sessionId;
+    private final BusinessClientDTO businessClientDTO;
 
-    public LogicerNettyClientInitializer(String sessionId) {
-        this.sessionId = sessionId;
+    public LogicerNettyClientInitializer(BusinessClientDTO businessClientDTO) {
+        this.businessClientDTO = businessClientDTO;
     }
 
     @Override
@@ -29,10 +30,10 @@ public class LogicerNettyClientInitializer extends ChannelInitializer<SocketChan
         pipeline.addLast(new LogicerDecoder(true));
 
         // and then business logic.
-        pipeline.addLast(new LogicerNettyClientHandler(getSessionId()));
+        pipeline.addLast(new LogicerNettyClientHandler(getBusinessClientDTO()));
     }
 
-    public String getSessionId() {
-        return sessionId;
+    public BusinessClientDTO getBusinessClientDTO() {
+        return businessClientDTO;
     }
 }
