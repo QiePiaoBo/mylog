@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -93,21 +94,42 @@ public class WebSocketUtil {
 
     /**
      * 点对点发送 这里是netty客户端返回消息给WS之后 WS给WS的客户端返回的过程 所以需要将fromUser和toUser进行一定的转换
-     *
+     * 发送者为Server时
      * @param toUserName
      * @param message
      */
-    public static void sendToUser(String fromUserName, String toUserName, String message) {
+    public static void sendToWsClient(String fromUserName, String toUserName, String message) {
 
         try {
             if (fromUserName.equals("Server")) {
-                Enumeration<String> keys = WebsocketConstant.WS_SESSION_POOL.keys();
-                while (keys.hasMoreElements()) {
-                    String s = keys.nextElement();
-                    // todo 这里需要优化 服务端发送的消息会送达每一个toUser发起的会话中 因此会发送很多遍 需要精准确定应该送达的位置
-                    if (s.contains(toUserName + "&->")) {
-                        WebSocketSession webSocketSession = WebsocketConstant.WS_SESSION_POOL.get(s);
-                        webSocketSession.sendMessage(new TextMessage(fromUserName + ": " + message));
+                // 如果toUserName是完整的key 就直接进行发送
+                if (toUserName.contains("&->")){
+                    WebSocketSession socketSession = WebsocketConstant.WS_SESSION_POOL.getOrDefault(toUserName, null);
+                    if (Objects.isNull(socketSession)) {
+                        return;
+                    }
+                    socketSession.sendMessage(new TextMessage(fromUserName + ": " + message));
+                }else if (toUserName.equals("@all")){
+                    // 如果系统@全体成员 就对所有人发送消息 否则就对指定的人发送消息
+                    try {
+                        TimeUnit.SECONDS.sleep(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Enumeration<String> keys = WebsocketConstant.WS_SESSION_POOL.keys();
+                    while (keys.hasMoreElements()){
+                        String s = keys.nextElement();
+                        WebSocketUtil.sendToWsClient("Server", s, message);
+                    }
+                }else {
+                    Enumeration<String> keys = WebsocketConstant.WS_SESSION_POOL.keys();
+                    while (keys.hasMoreElements()) {
+                        String s = keys.nextElement();
+                        // todo 这里需要优化 服务端发送的消息会送达每一个toUser发起的会话中 因此会发送很多遍 需要精准确定应该送达的会话 可能需要在前端进行处理
+                        if (s.contains(toUserName + "&->")) {
+                            WebSocketSession webSocketSession = WebsocketConstant.WS_SESSION_POOL.get(s);
+                            webSocketSession.sendMessage(new TextMessage(fromUserName + ": " + message));
+                        }
                     }
                 }
                 return;
@@ -116,6 +138,7 @@ public class WebSocketUtil {
             String conversationMapKey = ConversationUtil.getConversationMapKey(toUserName, fromUserName);
             WebSocketSession socketSession = WebsocketConstant.WS_SESSION_POOL.getOrDefault(conversationMapKey, null);
             if (Objects.isNull(socketSession)) {
+                logger.error("<sendToUser> Error sending msg, aim client not online. {} : {}", fromUserName, message);
                 return;
             }
             logger.info("<sendToUser> Sending msg... {} : {}", fromUserName, message);

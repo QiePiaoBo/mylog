@@ -88,10 +88,14 @@ public class CommonTest {
             matcher.appendTail(sb);
             logger.info("private Object {};", sb);
         }
-
-
-
     }
 
+    @Test
+    public void testSubString() {
+
+        String s = "asdasd&->";
+
+        logger.info("res: {}", s.substring(0, s.indexOf("&")));
+    }
 
 }

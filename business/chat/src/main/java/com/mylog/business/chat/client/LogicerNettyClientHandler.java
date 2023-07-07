@@ -79,21 +79,7 @@ public class LogicerNettyClientHandler extends SimpleChannelInboundHandler<Logic
             String messageAimingUser = WebSocketUtil.getMessageAimingUser(actionWord);
             String completeMsg = WebSocketUtil.getCompleteMsg(actionWord);
             if (!StringUtils.isEmpty(messageAimingUser) && !StringUtils.isEmpty(completeMsg)){
-                // 如果系统@全体成员 就对所有人发送消息 否则就对指定的人发送消息
-                if (messageAimingUser.equals("@all")){
-                    try {
-                        TimeUnit.SECONDS.sleep(1);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    Enumeration<String> keys = WebsocketConstant.WS_SESSION_POOL.keys();
-                    while (keys.hasMoreElements()){
-                        String s = keys.nextElement();
-                        WebSocketUtil.sendToUser("Server", s, completeMsg);
-                    }
-                }else {
-                    WebSocketUtil.sendToUser("Server", messageAimingUser, completeMsg);
-                }
+                WebSocketUtil.sendToWsClient("Server", messageAimingUser, completeMsg);
             }
         }
         // 如果是talk类型的消息
@@ -106,8 +92,9 @@ public class LogicerNettyClientHandler extends SimpleChannelInboundHandler<Logic
                 logger.info("#{}: {}", jsonNode.get("from").textValue(), jsonNode.get("msg").textValue());
                 String from = jsonNode.get("from").textValue();
                 String to = jsonNode.get("to").textValue();
+                // from 和 to都成功解析之后 进行消息的发送 需要反转
                 if (!StringUtils.isEmpty(from) && !StringUtils.isEmpty(to)){
-                    WebSocketUtil.sendToUser(from, to, jsonNode.get("msg").textValue());
+                    WebSocketUtil.sendToWsClient(from, to, jsonNode.get("msg").textValue());
                 }
             }catch (JsonProcessingException e){
                 logger.error("{}", e.getMessage(), e);
