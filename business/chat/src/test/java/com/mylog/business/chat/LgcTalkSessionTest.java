@@ -24,6 +24,7 @@ import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Classname HBaseTest
@@ -85,8 +86,11 @@ public class LgcTalkSessionTest {
 
     @Test
     public void testGetOrCreateSession() {
-        Integer sessionId = sessionService.getOrCreateSession("Dylan", "Lucifer");
-        logger.info("sessionId: {}", sessionId);
+        String userName = "dylan";
+        String talkWith = "lucifer";
+        Map<String, Integer> userNameIdMap = sessionService.getUserNameIdMap(Arrays.asList(userName, talkWith));
+        Integer sessionId = sessionService.getOrCreateSessionForUser(userNameIdMap.get(userName),userNameIdMap.get(talkWith));
+        logger.info("sessionId: {}, userName: {}, talkWith: {}", sessionId, userName, talkWith);
     }
 
     @Test

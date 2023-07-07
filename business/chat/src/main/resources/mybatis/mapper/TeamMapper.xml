@@ -12,4 +12,11 @@
         `lgc_talk_team`
     </sql>
 
+    <select id="getTeamByTeamName" resultType="com.mylog.business.chat.dal.entity.TeamEntity">
+        select <include refid="Table_Fields" />
+        from <include refid="Table_Name" />
+        where team_name = #{teamName}
+    </select>
+
+
 </mapper>

@@ -6,8 +6,8 @@ import com.dylan.protocol.logicer.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mylog.business.chat.config.BusinessClientDTO;
+import com.mylog.business.chat.config.ConversationUtil;
 import com.mylog.business.chat.config.NettyClientConstant;
-import com.mylog.business.chat.config.WebsocketConstant;
 import com.mylog.business.chat.ws.WebSocketUtil;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
@@ -17,7 +17,6 @@ import io.netty.channel.FixedRecvByteBufAllocator;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.web.socket.WebSocketSession;
 
 import java.util.Objects;
 import java.util.Stack;
@@ -36,6 +35,8 @@ public class LogicerNettyClient {
 
     private final String password;
 
+    private final String talkWith;
+
     private final String sessionId;
 
     private final String msgAreaType;
@@ -46,11 +47,12 @@ public class LogicerNettyClient {
 
     private Channel ch;
 
-    public LogicerNettyClient(String userName, String password, String sessionId, String msgAreaType) {
+    public LogicerNettyClient(String userName, String password, String talkWith, String sessionId, String msgAreaType) {
         this.userName = userName;
         this.password = password;
         this.sessionId = sessionId;
         this.msgAreaType = msgAreaType;
+        this.talkWith = talkWith;
         this.init();
     }
 
@@ -78,13 +80,14 @@ public class LogicerNettyClient {
             // Start the connection attempt.
             ch = bootstrap.connect(serverAddr, port).sync().channel();
             ch.writeAndFlush(LogicerMessageBuilder.buildLoginMessage(getUserName() + "@" + password, getSessionId()));
-            while (Objects.nonNull(NettyClientConstant.USER_NETTY_CLIENT_CENTER.getOrDefault(getUserName(), null))){
+            // 该用户的Client存在时
+            while (Objects.nonNull(NettyClientConstant.USER_NETTY_CLIENT_CENTER.getOrDefault(getConversationClientKey(), null))){
                 if (!ch.isOpen()){
                     logger.error("<LogicerNettyClient> Channel closed. UserName: {}", getUserName());
-                    NettyClientConstant.USER_NETTY_CLIENT_CENTER.remove(getUserName());
-                    WebSocketUtil.disconnectForUser(getUserName());
+                    NettyClientConstant.USER_NETTY_CLIENT_CENTER.remove(getConversationClientKey());
+                    WebSocketUtil.disconnectForUser(getConversationClientKey());
                 }
-                Stack<String> messageCenter = NettyClientConstant.USER_MESSAGE_CENTER.getOrDefault(getUserName(), null);
+                Stack<String> messageCenter = NettyClientConstant.USER_MESSAGE_CENTER.getOrDefault(getConversationClientKey(), null);
                 if (Objects.nonNull(messageCenter) && messageCenter.size() > 0){
                     String nextLine = messageCenter.pop();
                     //logger.info("即将发送：" + nextLine);
@@ -124,6 +127,13 @@ public class LogicerNettyClient {
         }
     }
 
+    /**
+     * 获取 会话发起者-会话接收者 的值作为会话-Netty客户端的key
+     * @return
+     */
+    public String getConversationClientKey() {
+        return ConversationUtil.getConversationMapKey(getUserName(), getTalkWith());
+    }
 
     public String getUserName() {
         return userName;
@@ -139,6 +149,10 @@ public class LogicerNettyClient {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getTalkWith() {
+        return talkWith;
     }
 
     public String getMsgAreaType() {

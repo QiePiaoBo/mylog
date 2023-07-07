@@ -13,8 +13,13 @@ import java.util.Stack;
  */
 public class NettyClientConstant {
 
+    /**
+     * startUser&->talkWith - 会话消息栈
+     */
     public static final Map<String, Stack<String>> USER_MESSAGE_CENTER = new HashMap<>();
 
+    /**
+     * startUser&->talkWith - netty客户端
+     */
     public static final Map<String, LogicerNettyClient> USER_NETTY_CLIENT_CENTER = new HashMap<>();
-
 }

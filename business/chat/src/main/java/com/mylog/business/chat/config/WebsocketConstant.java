@@ -40,10 +40,5 @@ public class WebsocketConstant {
      */
     public static final ConcurrentHashMap<String, WebSocketSession> WS_SESSION_POOL = new ConcurrentHashMap<>();
 
-    /**
-     * userName - LgcTalk会话Id
-     */
-    public static final ConcurrentHashMap<String, Integer> WS_USERNAME_SESSIONID_POOL = new ConcurrentHashMap<>();
-
 
 }

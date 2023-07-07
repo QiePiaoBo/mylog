@@ -43,7 +43,7 @@ public class MsgRecordConverter {
      * @param message
      * @return
      */
-    public static MsgInsertModel getInsertModel(LogicerMessage message, Integer fromId, Integer toId){
+    public static MsgInsertModel getInsertModel(LogicerMessage message, Integer fromId, Integer toId, Integer msgAreaType){
         if (Objects.isNull(fromId) || Objects.isNull(toId)){
             return null;
         }
@@ -66,6 +66,7 @@ public class MsgRecordConverter {
         model.setMsgTimestamp(LocalDateTime.ofInstant(Instant.ofEpochMilli(message.getLogicerContent().getActionTimeStamp()), ZoneId.systemDefault()));
         model.setFromId(fromId);
         model.setToId(toId);
+        model.setMsgAreaType(msgAreaType);
         return model;
     }
 

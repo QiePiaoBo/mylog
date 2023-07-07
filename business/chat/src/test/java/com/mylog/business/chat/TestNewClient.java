@@ -17,7 +17,7 @@ public class TestNewClient {
 
     @Test
     public void testNewClient() throws InterruptedException {
-        LogicerNettyClient logicerNettyClient = new LogicerNettyClient("duke", "123456", "sessionId", "0");
+        LogicerNettyClient logicerNettyClient = new LogicerNettyClient("duke", "123456", "dylan","sessionId", "0");
         String userName = logicerNettyClient.getUserName();
         //  为userName注册消息中心
         Stack<String> messageCenter = NettyClientConstant.USER_MESSAGE_CENTER.getOrDefault(userName, null);

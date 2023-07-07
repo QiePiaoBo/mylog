@@ -3,20 +3,15 @@ package com.mylog.business.chat.service;
 import com.dylan.logger.MyLogger;
 import com.dylan.logger.MyLoggerFactory;
 import com.mylog.business.chat.dal.entity.LgcTalkSessionEntity;
-import com.mylog.business.chat.dal.entity.MsgRecordEntity;
 import com.mylog.business.chat.dal.mapper.LgcTalkSessionMapper;
-import com.mylog.business.chat.dal.mapper.MsgRecordMapper;
 import com.mylog.business.chat.dal.mapper.UserMapper;
-import com.mylog.business.chat.model.MsgInsertModel;
-import com.mylog.business.chat.model.MsgQueryModel;
 import com.mylog.business.chat.model.SessionInsertModel;
 import com.mylog.business.chat.model.SessionQueryModel;
 import com.mylog.business.chat.model.UserNameIdModel;
 import com.mylog.business.chat.model.converter.LgcTalkSessionConverter;
-import com.mylog.business.chat.model.converter.MsgRecordConverter;
 import com.mylog.business.chat.model.vo.LgcTalkSessionVO;
-import com.mylog.business.chat.model.vo.MsgRecordVO;
 import com.mylog.tools.utils.utils.Safes;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -51,7 +46,7 @@ public class SessionService {
      * @return
      */
     public List<LgcTalkSessionVO> querySessions(SessionQueryModel queryModel) {
-        if (queryModel.isValid()) {
+        if (!queryModel.isValid()) {
             return new ArrayList<>();
         }
         queryModel.confirmId();
@@ -79,30 +74,46 @@ public class SessionService {
      * 根据用户名查询或新建session
      *
      * @param userName
-     * @param talkWith
+     * @param teamId
      * @return
      */
-    public Integer getOrCreateSession(String userName, String talkWith) {
-        // 两个名字 前后顺序都进行查询 需要优化 在插入session时就将Id根据大小顺序进行排列 保证两个人只会产生一条会话记录
-        // 根据userName查询两个用户的
-        List<UserNameIdModel> userNameIds = userMapper.getUserNameId(Arrays.asList(userName, talkWith));
-        Map<String, Integer> userNameIdMap = Safes.of(userNameIds).stream().filter(m -> m.getId() > 0).collect(Collectors.toMap(UserNameIdModel::getUserName, UserNameIdModel::getId, (v1, v2) -> v2));
-        if (userNameIdMap.size() < 2) {
-            logger.error("<getOrCreateSession> Error getting username id map : {}", userNameIds);
+    public Integer getOrCreateSessionForTeam(String userName, Integer teamId) {
+        // 用户名都为空且群名称不为空
+        if (StringUtils.isBlank(userName) || Objects.isNull(teamId)){
+            return null;
+        }
+        SessionQueryModel queryModel = SessionQueryModel.builder().talkTeamId(teamId).build();
+        List<LgcTalkSessionEntity> entities = lgcTalkSessionMapper.querySessions(queryModel);
+        if (entities.size() == 1){
+            return entities.get(0).getSessionId();
+        }
+        return null;
+    }
+
+    /**
+     * 为用户查询或创建sessionId 并将入参的值修改为查询到的Id
+     * @param senderId
+     * @param receiptId
+     * @return
+     */
+    public Integer getOrCreateSessionForUser(Integer senderId, Integer receiptId) {
+        if (Objects.isNull(senderId) || Objects.isNull(receiptId)){
             return null;
         }
         // 构造查询对象
         SessionQueryModel sessionQueryModel = SessionQueryModel
                 .builder()
-                .senderId(userNameIdMap.getOrDefault(talkWith, 0))
-                .recipientId(userNameIdMap.getOrDefault(userName, 0))
+                .senderId(senderId)
+                .recipientId(receiptId)
                 .build();
+        sessionQueryModel.confirmId();
         // 构造插入对象
         SessionInsertModel sessionInsertModel = SessionInsertModel
                 .builder()
-                .senderId(userNameIdMap.get(userName))
-                .recipientId(userNameIdMap.get(talkWith))
+                .senderId(senderId)
+                .recipientId(receiptId)
                 .build();
+        sessionInsertModel.confirmId();
         // 首次查询
         List<LgcTalkSessionVO> vos = this.querySessions(sessionQueryModel);
         if (vos.size() > 0) {
@@ -128,7 +139,7 @@ public class SessionService {
                 return entityList.get(0).getSessionId();
             }
         }
-        logger.error("<getOrCreateSession> Error getting sessionId for {} and {}", userName, talkWith);
+        logger.error("<getOrCreateSession> Error getting sessionId for {} and {}", senderId, receiptId);
         return null;
     }
 

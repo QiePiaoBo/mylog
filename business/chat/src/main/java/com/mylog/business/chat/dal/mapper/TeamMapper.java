@@ -14,4 +14,11 @@ import org.apache.ibatis.annotations.Mapper;
 public interface TeamMapper extends BaseMapper<TeamEntity> {
 
 
+    /**
+     * 根据群名获取群对象
+     * @param teamName
+     * @return
+     */
+    TeamEntity getTeamByTeamName(String teamName);
+
 }

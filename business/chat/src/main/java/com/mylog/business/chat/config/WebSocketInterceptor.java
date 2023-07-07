@@ -2,18 +2,24 @@ package com.mylog.business.chat.config;
 
 import com.dylan.logger.MyLogger;
 import com.dylan.logger.MyLoggerFactory;
+import com.mylog.business.chat.dal.entity.TeamEntity;
 import com.mylog.business.chat.service.SessionService;
+import com.mylog.business.chat.service.TeamService;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.HandshakeInterceptor;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -30,6 +36,9 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
 
     @Resource
     private SessionService sessionService;
+
+    @Resource
+    private TeamService teamService;
 
     /**
      * 握手前
@@ -58,13 +67,49 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
         }
         if (authorization.contains(",")){
             String[] split = authorization.split(",");
-            Integer sessionId = sessionService.getOrCreateSession(split[0].trim(), split[1].trim());
-            if (Objects.isNull(sessionId)){
-                logger.error("<beforeHandshake> error, error getting session of {} and {}", split[0], split[1]);
+            if (split.length < 3){
+                // 参数异常 拒绝WS客户端进行握手
                 return false;
             }
-            map.put(WebsocketConstant.WS_PROPERTIES_USERNAME, split[0].trim());
-            map.put(WebsocketConstant.WS_PROPERTIES_TALKWITH, split[1].trim());
+            String fromUser = split[0].trim();
+            String aimUserOrGroup = split[1].trim();
+            String msgAreaType = split[2].trim();
+            // 初始化sessionId
+            Integer sessionId = null;
+            TeamEntity teamEntity = null;
+            if ("0".equals(msgAreaType)){
+                // 首先获取用户名Id映射(这里是作为Netty核心服务的客户端，所以要将用户名转Id的动作前置以保证Netty核心服务的处理速度)
+                // todo 完成客户端基本功能 将所有name转Id的动作前置以优化服务处理速度
+                Map<String, Integer> userNameIdMap = sessionService.getUserNameIdMap(Arrays.asList(fromUser, aimUserOrGroup));
+                if (userNameIdMap.size() == 0){
+                    logger.error("<beforeHandshake> error, error getting session of {} and {}", split[0], split[1]);
+                    return false;
+                }
+                // 点对点消息 为发起用户和目的用户获取会话Id
+                sessionId = sessionService.getOrCreateSessionForUser(userNameIdMap.getOrDefault(fromUser,null),
+                        userNameIdMap.getOrDefault(aimUserOrGroup, null));
+                if (Objects.isNull(sessionId)){
+                    logger.error("<beforeHandshake> error, error getting session of {} and {}", split[0], split[1]);
+                    return false;
+                }
+            } else if ("1".equals(msgAreaType)){
+                // 群消息 为发起用户和群获取会话Id
+                teamEntity = teamService.getTeamByTeamName(aimUserOrGroup);
+                if (Objects.isNull(teamEntity)){
+                    logger.error("<beforeHandshake> error, error getting team of {} and {}", split[0], split[1]);
+                    return false;
+                }
+                // 点对群消息 获取到群之后 目的群名改为目的群Id
+                aimUserOrGroup = teamEntity.getId() + "";
+                sessionId = sessionService.getOrCreateSessionForTeam(fromUser, teamEntity.getId());
+                if (Objects.isNull(sessionId)){
+                    logger.error("<beforeHandshake> error, error getting session of {} and {}", split[0], split[1]);
+                    return false;
+                }
+            }
+            map.put(WebsocketConstant.WS_PROPERTIES_USERNAME, fromUser);
+            map.put(WebsocketConstant.WS_PROPERTIES_TALKWITH, aimUserOrGroup);
+            map.put(WebsocketConstant.WS_PROPERTIES_MSG_AREA_TYPE, msgAreaType);
             map.put(WebsocketConstant.WS_PROPERTIES_SESSIONID, sessionId + "");
             // 如果传入了两个子协议 必须返回其中一个给客户端表示服务端选择了其中一个 如果将两个子协议原样返回 会导致连接失败
             serverHttpResponse.getServletResponse().setHeader("Sec-WebSocket-Protocol", split[0]);

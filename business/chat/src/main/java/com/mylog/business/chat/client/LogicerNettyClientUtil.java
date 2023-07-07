@@ -16,11 +16,11 @@ public class LogicerNettyClientUtil {
 
     /**
      * 发送消息
-     * @param userName
+     * @param conversationMapKey 会话唯一键
      * @param message
      */
-    public static void sendMessage(String userName, String message){
-        Stack<String> userMessageCenter = NettyClientConstant.USER_MESSAGE_CENTER.getOrDefault(userName, null);
+    public static void sendMessage(String conversationMapKey, String message){
+        Stack<String> userMessageCenter = NettyClientConstant.USER_MESSAGE_CENTER.getOrDefault(conversationMapKey, null);
         if (Objects.nonNull(userMessageCenter)){
             userMessageCenter.push(message);
         }
@@ -28,18 +28,19 @@ public class LogicerNettyClientUtil {
 
     /**
      * 用户登出
-     * @param userName
+     * @param conversationMapKey
      */
-    public static void userLogout(String userName){
-        LogicerNettyClient savedClient = NettyClientConstant.USER_NETTY_CLIENT_CENTER.getOrDefault(userName, null);
+    public static void userLogout(String conversationMapKey){
+        // 这里传入的userName参数就是 ConversationUtil.getConversationMapKey的值
+        LogicerNettyClient savedClient = NettyClientConstant.USER_NETTY_CLIENT_CENTER.getOrDefault(conversationMapKey, null);
         if (Objects.nonNull(savedClient)){
             // 清理连接netty服务端的资源
             // 关闭与netty服务端的连接
             savedClient.getGroup().shutdownGracefully();
             // 删除当前用户-客户端
-            NettyClientConstant.USER_NETTY_CLIENT_CENTER.remove(userName);
+            NettyClientConstant.USER_NETTY_CLIENT_CENTER.remove(conversationMapKey);
             // 删除当前用户-消息栈
-            NettyClientConstant.USER_MESSAGE_CENTER.remove(userName);
+            NettyClientConstant.USER_MESSAGE_CENTER.remove(conversationMapKey);
         }
     }
 

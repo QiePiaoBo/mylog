@@ -5,7 +5,10 @@ import com.dylan.logger.MyLoggerFactory;
 import com.dylan.protocol.logicer.LogicerUtil;
 import com.mylog.business.chat.client.LogicerNettyClientBuildService;
 import com.mylog.business.chat.client.LogicerNettyClientUtil;
+import com.mylog.business.chat.config.ConversationUtil;
 import com.mylog.business.chat.config.WebsocketConstant;
+import lombok.NonNull;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -13,6 +16,7 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -50,10 +54,11 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
      * @throws Exception
      */
     @Override
-    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+    protected void handleTextMessage(@NonNull WebSocketSession session, TextMessage message) throws Exception {
         String messagePayload = message.getPayload();
         String userName = getSessionProperty(session, WebsocketConstant.WS_PROPERTIES_USERNAME);
         String sessionId = getSessionProperty(session, WebsocketConstant.WS_PROPERTIES_SESSIONID);
+        String talkWith = getSessionProperty(session, WebsocketConstant.WS_PROPERTIES_TALKWITH);
         String msgAreaType = getSessionProperty(session, WebsocketConstant.WS_PROPERTIES_MSG_AREA_TYPE);
         String completeMsg = WebSocketUtil.getCompleteMsg(messagePayload);
         logger.info("handling textMessage ---> {}&{}: {}【{}】", userName, sessionId, messagePayload, completeMsg);
@@ -65,11 +70,12 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
             String[] split = completeMsg.split("@");
             // 创建netty客户端并将本条报文透传到netty服务
             if (completeMsg.contains(userName + "@") && split.length == 2){
-                logicerNettyClientBuildService.startConnection(userName, split[1], sessionId, msgAreaType);
+                // 构建客户端时 只需用户名、密码(自动重连待完成)、sessionId、消息类型即可，服务端可以根据这些参数和消息体完成消息的推送
+                logicerNettyClientBuildService.startConnection(userName, split[1], talkWith, sessionId, msgAreaType);
             }
         }else {
             // 发送消息
-            LogicerNettyClientUtil.sendMessage(userName, messagePayload);
+            LogicerNettyClientUtil.sendMessage(getWsConversationMapKey(session), messagePayload);
         }
     }
 
@@ -79,7 +85,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
      * @param aimKey
      * @return
      */
-    private String getSessionProperty(WebSocketSession session, String aimKey) {
+    private String getSessionProperty(@NonNull WebSocketSession session, String aimKey) {
         Object websocket_property = session.getAttributes().get(aimKey);
         String property = "";
         if (Objects.nonNull(websocket_property) && websocket_property instanceof String){
@@ -95,14 +101,9 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
      * @throws Exception
      */
     @Override
-    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        Object websocket_username = session.getAttributes().get(WebsocketConstant.WS_PROPERTIES_USERNAME);
-        String userName = "";
-        if (Objects.nonNull(websocket_username) && websocket_username instanceof String){
-            userName = (String) websocket_username;
-        }
+    public void afterConnectionEstablished(@NonNull WebSocketSession session) throws Exception {
         // logger.info("UserName is {}", userName);
-        WebSocketSession put = WebsocketConstant.WS_SESSION_POOL.put(userName, session);
+        WebSocketSession put = WebsocketConstant.WS_SESSION_POOL.put(getWsConversationMapKey(session), session);
         if (Objects.isNull(put)){
             addOnlineCount();
         }
@@ -116,15 +117,44 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
      * @throws Exception
      */
     @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+    public void afterConnectionClosed(WebSocketSession session, @NonNull CloseStatus status) throws Exception {
         String sessionId = session.getId();
-        String userName = getSessionProperty(session, WebsocketConstant.WS_PROPERTIES_USERNAME);
-        if (WebsocketConstant.WS_SESSION_POOL.containsKey(userName)){
-            WebsocketConstant.WS_SESSION_POOL.remove(userName);
+        String mapKey = getWsConversationMapKey(session);
+        if (WebsocketConstant.WS_SESSION_POOL.containsKey(mapKey)){
+            WebsocketConstant.WS_SESSION_POOL.remove(mapKey);
             subOnlineCount();
-            LogicerNettyClientUtil.userLogout(userName);
+            // Ws连接结束时 netty客户端也要断开
+            LogicerNettyClientUtil.userLogout(mapKey);
         }
         logger.info("{} disconnect!", sessionId);
+    }
+
+    /**
+     * 从WebSocketSession中获取当前会话的属性
+     * @param session
+     * @return
+     */
+    private String getWsConversationMapKey(WebSocketSession session) {
+        Object websocket_username = session.getAttributes().get(WebsocketConstant.WS_PROPERTIES_USERNAME);
+        Object websocket_talkWith = session.getAttributes().get(WebsocketConstant.WS_PROPERTIES_TALKWITH);
+        String userName = "";
+        String talkWith = "";
+        if (Objects.nonNull(websocket_username) && websocket_username instanceof String){
+            userName = (String) websocket_username;
+        }
+        if (Objects.nonNull(websocket_talkWith) && websocket_talkWith instanceof String){
+            talkWith = (String) websocket_talkWith;
+        }
+        // 如果无法获取属性 关闭连接
+        if (StringUtils.isBlank(userName) || StringUtils.isBlank(talkWith)){
+            logger.error("ERROR, param not valid: {}", session.getAttributes());
+            try {
+                session.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return ConversationUtil.getConversationMapKey(userName, talkWith);
     }
 
 }

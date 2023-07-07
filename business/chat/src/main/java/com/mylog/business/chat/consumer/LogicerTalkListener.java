@@ -16,6 +16,7 @@ import com.mylog.business.chat.model.UserNameIdModel;
 import com.mylog.business.chat.model.converter.MsgRecordConverter;
 import com.mylog.business.chat.service.SessionService;
 import com.mylog.tools.utils.utils.Safes;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -119,7 +120,14 @@ public class LogicerTalkListener {
                                         logger.error("<LogicerTalkListener> Error talkWord, LogicerMessage: {}", m);
                                         return null;
                                     }
-                                    return MsgRecordConverter.getInsertModel(m, userNameIds.getOrDefault(logicerTalkWord.getFrom(), null), userNameIds.getOrDefault(logicerTalkWord.getTo(), null));
+                                    Integer msgAreaType = 0;
+                                    if (StringUtils.isNumeric(logicerTalkWord.getType())){
+                                        msgAreaType = Integer.parseInt(logicerTalkWord.getType());
+                                    }
+                                    return MsgRecordConverter.getInsertModel(m,
+                                            userNameIds.getOrDefault(logicerTalkWord.getFrom(), null),
+                                            userNameIds.getOrDefault(logicerTalkWord.getTo(), null),
+                                            msgAreaType);
                                 })
                                 .filter(Objects::nonNull)
                                 .collect(Collectors.toList());
