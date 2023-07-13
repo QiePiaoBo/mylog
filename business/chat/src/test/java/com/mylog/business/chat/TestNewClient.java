@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.util.Objects;
 import java.util.Stack;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * @Classname TestNewClient
@@ -20,9 +21,9 @@ public class TestNewClient {
         LogicerNettyClient logicerNettyClient = new LogicerNettyClient("duke", "123456", "dylan","sessionId", "0");
         String userName = logicerNettyClient.getUserName();
         //  为userName注册消息中心
-        Stack<String> messageCenter = NettyClientConstant.USER_MESSAGE_CENTER.getOrDefault(userName, null);
+        LinkedBlockingQueue<String> messageCenter = NettyClientConstant.USER_MESSAGE_CENTER.getOrDefault(userName, null);
         if (Objects.isNull(messageCenter)){
-            messageCenter = new Stack<>();
+            messageCenter = new LinkedBlockingQueue<>();
             NettyClientConstant.USER_MESSAGE_CENTER.put(userName, messageCenter);
         }
         // 为userName注册EventLoopGroup
@@ -59,9 +60,9 @@ public class TestNewClient {
         while (i < 100){
             i++;
             Thread.sleep(1000);
-            messageCenter.push("hello ");
+            messageCenter.put("hello ");
         }
-        messageCenter.push("exit");
+        messageCenter.put("exit");
 
     }
 

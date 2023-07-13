@@ -6,6 +6,7 @@ import com.mylog.business.chat.config.WebsocketConstant;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Stack;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * @Classname LogicerNettyClientUtil
@@ -19,10 +20,10 @@ public class LogicerNettyClientUtil {
      * @param conversationMapKey 会话唯一键
      * @param message
      */
-    public static void sendMessage(String conversationMapKey, String message){
-        Stack<String> userMessageCenter = NettyClientConstant.USER_MESSAGE_CENTER.getOrDefault(conversationMapKey, null);
+    public static void sendMessage(String conversationMapKey, String message) throws InterruptedException {
+        LinkedBlockingQueue<String> userMessageCenter = NettyClientConstant.USER_MESSAGE_CENTER.getOrDefault(conversationMapKey, null);
         if (Objects.nonNull(userMessageCenter)){
-            userMessageCenter.push(message);
+            userMessageCenter.put(message);
         }
     }
 

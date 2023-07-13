@@ -5,6 +5,7 @@ import com.dylan.logger.MyLoggerFactory;
 import com.mylog.business.chat.config.ConversationUtil;
 import com.mylog.business.chat.config.WebsocketConstant;
 import com.mylog.tools.model.model.exception.MyException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -68,6 +69,9 @@ public class WebSocketUtil {
      * @return
      */
     public static String getCompleteMsg(String input) {
+        if (StringUtils.isBlank(input)){
+            return null;
+        }
         if (input.contains(AIMING_NAME_START_CHARACTER)) {
             return input.substring(0, input.indexOf(AIMING_NAME_START_CHARACTER));
         }

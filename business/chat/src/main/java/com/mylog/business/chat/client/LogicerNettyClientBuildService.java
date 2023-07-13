@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 import java.util.Objects;
 import java.util.Set;
 import java.util.Stack;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
@@ -46,7 +47,11 @@ public class LogicerNettyClientBuildService {
         // 启动netty客户端
         nettyClientExecutor.execute(() -> {
             try {
-                logicerNettyClient.connect("localhost", 8001);
+                if (!logicerNettyClient.isConnecting()){
+                    logicerNettyClient.connect("logicer.top", 8001);
+                }else {
+                    logger.info("Netty客户端已连接");
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -63,7 +68,7 @@ public class LogicerNettyClientBuildService {
         // 确定这个会话的唯一键
         String conversationMappingKey = ConversationUtil.getConversationMapKey(userName, talkWith);
         LogicerNettyClient logicerNettyClient = NettyClientConstant.USER_NETTY_CLIENT_CENTER.getOrDefault(conversationMappingKey, null);
-        Stack<String> messageCenter = NettyClientConstant.USER_MESSAGE_CENTER.getOrDefault(conversationMappingKey, null);
+        LinkedBlockingQueue<String> messageCenter = NettyClientConstant.USER_MESSAGE_CENTER.getOrDefault(conversationMappingKey, null);
         // 该唯一键的netty客户端和消息中心都不为空 此时可以直接返回netty客户端
         if (Objects.nonNull(logicerNettyClient) && Objects.nonNull(messageCenter)){
             return logicerNettyClient;
@@ -103,7 +108,7 @@ public class LogicerNettyClientBuildService {
         // 如果消息中心为空 且不存在已有消息中心 就创建；如果消息中心为空 且存在已有消息中心 就复用
         if (Objects.isNull(messageCenter)){
             if (existKeyForMessage == null){
-                messageCenter = new Stack<>();
+                messageCenter = new LinkedBlockingQueue<>();
             }else {
                 messageCenter = NettyClientConstant.USER_MESSAGE_CENTER.get(existKeyForMessage);
             }

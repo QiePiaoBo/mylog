@@ -19,7 +19,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.Objects;
-import java.util.Stack;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -85,11 +85,12 @@ public class LogicerNettyClient {
                 if (!ch.isOpen()){
                     logger.error("<LogicerNettyClient> Channel closed. UserName: {}", getUserName());
                     NettyClientConstant.USER_NETTY_CLIENT_CENTER.remove(getConversationClientKey());
+                    NettyClientConstant.USER_MESSAGE_CENTER.remove(getConversationClientKey());
                     WebSocketUtil.disconnectForUser(getConversationClientKey());
                 }
-                Stack<String> messageCenter = NettyClientConstant.USER_MESSAGE_CENTER.getOrDefault(getConversationClientKey(), null);
+                LinkedBlockingQueue<String> messageCenter = NettyClientConstant.USER_MESSAGE_CENTER.getOrDefault(getConversationClientKey(), null);
                 if (Objects.nonNull(messageCenter) && messageCenter.size() > 0){
-                    String nextLine = messageCenter.pop();
+                    String nextLine = messageCenter.poll();
                     //logger.info("即将发送：" + nextLine);
                     String realMsg = WebSocketUtil.getCompleteMsg(nextLine);
                     if (Objects.isNull(realMsg)){
@@ -125,6 +126,17 @@ public class LogicerNettyClient {
             logger.info("Connection closing. {}:{}, current user is : {}", serverAddr, port, getUserName());
             group.shutdownGracefully();
         }
+    }
+
+    /**
+     * 判断是否已经连接
+     * @return
+     */
+    public boolean isConnecting() {
+        if (Objects.isNull(ch)){
+            return false;
+        }
+        return ch.isOpen();
     }
 
     /**
