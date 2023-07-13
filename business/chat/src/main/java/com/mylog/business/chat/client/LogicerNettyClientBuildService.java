@@ -4,11 +4,13 @@ import com.dylan.logger.MyLogger;
 import com.dylan.logger.MyLoggerFactory;
 import com.mylog.business.chat.config.ConversationUtil;
 import com.mylog.business.chat.config.NettyClientConstant;
+import com.mylog.tools.model.model.exception.MyException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Objects;
+import java.util.Set;
 import java.util.Stack;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -57,28 +59,62 @@ public class LogicerNettyClientBuildService {
      * @param password
      * @return
      */
-    private LogicerNettyClient getLogicerNettyClient(String userName, String password, String talkWith, String sessionId, String msgAreaType) {
+    private synchronized LogicerNettyClient getLogicerNettyClient(String userName, String password, String talkWith, String sessionId, String msgAreaType) {
         // 确定这个会话的唯一键
         String conversationMappingKey = ConversationUtil.getConversationMapKey(userName, talkWith);
         LogicerNettyClient logicerNettyClient = NettyClientConstant.USER_NETTY_CLIENT_CENTER.getOrDefault(conversationMappingKey, null);
-        if (Objects.nonNull(logicerNettyClient)){
+        Stack<String> messageCenter = NettyClientConstant.USER_MESSAGE_CENTER.getOrDefault(conversationMappingKey, null);
+        // 该唯一键的netty客户端和消息中心都不为空 此时可以直接返回netty客户端
+        if (Objects.nonNull(logicerNettyClient) && Objects.nonNull(messageCenter)){
             return logicerNettyClient;
         }
-        // 如果user-client中没有 就说明没存过或者没有正在在线的 就创建并为用户注册
-        logicerNettyClient = new LogicerNettyClient(userName, password, talkWith, sessionId, msgAreaType);
-        //  为userName注册消息中心
-        Stack<String> messageCenter = NettyClientConstant.USER_MESSAGE_CENTER.getOrDefault(conversationMappingKey, null);
+        Set<String> keysForClient = NettyClientConstant.USER_NETTY_CLIENT_CENTER.keySet();
+        Set<String> keysForMessage = NettyClientConstant.USER_MESSAGE_CENTER.keySet();
+        // netty客户端连接复用 如果已有Client中 有userName&->*的key 表示该用户已经与netty客户端建立了连接 此时需要复用连接
+        String existKeyForClient = null;
+        for (String key : keysForClient){
+            if (key.startsWith(userName)){
+                if (existKeyForClient != null){
+                    throw new MyException("Error, more than 1 client for " + userName);
+                }
+                existKeyForClient = key;
+            }
+        }
+        // 消息栈复用 如果已有消息栈中，有userName&->*的key 表示该用户已经与netty客户端建立了连接 此时需要复用消息栈
+        String existKeyForMessage = null;
+        for (String key : keysForMessage){
+            if (key.startsWith(userName)){
+                if (existKeyForMessage != null){
+                    throw new MyException("Error, more than 1 message center for " + userName);
+                }
+                existKeyForMessage = key;
+            }
+        }
+        // 如果客户端为空 且不存在已有netty客户端 就创建; 如果客户端为空 且存在已有netty客户端 就复用
+        if (Objects.isNull(logicerNettyClient)){
+            if (existKeyForClient == null){
+                logicerNettyClient = new LogicerNettyClient(userName, password, talkWith, sessionId, msgAreaType);
+            }else {
+                logicerNettyClient = NettyClientConstant.USER_NETTY_CLIENT_CENTER.get(existKeyForClient);
+            }
+            // 复用
+            NettyClientConstant.USER_NETTY_CLIENT_CENTER.put(conversationMappingKey, logicerNettyClient);
+        }
+        // 如果消息中心为空 且不存在已有消息中心 就创建；如果消息中心为空 且存在已有消息中心 就复用
         if (Objects.isNull(messageCenter)){
-            messageCenter = new Stack<>();
+            if (existKeyForMessage == null){
+                messageCenter = new Stack<>();
+            }else {
+                messageCenter = NettyClientConstant.USER_MESSAGE_CENTER.get(existKeyForMessage);
+            }
+            // 复用
             NettyClientConstant.USER_MESSAGE_CENTER.put(conversationMappingKey, messageCenter);
         }
-        // 为userName注册EventLoopGroup
-        LogicerNettyClient savedClient = NettyClientConstant.USER_NETTY_CLIENT_CENTER.getOrDefault(conversationMappingKey, null);
-        if (Objects.isNull(savedClient)){
-            savedClient = logicerNettyClient;
-            NettyClientConstant.USER_NETTY_CLIENT_CENTER.put(conversationMappingKey, savedClient);
+        if (Objects.nonNull(messageCenter) && Objects.nonNull(logicerNettyClient)){
+            return logicerNettyClient;
+        }else {
+            throw new MyException("Error create resource for " + userName);
         }
-        return logicerNettyClient;
     }
 
 }
