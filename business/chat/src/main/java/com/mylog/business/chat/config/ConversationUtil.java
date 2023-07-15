@@ -1,5 +1,7 @@
 package com.mylog.business.chat.config;
 
+import java.util.Set;
+
 /**
  * @Classname ConversationUtil
  * @Description ConversationUtil
@@ -16,4 +18,22 @@ public class ConversationUtil {
     public static String getConversationMapKey(String startUser, String talkWith){
         return startUser + "&->" + talkWith;
     }
+
+    /**
+     * 判断该用户是否有其他的WS连接在使用nettyClient
+     * @param userNames
+     * @param conversationMapKey
+     * @return
+     */
+    public static boolean hasMoreNettyClientForUser(Set<String> userNames, String conversationMapKey){
+        String aimName = conversationMapKey.substring(0, conversationMapKey.indexOf("&->"));
+        int total = 1;
+        for (String name : userNames){
+            if (name.startsWith(aimName)){
+                total += 1;
+            }
+        }
+        return total > 1;
+    }
+
 }

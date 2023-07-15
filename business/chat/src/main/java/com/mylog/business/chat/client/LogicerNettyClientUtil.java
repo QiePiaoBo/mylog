@@ -1,11 +1,9 @@
 package com.mylog.business.chat.client;
 
+import com.mylog.business.chat.config.ConversationUtil;
 import com.mylog.business.chat.config.NettyClientConstant;
-import com.mylog.business.chat.config.WebsocketConstant;
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.Stack;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
@@ -34,14 +32,16 @@ public class LogicerNettyClientUtil {
     public static void userLogout(String conversationMapKey){
         // 这里传入的userName参数就是 ConversationUtil.getConversationMapKey的值
         LogicerNettyClient savedClient = NettyClientConstant.USER_NETTY_CLIENT_CENTER.getOrDefault(conversationMapKey, null);
+
         if (Objects.nonNull(savedClient)){
-            // 清理连接netty服务端的资源
-            // 关闭与netty服务端的连接
-            savedClient.getGroup().shutdownGracefully();
             // 删除当前用户-客户端
             NettyClientConstant.USER_NETTY_CLIENT_CENTER.remove(conversationMapKey);
             // 删除当前用户-消息栈
             NettyClientConstant.USER_MESSAGE_CENTER.remove(conversationMapKey);
+            // 这里需要判断是否所有的WS客户端都断开连接 如果不是 就不能断开netty连接因为一个Netty连接可能对应多个WS客户端 如果是清理连接netty服务端的资源 关闭与netty服务端的连接
+            if (!ConversationUtil.hasMoreNettyClientForUser(NettyClientConstant.USER_NETTY_CLIENT_CENTER.keySet(), conversationMapKey)){
+                savedClient.getGroup().shutdownGracefully();
+            }
         }
     }
 
