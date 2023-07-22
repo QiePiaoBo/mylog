@@ -1,12 +1,8 @@
 package com.mylog.business.chat.dal.mapper;
 
-import com.mylog.business.chat.dal.entity.LgcTalkSessionEntity;
-import com.mylog.business.chat.dal.entity.MsgRecordEntity;
-import com.mylog.business.chat.model.MsgInsertModel;
-import com.mylog.business.chat.model.MsgQueryModel;
+import com.mylog.business.chat.dal.entity.SessionEntity;
 import com.mylog.business.chat.model.SessionInsertModel;
 import com.mylog.business.chat.model.SessionQueryModel;
-import com.mylog.business.chat.model.UserNameIdModel;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,14 +14,14 @@ import java.util.List;
  * @Date 6/20/2023 5:13 PM
  */
 @Mapper
-public interface LgcTalkSessionMapper {
+public interface SessionMapper {
 
     /**
      * 根据请求参数查询对应的会话
      * @param queryModel
      * @return
      */
-    List<LgcTalkSessionEntity> querySessions(SessionQueryModel queryModel);
+    List<SessionEntity> querySessions(SessionQueryModel queryModel);
 
     /**
      * 批量插入会话
@@ -48,7 +44,7 @@ public interface LgcTalkSessionMapper {
      * @param talkWith
      * @return
      */
-    LgcTalkSessionEntity getSessionByUserName(@Param("userName") String userName, @Param("talkWith") String talkWith);
+    SessionEntity getSessionByUserName(@Param("userName") String userName, @Param("talkWith") String talkWith);
 
 
 }

@@ -9,7 +9,7 @@
     </sql>
 
     <sql id="TableName">
-        `user_role`
+        `lgc_user_role`
     </sql>
 
     <select id="getRoleList4User" resultType="java.lang.Integer">

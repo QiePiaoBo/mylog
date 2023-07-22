@@ -2,15 +2,10 @@ package com.mylog.business.chat;
 
 import com.dylan.logger.MyLogger;
 import com.dylan.logger.MyLoggerFactory;
-import com.mylog.business.chat.dal.entity.LgcTalkSessionEntity;
-import com.mylog.business.chat.dal.entity.MsgRecordEntity;
 import com.mylog.business.chat.dal.entity.MsgRecordPartitionEnum;
-import com.mylog.business.chat.dal.mapper.LgcTalkSessionMapper;
 import com.mylog.business.chat.dal.mapper.MsgRecordMapper;
 import com.mylog.business.chat.model.MsgInsertModel;
 import com.mylog.business.chat.model.MsgQueryModel;
-import com.mylog.business.chat.model.SessionInsertModel;
-import com.mylog.business.chat.model.SessionQueryModel;
 import com.mylog.business.chat.model.vo.MsgRecordVO;
 import com.mylog.business.chat.service.MsgRecordService;
 import org.junit.Test;

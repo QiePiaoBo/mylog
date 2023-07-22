@@ -3,9 +3,7 @@ package com.mylog.business.chat.service;
 import com.dylan.logger.MyLogger;
 import com.dylan.logger.MyLoggerFactory;
 import com.mylog.business.chat.dal.entity.TeamEntity;
-import com.mylog.business.chat.dal.mapper.LgcTalkBlacklistMapper;
 import com.mylog.business.chat.dal.mapper.TeamMapper;
-import com.mylog.business.chat.model.BlacklistInsertModel;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 

@@ -1,9 +1,7 @@
 package com.mylog.business.chat.model.converter;
 
-import com.mylog.business.chat.dal.entity.LgcTalkSessionEntity;
-import com.mylog.business.chat.dal.entity.MsgRecordEntity;
+import com.mylog.business.chat.dal.entity.SessionEntity;
 import com.mylog.business.chat.model.vo.LgcTalkSessionVO;
-import com.mylog.business.chat.model.vo.MsgRecordVO;
 import org.springframework.beans.BeanUtils;
 
 /**
@@ -18,7 +16,7 @@ public class LgcTalkSessionConverter {
      * @param entity
      * @return
      */
-    public static LgcTalkSessionVO getVoForEntity(LgcTalkSessionEntity entity){
+    public static LgcTalkSessionVO getVoForEntity(SessionEntity entity){
         LgcTalkSessionVO msgRecordVO = new LgcTalkSessionVO();
         BeanUtils.copyProperties(entity, msgRecordVO);
         return msgRecordVO;

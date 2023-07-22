@@ -2,8 +2,8 @@ package com.mylog.business.chat.service;
 
 import com.dylan.logger.MyLogger;
 import com.dylan.logger.MyLoggerFactory;
-import com.mylog.business.chat.dal.entity.LgcTalkSessionEntity;
-import com.mylog.business.chat.dal.mapper.LgcTalkSessionMapper;
+import com.mylog.business.chat.dal.entity.SessionEntity;
+import com.mylog.business.chat.dal.mapper.SessionMapper;
 import com.mylog.business.chat.dal.mapper.UserMapper;
 import com.mylog.business.chat.model.SessionInsertModel;
 import com.mylog.business.chat.model.SessionQueryModel;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -33,7 +32,7 @@ public class SessionService {
     private static final MyLogger logger = MyLoggerFactory.getLogger(SessionService.class);
 
     @Resource
-    private LgcTalkSessionMapper lgcTalkSessionMapper;
+    private SessionMapper sessionMapper;
 
     @Resource
     private UserMapper userMapper;
@@ -50,7 +49,7 @@ public class SessionService {
             return new ArrayList<>();
         }
         queryModel.confirmId();
-        List<LgcTalkSessionEntity> entities = lgcTalkSessionMapper.querySessions(queryModel);
+        List<SessionEntity> entities = sessionMapper.querySessions(queryModel);
         return Safes.of(entities).stream().map(LgcTalkSessionConverter::getVoForEntity).collect(Collectors.toList());
     }
 
@@ -65,7 +64,7 @@ public class SessionService {
             return false;
         }
         insertModel.confirmId();
-        Integer integer = lgcTalkSessionMapper.insertSession(insertModel);
+        Integer integer = sessionMapper.insertSession(insertModel);
         return integer > 0;
     }
 
@@ -83,7 +82,7 @@ public class SessionService {
             return null;
         }
         SessionQueryModel queryModel = SessionQueryModel.builder().talkTeamId(teamId).build();
-        List<LgcTalkSessionEntity> entities = lgcTalkSessionMapper.querySessions(queryModel);
+        List<SessionEntity> entities = sessionMapper.querySessions(queryModel);
         if (entities.size() == 1){
             return entities.get(0).getSessionId();
         }

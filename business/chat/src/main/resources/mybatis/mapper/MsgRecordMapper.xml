@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mylog.business.chat.dal.mapper.MsgRecordMapper">
 
-    <resultMap type="com.mylog.business.chat.dal.entity.MsgRecordEntity" id="MsgRecordMap">
+    <resultMap type="com.mylog.business.chat.dal.entity.MsgRecordEntity" id="msgRecordMap">
         <result property="msgId" column="msg_id" jdbcType="BIGINT"/>
         <result property="sessionId" column="session_id" jdbcType="INTEGER"/>
         <result property="msgType" column="msg_type" jdbcType="INTEGER"/>

@@ -2,21 +2,11 @@ package com.mylog.business.chat.service;
 
 import com.dylan.logger.MyLogger;
 import com.dylan.logger.MyLoggerFactory;
-import com.mylog.business.chat.dal.entity.LgcTalkSessionEntity;
-import com.mylog.business.chat.dal.mapper.LgcTalkBlacklistMapper;
-import com.mylog.business.chat.dal.mapper.LgcTalkSessionMapper;
+import com.mylog.business.chat.dal.mapper.BlacklistMapper;
 import com.mylog.business.chat.model.BlacklistInsertModel;
-import com.mylog.business.chat.model.SessionInsertModel;
-import com.mylog.business.chat.model.SessionQueryModel;
-import com.mylog.business.chat.model.UserNameIdModel;
-import com.mylog.business.chat.model.converter.LgcTalkSessionConverter;
-import com.mylog.business.chat.model.vo.LgcTalkSessionVO;
-import com.mylog.tools.utils.utils.Safes;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * @Classname MsgRecordService
@@ -29,7 +19,7 @@ public class BlacklistService {
     private static final MyLogger logger = MyLoggerFactory.getLogger(BlacklistService.class);
 
     @Resource
-    private LgcTalkBlacklistMapper blacklistMapper;
+    private BlacklistMapper blacklistMapper;
 
 
     /**

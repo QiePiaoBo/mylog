@@ -1,6 +1,6 @@
 package com.mylog.business.chat.model.converter;
 
-import com.mylog.business.chat.dal.entity.LgcTalkBlacklistEntity;
+import com.mylog.business.chat.dal.entity.BlacklistEntity;
 import com.mylog.business.chat.model.vo.LgcTalkBlacklistVO;
 import org.springframework.beans.BeanUtils;
 
@@ -16,7 +16,7 @@ public class LgcTalkBlacklistConverter {
      * @param entity
      * @return
      */
-    public static LgcTalkBlacklistVO getVoForEntity(LgcTalkBlacklistEntity entity){
+    public static LgcTalkBlacklistVO getVoForEntity(BlacklistEntity entity){
         LgcTalkBlacklistVO blacklistVO = new LgcTalkBlacklistVO();
         BeanUtils.copyProperties(entity, blacklistVO);
         return blacklistVO;

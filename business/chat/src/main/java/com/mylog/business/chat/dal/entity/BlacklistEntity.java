@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  * @Date 6/20/2023 5:14 PM
  */
 @Data
-public class LgcTalkBlacklistEntity {
+public class BlacklistEntity {
 
 
     private Integer id;

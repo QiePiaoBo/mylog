@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mylog.business.chat.dal.mapper.ConfettiMapper">
+    <resultMap id="confettiMap" type="com.mylog.business.chat.dal.entity.ConfettiEntity">
+    </resultMap>
+
+    <sql id="Table_Fields">
+        id, user_id, title, content, created_at, updated_at, del_flag
+    </sql>
+
+    <sql id="Table_Name">
+        `lgc_confetti`
+    </sql>
+
+    <insert id="addConfetti" parameterType="com.mylog.business.chat.model.ConfettiInsertModel" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+        <include refid="Table_Name"/>(
+        del_flag
+        <if test="userId != null">, user_id</if>
+        <if test="title != null">, title</if>
+        <if test="content != null">, content</if>
+        )
+        VALUES (
+        0
+        <if test="userId != null">, #{userId}</if>
+        <if test="title != null">, #{title}</if>
+        <if test="content != null">, #{content}</if>
+        )
+    </insert>
+
+</mapper>

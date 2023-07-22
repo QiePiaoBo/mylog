@@ -1,6 +1,6 @@
 package com.mylog.business.chat.dal.mapper;
 
-import com.mylog.business.chat.model.BlacklistInsertModel;
+import com.mylog.business.chat.model.ConfettiInsertModel;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -9,13 +9,13 @@ import org.apache.ibatis.annotations.Mapper;
  * @Date 6/20/2023 5:13 PM
  */
 @Mapper
-public interface LgcTalkBlacklistMapper {
+public interface ConfettiMapper {
 
     /**
-     * 添加黑名单
+     * 添加纸屑
      * @param insertModel
      * @return
      */
-    Integer addBlacklist(BlacklistInsertModel insertModel);
+    Integer addConfetti(ConfettiInsertModel insertModel);
 
 }

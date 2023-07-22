@@ -2,18 +2,12 @@ package com.mylog.business.chat;
 
 import com.dylan.logger.MyLogger;
 import com.dylan.logger.MyLoggerFactory;
-import com.mylog.business.chat.dal.entity.LgcTalkSessionEntity;
-import com.mylog.business.chat.dal.entity.MsgRecordEntity;
-import com.mylog.business.chat.dal.entity.MsgRecordPartitionEnum;
-import com.mylog.business.chat.dal.mapper.LgcTalkSessionMapper;
-import com.mylog.business.chat.dal.mapper.MsgRecordMapper;
+import com.mylog.business.chat.dal.entity.SessionEntity;
+import com.mylog.business.chat.dal.mapper.SessionMapper;
 import com.mylog.business.chat.dal.mapper.UserMapper;
-import com.mylog.business.chat.model.MsgInsertModel;
-import com.mylog.business.chat.model.MsgQueryModel;
 import com.mylog.business.chat.model.SessionInsertModel;
 import com.mylog.business.chat.model.SessionQueryModel;
 import com.mylog.business.chat.model.UserNameIdModel;
-import com.mylog.business.chat.service.MsgRecordService;
 import com.mylog.business.chat.service.SessionService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +31,7 @@ public class LgcTalkSessionTest {
     private static final MyLogger logger = MyLoggerFactory.getLogger(LgcTalkSessionTest.class);
 
     @Resource
-    private LgcTalkSessionMapper lgcTalkSessionMapper;
+    private SessionMapper sessionMapper;
 
     @Resource
     private UserMapper userMapper;
@@ -59,7 +52,7 @@ public class LgcTalkSessionTest {
         insert.setSenderId(1);
         insert.setRecipientId(2);
 
-        Integer integer = lgcTalkSessionMapper.insertSession(insert);
+        Integer integer = sessionMapper.insertSession(insert);
         logger.info("insert: {}", integer);
 
 
@@ -69,7 +62,7 @@ public class LgcTalkSessionTest {
         SessionInsertModel insert2 = new SessionInsertModel();
         insert2.setTalkTeamId(11);
 
-        Integer integer1 = lgcTalkSessionMapper.batchInsertSession(Arrays.asList(insert1, insert2));
+        Integer integer1 = sessionMapper.batchInsertSession(Arrays.asList(insert1, insert2));
         logger.info("insert batch : {}", integer1);
     }
 
@@ -80,7 +73,7 @@ public class LgcTalkSessionTest {
 //        query.setRecipientId(2);
 //        query.setTalkTeamId(1);
 //        query.setSessionId(2);
-        List<LgcTalkSessionEntity> entities = lgcTalkSessionMapper.querySessions(query);
+        List<SessionEntity> entities = sessionMapper.querySessions(query);
         logger.info("res: {}", entities);
     }
 

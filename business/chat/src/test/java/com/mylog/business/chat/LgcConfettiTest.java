@@ -3,7 +3,9 @@ package com.mylog.business.chat;
 import com.dylan.logger.MyLogger;
 import com.dylan.logger.MyLoggerFactory;
 import com.mylog.business.chat.dal.mapper.BlacklistMapper;
+import com.mylog.business.chat.dal.mapper.ConfettiMapper;
 import com.mylog.business.chat.model.BlacklistInsertModel;
+import com.mylog.business.chat.model.ConfettiInsertModel;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,20 +20,20 @@ import javax.annotation.Resource;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class LgcTalkBlacklistTest {
+public class LgcConfettiTest {
 
-    private static final MyLogger logger = MyLoggerFactory.getLogger(LgcTalkBlacklistTest.class);
+    private static final MyLogger logger = MyLoggerFactory.getLogger(LgcConfettiTest.class);
 
     @Resource
-    private BlacklistMapper blacklistMapper;
+    private ConfettiMapper confettiMapper;
 
     @Test
     public void testAddBlacklist() {
-        BlacklistInsertModel insertModel = new BlacklistInsertModel();
-        insertModel.setBlockReason("你猜");
-        insertModel.setBlockUserId(1);
-        insertModel.setBlockedUserId(2);
-        Integer integer = blacklistMapper.addBlacklist(insertModel);
+        ConfettiInsertModel insertModel = new ConfettiInsertModel();
+        insertModel.setUserId(1);
+        insertModel.setContent("This is content.");
+        insertModel.setTitle("THIS IS TITLE");
+        Integer integer = confettiMapper.addConfetti(insertModel);
         logger.info("entity {} insert ok : {}", insertModel, integer > 0);
     }
 
