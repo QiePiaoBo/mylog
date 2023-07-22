@@ -15,16 +15,15 @@ public class ConfettiEntity {
 
     private Integer id;
 
-    private Integer blockUserId;
+    private Integer userId;
 
-    private Integer blockedUserId;
+    private String title;
 
-    private String blockReason;
+    private String content;
 
     private LocalDateTime createdAt;
 
-    private LocalDateTime expirationAt;
+    private LocalDateTime updatedAt;
 
     private Integer delFlag;
-
 }

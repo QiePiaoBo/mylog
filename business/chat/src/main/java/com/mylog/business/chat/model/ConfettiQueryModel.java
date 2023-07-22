@@ -1,6 +1,9 @@
 package com.mylog.business.chat.model;
 
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.Objects;
 
 /**
  * @Classname MsgRecordEntity
@@ -20,8 +23,13 @@ public class ConfettiQueryModel {
     private String title;
 
     /**
-     * 内容
+     * QueryModel要求三个参数必须有一个值不为空
+     * @return
      */
-    private String content;
-
+    public boolean isValid() {
+        if (Objects.isNull(getId()) && Objects.isNull(getUserId()) && StringUtils.isBlank(title)){
+            return false;
+        }
+        return true;
+    }
 }

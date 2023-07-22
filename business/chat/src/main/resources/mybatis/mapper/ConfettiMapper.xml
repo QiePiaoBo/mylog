@@ -28,4 +28,19 @@
         )
     </insert>
 
+    <select id="getConfettiForUser" resultMap="confettiMap">
+        select * from
+            <include refid="Table_Name" />
+        where `del_flag` = 0
+            <if test="queryModel.id != null">
+                and `id` = #{queryModel.id}
+            </if>
+            <if test="queryModel.userId != null">
+                and `user_id` = #{queryModel.userId}
+            </if>
+            <if test="queryModel.title != null">
+                and `title` like CONCAT('%', #{queryModel.title}, '%')
+            </if>
+    </select>
+
 </mapper>

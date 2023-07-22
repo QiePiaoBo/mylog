@@ -8,7 +8,7 @@ import com.mylog.business.chat.dal.mapper.UserMapper;
 import com.mylog.business.chat.model.SessionInsertModel;
 import com.mylog.business.chat.model.SessionQueryModel;
 import com.mylog.business.chat.model.UserNameIdModel;
-import com.mylog.business.chat.model.converter.LgcTalkSessionConverter;
+import com.mylog.business.chat.model.converter.SessionConverter;
 import com.mylog.business.chat.model.vo.LgcTalkSessionVO;
 import com.mylog.tools.utils.utils.Safes;
 import org.apache.commons.lang.StringUtils;
@@ -50,7 +50,7 @@ public class SessionService {
         }
         queryModel.confirmId();
         List<SessionEntity> entities = sessionMapper.querySessions(queryModel);
-        return Safes.of(entities).stream().map(LgcTalkSessionConverter::getVoForEntity).collect(Collectors.toList());
+        return Safes.of(entities).stream().map(SessionConverter::getVoForEntity).collect(Collectors.toList());
     }
 
 

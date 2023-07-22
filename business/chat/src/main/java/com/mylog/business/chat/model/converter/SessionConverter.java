@@ -9,7 +9,7 @@ import org.springframework.beans.BeanUtils;
  * @Description MsgRecordConverter
  * @Date 6/28/2023 3:33 PM
  */
-public class LgcTalkSessionConverter {
+public class SessionConverter {
 
     /**
      * entity获取VO
