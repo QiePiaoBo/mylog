@@ -29,4 +29,18 @@ public interface ConfettiMapper {
      * @return
      */
     List<ConfettiEntity> getConfettiForUser(@Param("queryModel")ConfettiQueryModel queryModel);
+
+    /**
+     * 根据Id获取纸屑
+     * @param asList
+     * @return
+     */
+    List<ConfettiEntity> getConfettiOfIds(@Param("ids") List<Integer> asList);
+
+    /**
+     * 批量插入或更新纸屑
+     * @param asList
+     * @return
+     */
+    Integer addOrUpdateConfettiBatch(@Param("confettiList") List<ConfettiEntity> asList);
 }

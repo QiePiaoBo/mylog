@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -50,6 +51,32 @@ public class LgcConfettiTest {
         List<ConfettiEntity> confettiForUser2 = confettiMapper.getConfettiForUser(confettiQueryModel2);
         logger.info("entity1 {} insert ok : {}", confettiForUser1, confettiForUser1.size() > 0);
         logger.info("entity2 {} insert ok : {}", confettiForUser2, confettiForUser2.size() > 0);
+    }
+
+    @Test
+    public void testGetConfettiOfIds() {
+        List<ConfettiEntity> confettiOfIds = confettiMapper.getConfettiOfIds(Arrays.asList(18,19,20));
+        logger.info("res: {}", confettiOfIds);
+    }
+
+    @Test
+    public void testAddOrUpdate() {
+        ConfettiEntity entity1 = new ConfettiEntity();
+        entity1.setId(17);
+        entity1.setUserId(4);
+        entity1.setTitle("THIS IS TITLE ABOUT YOUR CONFETTI");
+        entity1.setContent("THIS IS TITLE ABOUT YOUR CONFETTI");
+        entity1.setDelFlag(0);
+        ConfettiEntity entity2 = new ConfettiEntity();
+        entity2.setId(15);
+        entity2.setUserId(1);
+        entity2.setTitle("THIS IS TITLE ABOUT YOUR CONFETTI");
+        entity2.setContent("THIS IS TITLE ABOUT YOUR CONFETTI");
+        entity2.setDelFlag(0);
+
+
+        Integer integer = confettiMapper.addOrUpdateConfettiBatch(Arrays.asList(entity1, entity2));
+        logger.info("res: {}", integer);
     }
 
 }

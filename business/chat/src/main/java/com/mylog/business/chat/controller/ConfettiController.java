@@ -2,6 +2,7 @@ package com.mylog.business.chat.controller;
 
 
 import com.mylog.business.chat.model.ConfettiInsertModel;
+import com.mylog.business.chat.model.ConfettiMergeModel;
 import com.mylog.business.chat.model.ConfettiQueryModel;
 import com.mylog.business.chat.service.ConfettiService;
 import com.mylog.business.chat.service.UserService;
@@ -40,5 +41,10 @@ public class ConfettiController {
     @RequestMapping(value = "add-confetti", method = RequestMethod.POST)
     public HttpResult addConfettiForUser(@RequestBody ConfettiInsertModel insertModel){
         return confettiService.addConfetti(insertModel);
+    }
+
+    @RequestMapping(value = "merge-confetti", method = RequestMethod.POST)
+    public HttpResult mergeConfettiForUser(@RequestBody ConfettiMergeModel model) {
+        return confettiService.mergeConfetti(model);
     }
 }
