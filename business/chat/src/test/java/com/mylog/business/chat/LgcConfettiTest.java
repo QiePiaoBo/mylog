@@ -90,8 +90,8 @@ public class LgcConfettiTest {
         ConfettiMergeModel model = new ConfettiMergeModel();
         model.setCurUserId(1);
         model.setSecretKey("logicer");
-        model.setMergeFrom(17);
-        model.setMergeTo(15);
+        model.setMergeFrom(15);
+        model.setMergeTo(1);
         HttpResult httpResult = confettiService.mergeConfetti(model);
         logger.info("res: {}", httpResult);
     }

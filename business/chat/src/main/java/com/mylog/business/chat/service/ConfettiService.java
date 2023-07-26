@@ -87,13 +87,13 @@ public class ConfettiService {
             c1.setDelFlag(1);
             String firstContent = c2.getContent();
             String secondContent = c1.getContent();
-            String finalContent = firstContent + "\n------分割线------\n" + "<" + c1.getTitle() + ">\n" + secondContent;
+            String finalContent = firstContent + "\n------分割线------\n" + "《" + c1.getTitle() + "》\n" + secondContent;
             c2.setContent(finalContent);
         }else {
             c2.setDelFlag(1);
             String firstContent = c1.getContent();
             String secondContent = c2.getContent();
-            String finalContent = firstContent + "\n------分割线------\n" + "<" + c2.getTitle() + ">\n"  + secondContent;
+            String finalContent = firstContent + "\n------分割线------\n" + "《" + c2.getTitle() + "》\n"  + secondContent;
             c1.setContent(finalContent);
         }
         Integer changed = confettiMapper.addOrUpdateConfettiBatch(Arrays.asList(c1, c2));
