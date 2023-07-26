@@ -77,7 +77,7 @@ public class ConfettiService {
         Integer mergeFromId = model.getMergeFrom();
         Integer mergeToId = model.getMergeTo();
         List<ConfettiEntity> entities = confettiMapper.getConfettiOfIds(Arrays.asList(mergeFromId, mergeToId));
-        List<ConfettiEntity> cleanedEntity = Safes.of(entities).stream().filter(m -> !Objects.equals(m.getUserId(), model.getCurUserId())).collect(Collectors.toList());
+        List<ConfettiEntity> cleanedEntity = Safes.of(entities).stream().filter(m -> Objects.equals(m.getUserId(), model.getCurUserId())).collect(Collectors.toList());
         if (cleanedEntity.size() != 2){
             return DataResult.fail().data("Error model: " + model).build();
         }
@@ -87,13 +87,13 @@ public class ConfettiService {
             c1.setDelFlag(1);
             String firstContent = c2.getContent();
             String secondContent = c1.getContent();
-            String finalContent = firstContent + "\n------分割线------\n" + secondContent;
+            String finalContent = firstContent + "\n------分割线------\n" + "<" + c1.getTitle() + ">\n" + secondContent;
             c2.setContent(finalContent);
         }else {
             c2.setDelFlag(1);
             String firstContent = c1.getContent();
             String secondContent = c2.getContent();
-            String finalContent = firstContent + "\n------分割线------\n" + secondContent;
+            String finalContent = firstContent + "\n------分割线------\n" + "<" + c2.getTitle() + ">\n"  + secondContent;
             c1.setContent(finalContent);
         }
         Integer changed = confettiMapper.addOrUpdateConfettiBatch(Arrays.asList(c1, c2));

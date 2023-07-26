@@ -7,7 +7,10 @@ import com.mylog.business.chat.dal.mapper.BlacklistMapper;
 import com.mylog.business.chat.dal.mapper.ConfettiMapper;
 import com.mylog.business.chat.model.BlacklistInsertModel;
 import com.mylog.business.chat.model.ConfettiInsertModel;
+import com.mylog.business.chat.model.ConfettiMergeModel;
 import com.mylog.business.chat.model.ConfettiQueryModel;
+import com.mylog.business.chat.service.ConfettiService;
+import com.mylog.tools.model.model.result.HttpResult;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,6 +33,9 @@ public class LgcConfettiTest {
 
     @Resource
     private ConfettiMapper confettiMapper;
+
+    @Resource
+    private ConfettiService confettiService;
 
     @Test
     public void testAddBlacklist() {
@@ -77,6 +83,17 @@ public class LgcConfettiTest {
 
         Integer integer = confettiMapper.addOrUpdateConfettiBatch(Arrays.asList(entity1, entity2));
         logger.info("res: {}", integer);
+    }
+
+    @Test
+    public void testMerge() {
+        ConfettiMergeModel model = new ConfettiMergeModel();
+        model.setCurUserId(1);
+        model.setSecretKey("logicer");
+        model.setMergeFrom(17);
+        model.setMergeTo(15);
+        HttpResult httpResult = confettiService.mergeConfetti(model);
+        logger.info("res: {}", httpResult);
     }
 
 }
